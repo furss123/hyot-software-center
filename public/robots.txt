@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://hyot.github.io/sitemap.xml
+Feed: https://hyot.github.io/feed.xml

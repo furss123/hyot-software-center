@@ -5,8 +5,11 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import type { Metadata } from 'next'
 
 import { AdSlot } from '@/components/ads/AdSlot'
+import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { Badge } from '@/components/ui/Badge'
 import { getAllNews, getNewsItem } from '@/lib/content/news'
+import { getSiteConfig } from '@/lib/content/config'
+import { pageMetadata } from '@/lib/seo/meta'
 import { formatDate } from '@/lib/utils'
 import { locales } from '@/i18n/config'
 import type { Locale } from '@/i18n/config'
@@ -25,10 +28,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const item = getNewsItem(slug)
   if (!item) return {}
   const l = locale as Locale
-  return {
+  const config = getSiteConfig()
+  return pageMetadata(config, {
     title: item.title[l],
     description: item.summary[l],
-  }
+    locale,
+    path: `/${locale}/news/${slug}`,
+    ogImage: '/og/default.png',
+  })
 }
 
 export default async function NewsDetailPage({ params }: PageProps): Promise<React.JSX.Element> {
@@ -36,12 +43,20 @@ export default async function NewsDetailPage({ params }: PageProps): Promise<Rea
   setRequestLocale(locale)
   const l = locale as Locale
   const t = await getTranslations('news')
+  const tNav = await getTranslations('nav')
 
   const item = getNewsItem(slug)
   if (!item) notFound()
 
   return (
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+      <Breadcrumb
+        items={[
+          { label: tNav('home'), href: `/${locale}` },
+          { label: t('title'), href: `/${locale}/news` },
+          { label: item.title[l] },
+        ]}
+      />
       <Link
         href={`/${locale}/news`}
         className="text-sm text-accent hover:opacity-80 transition-opacity mb-6 inline-block"

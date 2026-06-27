@@ -3,20 +3,21 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
-    "build": "echo 'Admin is local-only. Do not deploy.'",
+    "build": "echo Admin is local-only. Do not deploy.",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "next": "^15.3.5",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "zod": "^3.25.76",
-    "lucide-react": "^0.525.0"
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zod": "^3.0.0",
+    "lucide-react": "^0.400.0",
+    "gray-matter": "^4.0.3"
   },
   "devDependencies": {
-    "@types/node": "^22.16.0",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "typescript": "^5.8.3"
+    "typescript": "^5.0.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
   }
 }

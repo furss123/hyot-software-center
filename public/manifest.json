@@ -1,0 +1,13 @@
+{
+  "name": "HyoT Software Center",
+  "short_name": "HyoT",
+  "description": "Free Windows utility software by HyoT",
+  "start_url": "/ko/",
+  "display": "standalone",
+  "background_color": "#0A0A0A",
+  "theme_color": "#0078D4",
+  "icons": [
+    { "src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

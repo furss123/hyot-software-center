@@ -20,3 +20,21 @@ export function formatDate(dateStr: string, locale: string): string {
     day: 'numeric',
   }).format(new Date(dateStr))
 }
+
+export function slugToHue(slug: string): number {
+  let hash = 0
+  for (let i = 0; i < slug.length; i++) {
+    hash = slug.charCodeAt(i) + ((hash << 5) - hash)
+  }
+  return Math.abs(hash) % 360
+}
+
+export function sumDownloadCounts(
+  releases: Array<{ assets: Array<{ downloadCount?: number }> }> | undefined,
+): number {
+  if (!releases) return 0
+  return releases.reduce(
+    (sum, r) => sum + r.assets.reduce((s, a) => s + (a.downloadCount ?? 0), 0),
+    0,
+  )
+}

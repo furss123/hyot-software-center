@@ -5,7 +5,9 @@
     "logo": "/assets/logo.svg",
     "favicon": "/assets/favicon.ico",
     "url": "https://hyot.github.io",
-    "github": "https://github.com/hyot"
+    "github": "https://github.com/hyot",
+    "twitter": "",
+    "discord": ""
   },
   "seo": {
     "defaultTitle": "HyoT Software Center",

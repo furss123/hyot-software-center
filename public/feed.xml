@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HyoT Software Center</title>
+    <link>https://hyot.github.io</link>
+    <description>News and releases from HyoT Software Center</description>
+    <language>en</language>
+    <lastBuildDate>Sat, 27 Jun 2026 12:27:42 GMT</lastBuildDate>
+    <atom:link href="https://hyot.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    
+  <item>
+    <title><![CDATA[HyoT Software Center is Now Open]]></title>
+    <link>https://hyot.github.io/en/news/welcome</link>
+    <guid>https://hyot.github.io/en/news/welcome</guid>
+    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+    <description><![CDATA[HyoT Software Center is officially open. Download free Windows utility software.]]></description>
+  </item>
+    
+  <item>
+    <title><![CDATA[quick-note v1.0.0 (stable)]]></title>
+    <link>https://hyot.github.io/en/software/quick-note</link>
+    <guid>https://hyot.github.io/en/software/quick-note/releases/1.0.0</guid>
+    <pubDate>Mon, 15 Jan 2024 00:00:00 GMT</pubDate>
+    <description><![CDATA[## v1.0.0
+
+### Features
+- System tray icon
+- Quick note creation (Ctrl+Shift+N)
+- Note list view
+- Auto-start on login
+- Dark mode support]]></description>
+  </item>
+  <item>
+    <title><![CDATA[sample-app v1.0.0 (stable)]]></title>
+    <link>https://hyot.github.io/en/software/sample-app</link>
+    <guid>https://hyot.github.io/en/software/sample-app/releases/1.0.0</guid>
+    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+    <description><![CDATA[## v1.0.0
+
+- Initial release]]></description>
+  </item>
+  </channel>
+</rss>

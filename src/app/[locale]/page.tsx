@@ -7,14 +7,29 @@ import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { AdSlot } from '@/components/ads/AdSlot'
-import { formatDate } from '@/lib/utils'
+import { formatDate, sumDownloadCounts } from '@/lib/utils'
 import { Github, ArrowRight } from 'lucide-react'
-import type { Locale } from '@/i18n/config'
+import { SoftwareIcon } from '@/components/software/SoftwareIcon'
+import { DownloadCount } from '@/components/download/DownloadCount'
+import { getReleasesData } from '@/lib/content/releases'
 import { getSiteConfig } from '@/lib/content/config'
+import { pageMetadata } from '@/lib/seo/meta'
+import type { Metadata } from 'next'
+import type { Locale } from '@/i18n/config'
 import type { SoftwareStatus } from '@/types'
 
 interface PageProps {
   params: Promise<{ locale: string }>
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params
+  const config = getSiteConfig()
+  return pageMetadata(config, {
+    locale,
+    path: `/${locale}`,
+    ogImage: '/og/default.png',
+  })
 }
 
 function statusBadgeVariant(
@@ -46,20 +61,20 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
         </div>
 
         <div className="max-w-7xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-subtle text-accent text-xs font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-subtle text-accent text-xs font-medium mb-6 opacity-0 animate-fade-in-up">
             <span className="w-1.5 h-1.5 bg-accent rounded-full" />
             {config.brand.tagline?.[l] ?? config.brand.tagline?.en}
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-text-primary mb-6 leading-tight whitespace-pre-line">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-text-primary mb-6 leading-tight whitespace-pre-line opacity-0 animate-fade-in-up animate-delay-100">
             {t('hero.title')}
           </h1>
 
-          <p className="text-lg text-text-secondary max-w-2xl mx-auto mb-10">
+          <p className="text-lg text-text-secondary max-w-2xl mx-auto mb-10 opacity-0 animate-fade-in-up animate-delay-200">
             {t('hero.subtitle')}
           </p>
 
-          <div className="flex items-center justify-center gap-3 flex-wrap">
+          <div className="flex items-center justify-center gap-3 flex-wrap opacity-0 animate-fade-in-up animate-delay-300">
             <Link href={`/${locale}/software`}>
               <Button size="lg" icon={<ArrowRight size={18} />}>
                 {t('hero.cta')}
@@ -96,9 +111,7 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
                 <Link key={app.slug} href={`/${locale}/software/${app.slug}`}>
                   <Card hover className="p-5 h-full">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-fill-secondary rounded-xl flex items-center justify-center flex-shrink-0">
-                        <span className="text-xl">📦</span>
-                      </div>
+                      <SoftwareIcon app={app} size="sm" />
                       <div className="min-w-0 flex-1">
                         <h3 className="font-semibold text-text-primary truncate">
                           {app.name[l]}
@@ -106,9 +119,13 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
                         <p className="text-sm text-text-secondary mt-1 line-clamp-2">
                           {app.shortDescription[l]}
                         </p>
-                        <div className="flex items-center gap-2 mt-3">
+                        <div className="flex flex-wrap items-center gap-2 mt-3">
                           <Badge variant={statusBadgeVariant(app.status)}>{app.status}</Badge>
                           <Badge variant="default">{app.category}</Badge>
+                          <DownloadCount
+                            slug={app.slug}
+                            initialCount={sumDownloadCounts(getReleasesData(app.slug)?.releases)}
+                          />
                         </div>
                       </div>
                     </div>

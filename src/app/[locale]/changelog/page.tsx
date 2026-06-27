@@ -1,16 +1,28 @@
-import { setRequestLocale } from 'next-intl/server'
+import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { getAllSoftwareSlugs, getSoftwareMeta } from '@/lib/content/software'
 import { getReleasesData } from '@/lib/content/releases'
+import { getSiteConfig } from '@/lib/content/config'
+import { pageMetadata } from '@/lib/seo/meta'
 import { Badge } from '@/components/ui/Badge'
 import { Card } from '@/components/ui/Card'
 import { formatDate } from '@/lib/utils'
 import type { Locale } from '@/i18n/config'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = { title: 'Changelog' }
-
 interface PageProps {
   params: Promise<{ locale: string }>
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params
+  const config = getSiteConfig()
+  const t = await getTranslations('nav')
+  return pageMetadata(config, {
+    title: t('changelog'),
+    locale,
+    path: `/${locale}/changelog`,
+    ogImage: '/og/default.png',
+  })
 }
 
 export default async function ChangelogPage({
@@ -19,6 +31,7 @@ export default async function ChangelogPage({
   const { locale } = await params
   setRequestLocale(locale)
   const l = locale as Locale
+  const tNav = await getTranslations('nav')
 
   const slugs = getAllSoftwareSlugs()
   const allReleases = slugs
@@ -32,7 +45,7 @@ export default async function ChangelogPage({
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-      <h1 className="text-3xl font-bold text-text-primary mb-10">Changelog</h1>
+      <h1 className="text-3xl font-bold text-text-primary mb-10">{tNav('changelog')}</h1>
 
       {allReleases.length === 0 ? (
         <p className="text-text-tertiary">No releases yet.</p>

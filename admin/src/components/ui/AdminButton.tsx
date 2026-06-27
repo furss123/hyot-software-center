@@ -1,27 +1,40 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
-
-type Variant = 'primary' | 'secondary'
-
-type AdminButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: Variant
-  children: ReactNode
-}
-
-const styles: Record<Variant, string> = {
-  primary: 'bg-[#0078D4] text-white hover:bg-[#106EBE]',
-  secondary: 'bg-white/10 text-white hover:bg-white/15 border border-white/10',
-}
+type Variant = 'primary' | 'secondary' | 'danger'
 
 export function AdminButton({
-  variant = 'primary',
   children,
-  className = '',
-  ...props
-}: AdminButtonProps): React.JSX.Element {
+  variant = 'secondary',
+  onClick,
+  disabled,
+  type = 'button',
+}: {
+  children: React.ReactNode
+  variant?: Variant
+  onClick?: () => void
+  disabled?: boolean
+  type?: 'button' | 'submit'
+}) {
+  const styles: Record<Variant, React.CSSProperties> = {
+    primary: { background: '#0078D4', color: '#fff' },
+    secondary: {
+      background: 'rgba(255,255,255,0.06)',
+      color: '#F0F0F0',
+      border: '1px solid rgba(255,255,255,0.08)',
+    },
+    danger: { background: '#C42B1C', color: '#fff' },
+  }
   return (
     <button
-      {...props}
-      className={`inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 ${styles[variant]} ${className}`}
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      style={{
+        ...styles[variant],
+        padding: '0.5rem 1rem',
+        borderRadius: '8px',
+        fontSize: '0.875rem',
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        opacity: disabled ? 0.5 : 1,
+      }}
     >
       {children}
     </button>

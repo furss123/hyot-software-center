@@ -1,5 +1,6 @@
 {
   "nav": {
+    "home": "Home",
     "software": "Software",
     "changelog": "Changelog",
     "docs": "Docs",
@@ -33,12 +34,44 @@
     "changelog": "Changelog",
     "documentation": "Documentation",
     "noSoftware": "No software found",
-    "searchPlaceholder": "Search software..."
+    "searchPlaceholder": "Search software...",
+    "resultCount": "{count} apps",
+    "filterAll": "All",
+    "sortLabel": "Sort",
+    "sortName": "Name",
+    "sortUpdated": "Latest",
+    "sortFeatured": "Featured",
+    "descriptionLabel": "Description",
+    "architecture": "Architecture",
+    "os": "OS",
+    "ram": "RAM",
+    "disk": "Disk",
+    "tagsLabel": "Tags",
+    "noChangelog": "No changelog entries yet",
+    "noDocumentation": "No documentation available",
+    "downloadCountLabel": "{count} downloads",
+    "downloadsLabel": "Downloads",
+    "tabs": {
+      "overview": "Overview",
+      "changelog": "Changelog",
+      "documentation": "Documentation"
+    },
+    "categories": {
+      "utility": "Utility",
+      "productivity": "Productivity",
+      "system": "System",
+      "developer": "Developer",
+      "media": "Media",
+      "security": "Security",
+      "other": "Other"
+    }
   },
   "search": {
     "placeholder": "Search...",
     "noResults": "No results",
     "shortcut": "Search",
+    "close": "Close",
+    "results": "Search results",
     "categories": {
       "software": "Software",
       "docs": "Documentation",
@@ -53,10 +86,54 @@
     "noNews": "No news yet",
     "publishedOn": "Published"
   },
+  "docs": {
+    "title": "Documentation",
+    "noContent": "No documentation yet",
+    "onThisPage": "On this page"
+  },
   "theme": {
     "dark": "Dark Mode",
     "light": "Light Mode",
-    "system": "System"
+    "system": "System",
+    "toggle": "Theme: {mode}"
+  },
+  "share": {
+    "label": "Share",
+    "copied": "Copied",
+    "ariaLabel": "Share link"
+  },
+  "a11y": {
+    "backToTop": "Back to top"
+  },
+  "footer": {
+    "github": "GitHub",
+    "twitter": "X (Twitter)"
+  },
+  "lang": {
+    "switchKo": "한국어",
+    "switchEn": "English",
+    "ko": "한",
+    "en": "EN"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "goHome": "Go Home"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "defaultMessage": "An unexpected error occurred.",
+    "tryAgain": "Try Again"
+  },
+  "security": {
+    "title": "Security Policy",
+    "reportingTitle": "Reporting a Vulnerability",
+    "reporting": "Report vulnerabilities via GitHub Security Advisories. Do not use public Issues for security reports.",
+    "verifyTitle": "Verifying Downloads",
+    "verify": "Every download includes a SHA256 checksum. Verify with PowerShell: Get-FileHash .\\file.exe -Algorithm SHA256",
+    "supportedTitle": "Supported Versions",
+    "supported": "Only the latest stable release of each software is supported.",
+    "reportLink": "Report a vulnerability"
   },
   "common": {
     "loading": "Loading...",

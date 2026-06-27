@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #0a0a0a;
+  color: #f0f0f0;
+}
+a {
+  color: #60cdff;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid #0078d4;
+  outline-offset: 2px;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th,
+td {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.875rem;
+}
+th {
+  color: #a0a0a0;
+  font-weight: 500;
+}

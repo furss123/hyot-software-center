@@ -1,0 +1,66 @@
+'use client'
+
+import { useRouter, useSearchParams } from 'next/navigation'
+
+import { cn } from '@/lib/utils'
+
+type Tab = { id: string; label: string }
+
+type SoftwareTabsProps = {
+  tabs: Tab[]
+  locale: string
+  slug: string
+}
+
+export function SoftwareTabs({ tabs, locale, slug }: SoftwareTabsProps): React.JSX.Element {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const activeTab = searchParams.get('tab') ?? 'overview'
+
+  function setTab(id: string): void {
+    const params = new URLSearchParams(searchParams.toString())
+    if (id === 'overview') params.delete('tab')
+    else params.set('tab', id)
+    const qs = params.toString()
+    router.replace(`/${locale}/software/${slug}${qs ? `?${qs}` : ''}`, { scroll: false })
+  }
+
+  return (
+    <div className="flex gap-1 border-b border-border mb-8 overflow-x-auto">
+      {tabs.map((tab) => (
+        <button
+          key={tab.id}
+          type="button"
+          onClick={() => setTab(tab.id)}
+          className={cn(
+            'px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors relative',
+            activeTab === tab.id
+              ? 'text-accent'
+              : 'text-text-tertiary hover:text-text-secondary',
+          )}
+        >
+          {tab.label}
+          {activeTab === tab.id && (
+            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent rounded-full" />
+          )}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+type SoftwareTabPanelProps = {
+  tabId: string
+  children: React.ReactNode
+}
+
+export function SoftwareTabPanel({ tabId, children }: SoftwareTabPanelProps): React.JSX.Element {
+  const searchParams = useSearchParams()
+  const activeTab = searchParams.get('tab') ?? 'overview'
+
+  return (
+    <div data-tab={tabId} className={activeTab === tabId ? 'block' : 'hidden'}>
+      {children}
+    </div>
+  )
+}

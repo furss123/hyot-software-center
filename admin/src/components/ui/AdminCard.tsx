@@ -1,14 +1,20 @@
-import type { HTMLAttributes, ReactNode } from 'react'
-
-type AdminCardProps = HTMLAttributes<HTMLDivElement> & {
-  children: ReactNode
-}
-
-export function AdminCard({ children, className = '', ...props }: AdminCardProps): React.JSX.Element {
+export function AdminCard({
+  children,
+  className,
+}: {
+  children: React.ReactNode
+  className?: string
+}) {
   return (
     <div
-      {...props}
-      className={`rounded-xl border border-white/10 bg-[#1A1A1A] p-5 ${className}`}
+      className={className ?? ''}
+      style={{
+        background: '#1A1A1A',
+        borderColor: 'rgba(255,255,255,0.08)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        borderRadius: '12px',
+        padding: '1.5rem',
+      }}
     >
       {children}
     </div>

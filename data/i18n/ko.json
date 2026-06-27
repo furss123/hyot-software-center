@@ -1,5 +1,6 @@
 {
   "nav": {
+    "home": "홈",
     "software": "소프트웨어",
     "changelog": "변경 내역",
     "docs": "문서",
@@ -33,12 +34,44 @@
     "changelog": "변경 내역",
     "documentation": "문서",
     "noSoftware": "소프트웨어가 없습니다",
-    "searchPlaceholder": "소프트웨어 검색..."
+    "searchPlaceholder": "소프트웨어 검색...",
+    "resultCount": "{count}개 앱",
+    "filterAll": "전체",
+    "sortLabel": "정렬",
+    "sortName": "이름",
+    "sortUpdated": "최신순",
+    "sortFeatured": "추천",
+    "descriptionLabel": "설명",
+    "architecture": "아키텍처",
+    "os": "OS",
+    "ram": "RAM",
+    "disk": "디스크",
+    "tagsLabel": "태그",
+    "noChangelog": "변경 내역이 없습니다",
+    "noDocumentation": "문서가 없습니다",
+    "downloadCountLabel": "다운로드 {count}회",
+    "downloadsLabel": "다운로드",
+    "tabs": {
+      "overview": "개요",
+      "changelog": "변경 내역",
+      "documentation": "문서"
+    },
+    "categories": {
+      "utility": "유틸리티",
+      "productivity": "생산성",
+      "system": "시스템",
+      "developer": "개발자",
+      "media": "미디어",
+      "security": "보안",
+      "other": "기타"
+    }
   },
   "search": {
     "placeholder": "검색어 입력...",
     "noResults": "결과 없음",
     "shortcut": "검색",
+    "close": "닫기",
+    "results": "검색 결과",
     "categories": {
       "software": "소프트웨어",
       "docs": "문서",
@@ -53,10 +86,54 @@
     "noNews": "뉴스가 없습니다",
     "publishedOn": "게시일"
   },
+  "docs": {
+    "title": "문서",
+    "noContent": "문서가 없습니다",
+    "onThisPage": "목차"
+  },
   "theme": {
     "dark": "다크 모드",
     "light": "라이트 모드",
-    "system": "시스템 설정"
+    "system": "시스템 설정",
+    "toggle": "테마: {mode}"
+  },
+  "share": {
+    "label": "공유",
+    "copied": "복사됨",
+    "ariaLabel": "링크 공유"
+  },
+  "a11y": {
+    "backToTop": "맨 위로"
+  },
+  "footer": {
+    "github": "GitHub",
+    "twitter": "X (Twitter)"
+  },
+  "lang": {
+    "switchKo": "한국어",
+    "switchEn": "English",
+    "ko": "한",
+    "en": "EN"
+  },
+  "notFound": {
+    "title": "페이지를 찾을 수 없습니다",
+    "description": "요청하신 페이지가 존재하지 않거나 이동되었습니다.",
+    "goHome": "홈으로"
+  },
+  "error": {
+    "title": "문제가 발생했습니다",
+    "defaultMessage": "예기치 않은 오류가 발생했습니다.",
+    "tryAgain": "다시 시도"
+  },
+  "security": {
+    "title": "보안 정책",
+    "reportingTitle": "취약점 신고",
+    "reporting": "취약점 신고는 GitHub Security Advisories를 통해 제출해주세요. 공개 Issue에 보안 문제를 보고하지 마세요.",
+    "verifyTitle": "다운로드 검증",
+    "verify": "모든 다운로드 파일에는 SHA256 체크섬이 제공됩니다. PowerShell에서 Get-FileHash 명령으로 확인하세요.",
+    "supportedTitle": "지원 버전",
+    "supported": "각 소프트웨어의 최신 안정 버전만 지원됩니다.",
+    "reportLink": "취약점 신고하기"
   },
   "common": {
     "loading": "불러오는 중...",

@@ -1,4 +1,8 @@
+'use client'
+
 import Link from 'next/link'
+import { Github } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import type { SiteConfig } from '@/types'
 import { cn } from '@/lib/utils'
 
@@ -9,6 +13,7 @@ interface FooterProps {
 
 export function Footer({ config, locale }: FooterProps): React.JSX.Element {
   const l = locale as 'ko' | 'en'
+  const t = useTranslations('footer')
   const footer = config.footer
 
   return (
@@ -43,7 +48,7 @@ export function Footer({ config, locale }: FooterProps): React.JSX.Element {
           </div>
         )}
 
-        <div className="pt-8 border-t border-border flex items-center justify-between">
+        <div className="pt-8 border-t border-border flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <div className="w-5 h-5 bg-accent rounded-md flex items-center justify-center">
               <span className="text-white text-[10px] font-bold">H</span>
@@ -51,6 +56,40 @@ export function Footer({ config, locale }: FooterProps): React.JSX.Element {
             <span className="text-xs text-text-tertiary">
               {footer?.copyright?.[l] ?? `© ${new Date().getFullYear()} HyoT`}
             </span>
+          </div>
+          <div className="flex items-center gap-2">
+            {config.brand.github && (
+              <a
+                href={config.brand.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t('github')}
+                className={cn(
+                  'flex items-center justify-center min-w-[44px] min-h-[44px] rounded-lg',
+                  'text-text-tertiary hover:text-text-primary hover:bg-fill-subtle',
+                  'transition-colors focus-visible:outline-2 focus-visible:outline-accent',
+                )}
+              >
+                <Github size={18} />
+              </a>
+            )}
+            {config.brand.twitter && (
+              <a
+                href={config.brand.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t('twitter')}
+                className={cn(
+                  'flex items-center justify-center min-w-[44px] min-h-[44px] rounded-lg',
+                  'text-text-tertiary hover:text-text-primary hover:bg-fill-subtle',
+                  'transition-colors focus-visible:outline-2 focus-visible:outline-accent',
+                )}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </a>
+            )}
           </div>
         </div>
       </div>

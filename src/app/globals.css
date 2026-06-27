@@ -104,6 +104,40 @@ html {
   padding: 0.125rem 0.375rem;
   border-radius: var(--radius-sm);
 }
+.prose pre {
+  background: var(--fill-secondary);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+.prose pre code {
+  background: transparent;
+  padding: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in-up {
+  animation: fadeInUp var(--duration-slow) var(--ease-fluent) forwards;
+}
+.animate-delay-100 {
+  animation-delay: 100ms;
+}
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
 
 @theme inline {
   --color-accent: var(--accent);
@@ -130,4 +164,31 @@ html {
   --color-status-warning: var(--status-warning);
   --color-status-error: var(--status-error);
   --color-status-info: var(--status-info);
+}
+
+@media print {
+  header,
+  footer,
+  nav,
+  .BackToTop,
+  [data-ad-position],
+  .SearchModal {
+    display: none !important;
+  }
+  body {
+    background: white;
+    color: black;
+    font-size: 12pt;
+  }
+  a {
+    color: black;
+    text-decoration: underline;
+  }
+  .prose {
+    max-width: 100%;
+  }
+  .card {
+    border: 1px solid #ccc;
+    box-shadow: none;
+  }
 }

@@ -29,6 +29,8 @@ const SiteConfigSchema = z.object({
     favicon: z.string().optional(),
     url: z.string().url(),
     github: z.string().url().optional(),
+    twitter: z.string().optional(),
+    discord: z.string().optional(),
   }),
   seo: z.object({
     defaultTitle: z.string(),

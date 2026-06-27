@@ -32,6 +32,8 @@ export interface SiteConfig {
     url: string
     email?: string
     github?: string
+    twitter?: string
+    discord?: string
   }
   seo: {
     defaultTitle: string

@@ -1,5 +1,8 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
-const nextConfig: NextConfig = {};
+const config: NextConfig = {
+  // Admin is local-only — never export
+  experimental: { serverActions: { allowedOrigins: ['localhost:3001'] } },
+}
 
-export default nextConfig;
+export default config

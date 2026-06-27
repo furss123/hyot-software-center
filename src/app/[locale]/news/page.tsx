@@ -6,6 +6,8 @@ import { AdSlot } from '@/components/ads/AdSlot'
 import { Badge } from '@/components/ui/Badge'
 import { Card } from '@/components/ui/Card'
 import { getAllNews } from '@/lib/content/news'
+import { getSiteConfig } from '@/lib/content/config'
+import { pageMetadata } from '@/lib/seo/meta'
 import { formatDate } from '@/lib/utils'
 import { locales } from '@/i18n/config'
 import type { Locale } from '@/i18n/config'
@@ -22,7 +24,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { locale } = await params
   setRequestLocale(locale)
   const t = await getTranslations('news')
-  return { title: t('title') }
+  const config = getSiteConfig()
+  return pageMetadata(config, {
+    title: t('title'),
+    locale,
+    path: `/${locale}/news`,
+    ogImage: '/og/default.png',
+  })
 }
 
 export default async function NewsPage({ params }: PageProps): Promise<React.JSX.Element> {
