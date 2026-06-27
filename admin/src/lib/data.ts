@@ -43,6 +43,14 @@ export function writeReleases(slug: string, data: ReleasesData): void {
   fs.writeFileSync(path.join(dir, 'releases.json'), JSON.stringify(data, null, 2))
 }
 
+export function deleteSoftware(slug: string): void {
+  const dir = path.join(getSoftwareDir(), slug)
+  if (!fs.existsSync(dir)) {
+    throw new Error('Not found')
+  }
+  fs.rmSync(dir, { recursive: true })
+}
+
 export function readFeatureFlags(): FeatureFlags {
   const p = path.join(DATA_DIR, 'config', 'features.json')
   return JSON.parse(fs.readFileSync(p, 'utf-8')) as FeatureFlags

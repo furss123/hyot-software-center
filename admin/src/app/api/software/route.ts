@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 import { gitCommitAndPush } from '@/lib/git'
-import { getAllSlugs, readMeta, writeMeta, writeReleases } from '@/lib/data'
+import { deleteSoftware, getAllSlugs, readMeta, writeMeta, writeReleases } from '@/lib/data'
 import type { SoftwareMeta } from '@/types'
 
 export async function GET(request: Request): Promise<NextResponse> {
@@ -73,4 +73,23 @@ export async function PUT(request: Request): Promise<NextResponse> {
   ])
 
   return NextResponse.json(updated)
+}
+
+export async function DELETE(request: Request): Promise<NextResponse> {
+  const { searchParams } = new URL(request.url)
+  const slug = searchParams.get('slug')
+
+  if (!slug) {
+    return NextResponse.json({ error: 'Missing slug' }, { status: 400 })
+  }
+
+  if (!readMeta(slug)) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 })
+  }
+
+  deleteSoftware(slug)
+
+  gitCommitAndPush(`chore(software): remove ${slug}`, [`data/software/${slug}`])
+
+  return NextResponse.json({ ok: true })
 }
