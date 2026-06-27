@@ -23,6 +23,7 @@ export interface SoftwareMeta {
   featured: boolean
   icon?: string
   banner?: string
+  githubRepo?: string
   name: I18nString
   description: I18nString
   shortDescription: I18nString

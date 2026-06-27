@@ -2,11 +2,11 @@ import { NextResponse } from 'next/server'
 
 type GitHubRun = {
   id: number
+  name: string
   status: string
   conclusion: string | null
   created_at: string
   html_url: string
-  path?: string
 }
 
 export async function GET(): Promise<NextResponse> {
@@ -20,11 +20,11 @@ export async function GET(): Promise<NextResponse> {
 
   try {
     const res = await fetch(
-      `https://api.github.com/repos/${owner}/${repo}/actions/runs?per_page=20`,
+      `https://api.github.com/repos/${owner}/${repo}/actions/runs?per_page=10`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          Accept: 'application/vnd.github+json',
+          Accept: 'application/vnd.github.v3+json',
         },
         next: { revalidate: 0 },
       },
@@ -36,10 +36,16 @@ export async function GET(): Promise<NextResponse> {
 
     const data = (await res.json()) as { workflow_runs: GitHubRun[] }
     const runs = data.workflow_runs
-      .filter((run) => run.path?.includes('pages.yml'))
+      .filter(
+        (run) =>
+          run.name.includes('Deploy') ||
+          run.name.includes('Pages') ||
+          run.name.toLowerCase().includes('page'),
+      )
       .slice(0, 5)
       .map((run) => ({
         id: run.id,
+        name: run.name,
         status: run.status,
         conclusion: run.conclusion,
         created_at: run.created_at,

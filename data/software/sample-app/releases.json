@@ -1,0 +1,24 @@
+{
+  "slug": "sample-app",
+  "latest": { "stable": "1.0.0", "beta": null },
+  "releases": [
+    {
+      "version": "1.0.0",
+      "channel": "stable",
+      "releaseDate": "2024-01-01",
+      "githubTag": "v1.0.0",
+      "notes": {
+        "ko": "## v1.0.0\n\n- 초기 릴리스",
+        "en": "## v1.0.0\n\n- Initial release"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "sample-app-setup.exe",
+          "url": "https://github.com/furss123/hyot-software-center/releases/download/v1.0.0/sample-app-setup.exe",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    }
+  ]
+}

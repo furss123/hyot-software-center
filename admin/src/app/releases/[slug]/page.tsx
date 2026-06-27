@@ -27,9 +27,8 @@ export default function ReleaseDetailPage() {
   const [syncing, setSyncing] = useState(false)
   const [message, setMessage] = useState('')
   const [editingVersion, setEditingVersion] = useState<string | null>(null)
-  const [notesKo, setNotesKo] = useState('')
-  const [notesEn, setNotesEn] = useState('')
-  const [savingNotes, setSavingNotes] = useState(false)
+  const [editNotes, setEditNotes] = useState({ ko: '', en: '' })
+  const [saving, setSaving] = useState(false)
 
   const load = useCallback(async () => {
     const res = await fetch(`/api/releases?slug=${slug}`)
@@ -84,34 +83,39 @@ export default function ReleaseDetailPage() {
     }
   }
 
-  function startEditNotes(release: Release): void {
+  function openEditNotes(release: Release): void {
     setEditingVersion(release.version)
-    setNotesKo(release.notes?.ko ?? '')
-    setNotesEn(release.notes?.en ?? '')
+    setEditNotes({
+      ko: release.notes?.ko ?? '',
+      en: release.notes?.en ?? '',
+    })
   }
 
-  async function saveNotes(version: string): Promise<void> {
-    if (!data) return
-    setSavingNotes(true)
-    const releases = data.releases.map((r) =>
-      r.version === version
-        ? { ...r, notes: { ko: notesKo, en: notesEn } }
-        : r,
-    )
-    const updated: ReleasesData = { ...data, releases }
-    const res = await fetch(`/api/releases?noteVersion=${encodeURIComponent(version)}`, {
+  async function saveNotes(): Promise<void> {
+    if (!data || !editingVersion) return
+    setSaving(true)
+
+    const updated: ReleasesData = {
+      ...data,
+      releases: data.releases.map((r) =>
+        r.version === editingVersion ? { ...r, notes: { ...editNotes } } : r,
+      ),
+    }
+
+    const res = await fetch(`/api/releases?noteVersion=${encodeURIComponent(editingVersion)}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updated),
     })
+
     if (res.ok) {
       setData((await res.json()) as ReleasesData)
-      setMessage(t.common.success)
+      setMessage(t.releases.saved)
       setEditingVersion(null)
     } else {
       setMessage(t.common.error)
     }
-    setSavingNotes(false)
+    setSaving(false)
   }
 
   if (loading) return <p style={{ color: '#A0A0A0' }}>{t.common.loading}</p>
@@ -158,14 +162,7 @@ export default function ReleaseDetailPage() {
                   value={release.channel}
                   onChange={(e) => void updateChannel(release.version, e.target.value as ReleaseChannel)}
                 />
-                <AdminButton
-                  variant="secondary"
-                  onClick={() =>
-                    editingVersion === release.version
-                      ? setEditingVersion(null)
-                      : startEditNotes(release)
-                  }
-                >
+                <AdminButton variant="secondary" onClick={() => openEditNotes(release)}>
                   {t.releases.editNotes}
                 </AdminButton>
               </div>
@@ -174,21 +171,19 @@ export default function ReleaseDetailPage() {
               <div style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <AdminTextarea
                   label={t.releases.notesKo}
-                  value={notesKo}
-                  onChange={(e) => setNotesKo(e.target.value)}
+                  rows={6}
+                  value={editNotes.ko}
+                  onChange={(e) => setEditNotes((prev) => ({ ...prev, ko: e.target.value }))}
                 />
                 <AdminTextarea
                   label={t.releases.notesEn}
-                  value={notesEn}
-                  onChange={(e) => setNotesEn(e.target.value)}
+                  rows={6}
+                  value={editNotes.en}
+                  onChange={(e) => setEditNotes((prev) => ({ ...prev, en: e.target.value }))}
                 />
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
-                  <AdminButton
-                    variant="primary"
-                    disabled={savingNotes}
-                    onClick={() => void saveNotes(release.version)}
-                  >
-                    {savingNotes ? t.software.saving : t.common.save}
+                  <AdminButton variant="primary" disabled={saving} onClick={() => void saveNotes()}>
+                    {saving ? t.software.saving : t.common.save}
                   </AdminButton>
                   <AdminButton variant="secondary" onClick={() => setEditingVersion(null)}>
                     {t.common.cancel}

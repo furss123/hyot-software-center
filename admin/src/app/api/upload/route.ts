@@ -1,4 +1,3 @@
-import { execSync } from 'child_process'
 import fs from 'fs'
 import path from 'path'
 import { NextResponse } from 'next/server'
@@ -17,39 +16,54 @@ const ALLOWED_TYPES = new Set([
 
 type UploadType = 'icon' | 'banner' | 'screenshot'
 
-function getOutputPath(slug: string, type: UploadType): { abs: string; rel: string } {
+function getOutputPath(slug: string, type: UploadType): { abs: string; rel: string; url: string } {
   const base = path.join(getSoftwareDir(), slug)
   if (type === 'screenshot') {
     const filename = `${Date.now()}.webp`
+    const rel = `data/software/${slug}/screenshots/${filename}`
     return {
       abs: path.join(base, 'screenshots', filename),
-      rel: `data/software/${slug}/screenshots/${filename}`,
+      rel,
+      url: `/${rel}`,
     }
   }
   const filename = type === 'icon' ? 'icon.webp' : 'banner.webp'
+  const rel = `data/software/${slug}/${filename}`
   return {
     abs: path.join(base, filename),
-    rel: `data/software/${slug}/${filename}`,
+    rel,
+    url: `/${rel}`,
   }
+}
+
+async function processImage(buf: Buffer, type: UploadType): Promise<Buffer> {
+  if (type === 'icon') {
+    return sharp(buf).resize(256, 256, { fit: 'cover' }).webp().toBuffer()
+  }
+  if (type === 'banner') {
+    return sharp(buf).resize(1200, 630, { fit: 'cover' }).webp().toBuffer()
+  }
+  return sharp(buf)
+    .resize(1920, undefined, { fit: 'inside', withoutEnlargement: true })
+    .webp()
+    .toBuffer()
 }
 
 export async function GET(request: Request): Promise<NextResponse> {
   const { searchParams } = new URL(request.url)
   const slug = searchParams.get('slug')
-  const type = searchParams.get('type') as UploadType | null
+  const type = searchParams.get('type') as 'icon' | 'banner' | null
 
-  if (!slug || !type || !['icon', 'banner', 'screenshot'].includes(type)) {
+  if (!slug || !type || !['icon', 'banner'].includes(type)) {
     return NextResponse.json({ error: 'Invalid params' }, { status: 400 })
   }
 
-  const { abs } = getOutputPath(slug, type === 'screenshot' ? 'icon' : type)
-  const filePath = type === 'screenshot' ? null : abs
-
-  if (!filePath || !fs.existsSync(filePath)) {
+  const { abs } = getOutputPath(slug, type)
+  if (!fs.existsSync(abs)) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
   }
 
-  const buffer = fs.readFileSync(filePath)
+  const buffer = fs.readFileSync(abs)
   return new NextResponse(buffer, {
     headers: { 'Content-Type': 'image/webp', 'Cache-Control': 'no-store' },
   })
@@ -77,31 +91,27 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json({ error: 'File too large' }, { status: 400 })
   }
 
-  const buffer = Buffer.from(await file.arrayBuffer())
-  const { abs, rel } = getOutputPath(slug, type)
+  const buf = Buffer.from(await file.arrayBuffer())
+  const { abs, rel, url } = getOutputPath(slug, type)
   fs.mkdirSync(path.dirname(abs), { recursive: true })
 
-  try {
-    if (type === 'icon') {
-      await sharp(buffer).resize(256, 256, { fit: 'cover' }).webp().toFile(abs)
-    } else {
-      await sharp(buffer).webp().toFile(abs)
-    }
-  } catch {
-    fs.writeFileSync(abs, buffer)
+  const processed = await processImage(buf, type)
+  fs.writeFileSync(abs, processed)
+
+  if (type === 'icon' || type === 'banner') {
+    const meta = readMeta(slug)!
+    writeMeta(slug, {
+      ...meta,
+      ...(type === 'icon' ? { icon: url } : { banner: url }),
+      updatedAt: new Date().toISOString().split('T')[0],
+    })
+    gitCommitAndPush(`feat(software): update ${type} for ${slug}`, [
+      rel,
+      `data/software/${slug}/meta.json`,
+    ])
+  } else {
+    gitCommitAndPush(`feat(software): update ${type} for ${slug}`, [rel])
   }
 
-  const meta = readMeta(slug)!
-  const url = `/${rel.replace(/\\/g, '/')}`
-  const updated = {
-    ...meta,
-    ...(type === 'icon' ? { icon: url } : {}),
-    ...(type === 'banner' ? { banner: url } : {}),
-    updatedAt: new Date().toISOString().split('T')[0],
-  }
-  writeMeta(slug, updated)
-
-  gitCommitAndPush(`feat(software): update ${type} for ${slug}`, [rel, `data/software/${slug}/meta.json`])
-
-  return NextResponse.json({ url })
+  return NextResponse.json({ success: true, url })
 }

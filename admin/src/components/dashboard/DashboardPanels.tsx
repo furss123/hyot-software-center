@@ -9,6 +9,7 @@ import { t } from '@/lib/i18n'
 
 type DeployRun = {
   id: number
+  name: string
   status: string
   conclusion: string | null
   created_at: string
@@ -16,30 +17,25 @@ type DeployRun = {
 }
 
 function statusIcon(run: DeployRun): string {
-  if (run.status === 'in_progress' || run.status === 'queued') return '🔄'
   if (run.conclusion === 'success') return '✅'
   if (run.conclusion === 'failure') return '❌'
-  return '⏳'
+  if (run.status === 'in_progress' || run.status === 'queued') return '🔄'
+  return '⏸'
 }
 
-function statusLabel(run: DeployRun): string {
-  if (run.status === 'in_progress' || run.status === 'queued') return t.deploy.inProgress
-  if (run.conclusion === 'success') return t.deploy.success
-  if (run.conclusion === 'failure') return t.deploy.failure
-  return run.status
-}
+type RebuildState = 'idle' | 'loading' | 'success' | 'error'
 
 export function DeployStatus(): React.JSX.Element {
   const [runs, setRuns] = useState<DeployRun[]>([])
-  const [noToken, setNoToken] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
   const load = useCallback(async () => {
     setLoading(true)
     const res = await fetch('/api/deployments')
     const data = (await res.json()) as { runs?: DeployRun[]; error?: string }
-    setNoToken(data.error === 'no_token')
-    setRuns((data.runs ?? []).slice(0, 3))
+    setError(data.error ?? null)
+    setRuns(data.runs ?? [])
     setLoading(false)
   }, [])
 
@@ -56,13 +52,16 @@ export function DeployStatus(): React.JSX.Element {
         </AdminButton>
       </div>
       {loading && <p style={{ fontSize: '0.875rem', color: '#A0A0A0' }}>{t.common.loading}</p>}
-      {!loading && noToken && (
+      {!loading && error === 'no_token' && (
         <p style={{ fontSize: '0.875rem', color: '#C42B1C' }}>{t.deploy.noToken}</p>
       )}
-      {!loading && !noToken && runs.length === 0 && (
+      {!loading && error && error !== 'no_token' && (
+        <p style={{ fontSize: '0.875rem', color: '#C42B1C' }}>{t.common.error}</p>
+      )}
+      {!loading && !error && runs.length === 0 && (
         <p style={{ fontSize: '0.875rem', color: '#A0A0A0' }}>{t.deploy.noRuns}</p>
       )}
-      {!loading && runs.length > 0 && (
+      {!loading && !error && runs.length > 0 && (
         <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {runs.map((run) => (
             <li
@@ -76,10 +75,15 @@ export function DeployStatus(): React.JSX.Element {
               }}
             >
               <span>
-                {statusIcon(run)} {statusLabel(run)} · {timeAgo(run.created_at)}
+                {statusIcon(run)} {run.name} · {timeAgo(run.created_at)}
               </span>
-              <a href={run.html_url} target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.8125rem' }}>
-                {t.deploy.viewActions}
+              <a
+                href={run.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: '0.8125rem', flexShrink: 0 }}
+              >
+                {t.deploy.viewLink}
               </a>
             </li>
           ))}
@@ -90,28 +94,28 @@ export function DeployStatus(): React.JSX.Element {
 }
 
 export function QuickActions(): React.JSX.Element {
-  const [rebuilding, setRebuilding] = useState(false)
-  const [message, setMessage] = useState('')
+  const [state, setState] = useState<RebuildState>('idle')
 
   async function handleRebuild(): Promise<void> {
-    setRebuilding(true)
-    setMessage('')
+    setState('loading')
     try {
       const res = await fetch('/api/rebuild', { method: 'POST' })
-      const data = (await res.json()) as { success: boolean; message: string }
-      setMessage(data.success ? `✅ ${t.actions.rebuildSuccess}` : `❌ ${t.actions.rebuildFail}`)
+      const data = (await res.json()) as { success: boolean }
+      setState(data.success ? 'success' : 'error')
     } catch {
-      setMessage(`❌ ${t.actions.rebuildFail}`)
-    } finally {
-      setRebuilding(false)
+      setState('error')
     }
+    setTimeout(() => setState('idle'), 3000)
   }
+
+  const message =
+    state === 'success' ? t.actions.rebuildDone : state === 'error' ? t.actions.rebuildFailOk : ''
 
   return (
     <AdminCard>
       <h2 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '1rem' }}>{t.actions.title}</h2>
-      <AdminButton variant="secondary" disabled={rebuilding} onClick={() => void handleRebuild()}>
-        {rebuilding ? t.actions.rebuilding : t.actions.rebuildSearch}
+      <AdminButton variant="secondary" disabled={state === 'loading'} onClick={() => void handleRebuild()}>
+        {state === 'loading' ? t.actions.rebuilding : t.actions.rebuildSearch}
       </AdminButton>
       {message && (
         <p style={{ marginTop: '0.75rem', fontSize: '0.875rem', color: '#A0A0A0' }}>{message}</p>

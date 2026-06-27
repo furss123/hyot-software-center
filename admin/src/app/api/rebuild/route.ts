@@ -2,21 +2,15 @@ import { execSync } from 'child_process'
 import path from 'path'
 import { NextResponse } from 'next/server'
 
-import { t } from '@/lib/i18n'
-
 export async function POST(): Promise<NextResponse> {
   try {
-    const repoDir = path.resolve(process.cwd(), '..')
     execSync('npm run build:search-index', {
-      cwd: repoDir,
+      cwd: path.resolve(process.cwd(), '..'),
       stdio: 'pipe',
       encoding: 'utf-8',
     })
-    return NextResponse.json({ success: true, message: t.actions.rebuildSuccess })
-  } catch {
-    return NextResponse.json(
-      { success: false, message: t.actions.rebuildFail },
-      { status: 500 },
-    )
+    return NextResponse.json({ success: true })
+  } catch (e) {
+    return NextResponse.json({ success: false, message: String(e) }, { status: 500 })
   }
 }

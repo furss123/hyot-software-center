@@ -1,10 +1,11 @@
 'use client'
 
+import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import { cn } from '@/lib/utils'
 
-type Tab = { id: string; label: string }
+type Tab = { id: string; label: string; href?: string }
 
 type SoftwareTabsProps = {
   tabs: Tab[]
@@ -25,26 +26,37 @@ export function SoftwareTabs({ tabs, locale, slug }: SoftwareTabsProps): React.J
     router.replace(`/${locale}/software/${slug}${qs ? `?${qs}` : ''}`, { scroll: false })
   }
 
+  const tabClass = (isActive: boolean): string =>
+    cn(
+      'px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors relative',
+      isActive ? 'text-accent' : 'text-text-tertiary hover:text-text-secondary',
+    )
+
   return (
     <div className="flex gap-1 border-b border-border mb-8 overflow-x-auto">
-      {tabs.map((tab) => (
-        <button
-          key={tab.id}
-          type="button"
-          onClick={() => setTab(tab.id)}
-          className={cn(
-            'px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors relative',
-            activeTab === tab.id
-              ? 'text-accent'
-              : 'text-text-tertiary hover:text-text-secondary',
-          )}
-        >
-          {tab.label}
-          {activeTab === tab.id && (
-            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent rounded-full" />
-          )}
-        </button>
-      ))}
+      {tabs.map((tab) => {
+        if (tab.href) {
+          return (
+            <Link key={tab.id} href={tab.href} className={tabClass(false)}>
+              {tab.label}
+            </Link>
+          )
+        }
+
+        return (
+          <button
+            key={tab.id}
+            type="button"
+            onClick={() => setTab(tab.id)}
+            className={tabClass(activeTab === tab.id)}
+          >
+            {tab.label}
+            {activeTab === tab.id && (
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent rounded-full" />
+            )}
+          </button>
+        )
+      })}
     </div>
   )
 }

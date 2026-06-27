@@ -3,9 +3,8 @@
     "home": "Home",
     "software": "Software",
     "changelog": "Changelog",
-    "docs": "Docs",
-    "faq": "FAQ",
-    "about": "About"
+    "news": "News",
+    "security": "Security"
   },
   "home": {
     "hero": {
@@ -143,5 +142,20 @@
     "viewOnGitHub": "View on GitHub",
     "downloads": "Downloads",
     "lastUpdated": "Last updated"
+  },
+  "feedback": {
+    "title": "Feedback",
+    "subtitle": "Found a bug or have an idea for improvement?",
+    "bugReport": "Bug Report",
+    "bugDesc": "Let us know if something isn't working as expected.",
+    "bugButton": "Report a Bug →",
+    "featureRequest": "Feature Request",
+    "featureDesc": "Suggest a new feature or improvement.",
+    "featureButton": "Request a Feature →",
+    "viewIssues": "View GitHub Issues →",
+    "viewIssuesDesc": "See bug reports and suggestions from other users.",
+    "githubNote": "A GitHub account is required. You can create one for free at github.com.",
+    "notReady": "Feedback channel coming soon.",
+    "breadcrumb": "Feedback"
   }
 }

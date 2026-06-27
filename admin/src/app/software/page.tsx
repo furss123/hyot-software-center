@@ -9,6 +9,7 @@ import type { SoftwareMeta } from '@/types'
 
 export default function SoftwareListPage() {
   const [items, setItems] = useState<SoftwareMeta[]>([])
+  const [featuredMap, setFeaturedMap] = useState<Map<string, boolean>>(new Map())
   const [loading, setLoading] = useState(true)
   const [deleting, setDeleting] = useState<string | null>(null)
   const [toggling, setToggling] = useState<string | null>(null)
@@ -16,7 +17,10 @@ export default function SoftwareListPage() {
   useEffect(() => {
     void fetch('/api/software')
       .then((res) => res.json() as Promise<SoftwareMeta[]>)
-      .then(setItems)
+      .then((list) => {
+        setItems(list)
+        setFeaturedMap(new Map(list.map((item) => [item.slug, item.featured])))
+      })
       .finally(() => setLoading(false))
   }, [])
 
@@ -38,26 +42,30 @@ export default function SoftwareListPage() {
     }
   }
 
-  async function toggleFeatured(item: SoftwareMeta): Promise<void> {
-    const updated = { ...item, featured: !item.featured }
-    setToggling(item.slug)
-    setItems((prev) => prev.map((i) => (i.slug === item.slug ? updated : i)))
+  async function toggleFeatured(slug: string): Promise<void> {
+    const current = featuredMap.get(slug) ?? false
+    const next = !current
+
+    setFeaturedMap((prev) => new Map(prev).set(slug, next))
+    setToggling(slug)
 
     try {
-      const res = await fetch('/api/software', {
+      const res = await fetch(`/api/software?slug=${encodeURIComponent(slug)}`)
+      if (!res.ok) throw new Error('fetch failed')
+      const meta = (await res.json()) as SoftwareMeta
+
+      const putRes = await fetch('/api/software', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updated),
+        body: JSON.stringify({ ...meta, featured: next }),
       })
-      if (!res.ok) {
-        setItems((prev) => prev.map((i) => (i.slug === item.slug ? item : i)))
-        alert(t.common.error)
-        return
-      }
-      const saved = (await res.json()) as SoftwareMeta
-      setItems((prev) => prev.map((i) => (i.slug === item.slug ? saved : i)))
+      if (!putRes.ok) throw new Error('put failed')
+
+      const saved = (await putRes.json()) as SoftwareMeta
+      setItems((prev) => prev.map((i) => (i.slug === slug ? saved : i)))
+      setFeaturedMap((prev) => new Map(prev).set(slug, saved.featured))
     } catch {
-      setItems((prev) => prev.map((i) => (i.slug === item.slug ? item : i)))
+      setFeaturedMap((prev) => new Map(prev).set(slug, current))
       alert(t.common.error)
     } finally {
       setToggling(null)
@@ -119,48 +127,51 @@ export default function SoftwareListPage() {
               </tr>
             </thead>
             <tbody>
-              {items.map((item) => (
-                <tr key={item.slug}>
-                  <td style={{ fontFamily: 'monospace' }}>{item.slug}</td>
-                  <td>{item.name.en}</td>
-                  <td>{t.software.statusOptions[item.status] ?? item.status}</td>
-                  <td>{t.software.categoryOptions[item.category] ?? item.category}</td>
-                  <td>
-                    <button
-                      type="button"
-                      disabled={toggling === item.slug}
-                      onClick={() => void toggleFeatured(item)}
-                      style={{
-                        background: 'none',
-                        border: 'none',
-                        cursor: toggling === item.slug ? 'not-allowed' : 'pointer',
-                        fontSize: '1.25rem',
-                        lineHeight: 1,
-                        padding: '0.25rem',
-                        color: item.featured ? '#F9C74F' : '#686868',
-                        opacity: toggling === item.slug ? 0.5 : 1,
-                      }}
-                      aria-label={item.featured ? t.software.featuredOn : t.software.featuredOff}
-                    >
-                      {item.featured ? '⭐' : '☆'}
-                    </button>
-                  </td>
-                  <td>
-                    <div style={{ display: 'flex', gap: '0.5rem' }}>
-                      <a href={`/software/${item.slug}`} style={{ textDecoration: 'none' }}>
-                        <AdminButton variant="secondary">{t.software.edit}</AdminButton>
-                      </a>
-                      <AdminButton
-                        variant="danger"
-                        disabled={deleting === item.slug}
-                        onClick={() => void handleDelete(item.slug)}
+              {items.map((item) => {
+                const featured = featuredMap.get(item.slug) ?? item.featured
+                return (
+                  <tr key={item.slug}>
+                    <td style={{ fontFamily: 'monospace' }}>{item.slug}</td>
+                    <td>{item.name.en}</td>
+                    <td>{t.software.statusOptions[item.status] ?? item.status}</td>
+                    <td>{t.software.categoryOptions[item.category] ?? item.category}</td>
+                    <td>
+                      <button
+                        type="button"
+                        disabled={toggling === item.slug}
+                        onClick={() => void toggleFeatured(item.slug)}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          cursor: toggling === item.slug ? 'not-allowed' : 'pointer',
+                          fontSize: '1.25rem',
+                          lineHeight: 1,
+                          padding: '0.25rem',
+                          color: featured ? '#F9C74F' : '#686868',
+                          opacity: toggling === item.slug ? 0.5 : 1,
+                        }}
+                        aria-label={featured ? t.software.featuredOn : t.software.featuredOff}
                       >
-                        {deleting === item.slug ? t.software.deleting : t.common.delete}
-                      </AdminButton>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                        {featured ? '⭐' : '☆'}
+                      </button>
+                    </td>
+                    <td>
+                      <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <a href={`/software/${item.slug}`} style={{ textDecoration: 'none' }}>
+                          <AdminButton variant="secondary">{t.software.edit}</AdminButton>
+                        </a>
+                        <AdminButton
+                          variant="danger"
+                          disabled={deleting === item.slug}
+                          onClick={() => void handleDelete(item.slug)}
+                        >
+                          {deleting === item.slug ? t.software.deleting : t.common.delete}
+                        </AdminButton>
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         )}

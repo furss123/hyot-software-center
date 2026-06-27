@@ -73,6 +73,7 @@ export default async function SoftwareDetailPage({
   setRequestLocale(locale)
   const l = locale as Locale
   const t = await getTranslations('software')
+  const tFeedback = await getTranslations('feedback')
   const tNav = await getTranslations('nav')
 
   const app = getSoftwareMeta(slug)
@@ -103,6 +104,11 @@ export default async function SoftwareDetailPage({
     { id: 'overview', label: t('tabs.overview') },
     { id: 'changelog', label: t('tabs.changelog') },
     { id: 'docs', label: t('tabs.documentation') },
+    {
+      id: 'feedback',
+      label: tFeedback('title'),
+      href: `/${locale}/software/${slug}/feedback`,
+    },
   ]
 
   return (

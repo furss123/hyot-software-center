@@ -1,20 +1,21 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { AdminButton } from '@/components/ui/AdminButton'
 import { t } from '@/lib/i18n'
 
-type ImageUploadProps = {
+type UploadState = 'idle' | 'uploading' | 'done' | 'error'
+
+interface ImageUploadProps {
   slug: string
   type: 'icon' | 'banner' | 'screenshot'
   currentUrl?: string
-  onUpload: (url: string) => void
+  onUpload?: (url: string) => void
 }
 
-function previewSrc(slug: string, type: 'icon' | 'banner', currentUrl?: string): string | null {
-  if (currentUrl) return `/api/upload?slug=${encodeURIComponent(slug)}&type=${type}`
-  return null
+function serverPreviewSrc(slug: string, type: 'icon' | 'banner'): string {
+  return `/api/upload?slug=${encodeURIComponent(slug)}&type=${type}`
 }
 
 export function ImageUpload({
@@ -25,15 +26,20 @@ export function ImageUpload({
 }: ImageUploadProps): React.JSX.Element {
   const inputRef = useRef<HTMLInputElement>(null)
   const [preview, setPreview] = useState<string | null>(null)
-  const [uploading, setUploading] = useState(false)
-  const [message, setMessage] = useState('')
+  const [status, setStatus] = useState<UploadState>('idle')
+
+  useEffect(() => {
+    return () => {
+      if (preview) URL.revokeObjectURL(preview)
+    }
+  }, [preview])
 
   const isIcon = type === 'icon'
   const boxStyle: React.CSSProperties = {
-    width: isIcon ? 120 : 300,
-    height: 120,
+    width: isIcon ? 80 : 240,
+    height: 80,
     border: '2px dashed rgba(255,255,255,0.2)',
-    borderRadius: 8,
+    borderRadius: isIcon ? 12 : 8,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -41,12 +47,26 @@ export function ImageUpload({
     background: 'rgba(255,255,255,0.03)',
   }
 
-  const displaySrc = preview ?? (type !== 'screenshot' ? previewSrc(slug, type, currentUrl) : null)
+  const displaySrc =
+    preview ?? (currentUrl && type !== 'screenshot' ? serverPreviewSrc(slug, type) : null)
+
+  const statusText =
+    status === 'uploading'
+      ? t.upload.uploading
+      : status === 'done'
+        ? t.upload.doneOk
+        : status === 'error'
+          ? t.upload.failOk
+          : ''
+
+  const statusColor =
+    status === 'error' ? '#C42B1C' : status === 'done' ? '#6CCB5F' : '#A0A0A0'
 
   async function handleFile(file: File): Promise<void> {
-    setPreview(URL.createObjectURL(file))
-    setUploading(true)
-    setMessage(t.upload.uploading)
+    if (preview) URL.revokeObjectURL(preview)
+    const objectUrl = URL.createObjectURL(file)
+    setPreview(objectUrl)
+    setStatus('uploading')
 
     const form = new FormData()
     form.append('file', file)
@@ -56,39 +76,29 @@ export function ImageUpload({
     try {
       const res = await fetch('/api/upload', { method: 'POST', body: form })
       if (!res.ok) {
-        setMessage(t.common.error)
+        setStatus('error')
         return
       }
-      const data = (await res.json()) as { url: string }
-      setMessage(t.upload.uploaded)
-      onUpload(data.url)
+      const data = (await res.json()) as { success: boolean; url: string }
+      setStatus('done')
+      onUpload?.(data.url)
     } catch {
-      setMessage(t.common.error)
-    } finally {
-      setUploading(false)
+      setStatus('error')
     }
   }
 
-  const label =
-    type === 'icon'
-      ? `${t.upload.icon} (${t.upload.iconHint})`
-      : type === 'banner'
-        ? `${t.upload.banner} (${t.upload.bannerHint})`
-        : t.upload.screenshot
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-      <p style={{ fontSize: '0.875rem', color: '#A0A0A0' }}>{label}</p>
       <div style={boxStyle}>
         {displaySrc ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={displaySrc}
-            alt={label}
+            alt=""
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         ) : (
-          <span style={{ fontSize: '0.75rem', color: '#686868' }}>{t.upload.maxSize}</span>
+          <span style={{ fontSize: '1.5rem', color: '#686868' }}>+</span>
         )}
       </div>
       <input
@@ -103,15 +113,13 @@ export function ImageUpload({
       />
       <AdminButton
         variant="secondary"
-        disabled={uploading}
+        disabled={status === 'uploading'}
         onClick={() => inputRef.current?.click()}
       >
-        {uploading ? t.upload.uploading : t.upload.upload}
+        {status === 'uploading' ? t.upload.uploading : t.upload.upload}
       </AdminButton>
-      {message && (
-        <p style={{ fontSize: '0.75rem', color: message === t.common.error ? '#C42B1C' : '#6CCB5F' }}>
-          {message}
-        </p>
+      {statusText && (
+        <p style={{ fontSize: '0.75rem', color: statusColor }}>{statusText}</p>
       )}
     </div>
   )

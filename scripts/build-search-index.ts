@@ -1,12 +1,10 @@
 import fs from 'fs'
 import path from 'path'
 
-import { getAllDocs } from '../src/lib/content/docs'
-import { getAllFaq } from '../src/lib/content/faq'
 import { getAllNews } from '../src/lib/content/news'
 import { getAllSoftware } from '../src/lib/content/software'
 
-type SearchDocType = 'software' | 'news' | 'docs' | 'faq'
+type SearchDocType = 'software' | 'news'
 
 interface SearchDoc {
   id: string
@@ -43,31 +41,7 @@ const newsDocs: SearchDoc[] = news.map((n) => ({
   tags: n.tags,
 }))
 
-const docs = getAllDocs()
-const docsDocs: SearchDoc[] = docs.map((d) => ({
-  id: `docs-${d.slug}`,
-  type: 'docs',
-  slug: d.slug,
-  name_ko: d.title.ko,
-  name_en: d.title.en,
-  description_ko: d.content.slice(0, 200),
-  description_en: d.content.slice(0, 200),
-  tags: [],
-}))
-
-const faq = getAllFaq()
-const faqDocs: SearchDoc[] = faq.map((f) => ({
-  id: `faq-${f.id}`,
-  type: 'faq',
-  slug: f.id,
-  name_ko: f.question.ko,
-  name_en: f.question.en,
-  description_ko: f.answer.ko,
-  description_en: f.answer.en,
-  tags: [f.category],
-}))
-
-const allDocs: SearchDoc[] = [...softwareDocs, ...newsDocs, ...docsDocs, ...faqDocs]
+const allDocs: SearchDoc[] = [...softwareDocs, ...newsDocs]
 
 const outDir = path.join(process.cwd(), 'public', 'search')
 fs.mkdirSync(outDir, { recursive: true })

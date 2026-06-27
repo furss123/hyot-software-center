@@ -29,7 +29,7 @@ export async function PUT(request: Request): Promise<NextResponse> {
   writeReleases(data.slug, data)
 
   const commitMessage = noteVersion
-    ? `docs(release): update notes for ${data.slug} ${noteVersion}`
+    ? `docs(release): update notes for ${data.slug} v${noteVersion}`
     : `chore(release): update ${data.slug} releases`
 
   gitCommitAndPush(commitMessage, [`data/software/${data.slug}/releases.json`])

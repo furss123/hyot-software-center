@@ -96,6 +96,7 @@ const MetaSchema = z.object({
   ]),
   tags: z.array(z.string()).max(10),
   featured: z.boolean(),
+  githubRepo: z.string().optional(),
   name: i18nString,
   description: i18nString,
   shortDescription: i18nString,

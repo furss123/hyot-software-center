@@ -25,6 +25,12 @@ const CATEGORY_OPTIONS = (Object.keys(t.software.categoryOptions) as SoftwareCat
   }),
 )
 
+const labelStyle: React.CSSProperties = {
+  fontSize: '0.875rem',
+  color: '#A0A0A0',
+  marginBottom: '0.5rem',
+}
+
 export default function EditSoftwarePage() {
   const params = useParams<{ slug: string }>()
   const router = useRouter()
@@ -82,6 +88,7 @@ export default function EditSoftwarePage() {
       links: {
         github: String(form.get('links_github') ?? '') || undefined,
       },
+      githubRepo: String(form.get('githubRepo') ?? '').trim() || undefined,
     }
 
     const res = await fetch('/api/software', {
@@ -124,20 +131,30 @@ export default function EditSoftwarePage() {
       </div>
       <div style={{ maxWidth: '760px' }}>
         <AdminCard>
-          <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
-          <ImageUpload
-            slug={slug}
-            type="icon"
-            currentUrl={meta.icon}
-            onUpload={(url) => setMeta((prev) => (prev ? { ...prev, icon: url } : prev))}
-          />
-          <ImageUpload
-            slug={slug}
-            type="banner"
-            currentUrl={meta.banner}
-            onUpload={(url) => setMeta((prev) => (prev ? { ...prev, banner: url } : prev))}
-          />
-        </div>
+          <div style={{ display: 'flex', gap: '2rem', marginBottom: '2rem' }}>
+            <div>
+              <p style={labelStyle}>
+                {t.upload.icon} ({t.upload.iconHint})
+              </p>
+              <ImageUpload
+                slug={slug}
+                type="icon"
+                currentUrl={meta.icon}
+                onUpload={(url) => setMeta((prev) => (prev ? { ...prev, icon: url } : prev))}
+              />
+            </div>
+            <div>
+              <p style={labelStyle}>
+                {t.upload.banner} ({t.upload.bannerHint})
+              </p>
+              <ImageUpload
+                slug={slug}
+                type="banner"
+                currentUrl={meta.banner}
+                onUpload={(url) => setMeta((prev) => (prev ? { ...prev, banner: url } : prev))}
+              />
+            </div>
+          </div>
           <form key={meta.updatedAt} onSubmit={(e) => void handleSubmit(e)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <AdminInput label={t.software.slug} name="slug" defaultValue={meta.slug} readOnly />
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
@@ -161,6 +178,12 @@ export default function EditSoftwarePage() {
             <AdminInput label={t.software.disk} name="requirements_disk" defaultValue={meta.requirements.disk ?? ''} />
           </div>
           <AdminInput label={t.software.github} name="links_github" type="url" defaultValue={meta.links?.github ?? ''} />
+          <AdminInput
+            label={t.software.githubRepo}
+            name="githubRepo"
+            placeholder="furss123/your-repo-name"
+            defaultValue={meta.githubRepo ?? ''}
+          />
           <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem' }}>
             <input type="checkbox" name="featured" defaultChecked={meta.featured} />
             {t.software.featuredLabel}

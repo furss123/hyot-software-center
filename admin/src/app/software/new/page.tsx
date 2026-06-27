@@ -68,6 +68,7 @@ export default function NewSoftwarePage() {
       links: {
         github: String(form.get('links_github') ?? '') || undefined,
       },
+      githubRepo: String(form.get('githubRepo') ?? '').trim() || undefined,
       createdAt: new Date().toISOString().split('T')[0],
       updatedAt: new Date().toISOString().split('T')[0],
     }
@@ -116,6 +117,11 @@ export default function NewSoftwarePage() {
             <AdminInput label={t.software.disk} name="requirements_disk" />
           </div>
           <AdminInput label={t.software.github} name="links_github" type="url" />
+          <AdminInput
+            label={t.software.githubRepo}
+            name="githubRepo"
+            placeholder="furss123/your-repo-name"
+          />
           <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem' }}>
             <input type="checkbox" checked={featured} onChange={(e) => setFeatured(e.target.checked)} />
             {t.software.featured}

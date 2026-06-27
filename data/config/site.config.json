@@ -34,9 +34,8 @@
   "nav": [
     { "label": { "ko": "소프트웨어", "en": "Software" }, "href": "/software" },
     { "label": { "ko": "변경 내역", "en": "Changelog" }, "href": "/changelog" },
-    { "label": { "ko": "문서", "en": "Docs" }, "href": "/docs" },
-    { "label": { "ko": "FAQ", "en": "FAQ" }, "href": "/faq" },
-    { "label": { "ko": "소개", "en": "About" }, "href": "/about" }
+    { "label": { "ko": "뉴스", "en": "News" }, "href": "/news" },
+    { "label": { "ko": "보안", "en": "Security" }, "href": "/security" }
   ],
   "footer": {
     "links": [
@@ -44,22 +43,24 @@
         "group": { "ko": "제품", "en": "Products" },
         "items": [
           { "label": { "ko": "소프트웨어", "en": "Software" }, "href": "/software" },
-          { "label": { "ko": "변경 내역", "en": "Changelog" }, "href": "/changelog" }
+          { "label": { "ko": "변경 내역", "en": "Changelog" }, "href": "/changelog" },
+          { "label": { "ko": "뉴스", "en": "News" }, "href": "/news" }
         ]
       },
       {
         "group": { "ko": "지원", "en": "Support" },
         "items": [
-          { "label": { "ko": "문서", "en": "Documentation" }, "href": "/docs" },
-          { "label": { "ko": "FAQ", "en": "FAQ" }, "href": "/faq" },
           { "label": { "ko": "보안 정책", "en": "Security" }, "href": "/security" }
         ]
       },
       {
         "group": { "ko": "더 보기", "en": "More" },
         "items": [
-          { "label": { "ko": "소개", "en": "About" }, "href": "/about" },
-          { "label": { "ko": "GitHub", "en": "GitHub" }, "href": "https://github.com/hyot", "external": true }
+          {
+            "label": { "ko": "GitHub", "en": "GitHub" },
+            "href": "https://github.com/furss123/hyot-software-center",
+            "external": true
+          }
         ]
       }
     ],

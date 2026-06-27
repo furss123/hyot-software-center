@@ -8,8 +8,7 @@ const ROUTES = [
   '/ko/software/quick-note',
   '/ko/changelog',
   '/ko/news',
-  '/ko/faq',
-  '/ko/about',
+  '/ko/software/quick-note/feedback',
 ]
 
 async function main(): Promise<void> {

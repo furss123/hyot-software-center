@@ -1,11 +1,27 @@
 ---
-name: Bug Report
-about: Report a bug
+name: 버그 제보
+about: 버그를 발견하셨나요?
+title: '[BUG] '
 labels: bug
 ---
 
-**URL:**
-**Expected:**
-**Actual:**
-**Steps to reproduce:**
-**Browser/OS:**
+**버그 설명**
+어떤 문제가 발생했나요?
+
+**재현 방법**
+1. 
+2. 
+3. 
+
+**예상 동작**
+어떻게 동작해야 하나요?
+
+**실제 동작**
+실제로 어떻게 동작하나요?
+
+**환경**
+- OS: Windows 10 / 11
+- 버전: 
+
+**스크린샷**
+(선택사항)
