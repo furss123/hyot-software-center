@@ -42,19 +42,6 @@
     { "label": { "ko": "버그 제보 & 건의", "en": "Feedback" }, "href": "/feedback" }
   ],
   "footer": {
-    "links": [
-      {
-        "group": { "ko": "제품", "en": "Products" },
-        "items": [
-          { "label": { "ko": "소프트웨어", "en": "Software" }, "href": "/software" },
-          { "label": { "ko": "변경 내역", "en": "Changelog" }, "href": "/changelog" }
-        ]
-      },
-      {
-        "group": { "ko": "지원", "en": "Support" },
-        "items": []
-      }
-    ],
     "copyright": {
       "ko": "© 2024 HyoT. All rights reserved.",
       "en": "© 2024 HyoT. All rights reserved."

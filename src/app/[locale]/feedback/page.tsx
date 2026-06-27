@@ -39,10 +39,10 @@ export default async function FeedbackPage({ params }: PageProps): Promise<React
   const config = getSiteConfig()
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-12">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-text-primary mb-2">{t('title')}</h1>
-        <p className="text-text-secondary">{t('subtitle')}</p>
+    <div className="max-w-xl mx-auto px-4 py-12">
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-text-primary">{t('title')}</h1>
+        <p className="text-sm text-text-secondary mt-1">{t('subtitle')}</p>
       </div>
 
       {config.feedback?.enabled ? (

@@ -44,22 +44,24 @@ export default async function ChangelogPage({
     .sort((a, b) => b.releaseDate.localeCompare(a.releaseDate))
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-      <h1 className="text-3xl font-bold text-text-primary mb-10">{tNav('changelog')}</h1>
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-12">
+      <h1 className="text-2xl font-bold text-text-primary mb-8">{tNav('changelog')}</h1>
 
       {allReleases.length === 0 ? (
-        <p className="text-text-tertiary">No releases yet.</p>
+        <p className="text-xs text-text-tertiary">No releases yet.</p>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {allReleases.map((release, i) => (
-            <Card key={`${release.slug}-${release.version}-${i}`} className="p-6">
-              <div className="flex items-start justify-between gap-4 mb-4">
+            <Card key={`${release.slug}-${release.version}-${i}`} className="p-5">
+              <div className="flex items-start justify-between gap-4 mb-3">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-semibold text-text-primary">{release.appName}</span>
-                    <Badge variant={release.channel}>{release.channel}</Badge>
+                    <span className="text-sm font-semibold text-text-primary">{release.appName}</span>
+                    <Badge variant={release.channel} className="text-[10px] px-2 py-0.5">
+                      {release.channel}
+                    </Badge>
                   </div>
-                  <span className="font-mono text-accent text-sm">v{release.version}</span>
+                  <span className="font-mono text-sm text-accent">v{release.version}</span>
                 </div>
                 <span className="text-xs text-text-tertiary flex-shrink-0">
                   {formatDate(release.releaseDate, locale)}

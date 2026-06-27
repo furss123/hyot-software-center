@@ -32,20 +32,21 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 w-full mica border-b border-border h-14',
+        'sticky top-0 z-50 w-full mica h-[52px]',
         'transition-shadow duration-[var(--duration-base)]',
-        scrolled && 'shadow-md',
+        scrolled ? 'border-b border-border shadow-sm' : 'border-b border-border/50',
       )}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-full flex items-center gap-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-full flex items-center gap-8">
         <Link
           href={`/${locale}`}
           className="flex items-center gap-2.5 font-semibold text-text-primary hover:opacity-80 transition-opacity"
+          style={{ fontSize: '0.9rem', letterSpacing: '-0.01em' }}
         >
           <div className="w-7 h-7 bg-accent rounded-lg flex items-center justify-center">
             <span className="text-white text-xs font-bold">H</span>
           </div>
-          <span className="text-sm hidden sm:block">{config.brand.name}</span>
+          <span className="hidden sm:block">{config.brand.name}</span>
         </Link>
 
         <nav className="flex items-center gap-1 flex-1" aria-label="Main">

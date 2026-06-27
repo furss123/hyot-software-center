@@ -32,10 +32,10 @@ export function DownloadCount({ slug, initialCount }: DownloadCountProps): React
 
   return (
     <div
-      className="flex items-center gap-1.5 text-sm text-text-tertiary"
+      className="flex items-center gap-1 text-xs text-text-tertiary"
       aria-label={t('downloadCountLabel', { count })}
     >
-      <Download size={14} aria-hidden />
+      <Download size={12} aria-hidden />
       <span>{count.toLocaleString()}</span>
     </div>
   )

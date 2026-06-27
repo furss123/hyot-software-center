@@ -27,9 +27,9 @@ const variants: Record<Variant, string> = {
 }
 
 const sizes: Record<Size, string> = {
-  sm: 'h-8 px-3 text-sm gap-1.5',
-  md: 'h-10 px-4 text-sm gap-2',
-  lg: 'h-12 px-6 text-base gap-2.5',
+  sm: 'h-8 px-3 text-sm gap-1.5 rounded-lg',
+  md: 'h-10 px-4 text-sm gap-2 rounded-lg',
+  lg: 'h-12 px-6 text-base gap-2.5 rounded-xl',
 }
 
 export function Button({
@@ -47,7 +47,7 @@ export function Button({
       {...props}
       disabled={disabled || loading}
       className={cn(
-        'inline-flex items-center justify-center font-medium rounded-lg',
+        'inline-flex items-center justify-center font-medium',
         'transition-all duration-[var(--duration-base)] ease-[var(--ease-fluent)]',
         'focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2',
         'disabled:opacity-50 disabled:cursor-not-allowed',

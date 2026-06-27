@@ -30,7 +30,7 @@ export function Card({
         'rounded-xl shadow-sm',
         'transition-all duration-[var(--duration-base)] ease-[var(--ease-fluent)]',
         variants[variant],
-        hover && 'cursor-pointer hover:shadow-md hover:-translate-y-0.5',
+        hover && 'cursor-pointer hover:shadow-md hover:-translate-y-[2px]',
         className,
       )}
     >

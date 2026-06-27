@@ -104,17 +104,17 @@ export function FeedbackForm({
   const contentError = attempted && content.trim().length < 10
 
   return (
-    <form onSubmit={(e) => void handleSubmit(e)} className="space-y-6">
+    <form onSubmit={(e) => void handleSubmit(e)} className="space-y-5">
       <div>
-        <label className="block text-sm font-medium text-text-primary mb-2">{t('type')}</label>
-        <div className="flex flex-wrap gap-2">
+        <label className="block text-xs font-medium text-text-secondary mb-1.5">{t('type')}</label>
+        <div className="flex flex-wrap gap-1.5">
           {typeOptions.map((opt) => (
             <button
               key={opt.value}
               type="button"
               onClick={() => setType(opt.value)}
               className={cn(
-                'px-4 py-2 rounded-full text-sm font-medium transition-colors',
+                'h-9 px-4 rounded-full text-xs font-medium transition-colors',
                 type === opt.value
                   ? 'bg-accent text-white'
                   : 'bg-fill-subtle text-text-secondary hover:bg-fill-secondary',
@@ -127,14 +127,14 @@ export function FeedbackForm({
       </div>
 
       <div>
-        <label htmlFor="feedback-software" className="block text-sm font-medium text-text-primary mb-2">
+        <label htmlFor="feedback-software" className="block text-xs font-medium text-text-secondary mb-1.5">
           {t('software')}
         </label>
         <select
           id="feedback-software"
           value={selectedSoftware}
           onChange={(e) => setSelectedSoftware(e.target.value)}
-          className="border border-border rounded-lg p-3 w-full bg-bg-surface text-text-primary"
+          className="border border-border rounded-lg p-2.5 w-full bg-bg-surface text-text-primary text-sm"
         >
           <option value="" disabled>
             {t('softwarePlaceholder')}
@@ -149,7 +149,7 @@ export function FeedbackForm({
       </div>
 
       <div>
-        <label htmlFor="feedback-title" className="block text-sm font-medium text-text-primary mb-2">
+        <label htmlFor="feedback-title" className="block text-xs font-medium text-text-secondary mb-1.5">
           {t('titleLabel')}
         </label>
         <input
@@ -158,28 +158,28 @@ export function FeedbackForm({
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder={t('titlePlaceholder')}
-          className="border border-border rounded-lg p-3 w-full bg-bg-surface text-text-primary"
+          className="border border-border rounded-lg p-2.5 w-full bg-bg-surface text-text-primary text-sm"
         />
-        {titleError && <p className="text-status-error text-sm mt-2">{t('validTitle')}</p>}
+        {titleError && <p className="text-status-error text-xs mt-2">{t('validTitle')}</p>}
       </div>
 
       <div>
-        <label htmlFor="feedback-content" className="block text-sm font-medium text-text-primary mb-2">
+        <label htmlFor="feedback-content" className="block text-xs font-medium text-text-secondary mb-1.5">
           {t('contentLabel')}
         </label>
         <textarea
           id="feedback-content"
-          rows={6}
+          rows={5}
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder={t('contentPlaceholder')}
-          className="border border-border rounded-lg p-3 w-full bg-bg-surface text-text-primary resize-y"
+          className="border border-border rounded-lg p-2.5 w-full bg-bg-surface text-text-primary text-sm resize-y min-h-[120px]"
         />
-        {contentError && <p className="text-status-error text-sm mt-2">{t('validContent')}</p>}
+        {contentError && <p className="text-status-error text-xs mt-2">{t('validContent')}</p>}
       </div>
 
       <div>
-        <label htmlFor="feedback-contact" className="block text-sm font-medium text-text-primary mb-2">
+        <label htmlFor="feedback-contact" className="block text-xs font-medium text-text-secondary mb-1.5">
           {t('contact')}
         </label>
         <input
@@ -188,7 +188,7 @@ export function FeedbackForm({
           value={contact}
           onChange={(e) => setContact(e.target.value)}
           placeholder={t('contactPlaceholder')}
-          className="border border-border rounded-lg p-3 w-full bg-bg-surface text-text-primary"
+          className="border border-border rounded-lg p-2.5 w-full bg-bg-surface text-text-primary text-sm"
         />
       </div>
 
@@ -196,7 +196,7 @@ export function FeedbackForm({
         type="submit"
         variant="primary"
         size="lg"
-        className="w-full"
+        className="w-full h-11 rounded-xl text-sm font-semibold mt-2"
         disabled={status === 'submitting'}
         loading={status === 'submitting'}
       >

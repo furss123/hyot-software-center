@@ -48,7 +48,7 @@ export function FilterBar({
           type="button"
           onClick={() => navigate({ category: '' })}
           className={cn(
-            'flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-colors',
+            'flex-shrink-0 h-8 px-3 rounded-full text-xs font-medium transition-colors',
             !activeCategory
               ? 'bg-accent text-white'
               : 'bg-fill-subtle text-text-secondary hover:text-text-primary',
@@ -62,7 +62,7 @@ export function FilterBar({
             type="button"
             onClick={() => navigate({ category: cat })}
             className={cn(
-              'flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-colors capitalize',
+              'flex-shrink-0 h-8 px-3 rounded-full text-xs font-medium transition-colors capitalize',
               activeCategory === cat
                 ? 'bg-accent text-white'
                 : 'bg-fill-subtle text-text-secondary hover:text-text-primary',
@@ -80,7 +80,7 @@ export function FilterBar({
           id="software-sort"
           value={activeSort}
           onChange={(e) => navigate({ sort: e.target.value })}
-          className="text-sm bg-fill-subtle border border-border rounded-lg px-3 py-1.5 text-text-primary outline-none focus:ring-2 focus:ring-accent"
+          className="text-sm h-8 bg-fill-subtle border border-border rounded-lg px-3 text-text-primary outline-none focus:ring-2 focus:ring-accent"
         >
           <option value="updated">{t('sortUpdated')}</option>
           <option value="name">{t('sortName')}</option>

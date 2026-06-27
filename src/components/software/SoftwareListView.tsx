@@ -58,7 +58,7 @@ export function SoftwareListView({
 
   return (
     <>
-      <p className="text-text-secondary mb-6">{t('resultCount', { count: filtered.length })}</p>
+      <p className="text-sm text-text-tertiary mb-6">{t('resultCount', { count: filtered.length })}</p>
       <FilterBar
         categories={categories}
         activeCategory={category}
@@ -70,7 +70,7 @@ export function SoftwareListView({
           <p className="text-lg">{t('noSoftware')}</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {filtered.map((app) => (
             <SoftwareCard
               key={app.slug}

@@ -50,23 +50,19 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
 
   return (
     <div className="flex flex-col">
-      <section className="relative overflow-hidden py-12 sm:py-16 px-4">
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-br from-accent/3 via-transparent to-transparent" />
-        </div>
-
+      <section className="px-4 pt-16 pb-12">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-text-primary mb-6 leading-tight whitespace-pre-line opacity-0 animate-fade-in-up animate-delay-100">
+          <h1 className="text-5xl sm:text-6xl font-bold text-text-primary tracking-[-0.03em] leading-[1.1] whitespace-pre-line opacity-0 animate-fade-in-up animate-delay-100">
             {t('hero.title')}
           </h1>
 
-          <p className="text-lg text-text-secondary max-w-2xl mx-auto mb-10 opacity-0 animate-fade-in-up animate-delay-200">
+          <p className="text-base text-text-secondary max-w-lg mx-auto mt-4 mb-8 opacity-0 animate-fade-in-up animate-delay-200">
             {t('hero.subtitle')}
           </p>
 
           <div className="flex items-center justify-center opacity-0 animate-fade-in-up animate-delay-300">
             <Link href={`/${locale}/software`}>
-              <Button size="lg" icon={<ArrowRight size={18} />}>
+              <Button size="lg" className="rounded-xl" icon={<ArrowRight size={18} />}>
                 {t('hero.cta')}
               </Button>
             </Link>
@@ -79,8 +75,8 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
       {featured.length > 0 && (
         <section className="py-16 px-4">
           <div className="max-w-7xl mx-auto">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold text-text-primary">{t('featured')}</h2>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-semibold text-text-primary">{t('featured')}</h2>
               <Link
                 href={`/${locale}/software`}
                 className="text-sm text-accent hover:opacity-80 transition-opacity flex items-center gap-1"
@@ -96,15 +92,22 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
                     <div className="flex items-start gap-4">
                       <SoftwareIcon app={app} size="sm" />
                       <div className="min-w-0 flex-1">
-                        <h3 className="font-semibold text-text-primary truncate">
+                        <h3 className="text-sm font-semibold text-text-primary truncate">
                           {app.name[l]}
                         </h3>
-                        <p className="text-sm text-text-secondary mt-1 line-clamp-2">
+                        <p className="text-xs text-text-secondary mt-1 line-clamp-2">
                           {app.shortDescription[l]}
                         </p>
-                        <div className="flex flex-wrap items-center gap-2 mt-3">
-                          <Badge variant={statusBadgeVariant(app.status)}>{app.status}</Badge>
-                          <Badge variant="default">{app.category}</Badge>
+                        <div className="flex flex-wrap items-center gap-1 mt-2">
+                          <Badge
+                            variant={statusBadgeVariant(app.status)}
+                            className="text-[10px] px-2 py-0.5"
+                          >
+                            {app.status}
+                          </Badge>
+                          <Badge variant="default" className="text-[10px] px-2 py-0.5">
+                            {app.category}
+                          </Badge>
                           <DownloadCount
                             slug={app.slug}
                             initialCount={sumDownloadCounts(getReleasesData(app.slug)?.releases)}
@@ -121,10 +124,10 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
       )}
 
       {latestReleases.length > 0 && (
-        <section className="py-16 px-4 bg-bg-surface-2">
+        <section className="py-16 px-4 border-t border-border">
           <div className="max-w-7xl mx-auto">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold text-text-primary">{t('latestReleases')}</h2>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-semibold text-text-primary">{t('latestReleases')}</h2>
               <Link
                 href={`/${locale}/changelog`}
                 className="text-sm text-accent hover:opacity-80 transition-opacity flex items-center gap-1"
@@ -133,13 +136,15 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {latestReleases.map(({ slug, release }) => (
                 <Link key={`${slug}-${release.version}`} href={`/${locale}/software/${slug}`}>
                   <Card hover className="p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium text-text-primary text-sm">{slug}</span>
-                      <Badge variant={release.channel}>{release.channel}</Badge>
+                      <span className="text-sm font-semibold text-text-primary">{slug}</span>
+                      <Badge variant={release.channel} className="text-[10px] px-2 py-0.5">
+                        {release.channel}
+                      </Badge>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-accent font-mono text-sm">v{release.version}</span>

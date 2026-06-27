@@ -31,18 +31,23 @@ export function SoftwareCard({
 
   return (
     <Link href={`/${locale}/software/${app.slug}`}>
-      <Card hover className="p-5 h-full">
-        <div className="flex items-start gap-4">
+      <Card hover className="p-4 h-full">
+        <div className="flex items-start gap-3">
           <SoftwareIcon app={app} size="sm" />
           <div className="min-w-0 flex-1">
-            <h2 className="font-semibold text-text-primary truncate">{app.name[l]}</h2>
-            <p className="text-sm text-text-secondary mt-1 line-clamp-2">
+            <h2 className="text-sm font-semibold text-text-primary truncate">{app.name[l]}</h2>
+            <p className="text-xs text-text-secondary mt-0.5 line-clamp-2">
               {app.shortDescription[l]}
             </p>
-            <div className="flex flex-wrap items-center gap-2 mt-3">
-              <Badge variant={statusBadgeVariant(app.status)}>{app.category}</Badge>
+            <div className="flex flex-wrap items-center gap-1 mt-2">
+              <Badge
+                variant={statusBadgeVariant(app.status)}
+                className="text-[10px] px-2 py-0.5"
+              >
+                {app.category}
+              </Badge>
               {app.tags.slice(0, 2).map((tag) => (
-                <Badge key={tag} variant="default">
+                <Badge key={tag} variant="default" className="text-[10px] px-2 py-0.5">
                   {tag}
                 </Badge>
               ))}

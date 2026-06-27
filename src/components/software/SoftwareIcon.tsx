@@ -8,7 +8,7 @@ type SoftwareIconProps = {
 }
 
 const sizeClasses = {
-  sm: 'w-12 h-12 rounded-xl text-lg',
+  sm: 'w-11 h-11 rounded-xl text-lg',
   lg: 'w-20 h-20 rounded-2xl text-3xl shadow-sm',
 }
 

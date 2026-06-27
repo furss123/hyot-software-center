@@ -9,10 +9,10 @@ interface BreadcrumbItem {
 
 export function Breadcrumb({ items }: { items: BreadcrumbItem[] }): React.JSX.Element {
   return (
-    <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-sm text-text-tertiary mb-6">
+    <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-xs text-text-tertiary mb-4">
       {items.map((item, i) => (
         <span key={i} className="flex items-center gap-1">
-          {i > 0 && <ChevronRight size={14} className="text-text-disabled" />}
+          {i > 0 && <ChevronRight size={12} className="text-text-disabled" />}
           {item.href && i < items.length - 1 ? (
             <Link
               href={item.href}
