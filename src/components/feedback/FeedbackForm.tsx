@@ -1,5 +1,6 @@
 'use client'
 
+import { createClient } from '@supabase/supabase-js'
 import { useTranslations } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
 import { useState, type FormEvent } from 'react'
@@ -12,14 +13,16 @@ type Status = 'idle' | 'submitting' | 'success' | 'error'
 
 interface Props {
   software: Array<{ slug: string; name: { ko: string; en: string } }>
-  formspreeId: string
+  supabaseUrl: string
+  supabaseAnonKey: string
   locale: string
   initialSoftware?: string
 }
 
 export function FeedbackForm({
   software,
-  formspreeId,
+  supabaseUrl,
+  supabaseAnonKey,
   locale,
   initialSoftware,
 }: Props): React.JSX.Element {
@@ -43,12 +46,6 @@ export function FeedbackForm({
     { value: 'other', label: t('typeOther') },
   ]
 
-  const typeLabel: Record<FeedbackType, string> = {
-    bug: t('typeBug'),
-    feature: t('typeFeature'),
-    other: t('typeOther'),
-  }
-
   function resetForm(): void {
     setType('bug')
     setSelectedSoftware(querySoftware ?? initialSoftware ?? '__none__')
@@ -58,11 +55,6 @@ export function FeedbackForm({
     setAttempted(false)
   }
 
-  function getSoftwareLabel(slug: string): string {
-    const item = software.find((s) => s.slug === slug)
-    return item ? item.name[l] : slug
-  }
-
   async function handleSubmit(e: FormEvent): Promise<void> {
     e.preventDefault()
     setAttempted(true)
@@ -70,26 +62,18 @@ export function FeedbackForm({
 
     setStatus('submitting')
 
-    const softwareLabel =
-      selectedSoftware && selectedSoftware !== '__none__'
-        ? getSoftwareLabel(selectedSoftware)
-        : t('softwareNone')
-
     try {
-      const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          유형: typeLabel[type],
-          프로그램: softwareLabel,
-          제목: title,
-          내용: content,
-          연락처: contact || (l === 'ko' ? '미입력' : 'Not provided'),
-          _subject: `[HyoT 건의] ${typeLabel[type]} — ${title}`,
-        }),
+      const supabase = createClient(supabaseUrl, supabaseAnonKey)
+      const { error } = await supabase.from('feedback').insert({
+        type,
+        software:
+          selectedSoftware && selectedSoftware !== '__none__' ? selectedSoftware : null,
+        title: title.trim(),
+        content: content.trim(),
+        contact: contact.trim() || null,
       })
-      if (res.ok) setStatus('success')
-      else setStatus('error')
+      if (error) throw error
+      setStatus('success')
     } catch {
       setStatus('error')
     }

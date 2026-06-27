@@ -235,7 +235,6 @@ export const ko = {
     feature: '기능 건의',
     other: '기타',
     empty: '건의사항이 없습니다',
-    noKey: 'FORMSPREE_API_KEY 설정 필요',
     loading: '불러오는 중...',
     date: '날짜',
     type: '유형',
@@ -244,6 +243,15 @@ export const ko = {
     contact: '연락처',
     content: '내용',
     refresh: '새로고침',
+    unread: '미확인',
+    reviewing: '검토중',
+    done: '완료',
+    dismissed: '보류',
+    stats: '통계',
+    expand: '내용 보기',
+    collapse: '닫기',
+    statusChange: '상태 변경',
+    noContact: '연락처 없음',
   },
 }
 

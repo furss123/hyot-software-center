@@ -1,7 +1,8 @@
 {
   "feedback": {
-    "formspreeId": "maqgjyyo",
-    "enabled": true
+    "enabled": true,
+    "supabaseUrl": "https://pwzjuwxeabpiyxnmurqx.supabase.co",
+    "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB3emp1d3hlYWJwaXl4bm11cnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI1NjI4MjMsImV4cCI6MjA5ODEzODgyM30.H7lbU_wwUp0DFHEQz-DSRX-hByl_Y7Jfq2YEtMF8rAk"
   },
   "brand": {
     "name": "HyoT Software Center",

@@ -24,8 +24,9 @@ const MonetizationSchema = z.object({
 const SiteConfigSchema = z.object({
   feedback: z
     .object({
-      formspreeId: z.string().min(1),
       enabled: z.boolean(),
+      supabaseUrl: z.string().url(),
+      supabaseAnonKey: z.string().min(1),
     })
     .optional(),
   brand: z.object({

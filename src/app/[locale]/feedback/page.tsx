@@ -49,7 +49,8 @@ export default async function FeedbackPage({ params }: PageProps): Promise<React
         <Suspense fallback={null}>
           <FeedbackForm
             software={software.map((s) => ({ slug: s.slug, name: s.name }))}
-            formspreeId={config.feedback.formspreeId}
+            supabaseUrl={config.feedback.supabaseUrl}
+            supabaseAnonKey={config.feedback.supabaseAnonKey}
             locale={locale}
           />
         </Suspense>

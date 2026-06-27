@@ -25,8 +25,9 @@ export interface MonetizationConfig {
 
 export interface SiteConfig {
   feedback?: {
-    formspreeId: string
     enabled: boolean
+    supabaseUrl: string
+    supabaseAnonKey: string
   }
   brand: {
     name: string
