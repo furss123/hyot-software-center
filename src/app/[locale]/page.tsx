@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { AdSlot } from '@/components/ads/AdSlot'
-import { formatDate, sumDownloadCounts } from '@/lib/utils'
+import { cn, formatDate, sumDownloadCounts } from '@/lib/utils'
 import { ArrowRight } from 'lucide-react'
 import { SoftwareIcon } from '@/components/software/SoftwareIcon'
 import { DownloadCount } from '@/components/download/DownloadCount'
@@ -48,6 +48,14 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
   const featured = getFeaturedSoftware()
   const latestReleases = getAllLatestReleases().slice(0, 6)
 
+  const viewAllLinkClass = cn(
+    'flex items-center justify-center w-8 h-8 rounded-lg',
+    'text-text-tertiary hover:text-text-primary',
+    'bg-fill-subtle hover:bg-fill-secondary',
+    'border border-border',
+    'transition-all duration-[var(--duration-base)] ease-[var(--ease-fluent)]',
+  )
+
   return (
     <div className="flex flex-col">
       <section className="px-4 pt-16 pb-12">
@@ -76,12 +84,13 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
         <section className="py-16 px-4">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-text-primary">{t('featured')}</h2>
+              <h2 className="text-lg font-semibold text-text-primary">{t('featured')}</h2>
               <Link
                 href={`/${locale}/software`}
-                className="text-sm text-accent hover:opacity-80 transition-opacity flex items-center gap-1"
+                className={viewAllLinkClass}
+                aria-label={t('viewAll')}
               >
-                {t('viewAll')} <ArrowRight size={14} />
+                <ArrowRight size={15} />
               </Link>
             </div>
 
@@ -127,12 +136,13 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
         <section className="py-16 px-4 border-t border-border">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-text-primary">{t('latestReleases')}</h2>
+              <h2 className="text-lg font-semibold text-text-primary">{t('latestReleases')}</h2>
               <Link
                 href={`/${locale}/changelog`}
-                className="text-sm text-accent hover:opacity-80 transition-opacity flex items-center gap-1"
+                className={viewAllLinkClass}
+                aria-label={t('viewAll')}
               >
-                {t('viewAll')} <ArrowRight size={14} />
+                <ArrowRight size={15} />
               </Link>
             </div>
 
