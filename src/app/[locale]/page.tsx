@@ -7,7 +7,7 @@ import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { AdSlot } from '@/components/ads/AdSlot'
 import { formatDate, sumDownloadCounts } from '@/lib/utils'
-import { Github, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { SoftwareIcon } from '@/components/software/SoftwareIcon'
 import { DownloadCount } from '@/components/download/DownloadCount'
 import { getReleasesData } from '@/lib/content/releases'
@@ -45,24 +45,17 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
   setRequestLocale(locale)
   const l = locale as Locale
   const t = await getTranslations('home')
-  const config = getSiteConfig()
   const featured = getFeaturedSoftware()
   const latestReleases = getAllLatestReleases().slice(0, 6)
 
   return (
     <div className="flex flex-col">
-      <section className="relative overflow-hidden py-24 sm:py-32 px-4">
+      <section className="relative overflow-hidden py-12 sm:py-16 px-4">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent" />
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-accent/5 rounded-full blur-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-accent/3 via-transparent to-transparent" />
         </div>
 
         <div className="max-w-7xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-subtle text-accent text-xs font-medium mb-6 opacity-0 animate-fade-in-up">
-            <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-            {config.brand.tagline?.[l] ?? config.brand.tagline?.en}
-          </div>
-
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-text-primary mb-6 leading-tight whitespace-pre-line opacity-0 animate-fade-in-up animate-delay-100">
             {t('hero.title')}
           </h1>
@@ -71,19 +64,12 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
             {t('hero.subtitle')}
           </p>
 
-          <div className="flex items-center justify-center gap-3 flex-wrap opacity-0 animate-fade-in-up animate-delay-300">
+          <div className="flex items-center justify-center opacity-0 animate-fade-in-up animate-delay-300">
             <Link href={`/${locale}/software`}>
               <Button size="lg" icon={<ArrowRight size={18} />}>
                 {t('hero.cta')}
               </Button>
             </Link>
-            {config.brand.github && (
-              <a href={config.brand.github} target="_blank" rel="noopener noreferrer">
-                <Button variant="secondary" size="lg" icon={<Github size={18} />}>
-                  {t('hero.ctaSecondary')}
-                </Button>
-              </a>
-            )}
           </div>
         </div>
       </section>
