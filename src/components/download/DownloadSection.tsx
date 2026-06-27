@@ -31,6 +31,10 @@ export function DownloadSection({ releasesData }: DownloadSectionProps): React.J
   const channels: ReleaseChannel[] = ['stable']
   if (releasesData.latest.beta) channels.push('beta')
 
+  function hasValidSha256(sha256: string): boolean {
+    return sha256.length === 64 && !/^0+$/.test(sha256)
+  }
+
   async function copyToClipboard(text: string): Promise<void> {
     await navigator.clipboard.writeText(text)
     setCopiedHash(text)
@@ -78,38 +82,39 @@ export function DownloadSection({ releasesData }: DownloadSectionProps): React.J
                   className="flex flex-col sm:flex-row sm:items-center gap-3 p-4 rounded-xl bg-fill-subtle border border-border"
                 >
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-medium text-text-primary text-sm">
-                        {asset.type === 'installer' ? t('installer') : t('portable')}
+                    <div className="flex flex-col gap-0.5 mb-1">
+                      <span className="font-medium text-text-primary text-sm truncate">
+                        {asset.filename}
                       </span>
-                      {asset.size !== undefined && (
-                        <span className="text-xs text-text-tertiary">
-                          {formatBytes(asset.size)}
-                        </span>
-                      )}
+                      <span className="text-xs text-text-tertiary">
+                        {asset.type === 'installer' ? t('installer') : t('portable')}
+                        {asset.size !== undefined && ` · ${formatBytes(asset.size)}`}
+                      </span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Shield size={12} className="text-text-tertiary flex-shrink-0" />
-                      <code className="text-xs text-text-tertiary font-mono truncate">
-                        {asset.sha256.slice(0, 16)}...
-                      </code>
-                      <button
-                        type="button"
-                        onClick={() => copyToClipboard(asset.sha256)}
-                        className="flex items-center gap-1 text-xs text-accent hover:opacity-80 transition-opacity flex-shrink-0"
-                        aria-label={t('copySha256')}
-                      >
-                        {copiedHash === asset.sha256 ? (
-                          <>
-                            <Check size={12} /> {t('copied')}
-                          </>
-                        ) : (
-                          <>
-                            <Copy size={12} /> {t('copySha256')}
-                          </>
-                        )}
-                      </button>
-                    </div>
+                    {hasValidSha256(asset.sha256) && (
+                      <div className="flex items-center gap-2">
+                        <Shield size={12} className="text-text-tertiary flex-shrink-0" />
+                        <code className="text-xs text-text-tertiary font-mono truncate">
+                          {asset.sha256.slice(0, 16)}...
+                        </code>
+                        <button
+                          type="button"
+                          onClick={() => copyToClipboard(asset.sha256)}
+                          className="flex items-center gap-1 text-xs text-accent hover:opacity-80 transition-opacity flex-shrink-0"
+                          aria-label={t('copySha256')}
+                        >
+                          {copiedHash === asset.sha256 ? (
+                            <>
+                              <Check size={12} /> {t('copied')}
+                            </>
+                          ) : (
+                            <>
+                              <Copy size={12} /> {t('copySha256')}
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    )}
                   </div>
                   <a href={asset.url} download className="flex-shrink-0">
                     <Button size="sm" icon={<Download size={14} />}>
