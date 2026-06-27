@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "software-releases.schema.json",
+  "title": "SoftwareReleases",
+  "type": "object",
+  "required": ["slug", "releases"],
+  "properties": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "releases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["version", "channel", "publishedAt", "downloadUrl", "changelog"],
+        "properties": {
+          "version": { "type": "string" },
+          "channel": { "type": "string", "enum": ["stable", "beta", "legacy"] },
+          "publishedAt": { "type": "string", "format": "date-time" },
+          "downloadUrl": { "type": "string", "format": "uri" },
+          "changelog": { "$ref": "i18n-string.schema.json" },
+          "sha256": { "type": "string" },
+          "fileSize": { "type": "integer", "minimum": 0 }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

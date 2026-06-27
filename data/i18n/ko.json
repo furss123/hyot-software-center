@@ -1,0 +1,70 @@
+{
+  "nav": {
+    "software": "소프트웨어",
+    "changelog": "변경 내역",
+    "docs": "문서",
+    "faq": "FAQ",
+    "about": "소개"
+  },
+  "home": {
+    "hero": {
+      "title": "당신의 Windows를\n더 스마트하게",
+      "subtitle": "HyoT가 만든 고품질 Windows 유틸리티 소프트웨어를 무료로 다운로드하세요.",
+      "cta": "소프트웨어 둘러보기",
+      "ctaSecondary": "GitHub에서 보기"
+    },
+    "featured": "주요 소프트웨어",
+    "latestReleases": "최근 업데이트",
+    "viewAll": "전체 보기"
+  },
+  "software": {
+    "download": "다운로드",
+    "installer": "설치 파일",
+    "portable": "포터블",
+    "stable": "안정",
+    "beta": "베타",
+    "legacy": "이전 버전",
+    "version": "버전",
+    "releaseDate": "출시일",
+    "requirements": "시스템 요구 사항",
+    "sha256": "SHA256 체크섬",
+    "copySha256": "복사",
+    "copied": "복사됨",
+    "changelog": "변경 내역",
+    "documentation": "문서",
+    "noSoftware": "소프트웨어가 없습니다",
+    "searchPlaceholder": "소프트웨어 검색..."
+  },
+  "search": {
+    "placeholder": "검색어 입력...",
+    "noResults": "결과 없음",
+    "shortcut": "검색",
+    "categories": {
+      "software": "소프트웨어",
+      "docs": "문서",
+      "faq": "자주 묻는 질문",
+      "news": "뉴스"
+    }
+  },
+  "news": {
+    "title": "뉴스",
+    "readMore": "자세히 보기",
+    "backToNews": "← 뉴스 목록",
+    "noNews": "뉴스가 없습니다",
+    "publishedOn": "게시일"
+  },
+  "theme": {
+    "dark": "다크 모드",
+    "light": "라이트 모드",
+    "system": "시스템 설정"
+  },
+  "common": {
+    "loading": "불러오는 중...",
+    "error": "오류가 발생했습니다",
+    "back": "뒤로",
+    "learnMore": "자세히 보기",
+    "viewOnGitHub": "GitHub에서 보기",
+    "downloads": "다운로드",
+    "lastUpdated": "최종 업데이트"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "search": { "status": "enabled", "description": "Client-side Fuse.js search" },
+  "betaChannel": { "status": "enabled", "description": "Beta release downloads" },
+  "analytics": { "status": "enabled", "description": "GitHub download count stats" },
+  "changelog": { "status": "enabled", "description": "Global changelog page" },
+  "docsSearch": { "status": "beta", "description": "Search within documentation" },
+  "autoUpdate": { "status": "experimental", "description": "Auto-update client support" },
+  "userAccentColor": { "status": "experimental", "description": "User-customizable accent" },
+  "nightlyChannel": { "status": "disabled", "description": "Nightly build channel" }
+}

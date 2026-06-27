@@ -1,0 +1,66 @@
+import { setRequestLocale } from 'next-intl/server'
+import { getAllSoftwareSlugs, getSoftwareMeta } from '@/lib/content/software'
+import { getReleasesData } from '@/lib/content/releases'
+import { Badge } from '@/components/ui/Badge'
+import { Card } from '@/components/ui/Card'
+import { formatDate } from '@/lib/utils'
+import type { Locale } from '@/i18n/config'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = { title: 'Changelog' }
+
+interface PageProps {
+  params: Promise<{ locale: string }>
+}
+
+export default async function ChangelogPage({
+  params,
+}: PageProps): Promise<React.JSX.Element> {
+  const { locale } = await params
+  setRequestLocale(locale)
+  const l = locale as Locale
+
+  const slugs = getAllSoftwareSlugs()
+  const allReleases = slugs
+    .flatMap((slug) => {
+      const data = getReleasesData(slug)
+      const meta = getSoftwareMeta(slug)
+      if (!data || !meta) return []
+      return data.releases.map((r) => ({ ...r, slug, appName: meta.name[l] }))
+    })
+    .sort((a, b) => b.releaseDate.localeCompare(a.releaseDate))
+
+  return (
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+      <h1 className="text-3xl font-bold text-text-primary mb-10">Changelog</h1>
+
+      {allReleases.length === 0 ? (
+        <p className="text-text-tertiary">No releases yet.</p>
+      ) : (
+        <div className="space-y-4">
+          {allReleases.map((release, i) => (
+            <Card key={`${release.slug}-${release.version}-${i}`} className="p-6">
+              <div className="flex items-start justify-between gap-4 mb-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="font-semibold text-text-primary">{release.appName}</span>
+                    <Badge variant={release.channel}>{release.channel}</Badge>
+                  </div>
+                  <span className="font-mono text-accent text-sm">v{release.version}</span>
+                </div>
+                <span className="text-xs text-text-tertiary flex-shrink-0">
+                  {formatDate(release.releaseDate, locale)}
+                </span>
+              </div>
+              {release.notes?.[l] && (
+                <div className="text-sm text-text-secondary whitespace-pre-line">
+                  {release.notes[l]}
+                </div>
+              )}
+            </Card>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}

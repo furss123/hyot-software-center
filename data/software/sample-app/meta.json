@@ -1,0 +1,30 @@
+{
+  "slug": "sample-app",
+  "status": "active",
+  "category": "utility",
+  "tags": ["productivity", "system"],
+  "featured": true,
+  "icon": "/icons/sample-app.svg",
+  "banner": "/icons/sample-app.svg",
+  "screenshots": [],
+  "name": { "ko": "샘플 앱", "en": "Sample App" },
+  "description": {
+    "ko": "HyoT Software Center 샘플 애플리케이션입니다. 실제 앱으로 교체해주세요.",
+    "en": "A sample application for HyoT Software Center. Replace with your actual app."
+  },
+  "shortDescription": {
+    "ko": "Windows 유틸리티 샘플",
+    "en": "Windows utility sample"
+  },
+  "requirements": {
+    "os": "Windows 10 22H2+",
+    "arch": ["x64", "arm64"],
+    "ram": "4GB",
+    "disk": "100MB"
+  },
+  "links": {
+    "github": "https://github.com/hyot/sample-app"
+  },
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "software-meta.schema.json",
+  "title": "SoftwareMeta",
+  "type": "object",
+  "required": [
+    "slug",
+    "name",
+    "description",
+    "tagline",
+    "category",
+    "tags",
+    "icon",
+    "screenshots",
+    "githubRepo",
+    "license",
+    "minWindowsVersion",
+    "featured",
+    "createdAt",
+    "updatedAt"
+  ],
+  "properties": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "name": { "$ref": "i18n-string.schema.json" },
+    "description": { "$ref": "i18n-string.schema.json" },
+    "tagline": { "$ref": "i18n-string.schema.json" },
+    "category": { "type": "string" },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "icon": { "type": "string" },
+    "screenshots": { "type": "array", "items": { "type": "string" } },
+    "githubRepo": { "type": "string" },
+    "homepage": { "type": "string", "format": "uri" },
+    "license": { "type": "string" },
+    "minWindowsVersion": { "type": "string" },
+    "featured": { "type": "boolean" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

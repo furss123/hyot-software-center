@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "i18n-string.schema.json",
+  "title": "I18nString",
+  "type": "object",
+  "required": ["ko", "en"],
+  "properties": {
+    "ko": { "type": "string" },
+    "en": { "type": "string" }
+  },
+  "additionalProperties": false
+}

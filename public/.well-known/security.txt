@@ -1,0 +1,2 @@
+Contact: https://github.com/hyot/hyot-software-center/security/advisories/new
+Preferred-Languages: ko, en

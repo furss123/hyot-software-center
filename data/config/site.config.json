@@ -1,0 +1,85 @@
+{
+  "brand": {
+    "name": "HyoT Software Center",
+    "tagline": { "ko": "당신의 Windows를 더 스마트하게", "en": "Make Your Windows Smarter" },
+    "logo": "/assets/logo.svg",
+    "favicon": "/assets/favicon.ico",
+    "url": "https://hyot.github.io",
+    "github": "https://github.com/hyot"
+  },
+  "seo": {
+    "defaultTitle": "HyoT Software Center",
+    "titleTemplate": "%s | HyoT Software Center",
+    "description": {
+      "ko": "HyoT가 만든 Windows 유틸리티 소프트웨어를 무료로 다운로드하세요.",
+      "en": "Download free Windows utility software made by HyoT."
+    },
+    "ogImage": "/assets/og-default.png"
+  },
+  "i18n": {
+    "defaultLocale": "ko",
+    "locales": ["ko", "en"]
+  },
+  "theme": {
+    "defaultMode": "system",
+    "accentColor": "#0078D4"
+  },
+  "download": {
+    "channels": ["stable", "beta"],
+    "showLegacy": false,
+    "checksumAlgorithm": "sha256"
+  },
+  "nav": [
+    { "label": { "ko": "소프트웨어", "en": "Software" }, "href": "/software" },
+    { "label": { "ko": "변경 내역", "en": "Changelog" }, "href": "/changelog" },
+    { "label": { "ko": "문서", "en": "Docs" }, "href": "/docs" },
+    { "label": { "ko": "FAQ", "en": "FAQ" }, "href": "/faq" },
+    { "label": { "ko": "소개", "en": "About" }, "href": "/about" }
+  ],
+  "footer": {
+    "links": [
+      {
+        "group": { "ko": "제품", "en": "Products" },
+        "items": [
+          { "label": { "ko": "소프트웨어", "en": "Software" }, "href": "/software" },
+          { "label": { "ko": "변경 내역", "en": "Changelog" }, "href": "/changelog" }
+        ]
+      },
+      {
+        "group": { "ko": "지원", "en": "Support" },
+        "items": [
+          { "label": { "ko": "문서", "en": "Documentation" }, "href": "/docs" },
+          { "label": { "ko": "FAQ", "en": "FAQ" }, "href": "/faq" },
+          { "label": { "ko": "보안 정책", "en": "Security" }, "href": "/security" }
+        ]
+      },
+      {
+        "group": { "ko": "더 보기", "en": "More" },
+        "items": [
+          { "label": { "ko": "소개", "en": "About" }, "href": "/about" },
+          { "label": { "ko": "GitHub", "en": "GitHub" }, "href": "https://github.com/hyot", "external": true }
+        ]
+      }
+    ],
+    "copyright": {
+      "ko": "© 2024 HyoT. All rights reserved.",
+      "en": "© 2024 HyoT. All rights reserved."
+    }
+  },
+  "monetization": {
+    "enabled": false,
+    "provider": "adsense",
+    "adFreeDownloadPages": true,
+    "lazyLoadAds": true,
+    "positions": {
+      "homeTop": false,
+      "homeBottom": true,
+      "softwareTop": false,
+      "softwareBottom": true,
+      "faq": true,
+      "docs": true,
+      "news": true,
+      "about": true
+    }
+  }
+}

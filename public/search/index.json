@@ -1,0 +1,41 @@
+[
+  {
+    "id": "software-quick-note",
+    "type": "software",
+    "slug": "quick-note",
+    "name_ko": "Quick Note",
+    "name_en": "Quick Note",
+    "description_ko": "시스템 트레이에서 빠르게 메모를 작성하고 관리할 수 있는 Windows 유틸리티입니다. 최소한의 리소스로 언제든지 메모에 빠르게 접근할 수 있습니다.",
+    "description_en": "A lightweight Windows utility for quickly creating and managing notes from the system tray. Access your notes instantly with minimal resource usage.",
+    "tags": [
+      "notes",
+      "utility",
+      "tray"
+    ]
+  },
+  {
+    "id": "software-sample-app",
+    "type": "software",
+    "slug": "sample-app",
+    "name_ko": "샘플 앱",
+    "name_en": "Sample App",
+    "description_ko": "HyoT Software Center 샘플 애플리케이션입니다. 실제 앱으로 교체해주세요.",
+    "description_en": "A sample application for HyoT Software Center. Replace with your actual app.",
+    "tags": [
+      "productivity",
+      "system"
+    ]
+  },
+  {
+    "id": "news-welcome",
+    "type": "news",
+    "slug": "welcome",
+    "name_ko": "HyoT Software Center 오픈",
+    "name_en": "HyoT Software Center is Now Open",
+    "description_ko": "HyoT Software Center가 공식 오픈했습니다. Windows 유틸리티 소프트웨어를 무료로 다운로드하세요.",
+    "description_en": "HyoT Software Center is officially open. Download free Windows utility software.",
+    "tags": [
+      "announcement"
+    ]
+  }
+]

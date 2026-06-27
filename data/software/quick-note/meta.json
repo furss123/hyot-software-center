@@ -1,0 +1,28 @@
+{
+  "slug": "quick-note",
+  "status": "active",
+  "category": "productivity",
+  "tags": ["notes", "utility", "tray"],
+  "featured": true,
+  "name": { "ko": "Quick Note", "en": "Quick Note" },
+  "description": {
+    "ko": "시스템 트레이에서 빠르게 메모를 작성하고 관리할 수 있는 Windows 유틸리티입니다. 최소한의 리소스로 언제든지 메모에 빠르게 접근할 수 있습니다.",
+    "en": "A lightweight Windows utility for quickly creating and managing notes from the system tray. Access your notes instantly with minimal resource usage."
+  },
+  "shortDescription": {
+    "ko": "시스템 트레이 메모 앱",
+    "en": "System tray note-taking app"
+  },
+  "requirements": {
+    "os": "Windows 10 22H2+",
+    "arch": ["x64", "arm64"],
+    "ram": "256MB",
+    "disk": "50MB"
+  },
+  "links": {
+    "github": "https://github.com/hyot/quick-note"
+  },
+  "featured": true,
+  "createdAt": "2024-01-15",
+  "updatedAt": "2024-01-15"
+}

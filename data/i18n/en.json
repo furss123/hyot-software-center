@@ -1,0 +1,70 @@
+{
+  "nav": {
+    "software": "Software",
+    "changelog": "Changelog",
+    "docs": "Docs",
+    "faq": "FAQ",
+    "about": "About"
+  },
+  "home": {
+    "hero": {
+      "title": "Make Your Windows\nSmarter",
+      "subtitle": "Download free, high-quality Windows utility software made by HyoT.",
+      "cta": "Browse Software",
+      "ctaSecondary": "View on GitHub"
+    },
+    "featured": "Featured Software",
+    "latestReleases": "Latest Updates",
+    "viewAll": "View All"
+  },
+  "software": {
+    "download": "Download",
+    "installer": "Installer",
+    "portable": "Portable",
+    "stable": "Stable",
+    "beta": "Beta",
+    "legacy": "Legacy",
+    "version": "Version",
+    "releaseDate": "Release Date",
+    "requirements": "System Requirements",
+    "sha256": "SHA256 Checksum",
+    "copySha256": "Copy",
+    "copied": "Copied",
+    "changelog": "Changelog",
+    "documentation": "Documentation",
+    "noSoftware": "No software found",
+    "searchPlaceholder": "Search software..."
+  },
+  "search": {
+    "placeholder": "Search...",
+    "noResults": "No results",
+    "shortcut": "Search",
+    "categories": {
+      "software": "Software",
+      "docs": "Documentation",
+      "faq": "FAQ",
+      "news": "News"
+    }
+  },
+  "news": {
+    "title": "News",
+    "readMore": "Read more",
+    "backToNews": "← Back to News",
+    "noNews": "No news yet",
+    "publishedOn": "Published"
+  },
+  "theme": {
+    "dark": "Dark Mode",
+    "light": "Light Mode",
+    "system": "System"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "back": "Back",
+    "learnMore": "Learn More",
+    "viewOnGitHub": "View on GitHub",
+    "downloads": "Downloads",
+    "lastUpdated": "Last updated"
+  }
+}

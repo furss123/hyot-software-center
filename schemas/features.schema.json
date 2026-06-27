@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "features.schema.json",
+  "title": "FeatureFlags",
+  "type": "object",
+  "required": ["search", "downloadCounts", "betaChannel", "analytics"],
+  "properties": {
+    "search": { "type": "boolean" },
+    "downloadCounts": { "type": "boolean" },
+    "betaChannel": { "type": "boolean" },
+    "analytics": { "type": "boolean" }
+  },
+  "additionalProperties": false
+}
