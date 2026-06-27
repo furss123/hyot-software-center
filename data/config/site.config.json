@@ -53,16 +53,6 @@
       {
         "group": { "ko": "지원", "en": "Support" },
         "items": []
-      },
-      {
-        "group": { "ko": "더 보기", "en": "More" },
-        "items": [
-          {
-            "label": { "ko": "GitHub", "en": "GitHub" },
-            "href": "https://github.com/furss123/hyot-software-center",
-            "external": true
-          }
-        ]
       }
     ],
     "copyright": {
