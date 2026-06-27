@@ -4,9 +4,12 @@ import path from 'path'
 const REPO_DIR = path.resolve(process.cwd(), '..')
 
 export function gitCommitAndPush(message: string, files: string[]): void {
-  if (files.length === 0) return
-  const filesStr = files.map((f) => `"${f}"`).join(' ')
-  execSync(`git -C "${REPO_DIR}" add ${filesStr}`, { stdio: 'inherit' })
+  if (files.length === 0) {
+    execSync(`git -C "${REPO_DIR}" add -A`, { stdio: 'inherit' })
+  } else {
+    const filesStr = files.map((f) => `"${f}"`).join(' ')
+    execSync(`git -C "${REPO_DIR}" add ${filesStr}`, { stdio: 'inherit' })
+  }
   try {
     execSync(`git -C "${REPO_DIR}" commit -m "${message.replace(/"/g, '\\"')}"`, {
       stdio: 'inherit',

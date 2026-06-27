@@ -18,6 +18,8 @@ export async function GET(request: Request): Promise<NextResponse> {
 }
 
 export async function PUT(request: Request): Promise<NextResponse> {
+  const { searchParams } = new URL(request.url)
+  const noteVersion = searchParams.get('noteVersion')
   const data = (await request.json()) as ReleasesData
 
   if (!data.slug) {
@@ -25,9 +27,12 @@ export async function PUT(request: Request): Promise<NextResponse> {
   }
 
   writeReleases(data.slug, data)
-  gitCommitAndPush(`chore(release): update ${data.slug} releases`, [
-    `data/software/${data.slug}/releases.json`,
-  ])
+
+  const commitMessage = noteVersion
+    ? `docs(release): update notes for ${data.slug} ${noteVersion}`
+    : `chore(release): update ${data.slug} releases`
+
+  gitCommitAndPush(commitMessage, [`data/software/${data.slug}/releases.json`])
 
   return NextResponse.json(data)
 }

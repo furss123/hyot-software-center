@@ -71,3 +71,21 @@ export async function PUT(request: Request): Promise<NextResponse> {
   gitCommitAndPush(`feat(news): update ${body.slug}`, [filepath])
   return NextResponse.json({ ok: true })
 }
+
+export async function DELETE(request: Request): Promise<NextResponse> {
+  const { searchParams } = new URL(request.url)
+  const slug = searchParams.get('slug')
+
+  if (!slug) {
+    return NextResponse.json({ error: 'Missing slug' }, { status: 400 })
+  }
+
+  const { deleteNewsItem } = await import('@/lib/content')
+  const filepath = deleteNewsItem(slug)
+  if (!filepath) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 })
+  }
+
+  gitCommitAndPush(`chore(news): remove ${slug}`, [])
+  return NextResponse.json({ success: true })
+}

@@ -1,6 +1,5 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import { AdminButton } from '@/components/ui/AdminButton'
@@ -9,10 +8,10 @@ import { t } from '@/lib/i18n'
 import type { SoftwareMeta } from '@/types'
 
 export default function SoftwareListPage() {
-  const router = useRouter()
   const [items, setItems] = useState<SoftwareMeta[]>([])
   const [loading, setLoading] = useState(true)
   const [deleting, setDeleting] = useState<string | null>(null)
+  const [toggling, setToggling] = useState<string | null>(null)
 
   useEffect(() => {
     void fetch('/api/software')
@@ -22,7 +21,7 @@ export default function SoftwareListPage() {
   }, [])
 
   async function handleDelete(slug: string): Promise<void> {
-    if (!confirm(`정말 삭제하시겠습니까? ${slug}`)) return
+    if (!confirm(`${t.software.deleteConfirm}\n${slug}`)) return
 
     setDeleting(slug)
     try {
@@ -33,10 +32,35 @@ export default function SoftwareListPage() {
         alert(t.common.error)
         return
       }
-      setItems((prev) => prev.filter((item) => item.slug !== slug))
-      router.refresh()
+      window.location.reload()
     } finally {
       setDeleting(null)
+    }
+  }
+
+  async function toggleFeatured(item: SoftwareMeta): Promise<void> {
+    const updated = { ...item, featured: !item.featured }
+    setToggling(item.slug)
+    setItems((prev) => prev.map((i) => (i.slug === item.slug ? updated : i)))
+
+    try {
+      const res = await fetch('/api/software?featuredToggle=1', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updated),
+      })
+      if (!res.ok) {
+        setItems((prev) => prev.map((i) => (i.slug === item.slug ? item : i)))
+        alert(t.common.error)
+        return
+      }
+      const saved = (await res.json()) as SoftwareMeta
+      setItems((prev) => prev.map((i) => (i.slug === item.slug ? saved : i)))
+    } catch {
+      setItems((prev) => prev.map((i) => (i.slug === item.slug ? item : i)))
+      alert(t.common.error)
+    } finally {
+      setToggling(null)
     }
   }
 
@@ -67,6 +91,7 @@ export default function SoftwareListPage() {
               <th>{t.software.nameEn}</th>
               <th>{t.software.status}</th>
               <th>{t.software.category}</th>
+              <th>{t.software.featured}</th>
               <th />
             </tr>
           </thead>
@@ -78,6 +103,15 @@ export default function SoftwareListPage() {
                 <td>{t.software.statusOptions[item.status] ?? item.status}</td>
                 <td>{t.software.categoryOptions[item.category] ?? item.category}</td>
                 <td>
+                  <AdminButton
+                    variant="secondary"
+                    disabled={toggling === item.slug}
+                    onClick={() => void toggleFeatured(item)}
+                  >
+                    {item.featured ? '⭐' : '☆'}
+                  </AdminButton>
+                </td>
+                <td>
                   <div style={{ display: 'flex', gap: '0.5rem' }}>
                     <a href={`/software/${item.slug}`} style={{ textDecoration: 'none' }}>
                       <AdminButton variant="secondary">{t.software.edit}</AdminButton>
@@ -87,7 +121,7 @@ export default function SoftwareListPage() {
                       disabled={deleting === item.slug}
                       onClick={() => void handleDelete(item.slug)}
                     >
-                      {t.common.delete}
+                      {deleting === item.slug ? t.software.deleting : t.common.delete}
                     </AdminButton>
                   </div>
                 </td>

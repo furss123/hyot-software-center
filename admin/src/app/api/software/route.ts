@@ -1,7 +1,9 @@
+import fs from 'fs'
+import path from 'path'
 import { NextResponse } from 'next/server'
 
 import { gitCommitAndPush } from '@/lib/git'
-import { deleteSoftware, getAllSlugs, readMeta, writeMeta, writeReleases } from '@/lib/data'
+import { getAllSlugs, getDataDir, readMeta, writeMeta, writeReleases } from '@/lib/data'
 import type { SoftwareMeta } from '@/types'
 
 export async function GET(request: Request): Promise<NextResponse> {
@@ -56,6 +58,8 @@ export async function POST(request: Request): Promise<NextResponse> {
 }
 
 export async function PUT(request: Request): Promise<NextResponse> {
+  const { searchParams } = new URL(request.url)
+  const featuredToggle = searchParams.get('featuredToggle') === '1'
   const meta = (await request.json()) as SoftwareMeta
 
   if (!readMeta(meta.slug)) {
@@ -68,9 +72,12 @@ export async function PUT(request: Request): Promise<NextResponse> {
   }
 
   writeMeta(meta.slug, updated)
-  gitCommitAndPush(`feat(software): update ${meta.slug} meta`, [
-    `data/software/${meta.slug}/meta.json`,
-  ])
+
+  const commitMessage = featuredToggle
+    ? `feat(software): toggle featured for ${meta.slug}`
+    : `feat(software): update ${meta.slug} meta`
+
+  gitCommitAndPush(commitMessage, [`data/software/${meta.slug}/meta.json`])
 
   return NextResponse.json(updated)
 }
@@ -83,13 +90,13 @@ export async function DELETE(request: Request): Promise<NextResponse> {
     return NextResponse.json({ error: 'Missing slug' }, { status: 400 })
   }
 
-  if (!readMeta(slug)) {
+  const softwarePath = path.join(getDataDir(), 'software', slug)
+  if (!fs.existsSync(softwarePath)) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
   }
 
-  deleteSoftware(slug)
+  fs.rmSync(softwarePath, { recursive: true, force: true })
+  gitCommitAndPush(`chore(software): remove ${slug}`, [])
 
-  gitCommitAndPush(`chore(software): remove ${slug}`, [`data/software/${slug}`])
-
-  return NextResponse.json({ ok: true })
+  return NextResponse.json({ success: true })
 }

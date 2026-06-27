@@ -48,7 +48,7 @@ export function deleteSoftware(slug: string): void {
   if (!fs.existsSync(dir)) {
     throw new Error('Not found')
   }
-  fs.rmSync(dir, { recursive: true })
+  fs.rmSync(dir, { recursive: true, force: true })
 }
 
 export function readFeatureFlags(): FeatureFlags {

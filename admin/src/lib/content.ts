@@ -62,6 +62,14 @@ export function getNewsItemAdmin(slug: string): NewsItemAdmin | null {
   return null
 }
 
+export function deleteNewsItem(slug: string): string | null {
+  const item = getNewsItemAdmin(slug)
+  if (!item) return null
+  const filepath = path.join(getNewsDir(), item.filename)
+  fs.rmSync(filepath, { force: true })
+  return `data/content/news/${item.filename}`
+}
+
 export function writeNewsItem(
   data: Omit<NewsItemAdmin, 'filename'>,
   existingFilename?: string,

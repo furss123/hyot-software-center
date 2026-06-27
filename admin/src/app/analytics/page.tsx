@@ -1,5 +1,6 @@
 import { AdminCard } from '@/components/ui/AdminCard'
 import { getAllSlugs, readReleases } from '@/lib/data'
+import { t } from '@/lib/i18n'
 
 export default function AnalyticsPage() {
   const rows = getAllSlugs().map((slug) => {
@@ -20,18 +21,16 @@ export default function AnalyticsPage() {
 
   return (
     <div>
-      <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>Analytics</h1>
-      <p style={{ fontSize: '0.875rem', color: '#A0A0A0', marginBottom: '1.5rem' }}>
-        Data from releases.json. Sync releases to update counts.
-      </p>
+      <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>{t.analytics.title}</h1>
+      <p style={{ fontSize: '0.875rem', color: '#A0A0A0', marginBottom: '1.5rem' }}>{t.analytics.note}</p>
       <AdminCard>
         <table>
           <thead>
             <tr>
-              <th>Software</th>
-              <th>Total downloads</th>
-              <th>Latest version</th>
-              <th>Release date</th>
+              <th>{t.analytics.software}</th>
+              <th>{t.analytics.totalDownloads}</th>
+              <th>{t.analytics.latestVersion}</th>
+              <th>{t.analytics.releaseDate}</th>
             </tr>
           </thead>
           <tbody>

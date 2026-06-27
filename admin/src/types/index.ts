@@ -21,6 +21,8 @@ export interface SoftwareMeta {
   category: SoftwareCategory
   tags: string[]
   featured: boolean
+  icon?: string
+  banner?: string
   name: I18nString
   description: I18nString
   shortDescription: I18nString

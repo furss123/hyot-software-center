@@ -1,5 +1,6 @@
 import { AdminCard } from '@/components/ui/AdminCard'
 import { getAllSlugs, readReleases } from '@/lib/data'
+import { t } from '@/lib/i18n'
 
 export default function ReleasesPage() {
   const rows = getAllSlugs()
@@ -18,16 +19,16 @@ export default function ReleasesPage() {
 
   return (
     <div>
-      <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>Releases</h1>
+      <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>{t.releases.title}</h1>
       <AdminCard>
         <table>
           <thead>
             <tr>
-              <th>Software</th>
-              <th>Version</th>
-              <th>Channel</th>
-              <th>Date</th>
-              <th>Assets</th>
+              <th>{t.nav.software}</th>
+              <th>{t.releases.version}</th>
+              <th>{t.releases.channel}</th>
+              <th>{t.releases.date}</th>
+              <th>{t.releases.assets}</th>
             </tr>
           </thead>
           <tbody>
@@ -37,7 +38,7 @@ export default function ReleasesPage() {
                   <a href={`/releases/${row.slug}`}>{row.slug}</a>
                 </td>
                 <td style={{ fontFamily: 'monospace' }}>{row.version}</td>
-                <td>{row.channel}</td>
+                <td>{t.releases.channelOptions[row.channel] ?? row.channel}</td>
                 <td>{row.releaseDate}</td>
                 <td>{row.assetsCount}</td>
               </tr>
