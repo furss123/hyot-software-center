@@ -1,8 +1,33 @@
 {
   "slug": "bidanwin",
   "latest": {
-    "stable": null,
+    "stable": "0.1.0",
     "beta": null
   },
-  "releases": []
+  "releases": [
+    {
+      "version": "0.1.0",
+      "channel": "stable",
+      "releaseDate": "2026-06-27",
+      "githubTag": "v0.1.0",
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "BidanWin.Setup.0.1.0.exe",
+          "url": "https://github.com/furss123/bidanwin/releases/download/v0.1.0/BidanWin.Setup.0.1.0.exe",
+          "size": 87889688,
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "downloadCount": 0
+        },
+        {
+          "type": "checksum",
+          "filename": "BidanWin.Setup.0.1.0.exe.blockmap",
+          "url": "https://github.com/furss123/bidanwin/releases/download/v0.1.0/BidanWin.Setup.0.1.0.exe.blockmap",
+          "size": 93506,
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "downloadCount": 0
+        }
+      ]
+    }
+  ]
 }

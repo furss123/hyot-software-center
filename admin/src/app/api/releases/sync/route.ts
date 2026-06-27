@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 
-import { readReleases, writeReleases } from '@/lib/data'
+import { gitCommitAndPush } from '@/lib/git'
+import { readMeta, readReleases, writeReleases } from '@/lib/data'
 import type { Release, ReleaseAsset, ReleaseChannel, ReleasesData } from '@/types'
 
 type GitHubRelease = {
@@ -64,13 +65,18 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 
   const token = process.env.GITHUB_TOKEN
-  const owner = process.env.GITHUB_OWNER ?? 'hyot'
+  const owner = process.env.GITHUB_OWNER ?? 'furss123'
 
   if (!token) {
     return NextResponse.json({ error: 'GITHUB_TOKEN not configured' }, { status: 500 })
   }
 
-  const res = await fetch(`https://api.github.com/repos/${owner}/${slug}/releases`, {
+  const meta = readMeta(slug)
+  const repoPath = meta?.githubRepo?.includes('/')
+    ? meta.githubRepo
+    : `${owner}/${slug}`
+
+  const res = await fetch(`https://api.github.com/repos/${repoPath}/releases`, {
     headers: {
       Authorization: `Bearer ${token}`,
       Accept: 'application/vnd.github+json',
@@ -128,5 +134,8 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 
   writeReleases(slug, updated)
+  gitCommitAndPush(`chore(release): sync ${slug} from GitHub`, [
+    `data/software/${slug}/releases.json`,
+  ])
   return NextResponse.json(updated)
 }
