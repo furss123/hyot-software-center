@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/Badge'
 import { Card } from '@/components/ui/Card'
 import { Download, Copy, Check, Shield } from 'lucide-react'
 import { formatBytes } from '@/lib/utils'
-import type { ReleasesData, ReleaseChannel } from '@/types'
+import type { ReleasesData } from '@/types'
 import { cn } from '@/lib/utils'
 
 interface DownloadSectionProps {
@@ -15,26 +15,25 @@ interface DownloadSectionProps {
   locale: string
 }
 
+type DownloadChannel = 'stable' | 'beta'
+
 export function DownloadSection({ releasesData }: DownloadSectionProps): React.JSX.Element {
   const t = useTranslations('software')
   const [copiedHash, setCopiedHash] = useState<string | null>(null)
 
-  const channels: ReleaseChannel[] = ['stable']
+  const channels: DownloadChannel[] = ['stable']
   if (releasesData.latest.beta) channels.push('beta')
 
-  const defaultChannel: ReleaseChannel =
+  const defaultChannel: DownloadChannel =
     releasesData.latest.stable !== null
       ? 'stable'
       : releasesData.latest.beta !== null
         ? 'beta'
         : 'stable'
 
-  const [activeChannel, setActiveChannel] = useState<ReleaseChannel>(defaultChannel)
+  const [activeChannel, setActiveChannel] = useState<DownloadChannel>(defaultChannel)
 
-  const latestVersion =
-    activeChannel === 'legacy'
-      ? null
-      : releasesData.latest[activeChannel]
+  const latestVersion = releasesData.latest[activeChannel]
   const activeRelease = latestVersion
     ? releasesData.releases.find((r) => r.version === latestVersion)
     : null
