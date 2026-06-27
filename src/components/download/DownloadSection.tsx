@@ -17,8 +17,19 @@ interface DownloadSectionProps {
 
 export function DownloadSection({ releasesData }: DownloadSectionProps): React.JSX.Element {
   const t = useTranslations('software')
-  const [activeChannel, setActiveChannel] = useState<ReleaseChannel>('stable')
   const [copiedHash, setCopiedHash] = useState<string | null>(null)
+
+  const channels: ReleaseChannel[] = ['stable']
+  if (releasesData.latest.beta) channels.push('beta')
+
+  const defaultChannel: ReleaseChannel =
+    releasesData.latest.stable !== null
+      ? 'stable'
+      : releasesData.latest.beta !== null
+        ? 'beta'
+        : 'stable'
+
+  const [activeChannel, setActiveChannel] = useState<ReleaseChannel>(defaultChannel)
 
   const latestVersion =
     activeChannel === 'legacy'
@@ -28,8 +39,7 @@ export function DownloadSection({ releasesData }: DownloadSectionProps): React.J
     ? releasesData.releases.find((r) => r.version === latestVersion)
     : null
 
-  const channels: ReleaseChannel[] = ['stable']
-  if (releasesData.latest.beta) channels.push('beta')
+  const visibleChannels = channels.filter((ch) => releasesData.latest[ch] !== null)
 
   function hasValidSha256(sha256: string): boolean {
     return sha256.length === 64 && !/^0+$/.test(sha256)
@@ -45,9 +55,9 @@ export function DownloadSection({ releasesData }: DownloadSectionProps): React.J
     <Card className="p-6">
       <h2 className="font-semibold text-text-primary mb-4">{t('download')}</h2>
 
-      {channels.length > 1 && (
+      {visibleChannels.length > 1 && (
         <div className="flex gap-1 p-1 bg-fill-subtle rounded-lg mb-5 w-fit">
-          {channels.map((ch) => (
+          {visibleChannels.map((ch) => (
             <button
               key={ch}
               type="button"

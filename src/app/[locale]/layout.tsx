@@ -78,7 +78,7 @@ export default async function LocaleLayout({
             <SearchModalHost locale={locale}>
               <Header config={config} locale={locale} />
               <main className="flex-1">{children}</main>
-              <Footer config={config} locale={locale} />
+              <Footer />
               <BackToTop />
             </SearchModalHost>
           </AdProvider>
