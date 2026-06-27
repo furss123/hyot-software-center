@@ -10,6 +10,7 @@ const navLinks = [
   { href: '/config', label: t.nav.config },
   { href: '/features', label: t.nav.features },
   { href: '/analytics', label: t.nav.analytics },
+  { href: '/feedback', label: t.nav.feedback },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

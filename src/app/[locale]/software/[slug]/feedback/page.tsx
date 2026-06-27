@@ -16,22 +16,6 @@ interface PageProps {
   params: Promise<{ locale: string; slug: string }>
 }
 
-function bugReportUrl(repo: string): string {
-  const params = new URLSearchParams({
-    template: 'bug_report.md',
-    labels: 'bug',
-  })
-  return `https://github.com/${repo}/issues/new?${params.toString()}`
-}
-
-function featureRequestUrl(repo: string): string {
-  const params = new URLSearchParams({
-    template: 'feature_request.md',
-    labels: 'enhancement',
-  })
-  return `https://github.com/${repo}/issues/new?${params.toString()}`
-}
-
 export async function generateStaticParams(): Promise<Array<{ locale: string; slug: string }>> {
   const slugs = getAllSoftwareSlugs()
   return locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })))
@@ -65,7 +49,8 @@ export default async function SoftwareFeedbackPage({
   const app = getSoftwareMeta(slug)
   if (!app) notFound()
 
-  const hasRepo = Boolean(app.githubRepo)
+  const config = getSiteConfig()
+  const feedbackEnabled = config.feedback?.enabled ?? false
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
@@ -86,50 +71,15 @@ export default async function SoftwareFeedbackPage({
         </div>
       </div>
 
-      {hasRepo && app.githubRepo ? (
-        <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-            <Card className="p-6 flex flex-col">
-              <span className="text-3xl mb-3" aria-hidden>
-                🐛
-              </span>
-              <h2 className="font-semibold text-text-primary text-lg mb-2">{t('bugReport')}</h2>
-              <p className="text-text-secondary text-sm mb-4 flex-1">{t('bugDesc')}</p>
-              <a href={bugReportUrl(app.githubRepo)} target="_blank" rel="noopener noreferrer">
-                <Button variant="primary">{t('bugButton')}</Button>
-              </a>
-            </Card>
-
-            <Card className="p-6 flex flex-col">
-              <span className="text-3xl mb-3" aria-hidden>
-                💡
-              </span>
-              <h2 className="font-semibold text-text-primary text-lg mb-2">{t('featureRequest')}</h2>
-              <p className="text-text-secondary text-sm mb-4 flex-1">{t('featureDesc')}</p>
-              <a href={featureRequestUrl(app.githubRepo)} target="_blank" rel="noopener noreferrer">
-                <Button variant="secondary">{t('featureButton')}</Button>
-              </a>
-            </Card>
-          </div>
-
-          <Card className="p-6 mb-6">
-            <p className="text-text-secondary text-sm mb-4">{t('viewIssuesDesc')}</p>
-            <a
-              href={`https://github.com/${app.githubRepo}/issues`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button variant="ghost">{t('viewIssues')}</Button>
-            </a>
-          </Card>
-
-          <div className="bg-fill-subtle rounded-xl p-4 flex gap-3 items-start">
-            <span className="text-xl shrink-0" aria-hidden>
-              ℹ️
-            </span>
-            <p className="text-text-secondary text-sm">{t('githubNote')}</p>
-          </div>
-        </>
+      {feedbackEnabled ? (
+        <Card className="p-8 text-center">
+          <p className="text-text-secondary mb-6">{t('softwareDesc')}</p>
+          <a href={`/${locale}/feedback?software=${slug}`}>
+            <Button variant="primary" size="lg">
+              {t('softwareButton')}
+            </Button>
+          </a>
+        </Card>
       ) : (
         <Card className="p-8 text-center">
           <p className="text-text-secondary">{t('notReady')}</p>

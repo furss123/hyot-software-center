@@ -5,9 +5,10 @@ const BASE = 'http://localhost:3000'
 const ROUTES = [
   '/ko',
   '/ko/software',
-  '/ko/software/quick-note',
+  '/ko/software/bidanwin',
+  '/ko/feedback',
   '/ko/changelog',
-  '/ko/software/quick-note/feedback',
+  '/ko/software/bidanwin/feedback',
 ]
 
 async function main(): Promise<void> {

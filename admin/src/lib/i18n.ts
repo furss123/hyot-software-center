@@ -7,6 +7,7 @@ export const ko = {
     config: '설정',
     features: '기능 플래그',
     analytics: '통계',
+    feedback: '건의함',
   },
   dashboard: {
     title: '대시보드',
@@ -212,7 +213,9 @@ export const ko = {
     success: '배포 성공',
     failure: '배포 실패',
     inProgress: '배포 중',
-    noToken: '⚠️ GITHUB_TOKEN 설정 필요',
+    noToken: '⚠️ admin/.env.local에 GITHUB_TOKEN을 설정하세요',
+    invalidToken: '⚠️ GITHUB_TOKEN이 유효하지 않습니다. 새 토큰을 발급해 주세요 (actions:read 권한 필요)',
+    forbidden: '⚠️ GITHUB_TOKEN에 Actions 읽기 권한이 없습니다',
     noRuns: '배포 기록이 없습니다',
   },
   actions: {
@@ -224,6 +227,23 @@ export const ko = {
     rebuildDone: '✅ 완료',
     rebuildFailOk: '❌ 실패',
     viewSite: '사이트에서 보기',
+  },
+  feedback: {
+    title: '건의함',
+    all: '전체',
+    bug: '버그 제보',
+    feature: '기능 건의',
+    other: '기타',
+    empty: '건의사항이 없습니다',
+    noKey: 'FORMSPREE_API_KEY 설정 필요',
+    loading: '불러오는 중...',
+    date: '날짜',
+    type: '유형',
+    software: '프로그램',
+    title2: '제목',
+    contact: '연락처',
+    content: '내용',
+    refresh: '새로고침',
   },
 }
 

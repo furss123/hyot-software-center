@@ -55,7 +55,13 @@ export function DeployStatus(): React.JSX.Element {
       {!loading && error === 'no_token' && (
         <p style={{ fontSize: '0.875rem', color: '#C42B1C' }}>{t.deploy.noToken}</p>
       )}
-      {!loading && error && error !== 'no_token' && (
+      {!loading && error === 'unauthorized' && (
+        <p style={{ fontSize: '0.875rem', color: '#C42B1C' }}>{t.deploy.invalidToken}</p>
+      )}
+      {!loading && error === 'forbidden' && (
+        <p style={{ fontSize: '0.875rem', color: '#C42B1C' }}>{t.deploy.forbidden}</p>
+      )}
+      {!loading && error && !['no_token', 'unauthorized', 'forbidden'].includes(error) && (
         <p style={{ fontSize: '0.875rem', color: '#C42B1C' }}>{t.common.error}</p>
       )}
       {!loading && !error && runs.length === 0 && (

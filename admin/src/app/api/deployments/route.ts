@@ -31,7 +31,9 @@ export async function GET(): Promise<NextResponse> {
     )
 
     if (!res.ok) {
-      return NextResponse.json({ error: 'fetch_failed', runs: [] }, { status: res.status })
+      const error =
+        res.status === 401 ? 'unauthorized' : res.status === 403 ? 'forbidden' : 'fetch_failed'
+      return NextResponse.json({ error, runs: [] }, { status: res.status })
     }
 
     const data = (await res.json()) as { workflow_runs: GitHubRun[] }

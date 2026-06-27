@@ -24,6 +24,10 @@ export interface MonetizationConfig {
 }
 
 export interface SiteConfig {
+  feedback?: {
+    formspreeId: string
+    enabled: boolean
+  }
   brand: {
     name: string
     tagline?: I18nString

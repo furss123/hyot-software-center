@@ -22,6 +22,12 @@ const MonetizationSchema = z.object({
 })
 
 const SiteConfigSchema = z.object({
+  feedback: z
+    .object({
+      formspreeId: z.string().min(1),
+      enabled: z.boolean(),
+    })
+    .optional(),
   brand: z.object({
     name: z.string().min(1),
     tagline: i18nString.optional(),

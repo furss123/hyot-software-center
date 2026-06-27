@@ -1,4 +1,8 @@
 {
+  "feedback": {
+    "formspreeId": "maqgjyyo",
+    "enabled": true
+  },
   "brand": {
     "name": "HyoT Software Center",
     "tagline": { "ko": "당신의 Windows를 더 스마트하게", "en": "Make Your Windows Smarter" },
