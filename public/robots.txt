@@ -2,5 +2,5 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://hyot.github.io/sitemap.xml
-Feed: https://hyot.github.io/feed.xml
+Sitemap: https://furss123.github.io/hyot-software-center/sitemap.xml
+Feed: https://furss123.github.io/hyot-software-center/feed.xml
