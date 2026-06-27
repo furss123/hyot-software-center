@@ -44,7 +44,7 @@ export default function SoftwareListPage() {
     setItems((prev) => prev.map((i) => (i.slug === item.slug ? updated : i)))
 
     try {
-      const res = await fetch('/api/software?featuredToggle=1', {
+      const res = await fetch('/api/software', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updated),
@@ -75,7 +75,7 @@ export default function SoftwareListPage() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          marginBottom: '1.5rem',
+          marginBottom: '0.5rem',
         }}
       >
         <h1 style={{ fontSize: '1.5rem', fontWeight: 700 }}>{t.software.title}</h1>
@@ -83,52 +83,87 @@ export default function SoftwareListPage() {
           <AdminButton variant="primary">{t.software.addNew}</AdminButton>
         </a>
       </div>
+      <p style={{ fontSize: '0.875rem', color: '#A0A0A0', marginBottom: '1.5rem' }}>
+        {items.length}
+        {t.software.count}
+      </p>
+      <div
+        style={{
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
+          marginBottom: '1.5rem',
+        }}
+      />
       <AdminCard className="">
-        <table>
-          <thead>
-            <tr>
-              <th>{t.software.slug}</th>
-              <th>{t.software.nameEn}</th>
-              <th>{t.software.status}</th>
-              <th>{t.software.category}</th>
-              <th>{t.software.featured}</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            {items.map((item) => (
-              <tr key={item.slug}>
-                <td style={{ fontFamily: 'monospace' }}>{item.slug}</td>
-                <td>{item.name.en}</td>
-                <td>{t.software.statusOptions[item.status] ?? item.status}</td>
-                <td>{t.software.categoryOptions[item.category] ?? item.category}</td>
-                <td>
-                  <AdminButton
-                    variant="secondary"
-                    disabled={toggling === item.slug}
-                    onClick={() => void toggleFeatured(item)}
-                  >
-                    {item.featured ? '⭐' : '☆'}
-                  </AdminButton>
-                </td>
-                <td>
-                  <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <a href={`/software/${item.slug}`} style={{ textDecoration: 'none' }}>
-                      <AdminButton variant="secondary">{t.software.edit}</AdminButton>
-                    </a>
-                    <AdminButton
-                      variant="danger"
-                      disabled={deleting === item.slug}
-                      onClick={() => void handleDelete(item.slug)}
-                    >
-                      {deleting === item.slug ? t.software.deleting : t.common.delete}
-                    </AdminButton>
-                  </div>
-                </td>
+        {items.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '4rem', color: '#686868' }}>
+            {t.software.empty}
+          </div>
+        ) : (
+          <table className="admin-table">
+            <colgroup>
+              <col style={{ width: '20%' }} />
+              <col style={{ width: '30%' }} />
+              <col style={{ width: '15%' }} />
+              <col style={{ width: '15%' }} />
+              <col style={{ width: '10%' }} />
+              <col style={{ width: '10%' }} />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>{t.software.slug}</th>
+                <th>{t.software.nameEn}</th>
+                <th>{t.software.status}</th>
+                <th>{t.software.category}</th>
+                <th>{t.software.featured}</th>
+                <th />
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {items.map((item) => (
+                <tr key={item.slug}>
+                  <td style={{ fontFamily: 'monospace' }}>{item.slug}</td>
+                  <td>{item.name.en}</td>
+                  <td>{t.software.statusOptions[item.status] ?? item.status}</td>
+                  <td>{t.software.categoryOptions[item.category] ?? item.category}</td>
+                  <td>
+                    <button
+                      type="button"
+                      disabled={toggling === item.slug}
+                      onClick={() => void toggleFeatured(item)}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: toggling === item.slug ? 'not-allowed' : 'pointer',
+                        fontSize: '1.25rem',
+                        lineHeight: 1,
+                        padding: '0.25rem',
+                        color: item.featured ? '#F9C74F' : '#686868',
+                        opacity: toggling === item.slug ? 0.5 : 1,
+                      }}
+                      aria-label={item.featured ? t.software.featuredOn : t.software.featuredOff}
+                    >
+                      {item.featured ? '⭐' : '☆'}
+                    </button>
+                  </td>
+                  <td>
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                      <a href={`/software/${item.slug}`} style={{ textDecoration: 'none' }}>
+                        <AdminButton variant="secondary">{t.software.edit}</AdminButton>
+                      </a>
+                      <AdminButton
+                        variant="danger"
+                        disabled={deleting === item.slug}
+                        onClick={() => void handleDelete(item.slug)}
+                      >
+                        {deleting === item.slug ? t.software.deleting : t.common.delete}
+                      </AdminButton>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </AdminCard>
     </div>
   )

@@ -34,3 +34,6 @@ th {
   color: #a0a0a0;
   font-weight: 500;
 }
+.admin-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}

@@ -8,6 +8,7 @@ export default function AdminDashboardPage() {
   const slugs = getAllSlugs()
   const metas = slugs.map((s) => readMeta(s)).filter(Boolean)
   const totalSoftware = metas.length
+  const featuredSoftware = metas.filter((m) => m?.featured).length
   const totalReleases = slugs.reduce((sum, slug) => {
     const data = readReleases(slug)
     return sum + (data?.releases.length ?? 0)
@@ -23,35 +24,30 @@ export default function AdminDashboardPage() {
     )
   }, 0)
 
+  const stats = [
+    { label: t.dashboard.totalSoftware, value: totalSoftware },
+    { label: t.dashboard.totalReleases, value: totalReleases },
+    { label: t.dashboard.totalDownloads, value: totalDownloads.toLocaleString() },
+    { label: t.dashboard.featuredSoftware, value: featuredSoftware },
+  ]
+
   return (
     <div>
       <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '2rem' }}>{t.dashboard.title}</h1>
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gridTemplateColumns: 'repeat(2, 1fr)',
           gap: '1rem',
           marginBottom: '2rem',
         }}
       >
-        <AdminCard>
-          <p style={{ fontSize: '0.875rem', color: '#A0A0A0', marginBottom: '0.25rem' }}>
-            {t.dashboard.totalSoftware}
-          </p>
-          <p style={{ fontSize: '2rem', fontWeight: 700 }}>{totalSoftware}</p>
-        </AdminCard>
-        <AdminCard>
-          <p style={{ fontSize: '0.875rem', color: '#A0A0A0', marginBottom: '0.25rem' }}>
-            {t.dashboard.totalReleases}
-          </p>
-          <p style={{ fontSize: '2rem', fontWeight: 700 }}>{totalReleases}</p>
-        </AdminCard>
-        <AdminCard>
-          <p style={{ fontSize: '0.875rem', color: '#A0A0A0', marginBottom: '0.25rem' }}>
-            {t.dashboard.totalDownloads}
-          </p>
-          <p style={{ fontSize: '2rem', fontWeight: 700 }}>{totalDownloads.toLocaleString()}</p>
-        </AdminCard>
+        {stats.map(({ label, value }) => (
+          <AdminCard key={label}>
+            <p style={{ fontSize: '2rem', fontWeight: 700, color: '#0078D4' }}>{value}</p>
+            <p style={{ fontSize: '0.875rem', color: '#A0A0A0', marginTop: '0.25rem' }}>{label}</p>
+          </AdminCard>
+        ))}
       </div>
       <p style={{ fontSize: '0.875rem', color: '#A0A0A0', marginBottom: '0.75rem' }}>{t.dashboard.quickLinks}</p>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
