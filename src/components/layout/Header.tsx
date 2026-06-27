@@ -42,9 +42,12 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
           href={`/${locale}`}
           className="flex items-center gap-2.5 text-text-primary hover:opacity-80 transition-opacity"
         >
-          <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
-            <span className="text-white text-sm font-bold">H</span>
-          </div>
+          <img
+            src="/hyot-software-center/assets/logo.png"
+            alt="HyoT"
+            height={36}
+            style={{ height: '36px', width: 'auto' }}
+          />
           <span className="hidden sm:block text-base font-semibold">{config.brand.name}</span>
         </Link>
 
