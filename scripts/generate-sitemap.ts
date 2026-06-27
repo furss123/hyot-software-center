@@ -8,7 +8,7 @@ const config = getSiteConfig()
 const BASE = config.brand.url
 const locales = ['ko', 'en']
 
-const staticRoutes = ['', '/software', '/changelog', '/security', '/feedback']
+const staticRoutes = ['', '/software', '/changelog', '/feedback']
 
 const software = getAllSoftware()
 

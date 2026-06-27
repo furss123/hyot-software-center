@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import { cn } from '@/lib/utils'
 
@@ -15,6 +15,7 @@ type SoftwareTabsProps = {
 
 export function SoftwareTabs({ tabs, locale, slug }: SoftwareTabsProps): React.JSX.Element {
   const router = useRouter()
+  const pathname = usePathname()
   const searchParams = useSearchParams()
   const activeTab = searchParams.get('tab') ?? 'overview'
 
@@ -36,9 +37,13 @@ export function SoftwareTabs({ tabs, locale, slug }: SoftwareTabsProps): React.J
     <div className="flex gap-1 border-b border-border mb-8 overflow-x-auto">
       {tabs.map((tab) => {
         if (tab.href) {
+          const isActive = pathname.includes(`/software/${slug}/feedback`)
           return (
-            <Link key={tab.id} href={tab.href} className={tabClass(false)}>
+            <Link key={tab.id} href={tab.href} className={cn(tabClass(isActive), 'relative')}>
               {tab.label}
+              {isActive && (
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent rounded-full" />
+              )}
             </Link>
           )
         }

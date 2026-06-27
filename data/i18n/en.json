@@ -52,7 +52,8 @@
     "tabs": {
       "overview": "Overview",
       "changelog": "Changelog",
-      "documentation": "Documentation"
+      "documentation": "Documentation",
+      "feedbackTab": "Bug Report & Feedback"
     },
     "categories": {
       "utility": "Utility",
@@ -159,6 +160,9 @@
     "validTitle": "Please enter a title",
     "validContent": "Please enter at least 10 characters",
     "breadcrumb": "Feedback",
+    "softwarePageTitle": "Bug Report & Feedback",
+    "softwarePageSubtitle": "Share any issues or ideas — no login required.",
+    "softwarePageNote": "💬 Your feedback goes directly to the developer. Leave your contact if you'd like a response.",
     "notReady": "Feedback channel coming soon.",
     "softwareButton": "Give feedback on this app",
     "softwareDesc": "Report bugs, request features, or share other feedback. No login required."

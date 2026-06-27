@@ -1,12 +1,12 @@
+import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import type { Metadata } from 'next'
 
+import { FeedbackForm } from '@/components/feedback/FeedbackForm'
 import { SoftwareIcon } from '@/components/software/SoftwareIcon'
-import { Button } from '@/components/ui/Button'
-import { Card } from '@/components/ui/Card'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
-import { getAllSoftwareSlugs, getSoftwareMeta } from '@/lib/content/software'
+import { getAllSoftware, getAllSoftwareSlugs, getSoftwareMeta } from '@/lib/content/software'
 import { getSiteConfig } from '@/lib/content/config'
 import { pageMetadata } from '@/lib/seo/meta'
 import { locales } from '@/i18n/config'
@@ -29,8 +29,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const t = await getTranslations('feedback')
   const config = getSiteConfig()
   return pageMetadata(config, {
-    title: `${app.name[l]} ${t('breadcrumb')}`,
-    description: l === 'ko' ? `${app.name.ko} 버그 제보 및 개선 건의` : `${app.name.en} bug reports and feature requests`,
+    title: `${app.name[l]} — ${t('softwarePageTitle')}`,
+    description: t('softwarePageSubtitle'),
     locale,
     path: `/${locale}/software/${slug}/feedback`,
     ogImage: `/og/${slug}.png`,
@@ -50,40 +50,45 @@ export default async function SoftwareFeedbackPage({
   if (!app) notFound()
 
   const config = getSiteConfig()
+  const software = getAllSoftware()
   const feedbackEnabled = config.feedback?.enabled ?? false
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12">
+    <div className="max-w-2xl mx-auto px-4 py-12">
       <Breadcrumb
         items={[
           { label: tNav('home'), href: `/${locale}` },
           { label: tNav('software'), href: `/${locale}/software` },
           { label: app.name[l], href: `/${locale}/software/${slug}` },
-          { label: t('breadcrumb') },
+          { label: t('softwarePageTitle') },
         ]}
       />
 
       <div className="flex items-start gap-4 mb-8 mt-6">
         <SoftwareIcon app={app} size="lg" />
         <div>
-          <h1 className="text-3xl font-bold text-text-primary mb-2">{t('title')}</h1>
-          <p className="text-text-secondary">{t('subtitle')}</p>
+          <h1 className="text-3xl font-bold text-text-primary mb-2">{t('softwarePageTitle')}</h1>
+          <p className="text-text-secondary">{t('softwarePageSubtitle')}</p>
         </div>
       </div>
 
-      {feedbackEnabled ? (
-        <Card className="p-8 text-center">
-          <p className="text-text-secondary mb-6">{t('softwareDesc')}</p>
-          <a href={`/${locale}/feedback?software=${slug}`}>
-            <Button variant="primary" size="lg">
-              {t('softwareButton')}
-            </Button>
-          </a>
-        </Card>
+      {feedbackEnabled && config.feedback ? (
+        <>
+          <Suspense fallback={null}>
+            <FeedbackForm
+              software={software.map((s) => ({ slug: s.slug, name: s.name }))}
+              supabaseUrl={config.feedback.supabaseUrl}
+              supabaseAnonKey={config.feedback.supabaseAnonKey}
+              locale={locale}
+              initialSoftware={slug}
+            />
+          </Suspense>
+          <p className="mt-6 bg-fill-subtle rounded-xl p-4 text-sm text-text-secondary">
+            {t('softwarePageNote')}
+          </p>
+        </>
       ) : (
-        <Card className="p-8 text-center">
-          <p className="text-text-secondary">{t('notReady')}</p>
-        </Card>
+        <p className="text-text-secondary">{t('notReady')}</p>
       )}
     </div>
   )

@@ -52,7 +52,8 @@
     "tabs": {
       "overview": "개요",
       "changelog": "변경 내역",
-      "documentation": "문서"
+      "documentation": "문서",
+      "feedbackTab": "버그 제보 & 건의"
     },
     "categories": {
       "utility": "유틸리티",
@@ -159,6 +160,9 @@
     "validTitle": "제목을 입력해주세요",
     "validContent": "내용을 10자 이상 입력해주세요",
     "breadcrumb": "건의하기",
+    "softwarePageTitle": "버그 제보 & 건의",
+    "softwarePageSubtitle": "사용 중 불편하신 점이나 개선 아이디어를 자유롭게 남겨주세요. 로그인이 필요 없습니다.",
+    "softwarePageNote": "💬 남겨주신 의견은 개발자에게 직접 전달됩니다. 답변을 원하시면 연락처를 남겨주세요.",
     "notReady": "피드백 채널이 준비 중입니다.",
     "softwareButton": "이 프로그램에 대해 건의하기",
     "softwareDesc": "버그 제보, 기능 건의, 기타 의견을 남겨주세요. 로그인 없이 제출할 수 있습니다."

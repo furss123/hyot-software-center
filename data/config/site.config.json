@@ -38,8 +38,7 @@
   },
   "nav": [
     { "label": { "ko": "소프트웨어", "en": "Software" }, "href": "/software" },
-    { "label": { "ko": "변경 내역", "en": "Changelog" }, "href": "/changelog" },
-    { "label": { "ko": "보안", "en": "Security" }, "href": "/security" }
+    { "label": { "ko": "변경 내역", "en": "Changelog" }, "href": "/changelog" }
   ],
   "footer": {
     "links": [
@@ -52,9 +51,7 @@
       },
       {
         "group": { "ko": "지원", "en": "Support" },
-        "items": [
-          { "label": { "ko": "보안 정책", "en": "Security" }, "href": "/security" }
-        ]
+        "items": []
       },
       {
         "group": { "ko": "더 보기", "en": "More" },
