@@ -4,7 +4,7 @@ import { Suspense } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import type { Metadata } from 'next'
-import { Github, ExternalLink } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 
 import { AdSlot } from '@/components/ads/AdSlot'
 import { DownloadCount } from '@/components/download/DownloadCount'
@@ -137,13 +137,6 @@ export default async function SoftwareDetailPage({
           </div>
           <p className="text-text-secondary text-lg mb-4">{app.shortDescription[l]}</p>
           <div className="flex flex-wrap items-center gap-2">
-            {app.links?.github && (
-              <a href={app.links.github} target="_blank" rel="noopener noreferrer">
-                <Button variant="secondary" size="sm" icon={<Github size={14} />}>
-                  GitHub
-                </Button>
-              </a>
-            )}
             {app.links?.docs && (
               <a href={app.links.docs} target="_blank" rel="noopener noreferrer">
                 <Button variant="ghost" size="sm" icon={<ExternalLink size={14} />}>
