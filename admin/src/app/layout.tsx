@@ -1,10 +1,12 @@
 import './globals.css'
 
+import { t } from '@/lib/i18n'
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="dark">
+    <html lang="ko" data-theme="dark">
       <head>
-        <title>HyoT Admin</title>
+        <title>HyoT 관리자</title>
         <meta name="robots" content="noindex,nofollow" />
       </head>
       <body
@@ -12,7 +14,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           margin: 0,
           background: '#0A0A0A',
           color: '#F0F0F0',
-          fontFamily: 'system-ui, sans-serif',
           minHeight: '100vh',
         }}
       >
@@ -27,15 +28,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             background: '#1A1A1A',
           }}
         >
-          <span style={{ fontWeight: 700, fontSize: '0.875rem' }}>⚙ HyoT Admin</span>
+          <span style={{ fontWeight: 700, fontSize: '0.875rem' }}>⚙ HyoT 관리자</span>
           {[
-            { href: '/', label: 'Dashboard' },
-            { href: '/software', label: 'Software' },
-            { href: '/releases', label: 'Releases' },
-            { href: '/content', label: 'Content' },
-            { href: '/config', label: 'Config' },
-            { href: '/features', label: 'Features' },
-            { href: '/analytics', label: 'Analytics' },
+            { href: '/', label: t.nav.dashboard },
+            { href: '/software', label: t.nav.software },
+            { href: '/releases', label: t.nav.releases },
+            { href: '/content', label: t.nav.content },
+            { href: '/config', label: t.nav.config },
+            { href: '/features', label: t.nav.features },
+            { href: '/analytics', label: t.nav.analytics },
           ].map(({ href, label }) => (
             <a
               key={href}
@@ -46,7 +47,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </a>
           ))}
         </nav>
-        <main style={{ padding: '2rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
+        <main style={{ padding: '2rem 1.5rem', width: '100%', boxSizing: 'border-box' }}>
           {children}
         </main>
       </body>

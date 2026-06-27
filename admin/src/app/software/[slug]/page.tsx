@@ -8,24 +8,22 @@ import { AdminCard } from '@/components/ui/AdminCard'
 import { AdminInput } from '@/components/ui/AdminInput'
 import { AdminSelect } from '@/components/ui/AdminSelect'
 import { AdminTextarea } from '@/components/ui/AdminTextarea'
+import { ImageUpload } from '@/components/ui/ImageUpload'
+import { PreviewButton } from '@/components/ui/PreviewButton'
+import { t } from '@/lib/i18n'
 import type { SoftwareCategory, SoftwareMeta, SoftwareStatus } from '@/types'
 
-const STATUS_OPTIONS = [
-  { value: 'active', label: 'active' },
-  { value: 'beta', label: 'beta' },
-  { value: 'deprecated', label: 'deprecated' },
-  { value: 'archived', label: 'archived' },
-]
+const STATUS_OPTIONS = (Object.keys(t.software.statusOptions) as SoftwareStatus[]).map((value) => ({
+  value,
+  label: t.software.statusOptions[value],
+}))
 
-const CATEGORY_OPTIONS = [
-  { value: 'utility', label: 'utility' },
-  { value: 'productivity', label: 'productivity' },
-  { value: 'system', label: 'system' },
-  { value: 'developer', label: 'developer' },
-  { value: 'media', label: 'media' },
-  { value: 'security', label: 'security' },
-  { value: 'other', label: 'other' },
-]
+const CATEGORY_OPTIONS = (Object.keys(t.software.categoryOptions) as SoftwareCategory[]).map(
+  (value) => ({
+    value,
+    label: t.software.categoryOptions[value],
+  }),
+)
 
 export default function EditSoftwarePage() {
   const params = useParams<{ slug: string }>()
@@ -44,7 +42,7 @@ export default function EditSoftwarePage() {
         return res.json() as Promise<SoftwareMeta>
       })
       .then(setMeta)
-      .catch(() => setError('Software not found'))
+      .catch(() => setError(t.common.notFound))
       .finally(() => setLoading(false))
   }, [slug])
 
@@ -61,7 +59,7 @@ export default function EditSoftwarePage() {
       category: String(form.get('category') ?? meta.category) as SoftwareCategory,
       tags: String(form.get('tags') ?? '')
         .split(',')
-        .map((t) => t.trim())
+        .map((tag) => tag.trim())
         .filter(Boolean),
       featured: form.get('featured') === 'on',
       name: {
@@ -93,7 +91,7 @@ export default function EditSoftwarePage() {
     })
 
     if (!res.ok) {
-      setError('Failed to save')
+      setError(t.common.error)
       setSaving(false)
       return
     }
@@ -101,48 +99,79 @@ export default function EditSoftwarePage() {
     router.push('/software')
   }
 
-  if (loading) return <p style={{ color: '#A0A0A0' }}>Loading...</p>
-  if (!meta) return <p style={{ color: '#C42B1C' }}>{error || 'Not found'}</p>
+  if (loading) return <p style={{ color: '#A0A0A0' }}>{t.common.loading}</p>
+  if (!meta) return <p style={{ color: '#C42B1C' }}>{error || t.common.notFound}</p>
 
   return (
     <div>
-      <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>
-        Edit: {slug}
-      </h1>
-      <AdminCard>
-        <form key={meta.updatedAt} onSubmit={(e) => void handleSubmit(e)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '640px' }}>
-          <AdminInput label="Slug" name="slug" defaultValue={meta.slug} readOnly />
+      <a href="/software" style={{ fontSize: '0.875rem', display: 'inline-block', marginBottom: '1rem' }}>
+        {t.software.back}
+      </a>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: '1.5rem',
+          flexWrap: 'wrap',
+          gap: '1rem',
+        }}
+      >
+        <h1 style={{ fontSize: '1.5rem', fontWeight: 700 }}>
+          {t.software.edit}: {slug}
+        </h1>
+        <PreviewButton path={`/software/${slug}`} />
+      </div>
+      <div style={{ maxWidth: '760px' }}>
+        <AdminCard>
+          <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
+          <ImageUpload
+            slug={slug}
+            type="icon"
+            currentUrl={meta.icon}
+            onUpload={(url) => setMeta((prev) => (prev ? { ...prev, icon: url } : prev))}
+          />
+          <ImageUpload
+            slug={slug}
+            type="banner"
+            currentUrl={meta.banner}
+            onUpload={(url) => setMeta((prev) => (prev ? { ...prev, banner: url } : prev))}
+          />
+        </div>
+          <form key={meta.updatedAt} onSubmit={(e) => void handleSubmit(e)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <AdminInput label={t.software.slug} name="slug" defaultValue={meta.slug} readOnly />
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <AdminInput label="Name (ko)" name="name_ko" defaultValue={meta.name.ko} required />
-            <AdminInput label="Name (en)" name="name_en" defaultValue={meta.name.en} required />
+            <AdminInput label={t.software.nameKo} name="name_ko" defaultValue={meta.name.ko} required />
+            <AdminInput label={t.software.nameEn} name="name_en" defaultValue={meta.name.en} required />
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <AdminInput label="Short description (ko)" name="shortDescription_ko" defaultValue={meta.shortDescription.ko} required />
-            <AdminInput label="Short description (en)" name="shortDescription_en" defaultValue={meta.shortDescription.en} required />
+            <AdminInput label={t.software.shortDescKo} name="shortDescription_ko" defaultValue={meta.shortDescription.ko} required />
+            <AdminInput label={t.software.shortDescEn} name="shortDescription_en" defaultValue={meta.shortDescription.en} required />
           </div>
-          <AdminTextarea label="Description (ko)" name="description_ko" defaultValue={meta.description.ko} required />
-          <AdminTextarea label="Description (en)" name="description_en" defaultValue={meta.description.en} required />
+          <AdminTextarea label={t.software.descriptionKo} name="description_ko" defaultValue={meta.description.ko} required />
+          <AdminTextarea label={t.software.descriptionEn} name="description_en" defaultValue={meta.description.en} required />
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <AdminSelect label="Status" name="status" options={STATUS_OPTIONS} defaultValue={meta.status} />
-            <AdminSelect label="Category" name="category" options={CATEGORY_OPTIONS} defaultValue={meta.category} />
+            <AdminSelect label={t.software.status} name="status" options={STATUS_OPTIONS} defaultValue={meta.status} />
+            <AdminSelect label={t.software.category} name="category" options={CATEGORY_OPTIONS} defaultValue={meta.category} />
           </div>
-          <AdminInput label="Tags (comma-separated)" name="tags" defaultValue={meta.tags.join(', ')} />
+          <AdminInput label={t.software.tags} name="tags" defaultValue={meta.tags.join(', ')} />
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
-            <AdminInput label="Requirements OS" name="requirements_os" defaultValue={meta.requirements.os} required />
-            <AdminInput label="RAM" name="requirements_ram" defaultValue={meta.requirements.ram ?? ''} />
-            <AdminInput label="Disk" name="requirements_disk" defaultValue={meta.requirements.disk ?? ''} />
+            <AdminInput label={t.software.os} name="requirements_os" defaultValue={meta.requirements.os} required />
+            <AdminInput label={t.software.ram} name="requirements_ram" defaultValue={meta.requirements.ram ?? ''} />
+            <AdminInput label={t.software.disk} name="requirements_disk" defaultValue={meta.requirements.disk ?? ''} />
           </div>
-          <AdminInput label="GitHub URL" name="links_github" type="url" defaultValue={meta.links?.github ?? ''} />
+          <AdminInput label={t.software.github} name="links_github" type="url" defaultValue={meta.links?.github ?? ''} />
           <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem' }}>
             <input type="checkbox" name="featured" defaultChecked={meta.featured} />
-            Featured
+            {t.software.featuredLabel}
           </label>
           {error && <p style={{ color: '#C42B1C', fontSize: '0.875rem' }}>{error}</p>}
           <AdminButton type="submit" variant="primary" disabled={saving}>
-            {saving ? 'Saving...' : 'Save'}
+            {saving ? t.software.saving : t.software.save}
           </AdminButton>
-        </form>
-      </AdminCard>
+          </form>
+        </AdminCard>
+      </div>
     </div>
   )
 }

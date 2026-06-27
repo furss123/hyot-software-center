@@ -6,15 +6,13 @@ import { AdminButton } from '@/components/ui/AdminButton'
 import { AdminCard } from '@/components/ui/AdminCard'
 import { AdminInput } from '@/components/ui/AdminInput'
 import { AdminSelect } from '@/components/ui/AdminSelect'
+import { t } from '@/lib/i18n'
 import type { FeatureFlags, FeatureStatus } from '@/types'
 
-const STATUS_OPTIONS = [
-  { value: 'enabled', label: 'enabled' },
-  { value: 'disabled', label: 'disabled' },
-  { value: 'experimental', label: 'experimental' },
-  { value: 'beta', label: 'beta' },
-  { value: 'deprecated', label: 'deprecated' },
-]
+const STATUS_OPTIONS = (Object.keys(t.features.statusOptions) as FeatureStatus[]).map((value) => ({
+  value,
+  label: t.features.statusOptions[value],
+}))
 
 export default function FeaturesPage() {
   const [flags, setFlags] = useState<FeatureFlags>({})
@@ -49,25 +47,26 @@ export default function FeaturesPage() {
     })
     if (res.ok) {
       setFlags((await res.json()) as FeatureFlags)
-      setMessage('Features saved')
+      setMessage(t.features.saved)
     } else {
-      setMessage('Failed to save')
+      setMessage(t.common.error)
     }
     setSaving(false)
   }
 
-  if (loading) return <p style={{ color: '#A0A0A0' }}>Loading...</p>
+  if (loading) return <p style={{ color: '#A0A0A0' }}>{t.common.loading}</p>
 
   return (
     <div>
-      <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>Feature Flags</h1>
-      <AdminCard>
+      <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>{t.features.title}</h1>
+      <div style={{ maxWidth: '760px' }}>
+        <AdminCard>
         <table>
           <thead>
             <tr>
-              <th>Key</th>
-              <th>Status</th>
-              <th>Description</th>
+              <th>{t.features.key}</th>
+              <th>{t.features.status}</th>
+              <th>{t.features.description}</th>
             </tr>
           </thead>
           <tbody>
@@ -80,7 +79,7 @@ export default function FeaturesPage() {
                     options={STATUS_OPTIONS}
                     value={flag.status}
                     onChange={(e) => updateFlag(key, 'status', e.target.value as FeatureStatus)}
-                    aria-label={`Status for ${key}`}
+                    aria-label={`${t.features.status} ${key}`}
                   />
                 </td>
                 <td>
@@ -88,7 +87,7 @@ export default function FeaturesPage() {
                     label=""
                     value={flag.description ?? ''}
                     onChange={(e) => updateFlag(key, 'description', e.target.value)}
-                    aria-label={`Description for ${key}`}
+                    aria-label={`${t.features.description} ${key}`}
                   />
                 </td>
               </tr>
@@ -96,12 +95,17 @@ export default function FeaturesPage() {
           </tbody>
         </table>
         <div style={{ marginTop: '1rem' }}>
-          {message && <p style={{ fontSize: '0.875rem', marginBottom: '0.5rem', color: message.includes('Failed') ? '#C42B1C' : '#6CCB5F' }}>{message}</p>}
+          {message && (
+            <p style={{ fontSize: '0.875rem', marginBottom: '0.5rem', color: message === t.common.error ? '#C42B1C' : '#6CCB5F' }}>
+              {message}
+            </p>
+          )}
           <AdminButton variant="primary" onClick={() => void handleSave()} disabled={saving}>
-            {saving ? 'Saving...' : 'Save All'}
+            {saving ? t.features.saving : t.features.saveAll}
           </AdminButton>
         </div>
-      </AdminCard>
+        </AdminCard>
+      </div>
     </div>
   )
 }

@@ -8,24 +8,20 @@ import { AdminCard } from '@/components/ui/AdminCard'
 import { AdminInput } from '@/components/ui/AdminInput'
 import { AdminSelect } from '@/components/ui/AdminSelect'
 import { AdminTextarea } from '@/components/ui/AdminTextarea'
+import { t } from '@/lib/i18n'
 import type { SoftwareCategory, SoftwareMeta, SoftwareStatus } from '@/types'
 
-const STATUS_OPTIONS = [
-  { value: 'active', label: 'active' },
-  { value: 'beta', label: 'beta' },
-  { value: 'deprecated', label: 'deprecated' },
-  { value: 'archived', label: 'archived' },
-]
+const STATUS_OPTIONS = (Object.keys(t.software.statusOptions) as SoftwareStatus[]).map((value) => ({
+  value,
+  label: t.software.statusOptions[value],
+}))
 
-const CATEGORY_OPTIONS = [
-  { value: 'utility', label: 'utility' },
-  { value: 'productivity', label: 'productivity' },
-  { value: 'system', label: 'system' },
-  { value: 'developer', label: 'developer' },
-  { value: 'media', label: 'media' },
-  { value: 'security', label: 'security' },
-  { value: 'other', label: 'other' },
-]
+const CATEGORY_OPTIONS = (Object.keys(t.software.categoryOptions) as SoftwareCategory[]).map(
+  (value) => ({
+    value,
+    label: t.software.categoryOptions[value],
+  }),
+)
 
 export default function NewSoftwarePage() {
   const router = useRouter()
@@ -49,7 +45,7 @@ export default function NewSoftwarePage() {
       category,
       tags: String(form.get('tags') ?? '')
         .split(',')
-        .map((t) => t.trim())
+        .map((tag) => tag.trim())
         .filter(Boolean),
       featured,
       name: {
@@ -84,7 +80,7 @@ export default function NewSoftwarePage() {
 
     if (!res.ok) {
       const data = (await res.json()) as { error?: string }
-      setError(data.error ?? 'Failed to create')
+      setError(data.error ?? t.common.error)
       setLoading(false)
       return
     }
@@ -94,41 +90,43 @@ export default function NewSoftwarePage() {
 
   return (
     <div>
-      <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>New Software</h1>
-      <AdminCard>
-        <form onSubmit={(e) => void handleSubmit(e)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '640px' }}>
-          <AdminInput label="Slug" name="slug" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" />
+      <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>{t.software.addNew}</h1>
+      <div style={{ maxWidth: '760px' }}>
+        <AdminCard>
+          <form onSubmit={(e) => void handleSubmit(e)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <AdminInput label={t.software.slug} name="slug" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" />
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <AdminInput label="Name (ko)" name="name_ko" required />
-            <AdminInput label="Name (en)" name="name_en" required />
+            <AdminInput label={t.software.nameKo} name="name_ko" required />
+            <AdminInput label={t.software.nameEn} name="name_en" required />
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <AdminInput label="Short description (ko)" name="shortDescription_ko" required />
-            <AdminInput label="Short description (en)" name="shortDescription_en" required />
+            <AdminInput label={t.software.shortDescKo} name="shortDescription_ko" required />
+            <AdminInput label={t.software.shortDescEn} name="shortDescription_en" required />
           </div>
-          <AdminTextarea label="Description (ko)" name="description_ko" required />
-          <AdminTextarea label="Description (en)" name="description_en" required />
+          <AdminTextarea label={t.software.descriptionKo} name="description_ko" required />
+          <AdminTextarea label={t.software.descriptionEn} name="description_en" required />
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <AdminSelect label="Status" options={STATUS_OPTIONS} value={status} onChange={(e) => setStatus(e.target.value as SoftwareStatus)} />
-            <AdminSelect label="Category" options={CATEGORY_OPTIONS} value={category} onChange={(e) => setCategory(e.target.value as SoftwareCategory)} />
+            <AdminSelect label={t.software.status} options={STATUS_OPTIONS} value={status} onChange={(e) => setStatus(e.target.value as SoftwareStatus)} />
+            <AdminSelect label={t.software.category} options={CATEGORY_OPTIONS} value={category} onChange={(e) => setCategory(e.target.value as SoftwareCategory)} />
           </div>
-          <AdminInput label="Tags (comma-separated)" name="tags" />
+          <AdminInput label={t.software.tags} name="tags" />
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
-            <AdminInput label="Requirements OS" name="requirements_os" defaultValue="Windows 10 22H2+" required />
-            <AdminInput label="RAM" name="requirements_ram" />
-            <AdminInput label="Disk" name="requirements_disk" />
+            <AdminInput label={t.software.os} name="requirements_os" defaultValue="Windows 10 22H2+" required />
+            <AdminInput label={t.software.ram} name="requirements_ram" />
+            <AdminInput label={t.software.disk} name="requirements_disk" />
           </div>
-          <AdminInput label="GitHub URL" name="links_github" type="url" />
+          <AdminInput label={t.software.github} name="links_github" type="url" />
           <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem' }}>
             <input type="checkbox" checked={featured} onChange={(e) => setFeatured(e.target.checked)} />
-            Featured
+            {t.software.featured}
           </label>
           {error && <p style={{ color: '#C42B1C', fontSize: '0.875rem' }}>{error}</p>}
           <AdminButton type="submit" variant="primary" disabled={loading}>
-            {loading ? 'Creating...' : 'Create'}
+            {loading ? t.software.saving : t.software.save}
           </AdminButton>
-        </form>
-      </AdminCard>
+          </form>
+        </AdminCard>
+      </div>
     </div>
   )
 }

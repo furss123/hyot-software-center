@@ -7,7 +7,9 @@ import { AdminButton } from '@/components/ui/AdminButton'
 import { AdminCard } from '@/components/ui/AdminCard'
 import { AdminInput } from '@/components/ui/AdminInput'
 import { AdminTextarea } from '@/components/ui/AdminTextarea'
+import { PreviewButton } from '@/components/ui/PreviewButton'
 import type { NewsItemAdmin } from '@/lib/content'
+import { t } from '@/lib/i18n'
 
 export default function EditNewsPage() {
   const params = useParams<{ slug: string }>()
@@ -26,7 +28,7 @@ export default function EditNewsPage() {
         return res.json() as Promise<NewsItemAdmin>
       })
       .then(setItem)
-      .catch(() => setError('News item not found'))
+      .catch(() => setError(t.common.notFound))
       .finally(() => setLoading(false))
   }, [slug])
 
@@ -51,7 +53,7 @@ export default function EditNewsPage() {
       published: form.get('published') === 'on',
       tags: String(form.get('tags') ?? '')
         .split(',')
-        .map((t) => t.trim())
+        .map((tag) => tag.trim())
         .filter(Boolean),
       content: String(form.get('content') ?? ''),
     }
@@ -63,7 +65,7 @@ export default function EditNewsPage() {
     })
 
     if (!res.ok) {
-      setError('Failed to save')
+      setError(t.common.error)
       setSaving(false)
       return
     }
@@ -71,41 +73,55 @@ export default function EditNewsPage() {
     router.push('/content/news')
   }
 
-  if (loading) return <p style={{ color: '#A0A0A0' }}>Loading...</p>
-  if (!item) return <p style={{ color: '#C42B1C' }}>{error || 'Not found'}</p>
+  if (loading) return <p style={{ color: '#A0A0A0' }}>{t.common.loading}</p>
+  if (!item) return <p style={{ color: '#C42B1C' }}>{error || t.common.notFound}</p>
 
   return (
     <div>
       <a href="/content/news" style={{ fontSize: '0.875rem', display: 'inline-block', marginBottom: '1rem' }}>
-        ← Back to News
+        ← {t.content.news}
       </a>
-      <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>
-        Edit: {slug}
-      </h1>
-      <AdminCard>
-        <form key={item.filename} onSubmit={(e) => void handleSubmit(e)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '640px' }}>
-          <AdminInput label="Slug" name="slug" defaultValue={item.slug} readOnly />
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: '1.5rem',
+          flexWrap: 'wrap',
+          gap: '1rem',
+        }}
+      >
+        <h1 style={{ fontSize: '1.5rem', fontWeight: 700 }}>
+          {t.content.editNews}: {slug}
+        </h1>
+        <PreviewButton path={`/news/${slug}`} />
+      </div>
+      <div style={{ maxWidth: '760px' }}>
+        <AdminCard>
+          <form key={item.filename} onSubmit={(e) => void handleSubmit(e)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <AdminInput label={t.common.slug} name="slug" defaultValue={item.slug} readOnly />
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <AdminInput label="Title (ko)" name="title_ko" defaultValue={item.title.ko} required />
-            <AdminInput label="Title (en)" name="title_en" defaultValue={item.title.en} required />
+            <AdminInput label={t.content.newsTitleKo} name="title_ko" defaultValue={item.title.ko} required />
+            <AdminInput label={t.content.newsTitleEn} name="title_en" defaultValue={item.title.en} required />
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <AdminInput label="Summary (ko)" name="summary_ko" defaultValue={item.summary.ko} required />
-            <AdminInput label="Summary (en)" name="summary_en" defaultValue={item.summary.en} required />
+            <AdminInput label={t.content.summaryKo} name="summary_ko" defaultValue={item.summary.ko} required />
+            <AdminInput label={t.content.summaryEn} name="summary_en" defaultValue={item.summary.en} required />
           </div>
-          <AdminInput label="Date" name="date" type="date" defaultValue={item.date} required />
-          <AdminInput label="Tags (comma-separated)" name="tags" defaultValue={item.tags.join(', ')} />
-          <AdminTextarea label="Content (markdown)" name="content" defaultValue={item.content} />
+          <AdminInput label={t.content.date} name="date" type="date" defaultValue={item.date} required />
+          <AdminInput label={t.content.tags} name="tags" defaultValue={item.tags.join(', ')} />
+          <AdminTextarea label={t.content.contentMarkdown} name="content" defaultValue={item.content} />
           <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem' }}>
             <input type="checkbox" name="published" defaultChecked={item.published} />
-            Published
+            {t.content.published}
           </label>
           {error && <p style={{ color: '#C42B1C', fontSize: '0.875rem' }}>{error}</p>}
           <AdminButton type="submit" variant="primary" disabled={saving}>
-            {saving ? 'Saving...' : 'Save'}
+            {saving ? t.software.saving : t.common.save}
           </AdminButton>
-        </form>
-      </AdminCard>
+          </form>
+        </AdminCard>
+      </div>
     </div>
   )
 }

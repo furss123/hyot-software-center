@@ -7,6 +7,7 @@ import { AdminButton } from '@/components/ui/AdminButton'
 import { AdminCard } from '@/components/ui/AdminCard'
 import { AdminInput } from '@/components/ui/AdminInput'
 import { AdminTextarea } from '@/components/ui/AdminTextarea'
+import { t } from '@/lib/i18n'
 
 export default function NewNewsPage() {
   const router = useRouter()
@@ -34,7 +35,7 @@ export default function NewNewsPage() {
       published,
       tags: String(form.get('tags') ?? '')
         .split(',')
-        .map((t) => t.trim())
+        .map((tag) => tag.trim())
         .filter(Boolean),
       content: String(form.get('content') ?? ''),
     }
@@ -47,7 +48,7 @@ export default function NewNewsPage() {
 
     if (!res.ok) {
       const data = (await res.json()) as { error?: string }
-      setError(data.error ?? 'Failed to create')
+      setError(data.error ?? t.common.error)
       setLoading(false)
       return
     }
@@ -58,33 +59,35 @@ export default function NewNewsPage() {
   return (
     <div>
       <a href="/content/news" style={{ fontSize: '0.875rem', display: 'inline-block', marginBottom: '1rem' }}>
-        ← Back to News
+        ← {t.content.news}
       </a>
-      <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>Add News</h1>
-      <AdminCard>
-        <form onSubmit={(e) => void handleSubmit(e)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '640px' }}>
-          <AdminInput label="Slug" name="slug" required />
+      <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>{t.content.addNews}</h1>
+      <div style={{ maxWidth: '760px' }}>
+        <AdminCard>
+          <form onSubmit={(e) => void handleSubmit(e)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <AdminInput label={t.common.slug} name="slug" required />
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <AdminInput label="Title (ko)" name="title_ko" required />
-            <AdminInput label="Title (en)" name="title_en" required />
+            <AdminInput label={t.content.newsTitleKo} name="title_ko" required />
+            <AdminInput label={t.content.newsTitleEn} name="title_en" required />
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <AdminInput label="Summary (ko)" name="summary_ko" required />
-            <AdminInput label="Summary (en)" name="summary_en" required />
+            <AdminInput label={t.content.summaryKo} name="summary_ko" required />
+            <AdminInput label={t.content.summaryEn} name="summary_en" required />
           </div>
-          <AdminInput label="Date" name="date" type="date" required defaultValue={new Date().toISOString().split('T')[0]} />
-          <AdminInput label="Tags (comma-separated)" name="tags" />
-          <AdminTextarea label="Content (markdown)" name="content" />
+          <AdminInput label={t.content.date} name="date" type="date" required defaultValue={new Date().toISOString().split('T')[0]} />
+          <AdminInput label={t.content.tags} name="tags" />
+          <AdminTextarea label={t.content.contentMarkdown} name="content" />
           <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem' }}>
             <input type="checkbox" checked={published} onChange={(e) => setPublished(e.target.checked)} />
-            Published
+            {t.content.published}
           </label>
           {error && <p style={{ color: '#C42B1C', fontSize: '0.875rem' }}>{error}</p>}
           <AdminButton type="submit" variant="primary" disabled={loading}>
-            {loading ? 'Creating...' : 'Create'}
+            {loading ? t.software.saving : t.common.save}
           </AdminButton>
-        </form>
-      </AdminCard>
+          </form>
+        </AdminCard>
+      </div>
     </div>
   )
 }

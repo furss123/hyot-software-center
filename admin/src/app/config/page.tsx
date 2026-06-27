@@ -6,6 +6,7 @@ import { AdminButton } from '@/components/ui/AdminButton'
 import { AdminCard } from '@/components/ui/AdminCard'
 import { AdminInput } from '@/components/ui/AdminInput'
 import { AdminSelect } from '@/components/ui/AdminSelect'
+import { t } from '@/lib/i18n'
 
 type SiteConfig = {
   brand: {
@@ -23,11 +24,12 @@ type SiteConfig = {
   }
 }
 
-const THEME_OPTIONS = [
-  { value: 'dark', label: 'dark' },
-  { value: 'light', label: 'light' },
-  { value: 'system', label: 'system' },
-]
+const THEME_OPTIONS = (Object.keys(t.config.themeOptions) as Array<keyof typeof t.config.themeOptions>).map(
+  (value) => ({
+    value,
+    label: t.config.themeOptions[value],
+  }),
+)
 
 export default function ConfigPage() {
   const [config, setConfig] = useState<SiteConfig | null>(null)
@@ -76,39 +78,46 @@ export default function ConfigPage() {
 
     if (res.ok) {
       setConfig((await res.json()) as SiteConfig)
-      setMessage('Config saved')
+      setMessage(t.config.saved)
     } else {
-      setMessage('Failed to save')
+      setMessage(t.common.error)
     }
     setSaving(false)
   }
 
-  if (loading) return <p style={{ color: '#A0A0A0' }}>Loading...</p>
-  if (!config) return <p style={{ color: '#C42B1C' }}>Failed to load config</p>
+  if (loading) return <p style={{ color: '#A0A0A0' }}>{t.common.loading}</p>
+  if (!config) return <p style={{ color: '#C42B1C' }}>{t.common.error}</p>
 
   return (
     <div>
-      <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>Site Config</h1>
-      <AdminCard>
-        <form onSubmit={(e) => void handleSubmit(e)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '640px' }}>
-          <AdminInput label="Brand name" name="brand_name" defaultValue={config.brand.name} required />
-          <AdminInput label="Brand URL" name="brand_url" defaultValue={config.brand.url} required />
-          <AdminInput label="Brand GitHub" name="brand_github" defaultValue={config.brand.github ?? ''} />
-          <AdminInput label="SEO default title" name="seo_defaultTitle" defaultValue={config.seo.defaultTitle} required />
+      <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>{t.config.title}</h1>
+      <div style={{ maxWidth: '760px' }}>
+        <AdminCard>
+          <form onSubmit={(e) => void handleSubmit(e)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <p style={{ fontSize: '0.875rem', fontWeight: 600, color: '#A0A0A0' }}>{t.config.brand}</p>
+          <AdminInput label={t.config.brandName} name="brand_name" defaultValue={config.brand.name} required />
+          <AdminInput label={t.config.brandUrl} name="brand_url" defaultValue={config.brand.url} required />
+          <AdminInput label={t.config.brandGithub} name="brand_github" defaultValue={config.brand.github ?? ''} />
+          <p style={{ fontSize: '0.875rem', fontWeight: 600, color: '#A0A0A0', marginTop: '0.5rem' }}>{t.config.seo}</p>
+          <AdminInput label={t.config.seoTitle} name="seo_defaultTitle" defaultValue={config.seo.defaultTitle} required />
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <AdminInput label="SEO description (ko)" name="seo_description_ko" defaultValue={config.seo.description?.ko ?? ''} />
-            <AdminInput label="SEO description (en)" name="seo_description_en" defaultValue={config.seo.description?.en ?? ''} />
+            <AdminInput label={t.config.seoDescKo} name="seo_description_ko" defaultValue={config.seo.description?.ko ?? ''} />
+            <AdminInput label={t.config.seoDescEn} name="seo_description_en" defaultValue={config.seo.description?.en ?? ''} />
           </div>
+          <p style={{ fontSize: '0.875rem', fontWeight: 600, color: '#A0A0A0', marginTop: '0.5rem' }}>{t.config.theme}</p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <AdminInput label="Theme accent color" name="theme_accentColor" defaultValue={config.theme.accentColor ?? '#0078D4'} />
-            <AdminSelect label="Theme default mode" name="theme_defaultMode" options={THEME_OPTIONS} defaultValue={config.theme.defaultMode ?? 'system'} />
+            <AdminInput label={t.config.accentColor} name="theme_accentColor" defaultValue={config.theme.accentColor ?? '#0078D4'} />
+            <AdminSelect label={t.config.themeMode} name="theme_defaultMode" options={THEME_OPTIONS} defaultValue={config.theme.defaultMode ?? 'system'} />
           </div>
-          {message && <p style={{ fontSize: '0.875rem', color: message.includes('Failed') ? '#C42B1C' : '#6CCB5F' }}>{message}</p>}
+          {message && (
+            <p style={{ fontSize: '0.875rem', color: message === t.common.error ? '#C42B1C' : '#6CCB5F' }}>{message}</p>
+          )}
           <AdminButton type="submit" variant="primary" disabled={saving}>
-            {saving ? 'Saving...' : 'Save config'}
+            {saving ? t.config.saving : t.config.save}
           </AdminButton>
-        </form>
-      </AdminCard>
+          </form>
+        </AdminCard>
+      </div>
     </div>
   )
 }
