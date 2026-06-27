@@ -32,21 +32,20 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 w-full mica h-[52px]',
+        'sticky top-0 z-50 w-full mica h-14',
         'transition-shadow duration-[var(--duration-base)]',
         scrolled ? 'border-b border-border shadow-sm' : 'border-b border-border/50',
       )}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-full flex items-center gap-8">
+      <div className="max-w-7xl mx-auto px-6 h-full flex items-center gap-8">
         <Link
           href={`/${locale}`}
-          className="flex items-center gap-2.5 font-semibold text-text-primary hover:opacity-80 transition-opacity"
-          style={{ fontSize: '0.9rem', letterSpacing: '-0.01em' }}
+          className="flex items-center gap-2.5 text-text-primary hover:opacity-80 transition-opacity"
         >
-          <div className="w-7 h-7 bg-accent rounded-lg flex items-center justify-center">
-            <span className="text-white text-xs font-bold">H</span>
+          <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
+            <span className="text-white text-sm font-bold">H</span>
           </div>
-          <span className="hidden sm:block">{config.brand.name}</span>
+          <span className="hidden sm:block text-base font-semibold">{config.brand.name}</span>
         </Link>
 
         <nav className="flex items-center gap-1 flex-1" aria-label="Main">
@@ -62,7 +61,7 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
                 target={item.external ? '_blank' : undefined}
                 rel={item.external ? 'noopener noreferrer' : undefined}
                 className={cn(
-                  'px-3 py-1.5 text-sm rounded-md min-h-[44px] flex items-center',
+                  'px-3 py-2 text-sm rounded-md min-h-[44px] flex items-center',
                   'transition-all duration-[var(--duration-fast)] ease-[var(--ease-fluent)]',
                   'focus-visible:outline-2 focus-visible:outline-accent',
                   isActive
