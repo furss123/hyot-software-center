@@ -36,7 +36,7 @@ jobs:
           npm run build:rss
           npm run build
         env:
-          GITHUB_PAGES_REPO: ${{ vars.GITHUB_PAGES_REPO }}
+          GITHUB_PAGES_REPO: ${{ vars.PAGES_REPO || 'hyot-software-center' }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
