@@ -1,5 +1,5 @@
 export interface SearchResult {
-  type: 'software' | 'docs' | 'faq' | 'news'
+  type: 'software' | 'docs' | 'faq'
   slug: string
   title: string
   excerpt: string

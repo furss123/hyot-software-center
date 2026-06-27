@@ -7,7 +7,6 @@ const ROUTES = [
   '/ko/software',
   '/ko/software/quick-note',
   '/ko/changelog',
-  '/ko/news',
   '/ko/software/quick-note/feedback',
 ]
 

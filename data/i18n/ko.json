@@ -3,7 +3,6 @@
     "home": "홈",
     "software": "소프트웨어",
     "changelog": "변경 내역",
-    "news": "뉴스",
     "security": "보안"
   },
   "home": {
@@ -74,16 +73,8 @@
     "categories": {
       "software": "소프트웨어",
       "docs": "문서",
-      "faq": "자주 묻는 질문",
-      "news": "뉴스"
+      "faq": "자주 묻는 질문"
     }
-  },
-  "news": {
-    "title": "뉴스",
-    "readMore": "자세히 보기",
-    "backToNews": "← 뉴스 목록",
-    "noNews": "뉴스가 없습니다",
-    "publishedOn": "게시일"
   },
   "docs": {
     "title": "문서",

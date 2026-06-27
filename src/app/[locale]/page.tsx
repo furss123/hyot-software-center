@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getFeaturedSoftware } from '@/lib/content/software'
 import { getAllLatestReleases } from '@/lib/content/releases'
-import { getAllNews } from '@/lib/content/news'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
@@ -46,11 +45,9 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
   setRequestLocale(locale)
   const l = locale as Locale
   const t = await getTranslations('home')
-  const tNews = await getTranslations('news')
   const config = getSiteConfig()
   const featured = getFeaturedSoftware()
   const latestReleases = getAllLatestReleases().slice(0, 6)
-  const news = getAllNews().slice(0, 3)
 
   return (
     <div className="flex flex-col">
@@ -164,39 +161,6 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
                         {formatDate(release.releaseDate, locale)}
                       </span>
                     </div>
-                  </Card>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {news.length > 0 && (
-        <section className="py-16 px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold text-text-primary">{tNews('title')}</h2>
-              <Link
-                href={`/${locale}/news`}
-                className="text-sm text-accent hover:opacity-80 transition-opacity flex items-center gap-1"
-              >
-                {t('viewAll')} <ArrowRight size={14} />
-              </Link>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {news.map((item) => (
-                <Link key={item.slug} href={`/${locale}/news/${item.slug}`}>
-                  <Card hover className="p-5 h-full">
-                    <h3 className="font-semibold text-text-primary mb-2 line-clamp-2">
-                      {item.title[l]}
-                    </h3>
-                    <p className="text-sm text-text-secondary mb-3 line-clamp-2">{item.summary[l]}</p>
-                    <span className="text-xs text-text-tertiary block mb-3">
-                      {formatDate(item.date, locale)}
-                    </span>
-                    <span className="text-sm text-accent">{tNews('readMore')} →</span>
                   </Card>
                 </Link>
               ))}

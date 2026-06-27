@@ -12,7 +12,7 @@ import { getFocusableElements } from '@/lib/utils/focus-trap'
 
 type SearchDoc = {
   id: string
-  type: 'software' | 'news' | 'docs' | 'faq'
+  type: 'software' | 'docs' | 'faq'
   slug: string
   name_ko: string
   name_en: string
@@ -33,7 +33,6 @@ function getBasePath(): string {
 }
 
 function getResultUrl(locale: string, item: SearchDoc): string {
-  if (item.type === 'news') return `/${locale}/news/${item.slug}`
   if (item.type === 'docs') return `/${locale}/docs/${item.slug}`
   if (item.type === 'faq') return `/${locale}/faq`
   return `/${locale}/software/${item.slug}`
@@ -159,13 +158,12 @@ export function SearchModal({
   }
 
   const softwareResults = results.filter((r) => r.type === 'software')
-  const newsResults = results.filter((r) => r.type === 'news')
   const docsResults = results.filter((r) => r.type === 'docs')
   const faqResults = results.filter((r) => r.type === 'faq')
 
   function renderGroup(
     items: SearchDoc[],
-    categoryKey: 'software' | 'news' | 'docs' | 'faq',
+    categoryKey: 'software' | 'docs' | 'faq',
     indexOffset: number,
   ): React.JSX.Element | null {
     if (items.length === 0) return null
@@ -271,16 +269,11 @@ export function SearchModal({
             {!loading && results.length > 0 && (
               <div id={listboxId} role="listbox" aria-label={t('results')}>
                 {renderGroup(softwareResults, 'software', 0)}
-                {renderGroup(newsResults, 'news', softwareResults.length)}
-                {renderGroup(
-                  docsResults,
-                  'docs',
-                  softwareResults.length + newsResults.length,
-                )}
+                {renderGroup(docsResults, 'docs', softwareResults.length)}
                 {renderGroup(
                   faqResults,
                   'faq',
-                  softwareResults.length + newsResults.length + docsResults.length,
+                  softwareResults.length + docsResults.length,
                 )}
               </div>
             )}

@@ -34,7 +34,6 @@
   "nav": [
     { "label": { "ko": "소프트웨어", "en": "Software" }, "href": "/software" },
     { "label": { "ko": "변경 내역", "en": "Changelog" }, "href": "/changelog" },
-    { "label": { "ko": "뉴스", "en": "News" }, "href": "/news" },
     { "label": { "ko": "보안", "en": "Security" }, "href": "/security" }
   ],
   "footer": {
@@ -43,8 +42,7 @@
         "group": { "ko": "제품", "en": "Products" },
         "items": [
           { "label": { "ko": "소프트웨어", "en": "Software" }, "href": "/software" },
-          { "label": { "ko": "변경 내역", "en": "Changelog" }, "href": "/changelog" },
-          { "label": { "ko": "뉴스", "en": "News" }, "href": "/news" }
+          { "label": { "ko": "변경 내역", "en": "Changelog" }, "href": "/changelog" }
         ]
       },
       {

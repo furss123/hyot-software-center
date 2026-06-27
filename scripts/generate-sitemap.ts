@@ -2,17 +2,15 @@ import fs from 'fs'
 import path from 'path'
 
 import { getSiteConfig } from '../src/lib/content/config'
-import { getAllNews } from '../src/lib/content/news'
 import { getAllSoftware } from '../src/lib/content/software'
 
 const config = getSiteConfig()
 const BASE = config.brand.url
 const locales = ['ko', 'en']
 
-const staticRoutes = ['', '/software', '/changelog', '/news', '/security']
+const staticRoutes = ['', '/software', '/changelog', '/security']
 
 const software = getAllSoftware()
-const news = getAllNews()
 
 const urls: string[] = []
 
@@ -24,9 +22,6 @@ for (const locale of locales) {
     urls.push(`${BASE}/${locale}/software/${app.slug}`)
     urls.push(`${BASE}/${locale}/software/${app.slug}/changelog`)
     urls.push(`${BASE}/${locale}/software/${app.slug}/feedback`)
-  }
-  for (const item of news) {
-    urls.push(`${BASE}/${locale}/news/${item.slug}`)
   }
 }
 
