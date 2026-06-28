@@ -14,15 +14,25 @@
     "windows-10"
   ],
   "featured": true,
+  "githubRepo": "furss123/HyoPDF",
   "icon": "/data/software/hyopdf/icon.webp",
   "banner": "/data/software/hyopdf/banner.webp",
+  "screenshots": [
+    {
+      "file": "screenshots/main.png",
+      "alt": {
+        "ko": "HyoPDF 메인 화면 — 탭 뷰어와 툴바",
+        "en": "HyoPDF main window with tabs and toolbar"
+      }
+    }
+  ],
   "name": {
     "ko": "HyoPDF",
     "en": "HyoPDF"
   },
   "description": {
-    "ko": "HyoPDF는 Windows용 PDF 뷰어 및 편집 도구입니다. 탭 기반 멀티 문서, 북마크·검색, 페이지 관리(병합·분할·회전·삭제), 인쇄, 압축, 다크/라이트 테마를 지원합니다.",
-    "en": "HyoPDF is a Windows PDF viewer and editor with tabbed multi-document support, bookmarks, search, page tools (merge, split, rotate, delete), printing, compression, and light/dark themes."
+    "ko": "HyoPDF는 Windows 10/11용 탭 기반 PDF 뷰어·편집기입니다. 여러 PDF를 탭으로 열고, 북마크·텍스트 검색·페이지 관리(병합·분할·회전·삭제·복사·붙여넣기), 인쇄, 압축, 이미지보내기를 지원합니다. 다크/라이트 테마, 한국어/영어 UI, x64·ARM64 설치 프로그램(MSI) 및 포터블(EXE)을 제공합니다.",
+    "en": "HyoPDF is a tabbed PDF viewer and editor for Windows 10/11. Open multiple PDFs in tabs, use bookmarks and search, manage pages (merge, split, rotate, delete, copy/paste), print, compress, and export pages as images. Includes dark/light themes, Korean/English UI, and x64/ARM64 MSI installers plus portable EXE builds."
   },
   "shortDescription": {
     "ko": "Windows 10/11용 탭 기반 PDF 뷰어 및 편집기",
@@ -36,7 +46,6 @@
   "links": {
     "github": "https://github.com/furss123/HyoPDF"
   },
-  "githubRepo": "furss123/HyoPDF",
   "createdAt": "2026-06-27",
   "updatedAt": "2026-06-28"
 }
