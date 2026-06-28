@@ -193,33 +193,35 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
               viewAllClassName={viewAllLinkClass}
             />
 
-            <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
               {featured.map((app) => (
                 <Link
                   key={app.slug}
                   href={`/${locale}/software/${app.slug}`}
-                  className="block min-w-0 h-full"
+                  className="h-full block"
                 >
-                  <Card hover className="p-5 h-full">
-                    <div className="flex items-start gap-4">
-                      <SoftwareIcon app={app} size="sm" />
-                      <div className="min-w-0 flex-1">
-                        <h3 className="text-base font-bold text-text-primary truncate tracking-[-0.01em]">
-                          {app.name[l]}
-                        </h3>
-                        <p className="text-sm leading-[1.6] text-text-secondary mt-1 line-clamp-2">
-                          {app.shortDescription[l]}
-                        </p>
-                        <div className="flex flex-wrap items-center gap-1 mt-2">
-                          <Badge variant={statusBadgeVariant(app.status)}>
-                            {app.status}
-                          </Badge>
-                          <Badge variant="default">{app.category}</Badge>
-                          <DownloadCount
-                            slug={app.slug}
-                            initialCount={sumDownloadCounts(getReleasesData(app.slug)?.releases)}
-                          />
+                  <Card hover className="h-full flex flex-col">
+                    <div className="flex flex-col h-full p-5">
+                      <div className="flex items-start gap-4 flex-1">
+                        <SoftwareIcon app={app} size="sm" />
+                        <div className="min-w-0 flex-1">
+                          <h3 className="text-base font-bold text-text-primary truncate tracking-[-0.01em]">
+                            {app.name[l]}
+                          </h3>
+                          <p className="text-sm leading-[1.6] text-text-secondary mt-1 line-clamp-2">
+                            {app.shortDescription[l]}
+                          </p>
                         </div>
+                      </div>
+                      <div className="mt-auto pt-3 border-t border-border flex items-center gap-2 flex-wrap">
+                        <Badge variant={statusBadgeVariant(app.status)}>
+                          {app.status}
+                        </Badge>
+                        <Badge variant="default">{app.category}</Badge>
+                        <DownloadCount
+                          slug={app.slug}
+                          initialCount={sumDownloadCounts(getReleasesData(app.slug)?.releases)}
+                        />
                       </div>
                     </div>
                   </Card>

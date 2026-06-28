@@ -23,7 +23,12 @@ export function buildMeta(
   const description =
     options.description ?? config.seo.description?.[l] ?? config.seo.description?.en ?? ''
   const canonical = `${config.brand.url}${options.path}`
-  const ogImage = options.ogImage ?? config.seo.ogImage ?? ''
+  const ogImagePath = options.ogImage ?? config.seo.ogImage ?? '/og/default.png'
+  const ogImage = ogImagePath.startsWith('http')
+    ? ogImagePath
+    : ogImagePath.startsWith('/')
+      ? ogImagePath
+      : `/${ogImagePath}`
 
   return {
     title,
