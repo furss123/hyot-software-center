@@ -98,7 +98,7 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
 
   return (
     <div className="flex flex-col">
-      <section className="relative px-4 py-24 sm:py-32 overflow-hidden">
+      <section className="relative px-4 pt-14 pb-10 overflow-hidden">
         <div
           aria-hidden="true"
           style={{
