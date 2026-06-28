@@ -82,7 +82,7 @@ function SectionHeader({
           </span>
           <span
             style={{
-              fontSize: '0.8125rem',
+              fontSize: '0.9375rem',
               fontWeight: 700,
               letterSpacing: '0.08em',
               textTransform: 'uppercase',
@@ -205,10 +205,10 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
                       <div className="flex items-start gap-4 flex-1">
                         <SoftwareIcon app={app} size="sm" />
                         <div className="min-w-0 flex-1">
-                          <h3 className="text-base font-bold text-text-primary truncate tracking-[-0.01em]">
+                          <h3 className="text-lg font-bold text-text-primary truncate tracking-[-0.01em]">
                             {app.name[l]}
                           </h3>
-                          <p className="text-sm leading-[1.6] text-text-secondary mt-1 line-clamp-2">
+                          <p className="text-base leading-[1.6] text-text-secondary mt-1 line-clamp-2">
                             {app.shortDescription[l]}
                           </p>
                         </div>
@@ -251,14 +251,14 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
                 <Link key={`${slug}-${release.version}`} href={`/${locale}/software/${slug}`}>
                   <Card hover className="px-5 py-4">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-base font-semibold text-text-primary">{slug}</span>
+                      <span className="text-lg font-semibold text-text-primary">{slug}</span>
                       <Badge variant={release.channel}>{release.channel}</Badge>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-mono font-bold text-[var(--hyot-blue)]">
+                      <span className="text-base font-mono font-bold text-[var(--hyot-blue)]">
                         v{release.version}
                       </span>
-                      <span className="text-sm text-text-tertiary">
+                      <span className="text-base text-text-tertiary">
                         {formatDate(release.releaseDate, locale)}
                       </span>
                     </div>
