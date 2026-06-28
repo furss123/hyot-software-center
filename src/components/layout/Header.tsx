@@ -32,7 +32,7 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 w-full h-40 mica',
+        'sticky top-0 z-50 w-full h-32 mica',
         'border-b border-border-pixel',
         'transition-shadow duration-[var(--duration-base)]',
         scrolled ? 'shadow-[var(--shadow-sm)]' : '',
