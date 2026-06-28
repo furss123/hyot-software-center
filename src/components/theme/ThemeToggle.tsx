@@ -30,13 +30,13 @@ export function ThemeToggle(): React.JSX.Element | null {
         aria-label={t('toggle', { mode: t(current.labelKey) })}
         className={cn(
           'flex items-center justify-center min-w-[44px] min-h-[44px] w-11 h-11 rounded-lg',
-          'text-text-secondary hover:text-text-primary',
-          'hover:bg-fill-subtle',
+          'text-text-secondary hover:bg-fill-subtle',
           'transition-all duration-[var(--duration-base)] ease-[var(--ease-fluent)]',
           'focus-visible:outline-2 focus-visible:outline-accent',
         )}
+        style={{ color: 'var(--text-secondary)' }}
       >
-        <Icon size={18} />
+        <Icon size={18} style={{ color: 'var(--text-secondary)' }} />
       </button>
       <div
         className={cn(

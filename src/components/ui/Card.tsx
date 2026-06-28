@@ -30,12 +30,12 @@ export function Card({
     <div
       {...props}
       className={cn(
-        'relative overflow-hidden',
+        'group relative overflow-hidden',
         'transition-all duration-[var(--duration-base)] ease-[var(--ease-fluent)]',
         variants[variant],
         hover &&
           cn(
-            'group/card cursor-pointer',
+            'cursor-pointer',
             'hover:border-border-strong hover:shadow-[var(--shadow-md)] hover:-translate-y-px',
           ),
         className,
@@ -43,14 +43,9 @@ export function Card({
     >
       {hover && (
         <div
-          className={cn(
-            'absolute top-0 left-0 right-0 h-0.5 z-10',
-            'opacity-0 group-hover/card:opacity-100',
-            'transition-opacity duration-[var(--duration-base)]',
-          )}
+          className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-10"
           style={{
-            background:
-              'linear-gradient(90deg, var(--hyot-blue), var(--hyot-purple), var(--hyot-orange), var(--hyot-teal))',
+            background: 'linear-gradient(90deg, #0078D4, #7B2FBE, #FF6B00, #00897B)',
           }}
           aria-hidden
         />

@@ -52,10 +52,10 @@
 /* Dark mode (default) */
 [data-theme='dark'],
 :root {
-  --bg-base: #080B10;
-  --bg-surface: #0F1318;
-  --bg-surface-2: #151A21;
-  --bg-surface-3: #1C2330;
+  --bg-base: #060809;
+  --bg-surface: #0D1117;
+  --bg-surface-2: #131920;
+  --bg-surface-3: #1A2232;
   --bg-overlay: rgba(15, 19, 24, 0.85);
   --bg-mica: rgba(8, 11, 16, 0.90);
   --bg-acrylic: rgba(15, 19, 24, 0.70);
@@ -78,15 +78,15 @@
   --status-error: #FF6B6B;
   --status-info: var(--hyot-blue-light);
 
-  --dot-pattern: var(--dot-color-dark);
+  --dot-pattern: rgba(0, 120, 212, 0.10);
 }
 
 /* Light mode */
 [data-theme='light'] {
-  --bg-base: #F0F4FF;
+  --bg-base: #FAFAFA;
   --bg-surface: #FFFFFF;
-  --bg-surface-2: #F5F8FF;
-  --bg-surface-3: #EBF0FF;
+  --bg-surface-2: #F5F5F5;
+  --bg-surface-3: #EFEFEF;
   --bg-overlay: rgba(255, 255, 255, 0.85);
   --bg-mica: rgba(240, 244, 255, 0.90);
   --bg-acrylic: rgba(255, 255, 255, 0.70);
@@ -109,5 +109,5 @@
   --status-error: #C42B1C;
   --status-info: var(--hyot-blue);
 
-  --dot-pattern: var(--dot-color-light);
+  --dot-pattern: rgba(0, 120, 212, 0.06);
 }

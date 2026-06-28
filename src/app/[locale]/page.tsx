@@ -40,6 +40,46 @@ function statusBadgeVariant(
   return 'default'
 }
 
+const sectionTitleStyle = {
+  fontSize: '0.8125rem',
+  fontWeight: 600,
+  letterSpacing: '0.08em',
+  textTransform: 'uppercase' as const,
+  color: 'var(--text-tertiary)',
+}
+
+const sectionAccentStyle = {
+  width: '4px',
+  height: '18px',
+  background: 'linear-gradient(180deg, #0078D4, #7B2FBE)',
+  borderRadius: '2px',
+  flexShrink: 0,
+}
+
+function SectionHeader({
+  title,
+  viewAllHref,
+  viewAllLabel,
+  viewAllClassName,
+}: {
+  title: string
+  viewAllHref: string
+  viewAllLabel: string
+  viewAllClassName: string
+}): React.JSX.Element {
+  return (
+    <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center gap-3">
+        <div style={sectionAccentStyle} aria-hidden />
+        <h2 style={sectionTitleStyle}>{title}</h2>
+      </div>
+      <Link href={viewAllHref} className={viewAllClassName} aria-label={viewAllLabel}>
+        <ArrowRight size={15} />
+      </Link>
+    </div>
+  )
+}
+
 export default async function HomePage({ params }: PageProps): Promise<React.JSX.Element> {
   const { locale } = await params
   setRequestLocale(locale)
@@ -102,16 +142,12 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
       {featured.length > 0 && (
         <section className="py-16 px-4">
           <div className="max-w-7xl mx-auto">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="section-title">{t('featured')}</h2>
-              <Link
-                href={`/${locale}/software`}
-                className={viewAllLinkClass}
-                aria-label={t('viewAll')}
-              >
-                <ArrowRight size={15} />
-              </Link>
-            </div>
+            <SectionHeader
+              title={t('featured')}
+              viewAllHref={`/${locale}/software`}
+              viewAllLabel={t('viewAll')}
+              viewAllClassName={viewAllLinkClass}
+            />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {featured.map((app) => (
@@ -149,16 +185,12 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
       {latestReleases.length > 0 && (
         <section className="py-16 px-4 border-t border-border-pixel">
           <div className="max-w-7xl mx-auto">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="section-title">{t('latestReleases')}</h2>
-              <Link
-                href={`/${locale}/changelog`}
-                className={viewAllLinkClass}
-                aria-label={t('viewAll')}
-              >
-                <ArrowRight size={15} />
-              </Link>
-            </div>
+            <SectionHeader
+              title={t('latestReleases')}
+              viewAllHref={`/${locale}/changelog`}
+              viewAllLabel={t('viewAll')}
+              viewAllClassName={viewAllLinkClass}
+            />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {latestReleases.map(({ slug, release }) => (

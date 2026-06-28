@@ -18,10 +18,10 @@ html {
 body {
   background-image: radial-gradient(
     circle,
-    var(--dot-pattern) 1px,
-    transparent 1px
+    var(--dot-pattern) 1.5px,
+    transparent 1.5px
   );
-  background-size: var(--dot-gap) var(--dot-gap);
+  background-size: 20px 20px;
   background-attachment: fixed;
 }
 

@@ -25,6 +25,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   })
 }
 
+function channelBorderColor(channel: string): string {
+  if (channel === 'stable') return 'var(--hyot-teal)'
+  if (channel === 'beta') return 'var(--hyot-blue)'
+  return 'var(--text-tertiary)'
+}
+
 export default async function ChangelogPage({
   params,
 }: PageProps): Promise<React.JSX.Element> {
@@ -54,8 +60,11 @@ export default async function ChangelogPage({
           {allReleases.map((release, i) => (
             <Card
               key={`${release.slug}-${release.version}-${i}`}
-              className="changelog-release-card p-5"
-              data-channel={release.channel}
+              className="pl-4 relative p-5"
+              style={{
+                borderLeft: `3px solid ${channelBorderColor(release.channel)}`,
+                borderRadius: '0 8px 8px 0',
+              }}
             >
               <div className="flex items-start justify-between gap-4 mb-3">
                 <div>
