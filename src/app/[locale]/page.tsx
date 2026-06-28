@@ -153,9 +153,13 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
               viewAllClassName={viewAllLinkClass}
             />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {featured.map((app) => (
-                <Link key={app.slug} href={`/${locale}/software/${app.slug}`}>
+                <Link
+                  key={app.slug}
+                  href={`/${locale}/software/${app.slug}`}
+                  className="block min-w-0 h-full"
+                >
                   <Card hover className="p-5 h-full">
                     <div className="flex items-start gap-4">
                       <SoftwareIcon app={app} size="sm" />
