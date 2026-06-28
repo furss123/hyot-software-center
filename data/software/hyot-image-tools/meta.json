@@ -40,9 +40,6 @@
   },
   "requirements": {
     "os": "Windows 10 22H2+",
-    "arch": [
-      "x64"
-    ],
     "ram": "4 GB 이상 권장",
     "disk": "약 150 MB (설치 후)"
   },
