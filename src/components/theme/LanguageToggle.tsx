@@ -18,7 +18,7 @@ export function LanguageToggle(): React.JSX.Element {
   }
 
   return (
-    <div className="flex items-center gap-0.5 p-1 rounded-lg bg-fill-subtle h-10">
+    <div className="flex items-center gap-0.5 p-1 rounded-lg bg-fill-subtle h-12">
       {(['ko', 'en'] as const).map((l) => (
         <button
           key={l}
@@ -26,7 +26,7 @@ export function LanguageToggle(): React.JSX.Element {
           onClick={() => switchLocale(l)}
           aria-label={l === 'ko' ? t('switchKo') : t('switchEn')}
           className={cn(
-            'flex items-center justify-center w-10 h-8 rounded-md text-xs font-medium transition-all duration-[var(--duration-base)]',
+            'flex items-center justify-center w-12 h-10 rounded-md text-base font-medium transition-all duration-[var(--duration-base)]',
             'focus-visible:outline-2 focus-visible:outline-accent',
             locale === l
               ? 'bg-bg-surface text-text-primary shadow-sm'

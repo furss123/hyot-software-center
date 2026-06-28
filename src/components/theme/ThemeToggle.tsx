@@ -29,14 +29,14 @@ export function ThemeToggle(): React.JSX.Element | null {
         type="button"
         aria-label={t('toggle', { mode: t(current.labelKey) })}
         className={cn(
-          'flex items-center justify-center w-10 h-10 rounded-lg',
+          'flex items-center justify-center w-12 h-12 rounded-lg',
           'text-text-secondary hover:bg-fill-subtle',
           'transition-all duration-[var(--duration-base)] ease-[var(--ease-fluent)]',
           'focus-visible:outline-2 focus-visible:outline-accent',
         )}
         style={{ color: 'var(--text-secondary)' }}
       >
-        <Icon size={18} style={{ color: 'var(--text-secondary)' }} />
+        <Icon size={22} style={{ color: 'var(--text-secondary)' }} />
       </button>
       <div
         className={cn(
