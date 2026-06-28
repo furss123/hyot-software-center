@@ -127,6 +127,22 @@ body {
 .prose li {
   margin-bottom: 0.25rem;
 }
+.prose ol {
+  color: var(--text-secondary);
+  list-style: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 0.875rem;
+}
+.prose blockquote {
+  color: var(--text-secondary);
+  border-left: 3px solid var(--hyot-orange);
+  padding-left: 1rem;
+  margin: 1rem 0;
+}
+.prose strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
 .prose code {
   font-family: var(--font-mono);
   font-size: 0.8125rem;

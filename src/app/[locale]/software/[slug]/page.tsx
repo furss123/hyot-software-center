@@ -152,7 +152,9 @@ export default async function SoftwareDetailPage({
               <AdSlot position="softwareTop" className="mb-6" />
               <Card className="p-6">
                 <h2 className="font-semibold text-text-primary mb-3">{t('descriptionLabel')}</h2>
-                <p className="text-text-secondary leading-relaxed">{app.description[l]}</p>
+                <div className="prose">
+                  <MDXRemote source={app.description[l]} />
+                </div>
               </Card>
               {releasesData && <DownloadSection releasesData={releasesData} locale={locale} />}
               <AdSlot position="softwareBottom" className="mt-6" />
