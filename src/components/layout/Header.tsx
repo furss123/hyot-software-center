@@ -41,7 +41,7 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
       <div className="max-w-7xl mx-auto px-10 h-full flex items-center gap-10">
         <Link
           href={`/${locale}`}
-          className="flex items-center gap-2.5 text-text-primary hover:opacity-80 transition-opacity"
+          className="flex items-center gap-2.5 shrink-0 text-text-primary hover:opacity-80 transition-opacity"
         >
           {/* eslint-disable-next-line @next/next/no-img-element -- static export; logo from /public */}
           <img
@@ -67,13 +67,13 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
                 target={item.external ? '_blank' : undefined}
                 rel={item.external ? 'noopener noreferrer' : undefined}
                 className={cn(
-                  'relative px-5 py-3 text-base font-medium rounded-md flex items-center',
+                  'relative px-6 py-3 text-lg font-medium rounded-md flex items-center',
                   'transition-all duration-[var(--duration-fast)] ease-[var(--ease-fluent)]',
                   'focus-visible:outline-2 focus-visible:outline-[var(--hyot-blue)]',
                   isActive
                     ? cn(
                         'text-[var(--hyot-blue)]',
-                        'after:absolute after:bottom-0 after:left-5 after:right-5',
+                        'after:absolute after:bottom-0 after:left-6 after:right-6',
                         'after:h-0.5 after:bg-[var(--hyot-blue)] after:rounded-[1px]',
                       )
                     : 'text-text-secondary hover:text-text-primary hover:bg-fill-subtle',
@@ -85,7 +85,7 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <button
             type="button"
             onClick={open}
