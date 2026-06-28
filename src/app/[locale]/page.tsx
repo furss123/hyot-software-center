@@ -98,7 +98,7 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
 
   return (
     <div className="flex flex-col">
-      <section className="relative px-4 pt-16 pb-10 overflow-hidden">
+      <section className="relative px-4 py-24 sm:py-32 overflow-hidden">
         <div
           aria-hidden="true"
           style={{
@@ -119,23 +119,15 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
         <div className="max-w-7xl mx-auto text-center relative">
           <h1
             className={cn(
+              'text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-[-0.03em] leading-[1.1]',
               'whitespace-pre-line opacity-0 animate-fade-in-up animate-delay-100',
+              'bg-gradient-to-br from-text-primary from-40% to-[#4A9FE0] bg-clip-text text-transparent',
             )}
-            style={{
-              fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
-              fontWeight: 800,
-              letterSpacing: '-0.03em',
-              lineHeight: 1.1,
-              background: 'linear-gradient(135deg, var(--text-primary) 40%, #4A9FE0 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
           >
             {t('hero.title')}
           </h1>
 
-          <p className="text-base text-text-secondary max-w-md mx-auto mt-3 mb-8 opacity-0 animate-fade-in-up animate-delay-200">
+          <p className="text-lg text-text-secondary max-w-lg mx-auto mt-5 mb-10 opacity-0 animate-fade-in-up animate-delay-200">
             {t('hero.subtitle')}
           </p>
 
