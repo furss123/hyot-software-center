@@ -41,7 +41,7 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
       <div className="max-w-7xl mx-auto px-10 h-full flex items-center gap-10">
         <Link
           href={`/${locale}`}
-          className="flex items-center gap-2.5 shrink-0 text-text-primary hover:opacity-80 transition-opacity"
+          className="flex items-center shrink-0 text-text-primary hover:opacity-80 transition-opacity"
         >
           {/* eslint-disable-next-line @next/next/no-img-element -- static export; logo from /public */}
           <img
@@ -49,9 +49,6 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
             className="logo-img"
             alt="HyoT"
           />
-          <span className="hidden sm:block text-2xl font-bold tracking-[-0.01em]">
-            {config.brand.name}
-          </span>
         </Link>
 
         <div
