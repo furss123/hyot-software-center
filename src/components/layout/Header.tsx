@@ -53,6 +53,7 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
             src="/hyot-software-center/assets/logo.png"
             alt="HyoT"
             height={36}
+            className="logo-img"
             style={{ height: '36px', width: 'auto' }}
           />
           <span className="hidden sm:block text-base font-semibold">{config.brand.name}</span>
