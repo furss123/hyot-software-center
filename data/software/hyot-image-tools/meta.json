@@ -15,7 +15,8 @@
   ],
   "featured": true,
   "githubRepo": "furss123/hyot-image-tools",
-  "icon": "/icons/hyot-image-tools.png",
+  "icon": "/data/software/hyot-image-tools/icon.webp",
+  "banner": "/data/software/hyot-image-tools/banner.webp",
   "screenshots": [
     {
       "file": "screenshots/main.png",
