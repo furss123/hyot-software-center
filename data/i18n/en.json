@@ -73,14 +73,8 @@
     "results": "Search results",
     "categories": {
       "software": "Software",
-      "docs": "Documentation",
       "faq": "FAQ"
     }
-  },
-  "docs": {
-    "title": "Documentation",
-    "noContent": "No documentation yet",
-    "onThisPage": "On this page"
   },
   "theme": {
     "dark": "Dark Mode",

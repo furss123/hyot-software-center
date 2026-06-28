@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
@@ -105,17 +104,6 @@ export default async function SoftwareDetailPage({
     b.releaseDate.localeCompare(a.releaseDate),
   )
 
-  const tabs = [
-    { id: 'overview', label: t('tabs.overview') },
-    { id: 'changelog', label: t('tabs.changelog') },
-    { id: 'docs', label: t('tabs.documentation') },
-    {
-      id: 'feedback',
-      label: t('tabs.feedbackTab'),
-      href: `/${locale}/software/${slug}/feedback`,
-    },
-  ]
-
   return (
     <>
       <script
@@ -156,7 +144,7 @@ export default async function SoftwareDetailPage({
       </div>
 
       <Suspense fallback={null}>
-        <SoftwareTabs tabs={tabs} locale={locale} slug={slug} />
+        <SoftwareTabs locale={locale} slug={slug} />
 
         <SoftwareTabPanel tabId="overview">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -272,21 +260,6 @@ export default async function SoftwareDetailPage({
               })
             )}
           </div>
-        </SoftwareTabPanel>
-
-        <SoftwareTabPanel tabId="docs">
-          <Card className="p-6">
-            {app.links?.docs ? (
-              <Link
-                href={app.links.docs.startsWith('/') ? `/${locale}${app.links.docs}` : app.links.docs}
-                className="text-accent hover:opacity-80 transition-opacity"
-              >
-                {t('documentation')} →
-              </Link>
-            ) : (
-              <p className="text-text-tertiary">{t('noDocumentation')}</p>
-            )}
-          </Card>
         </SoftwareTabPanel>
       </Suspense>
       </div>

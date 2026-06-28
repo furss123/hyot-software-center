@@ -15,7 +15,6 @@ const MonetizationSchema = z.object({
     softwareTop: z.boolean(),
     softwareBottom: z.boolean(),
     faq: z.boolean(),
-    docs: z.boolean(),
     news: z.boolean(),
     about: z.boolean(),
   }),

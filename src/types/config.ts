@@ -10,7 +10,6 @@ export interface MonetizationPositions {
   softwareTop: boolean
   softwareBottom: boolean
   faq: boolean
-  docs: boolean
   news: boolean
   about: boolean
 }

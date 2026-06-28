@@ -5,19 +5,27 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import { cn } from '@/lib/utils'
 
-type Tab = { id: string; label: string; href?: string }
-
 type SoftwareTabsProps = {
-  tabs: Tab[]
   locale: string
   slug: string
 }
 
-export function SoftwareTabs({ tabs, locale, slug }: SoftwareTabsProps): React.JSX.Element {
+export function SoftwareTabs({ locale, slug }: SoftwareTabsProps): React.JSX.Element {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const activeTab = searchParams.get('tab') ?? 'overview'
+  const l = locale as 'ko' | 'en'
+
+  const tabs = [
+    { id: 'overview', label: l === 'ko' ? '개요' : 'Overview' },
+    { id: 'changelog', label: l === 'ko' ? '변경 내역' : 'Changelog' },
+    {
+      id: 'feedback',
+      label: l === 'ko' ? '버그 제보 & 건의' : 'Feedback',
+      href: `/${locale}/software/${slug}/feedback`,
+    },
+  ]
 
   function setTab(id: string): void {
     const params = new URLSearchParams(searchParams.toString())

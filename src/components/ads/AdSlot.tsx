@@ -19,7 +19,6 @@ const SLOT_HEIGHTS: Record<AdPosition, string> = {
   softwareTop: 'h-[90px]',
   softwareBottom: 'h-[250px]',
   faq: 'h-[250px]',
-  docs: 'h-[250px]',
   news: 'h-[250px]',
   about: 'h-[250px]',
 }

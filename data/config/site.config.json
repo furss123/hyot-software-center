@@ -58,7 +58,6 @@
       "softwareTop": false,
       "softwareBottom": true,
       "faq": true,
-      "docs": true,
       "news": true,
       "about": true
     }

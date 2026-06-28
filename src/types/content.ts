@@ -9,10 +9,3 @@ export interface NewsItem {
   tags: string[]
   content: string
 }
-
-export interface DocItem {
-  slug: string
-  title: I18nString
-  order: number
-  content: string
-}

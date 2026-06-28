@@ -12,7 +12,7 @@ import { getFocusableElements } from '@/lib/utils/focus-trap'
 
 type SearchDoc = {
   id: string
-  type: 'software' | 'docs' | 'faq'
+  type: 'software'
   slug: string
   name_ko: string
   name_en: string
@@ -33,8 +33,6 @@ function getBasePath(): string {
 }
 
 function getResultUrl(locale: string, item: SearchDoc): string {
-  if (item.type === 'docs') return `/${locale}/docs/${item.slug}`
-  if (item.type === 'faq') return `/${locale}/faq`
   return `/${locale}/software/${item.slug}`
 }
 
@@ -67,8 +65,8 @@ export function SearchModal({
     try {
       const res = await fetch(`${getBasePath()}/search/index.json`)
       if (!res.ok) return
-      const docs = (await res.json()) as SearchDoc[]
-      const instance = new Fuse(docs, {
+      const index = (await res.json()) as SearchDoc[]
+      const instance = new Fuse(index, {
         keys: ['name_ko', 'name_en', 'description_ko', 'description_en', 'tags'],
         threshold: 0.4,
       })
@@ -157,20 +155,17 @@ export function SearchModal({
     close()
   }
 
-  const softwareResults = results.filter((r) => r.type === 'software')
-  const docsResults = results.filter((r) => r.type === 'docs')
-  const faqResults = results.filter((r) => r.type === 'faq')
+  const softwareResults = results
 
   function renderGroup(
     items: SearchDoc[],
-    categoryKey: 'software' | 'docs' | 'faq',
     indexOffset: number,
   ): React.JSX.Element | null {
     if (items.length === 0) return null
     return (
-      <div key={categoryKey}>
+      <div>
         <p className="text-xs font-medium text-text-tertiary uppercase tracking-wide px-3 py-2">
-          {t(`categories.${categoryKey}`)}
+          {t('categories.software')}
         </p>
         {items.map((item, groupIndex) => {
           const index = indexOffset + groupIndex
@@ -268,13 +263,7 @@ export function SearchModal({
 
             {!loading && results.length > 0 && (
               <div id={listboxId} role="listbox" aria-label={t('results')}>
-                {renderGroup(softwareResults, 'software', 0)}
-                {renderGroup(docsResults, 'docs', softwareResults.length)}
-                {renderGroup(
-                  faqResults,
-                  'faq',
-                  softwareResults.length + docsResults.length,
-                )}
+                {renderGroup(softwareResults, 0)}
               </div>
             )}
 

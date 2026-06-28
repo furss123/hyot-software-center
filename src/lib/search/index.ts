@@ -1,5 +1,5 @@
 export interface SearchResult {
-  type: 'software' | 'docs' | 'faq'
+  type: 'software'
   slug: string
   title: string
   excerpt: string
@@ -13,6 +13,5 @@ export interface SearchAdapter {
 
 export interface SearchIndex {
   software: Array<{ slug: string; name: string; description: string }>
-  docs: Array<{ slug: string; title: string; content: string }>
   faq: Array<{ id: string; question: string; answer: string }>
 }

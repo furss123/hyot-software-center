@@ -73,14 +73,8 @@
     "results": "검색 결과",
     "categories": {
       "software": "소프트웨어",
-      "docs": "문서",
       "faq": "자주 묻는 질문"
     }
-  },
-  "docs": {
-    "title": "문서",
-    "noContent": "문서가 없습니다",
-    "onThisPage": "목차"
   },
   "theme": {
     "dark": "다크 모드",
