@@ -1,4 +1,4 @@
-import { cn, slugToColor } from '@/lib/utils'
+import { cn, getAssetUrl, slugToColor } from '@/lib/utils'
 import type { SoftwareMeta } from '@/types'
 
 type SoftwareIconProps = {
@@ -23,7 +23,7 @@ export function SoftwareIcon({
     return (
       // eslint-disable-next-line @next/next/no-img-element -- static export; lazy-loaded icons from /public
       <img
-        src={app.icon}
+        src={getAssetUrl(app.icon)}
         alt=""
         loading="lazy"
         decoding="async"

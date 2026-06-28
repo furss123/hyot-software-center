@@ -5,6 +5,14 @@ export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs))
 }
 
+export function getAssetUrl(assetPath: string): string {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+  if (!assetPath) return ''
+  if (assetPath.startsWith('http://') || assetPath.startsWith('https://')) return assetPath
+  const normalized = assetPath.startsWith('/') ? assetPath : `/${assetPath}`
+  return `${base}${normalized}`
+}
+
 export function formatBytes(bytes: number): string {
   if (bytes === 0) return '0 B'
   const k = 1024

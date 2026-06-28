@@ -100,9 +100,13 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   if (type === 'icon' || type === 'banner') {
     const meta = readMeta(slug)!
+    const assetPath =
+      type === 'icon'
+        ? `/data/software/${slug}/icon.webp`
+        : `/data/software/${slug}/banner.webp`
     writeMeta(slug, {
       ...meta,
-      ...(type === 'icon' ? { icon: url } : { banner: url }),
+      ...(type === 'icon' ? { icon: assetPath } : { banner: assetPath }),
       updatedAt: new Date().toISOString().split('T')[0],
     })
     gitCommitAndPush(`feat(software): update ${type} for ${slug}`, [

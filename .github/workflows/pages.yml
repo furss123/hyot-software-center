@@ -30,6 +30,7 @@ jobs:
       - name: Build
         run: |
           npm run build:icons
+          npm run copy:software-assets
           npm run build:search-index
           npm run build:og
           npm run build:sitemap
@@ -37,6 +38,7 @@ jobs:
           npm run build
         env:
           GITHUB_PAGES_REPO: ${{ vars.PAGES_REPO || 'hyot-software-center' }}
+          NEXT_PUBLIC_BASE_PATH: /${{ vars.PAGES_REPO || 'hyot-software-center' }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
