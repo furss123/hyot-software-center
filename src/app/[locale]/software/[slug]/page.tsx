@@ -124,36 +124,20 @@ export default async function SoftwareDetailPage({
         />
         {app.banner && (
           <div
-            style={{
-              width: '100%',
-              height: '240px',
-              borderRadius: '16px',
-              overflow: 'hidden',
-              marginBottom: '2rem',
-              position: 'relative',
-            }}
+            className="relative w-full mb-8 overflow-hidden rounded-2xl"
+            style={{ aspectRatio: '1200 / 340' }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element -- static export */}
             <img
               src={getAssetUrl(app.banner)}
               alt={`${app.name[l]} banner`}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'center',
-              }}
+              className="block w-full h-full object-cover"
             />
             <div
               aria-hidden="true"
+              className="absolute inset-x-0 bottom-0 h-[23%] pointer-events-none"
               style={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: '80px',
                 background: 'linear-gradient(to top, var(--bg-base), transparent)',
-                pointerEvents: 'none',
               }}
             />
           </div>
