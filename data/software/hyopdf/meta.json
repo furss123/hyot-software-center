@@ -14,6 +14,8 @@
     "windows-10"
   ],
   "featured": true,
+  "icon": "/data/software/hyopdf/icon.webp",
+  "banner": "/data/software/hyopdf/banner.webp",
   "name": {
     "ko": "HyoPDF",
     "en": "HyoPDF"
@@ -36,5 +38,5 @@
   },
   "githubRepo": "furss123/HyoPDF",
   "createdAt": "2026-06-27",
-  "updatedAt": "2026-06-27"
+  "updatedAt": "2026-06-28"
 }
