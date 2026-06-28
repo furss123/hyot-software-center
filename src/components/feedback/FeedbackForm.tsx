@@ -40,6 +40,17 @@ export function FeedbackForm({
   const [status, setStatus] = useState<Status>('idle')
   const [attempted, setAttempted] = useState(false)
 
+  const typeActiveStyles: Record<FeedbackType, string> = {
+    bug: 'bg-[rgba(255,107,107,0.15)] text-[#FF6B6B] border border-[rgba(255,107,107,0.3)]',
+    feature:
+      'bg-[rgba(0,120,212,0.15)] text-[var(--hyot-blue-light)] border border-[rgba(0,120,212,0.3)]',
+    other:
+      'bg-[rgba(123,47,190,0.15)] text-[var(--hyot-purple-light)] border border-[rgba(123,47,190,0.3)]',
+  }
+
+  const inputClass =
+    'form-input p-2.5 w-full text-text-primary text-sm focus:outline-none'
+
   const typeOptions: Array<{ value: FeedbackType; label: string }> = [
     { value: 'bug', label: t('typeBug') },
     { value: 'feature', label: t('typeFeature') },
@@ -114,10 +125,10 @@ export function FeedbackForm({
               type="button"
               onClick={() => setType(opt.value)}
               className={cn(
-                'h-9 px-4 rounded-full text-xs font-medium transition-colors',
+                'h-9 px-4 rounded-[var(--radius-md)] text-xs font-medium transition-colors border border-transparent',
                 type === opt.value
-                  ? 'bg-accent text-white'
-                  : 'bg-fill-subtle text-text-secondary hover:bg-fill-secondary',
+                  ? typeActiveStyles[opt.value]
+                  : 'bg-fill-subtle text-text-secondary hover:bg-fill-secondary border-border-pixel',
               )}
             >
               {opt.label}
@@ -134,7 +145,7 @@ export function FeedbackForm({
           id="feedback-software"
           value={selectedSoftware}
           onChange={(e) => setSelectedSoftware(e.target.value)}
-          className="border border-border rounded-lg p-2.5 w-full bg-bg-surface text-text-primary text-sm"
+          className={inputClass}
         >
           <option value="" disabled>
             {t('softwarePlaceholder')}
@@ -158,7 +169,7 @@ export function FeedbackForm({
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder={t('titlePlaceholder')}
-          className="border border-border rounded-lg p-2.5 w-full bg-bg-surface text-text-primary text-sm"
+          className={inputClass}
         />
         {titleError && <p className="text-status-error text-xs mt-2">{t('validTitle')}</p>}
       </div>
@@ -173,7 +184,7 @@ export function FeedbackForm({
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder={t('contentPlaceholder')}
-          className="border border-border rounded-lg p-2.5 w-full bg-bg-surface text-text-primary text-sm resize-y min-h-[120px]"
+          className={cn(inputClass, 'resize-y min-h-[120px]')}
         />
         {contentError && <p className="text-status-error text-xs mt-2">{t('validContent')}</p>}
       </div>
@@ -188,7 +199,7 @@ export function FeedbackForm({
           value={contact}
           onChange={(e) => setContact(e.target.value)}
           placeholder={t('contactPlaceholder')}
-          className="border border-border rounded-lg p-2.5 w-full bg-bg-surface text-text-primary text-sm"
+          className={inputClass}
         />
       </div>
 

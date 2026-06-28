@@ -20,16 +20,21 @@ interface BadgeProps {
 }
 
 const variants: Record<BadgeVariant, string> = {
-  stable: 'bg-[color:rgba(16,124,16,0.12)] text-status-success',
-  beta: 'bg-accent-subtle text-accent',
-  legacy: 'bg-fill-tertiary text-text-tertiary',
-  experimental: 'bg-[color:rgba(193,156,0,0.12)] text-status-warning',
-  deprecated: 'bg-[color:rgba(196,43,28,0.12)] text-status-error',
-  success: 'bg-[color:rgba(16,124,16,0.12)] text-status-success',
-  warning: 'bg-[color:rgba(193,156,0,0.12)] text-status-warning',
-  error: 'bg-[color:rgba(196,43,28,0.12)] text-status-error',
-  info: 'bg-accent-subtle text-status-info',
-  default: 'bg-fill-secondary text-text-secondary',
+  stable:
+    'bg-[rgba(0,137,123,0.15)] text-[var(--hyot-teal-light)] border border-[rgba(0,137,123,0.25)]',
+  beta: 'bg-[rgba(0,120,212,0.12)] text-[var(--hyot-blue-light)] border border-[rgba(0,120,212,0.2)]',
+  legacy: 'bg-fill-secondary text-text-tertiary border border-border',
+  experimental:
+    'bg-[rgba(255,107,0,0.12)] text-[var(--hyot-orange-light)] border border-[rgba(255,107,0,0.2)]',
+  deprecated:
+    'bg-[rgba(255,107,107,0.12)] text-[#FF6B6B] border border-[rgba(255,107,107,0.2)]',
+  success:
+    'bg-[rgba(0,137,123,0.15)] text-[var(--hyot-teal-light)] border border-[rgba(0,137,123,0.25)]',
+  warning:
+    'bg-[rgba(255,107,0,0.12)] text-[var(--hyot-orange-light)] border border-[rgba(255,107,0,0.2)]',
+  error: 'bg-[rgba(255,107,107,0.12)] text-[#FF6B6B] border border-[rgba(255,107,107,0.2)]',
+  info: 'bg-[rgba(0,120,212,0.12)] text-[var(--hyot-blue-light)] border border-[rgba(0,120,212,0.2)]',
+  default: 'bg-fill-subtle text-text-secondary border border-border',
 }
 
 export function Badge({
@@ -40,7 +45,9 @@ export function Badge({
   return (
     <span
       className={cn(
-        'inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium',
+        'inline-flex items-center px-1.5 py-0.5',
+        'rounded-[var(--radius-sm)]',
+        'text-[10px] font-semibold uppercase tracking-[0.04em]',
         variants[variant],
         className,
       )}

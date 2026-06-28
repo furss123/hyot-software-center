@@ -32,7 +32,8 @@ export function DownloadCount({ slug, initialCount }: DownloadCountProps): React
 
   return (
     <div
-      className="flex items-center gap-1 text-xs text-text-tertiary"
+      className="flex items-center gap-1 text-[11px] text-text-tertiary"
+      style={{ fontFamily: 'var(--font-mono)' }}
       aria-label={t('downloadCountLabel', { count })}
     >
       <Download size={12} aria-hidden />

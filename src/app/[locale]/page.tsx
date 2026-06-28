@@ -52,15 +52,34 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
     'flex items-center justify-center w-8 h-8 rounded-lg',
     'text-text-tertiary hover:text-text-primary',
     'bg-fill-subtle hover:bg-fill-secondary',
-    'border border-border',
+    'border border-border-pixel',
     'transition-all duration-[var(--duration-base)] ease-[var(--ease-fluent)]',
   )
 
   return (
     <div className="flex flex-col">
-      <section className="px-4 pt-16 pb-12">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl sm:text-6xl font-bold text-text-primary tracking-[-0.03em] leading-[1.1] whitespace-pre-line opacity-0 animate-fade-in-up animate-delay-100">
+      <section className="relative px-4 pt-16 pb-12 overflow-hidden">
+        <div
+          className="absolute top-0 right-0 w-[200px] h-[200px] pointer-events-none"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle, rgba(0,120,212,0.15) 1px, transparent 1px)',
+            backgroundSize: '16px 16px',
+            maskImage: 'radial-gradient(ellipse at top right, black 30%, transparent 70%)',
+            WebkitMaskImage:
+              'radial-gradient(ellipse at top right, black 30%, transparent 70%)',
+          }}
+          aria-hidden
+        />
+        <div className="max-w-7xl mx-auto text-center relative">
+          <h1
+            className={cn(
+              'text-5xl sm:text-6xl font-bold tracking-[-0.03em] leading-[1.1] whitespace-pre-line',
+              'opacity-0 animate-fade-in-up animate-delay-100',
+              'bg-gradient-to-br from-text-primary from-60% to-[var(--hyot-blue-light)]',
+              'bg-clip-text text-transparent',
+            )}
+          >
             {t('hero.title')}
           </h1>
 
@@ -70,7 +89,7 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
 
           <div className="flex items-center justify-center opacity-0 animate-fade-in-up animate-delay-300">
             <Link href={`/${locale}/software`}>
-              <Button size="lg" className="rounded-xl" icon={<ArrowRight size={18} />}>
+              <Button size="lg" icon={<ArrowRight size={18} />} iconPosition="end">
                 {t('hero.cta')}
               </Button>
             </Link>
@@ -84,7 +103,7 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
         <section className="py-16 px-4">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold text-text-primary">{t('featured')}</h2>
+              <h2 className="section-title">{t('featured')}</h2>
               <Link
                 href={`/${locale}/software`}
                 className={viewAllLinkClass}
@@ -101,22 +120,17 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
                     <div className="flex items-start gap-4">
                       <SoftwareIcon app={app} size="sm" />
                       <div className="min-w-0 flex-1">
-                        <h3 className="text-sm font-semibold text-text-primary truncate">
+                        <h3 className="text-sm font-semibold text-text-primary truncate tracking-[-0.01em]">
                           {app.name[l]}
                         </h3>
-                        <p className="text-xs text-text-secondary mt-1 line-clamp-2">
+                        <p className="text-[12px] leading-normal text-text-secondary mt-1 line-clamp-2">
                           {app.shortDescription[l]}
                         </p>
                         <div className="flex flex-wrap items-center gap-1 mt-2">
-                          <Badge
-                            variant={statusBadgeVariant(app.status)}
-                            className="text-[10px] px-2 py-0.5"
-                          >
+                          <Badge variant={statusBadgeVariant(app.status)}>
                             {app.status}
                           </Badge>
-                          <Badge variant="default" className="text-[10px] px-2 py-0.5">
-                            {app.category}
-                          </Badge>
+                          <Badge variant="default">{app.category}</Badge>
                           <DownloadCount
                             slug={app.slug}
                             initialCount={sumDownloadCounts(getReleasesData(app.slug)?.releases)}
@@ -133,10 +147,10 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
       )}
 
       {latestReleases.length > 0 && (
-        <section className="py-16 px-4 border-t border-border">
+        <section className="py-16 px-4 border-t border-border-pixel">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold text-text-primary">{t('latestReleases')}</h2>
+              <h2 className="section-title">{t('latestReleases')}</h2>
               <Link
                 href={`/${locale}/changelog`}
                 className={viewAllLinkClass}
@@ -152,12 +166,10 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
                   <Card hover className="p-4">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-semibold text-text-primary">{slug}</span>
-                      <Badge variant={release.channel} className="text-[10px] px-2 py-0.5">
-                        {release.channel}
-                      </Badge>
+                      <Badge variant={release.channel}>{release.channel}</Badge>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-accent font-mono text-sm">v{release.version}</span>
+                      <span className="version-number">v{release.version}</span>
                       <span className="text-xs text-text-tertiary">
                         {formatDate(release.releaseDate, locale)}
                       </span>

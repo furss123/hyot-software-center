@@ -89,9 +89,13 @@ export default async function SoftwareChangelogPage({
         {releases.map((release) => {
           const notes = release.notes?.[l] ?? release.notes?.en ?? ''
           return (
-            <Card key={release.version} className="p-6">
+            <Card
+              key={release.version}
+              className="changelog-release-card p-6"
+              data-channel={release.channel}
+            >
               <div className="flex flex-wrap items-center gap-2 mb-4">
-                <span className="font-mono text-lg text-accent">v{release.version}</span>
+                <span className="version-number">v{release.version}</span>
                 <Badge variant={channelBadgeVariant(release.channel)}>{release.channel}</Badge>
                 <span className="text-sm text-text-tertiary">
                   {formatDate(release.releaseDate, locale)}

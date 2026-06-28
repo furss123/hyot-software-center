@@ -32,10 +32,16 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 w-full mica h-14',
+        'sticky top-0 z-50 w-full h-14',
+        'border-b border-border-pixel',
         'transition-shadow duration-[var(--duration-base)]',
-        scrolled ? 'border-b border-border shadow-sm' : 'border-b border-border/50',
+        scrolled ? 'shadow-[var(--shadow-sm)]' : '',
       )}
+      style={{
+        background: `linear-gradient(180deg, rgba(0,120,212,0.03) 0%, transparent 100%), var(--bg-mica)`,
+        backdropFilter: 'blur(20px) saturate(1.5)',
+        WebkitBackdropFilter: 'blur(20px) saturate(1.5)',
+      }}
     >
       <div className="max-w-7xl mx-auto px-6 h-full flex items-center gap-8">
         <Link
@@ -65,11 +71,15 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
                 target={item.external ? '_blank' : undefined}
                 rel={item.external ? 'noopener noreferrer' : undefined}
                 className={cn(
-                  'px-3 py-2 text-sm rounded-md min-h-[44px] flex items-center',
+                  'relative px-3 py-2 text-sm rounded-md min-h-[44px] flex items-center',
                   'transition-all duration-[var(--duration-fast)] ease-[var(--ease-fluent)]',
-                  'focus-visible:outline-2 focus-visible:outline-accent',
+                  'focus-visible:outline-2 focus-visible:outline-[var(--hyot-blue)]',
                   isActive
-                    ? 'text-text-primary bg-fill-subtle'
+                    ? cn(
+                        'text-[var(--hyot-blue)]',
+                        'after:absolute after:bottom-1 after:left-3 after:right-3',
+                        'after:h-0.5 after:bg-[var(--hyot-blue)] after:rounded-[1px]',
+                      )
                     : 'text-text-secondary hover:text-text-primary hover:bg-fill-subtle',
                 )}
               >
@@ -88,7 +98,7 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
               'flex items-center justify-center min-w-[44px] min-h-[44px] w-11 h-11 rounded-lg',
               'text-text-secondary hover:text-text-primary hover:bg-fill-subtle',
               'transition-all duration-[var(--duration-base)] ease-[var(--ease-fluent)]',
-              'focus-visible:outline-2 focus-visible:outline-accent',
+              'focus-visible:outline-2 focus-visible:outline-[var(--hyot-blue)]',
             )}
           >
             <Search size={18} />
