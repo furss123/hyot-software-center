@@ -25,13 +25,6 @@ body {
   background-attachment: fixed;
 }
 
-[data-theme='light'] .logo-img {
-  mix-blend-mode: multiply;
-}
-[data-theme='dark'] .logo-img {
-  mix-blend-mode: normal;
-}
-
 /* Pixel selection */
 ::selection {
   background: rgba(0, 120, 212, 0.25);
