@@ -29,7 +29,7 @@ export function ThemeToggle(): React.JSX.Element | null {
         type="button"
         aria-label={t('toggle', { mode: t(current.labelKey) })}
         className={cn(
-          'flex items-center justify-center min-w-[44px] min-h-[44px] w-11 h-11 rounded-lg',
+          'flex items-center justify-center w-10 h-10 rounded-lg',
           'text-text-secondary hover:bg-fill-subtle',
           'transition-all duration-[var(--duration-base)] ease-[var(--ease-fluent)]',
           'focus-visible:outline-2 focus-visible:outline-accent',

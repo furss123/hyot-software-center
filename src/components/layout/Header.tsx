@@ -32,13 +32,13 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 w-full h-[54px] mica',
+        'sticky top-0 z-50 w-full h-20 mica',
         'border-b border-border-pixel',
         'transition-shadow duration-[var(--duration-base)]',
         scrolled ? 'shadow-[var(--shadow-sm)]' : '',
       )}
     >
-      <div className="max-w-7xl mx-auto px-6 h-full flex items-center gap-8">
+      <div className="max-w-7xl mx-auto px-8 h-full flex items-center gap-8">
         <Link
           href={`/${locale}`}
           className="flex items-center gap-2.5 text-text-primary hover:opacity-80 transition-opacity"
@@ -49,14 +49,7 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
             className="logo-img"
             alt="HyoT"
           />
-          <span
-            className="hidden sm:block"
-            style={{
-              fontWeight: 700,
-              fontSize: '0.9rem',
-              letterSpacing: '-0.01em',
-            }}
-          >
+          <span className="hidden sm:block text-lg font-bold tracking-[-0.01em]">
             {config.brand.name}
           </span>
         </Link>
@@ -74,13 +67,13 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
                 target={item.external ? '_blank' : undefined}
                 rel={item.external ? 'noopener noreferrer' : undefined}
                 className={cn(
-                  'relative px-3 py-2 text-sm rounded-md min-h-[44px] flex items-center',
+                  'relative px-4 py-2.5 text-sm rounded-md flex items-center',
                   'transition-all duration-[var(--duration-fast)] ease-[var(--ease-fluent)]',
                   'focus-visible:outline-2 focus-visible:outline-[var(--hyot-blue)]',
                   isActive
                     ? cn(
                         'text-[var(--hyot-blue)]',
-                        'after:absolute after:bottom-0 after:left-3 after:right-3',
+                        'after:absolute after:bottom-0 after:left-4 after:right-4',
                         'after:h-0.5 after:bg-[var(--hyot-blue)] after:rounded-[1px]',
                       )
                     : 'text-text-secondary hover:text-text-primary hover:bg-fill-subtle',
@@ -98,7 +91,7 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
             onClick={open}
             aria-label={t('shortcut')}
             className={cn(
-              'flex items-center justify-center min-w-[44px] min-h-[44px] w-11 h-11 rounded-lg',
+              'flex items-center justify-center w-10 h-10 rounded-lg',
               'text-text-secondary hover:text-text-primary hover:bg-fill-subtle',
               'transition-all duration-[var(--duration-base)] ease-[var(--ease-fluent)]',
               'focus-visible:outline-2 focus-visible:outline-[var(--hyot-blue)]',
