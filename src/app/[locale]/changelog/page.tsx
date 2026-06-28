@@ -56,38 +56,57 @@ export default async function ChangelogPage({
       {allReleases.length === 0 ? (
         <p className="text-xs text-text-tertiary">No releases yet.</p>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-0">
           {allReleases.map((release, i) => (
-            <Card
-              key={`${release.slug}-${release.version}-${i}`}
-              className="pl-4 relative p-6"
-              style={{
-                borderLeft: `3px solid ${channelBorderColor(release.channel)}`,
-                borderRadius: '0 8px 8px 0',
-              }}
-            >
-              <div className="flex items-start justify-between gap-4 mb-3">
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-base font-semibold text-text-primary">
-                      {release.appName}
+            <div key={`${release.slug}-${release.version}-${i}`}>
+              <Card
+                className="pl-4 relative p-6"
+                style={{
+                  borderLeft: `3px solid ${channelBorderColor(release.channel)}`,
+                  borderRadius: '0 8px 8px 0',
+                }}
+              >
+                <div className="flex items-start justify-between gap-4 mb-3">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-base font-semibold text-text-primary">
+                        {release.appName}
+                      </span>
+                      <Badge variant={release.channel}>{release.channel}</Badge>
+                    </div>
+                    <span className="text-base font-mono font-bold text-[var(--hyot-blue)]">
+                      v{release.version}
                     </span>
-                    <Badge variant={release.channel}>{release.channel}</Badge>
                   </div>
-                  <span className="text-base font-mono font-bold text-[var(--hyot-blue)]">
-                    v{release.version}
+                  <span className="text-sm text-text-tertiary flex-shrink-0">
+                    {formatDate(release.releaseDate, locale)}
                   </span>
                 </div>
-                <span className="text-sm text-text-tertiary flex-shrink-0">
-                  {formatDate(release.releaseDate, locale)}
-                </span>
-              </div>
-              {release.notes?.[l] && (
-                <div className="text-sm text-text-secondary whitespace-pre-line">
-                  {release.notes[l]}
+                {release.notes?.[l] && (
+                  <div className="text-sm text-text-secondary whitespace-pre-line">
+                    {release.notes[l]}
+                  </div>
+                )}
+              </Card>
+              {i < allReleases.length - 1 && (
+                <div className="flex justify-center my-2" aria-hidden="true">
+                  <div className="flex gap-1">
+                    {Array.from({ length: 5 }, (_, dotIndex) => (
+                      <span
+                        key={dotIndex}
+                        style={{
+                          width: '3px',
+                          height: '3px',
+                          borderRadius: '50%',
+                          background: 'var(--dot-color-strong)',
+                          opacity: 0.3 + dotIndex * 0.1,
+                        }}
+                      />
+                    ))}
+                  </div>
                 </div>
               )}
-            </Card>
+            </div>
           ))}
         </div>
       )}

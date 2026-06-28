@@ -48,13 +48,7 @@ const sectionAccentStyle = {
   background: 'linear-gradient(180deg, #4A9FE0, #8B4FCC)',
 } as const
 
-const sectionTitleStyle = {
-  fontSize: '0.9375rem',
-  fontWeight: 700,
-  letterSpacing: '0.08em',
-  textTransform: 'uppercase' as const,
-  color: 'var(--text-tertiary)',
-}
+const sectionDotColors = ['#4A9FE0', '#8B4FCC', '#E87820'] as const
 
 function SectionHeader({
   title,
@@ -69,9 +63,35 @@ function SectionHeader({
 }): React.JSX.Element {
   return (
     <div className="flex items-center justify-between mb-6">
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      <div className="flex items-center gap-3">
         <div style={sectionAccentStyle} aria-hidden />
-        <span style={sectionTitleStyle}>{title}</span>
+        <div className="flex items-center gap-2">
+          <span className="flex gap-[3px] items-center" aria-hidden>
+            {sectionDotColors.map((color, i) => (
+              <span
+                key={color}
+                style={{
+                  width: '3px',
+                  height: '3px',
+                  borderRadius: '50%',
+                  background: color,
+                  opacity: 1 - i * 0.25,
+                }}
+              />
+            ))}
+          </span>
+          <span
+            style={{
+              fontSize: '0.8125rem',
+              fontWeight: 700,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              color: 'var(--text-tertiary)',
+            }}
+          >
+            {title}
+          </span>
+        </div>
       </div>
       <Link href={viewAllHref} className={viewAllClassName} aria-label={viewAllLabel}>
         <ArrowRight size={15} />
@@ -99,20 +119,38 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
   return (
     <div className="flex flex-col">
       <section className="relative px-4 pt-14 pb-5 mt-8 overflow-hidden">
+        <div className="dot-hero-bg" aria-hidden="true" />
         <div
           aria-hidden="true"
           style={{
             position: 'absolute',
             top: 0,
             right: 0,
-            width: '280px',
-            height: '280px',
+            width: '320px',
+            height: '320px',
             backgroundImage:
-              'radial-gradient(circle, rgba(74,159,224,0.18) 1.5px, transparent 1.5px)',
+              'radial-gradient(circle, rgba(74,159,224,0.25) 2px, transparent 2px)',
             backgroundSize: '16px 16px',
             WebkitMaskImage:
-              'radial-gradient(ellipse at top right, black 20%, transparent 65%)',
-            maskImage: 'radial-gradient(ellipse at top right, black 20%, transparent 65%)',
+              'radial-gradient(ellipse at top right, black 10%, transparent 70%)',
+            maskImage: 'radial-gradient(ellipse at top right, black 10%, transparent 70%)',
+            pointerEvents: 'none',
+          }}
+        />
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            width: '200px',
+            height: '200px',
+            backgroundImage:
+              'radial-gradient(circle, rgba(139,79,204,0.2) 2px, transparent 2px)',
+            backgroundSize: '14px 14px',
+            WebkitMaskImage:
+              'radial-gradient(ellipse at bottom left, black 10%, transparent 70%)',
+            maskImage: 'radial-gradient(ellipse at bottom left, black 10%, transparent 70%)',
             pointerEvents: 'none',
           }}
         />
@@ -140,6 +178,8 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
           </div>
         </div>
       </section>
+
+      <div className="dot-divider mx-auto max-w-7xl px-6 my-2" aria-hidden="true" />
 
       <AdSlot position="homeTop" className="my-8 max-w-7xl mx-auto px-4" />
 
@@ -190,8 +230,12 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
         </section>
       )}
 
+      {featured.length > 0 && latestReleases.length > 0 && (
+        <div className="dot-divider max-w-7xl mx-auto px-6" aria-hidden="true" />
+      )}
+
       {latestReleases.length > 0 && (
-        <section className="py-16 px-4 border-t border-border-pixel">
+        <section className="py-16 px-4">
           <div className="max-w-7xl mx-auto">
             <SectionHeader
               title={t('latestReleases')}

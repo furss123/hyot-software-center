@@ -36,7 +36,8 @@
   --font-sans: 'Pretendard Variable', 'Segoe UI Variable', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Cascadia Code', monospace;
 
-  --dot-gap: 20px;
+  --dot-gap: 24px;
+  --dot-size: 1.5px;
 }
 
 [data-theme='dark'],
@@ -67,7 +68,8 @@
   --status-error: #FF7070;
   --status-info: var(--hyot-blue-light);
 
-  --dot-color: rgba(74, 159, 224, 0.12);
+  --dot-color: rgba(74, 159, 224, 0.18);
+  --dot-color-strong: rgba(74, 159, 224, 0.35);
 }
 
 [data-theme='light'] {
@@ -97,7 +99,8 @@
   --status-error: #C42B1C;
   --status-info: var(--hyot-blue);
 
-  --dot-color: rgba(74, 159, 224, 0.08);
+  --dot-color: rgba(74, 159, 224, 0.12);
+  --dot-color-strong: rgba(74, 159, 224, 0.25);
 }
 
 html {

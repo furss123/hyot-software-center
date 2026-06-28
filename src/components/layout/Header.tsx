@@ -54,6 +54,17 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
           </span>
         </Link>
 
+        <div
+          style={{
+            width: '1px',
+            height: '28px',
+            backgroundImage:
+              'repeating-linear-gradient(180deg, rgba(74,159,224,0.4) 0px, rgba(74,159,224,0.4) 3px, transparent 3px, transparent 8px)',
+            flexShrink: 0,
+          }}
+          aria-hidden="true"
+        />
+
         <nav className="flex items-center gap-2 flex-1" aria-label="Main">
           {config.nav?.map((item) => {
             const href = item.external ? item.href : `/${locale}${item.href}`
