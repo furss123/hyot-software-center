@@ -1,0 +1,14 @@
+---
+description: After completing implementation tasks, commit and push automatically
+alwaysApply: true
+---
+
+# Auto commit and push
+
+When the user requests a code change, fix, or feature and does not say otherwise:
+
+1. After the work is done and checks pass (`typecheck`, `lint`, `build` when relevant), run `git add` for changed files, `git commit` with a concise conventional message, and `git push`.
+2. Do not ask for confirmation before commit/push unless the user explicitly says not to commit, or the change might contain secrets (`.env`, credentials).
+3. If there are no file changes, skip commit/push.
+4. If commit hooks fail, fix the issue and create a new commit (do not amend unless hooks auto-modified files).
+5. Report the commit hash and push result in the final response.

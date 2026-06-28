@@ -150,7 +150,7 @@ export default async function SoftwareDetailPage({
                 </Button>
               </a>
             )}
-            <ShareButton title={app.name[l]} />
+            <ShareButton />
           </div>
         </div>
       </div>

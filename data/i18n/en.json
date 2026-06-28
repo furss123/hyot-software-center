@@ -90,6 +90,7 @@
   },
   "share": {
     "label": "Share",
+    "copy": "Copy link",
     "copied": "Copied",
     "ariaLabel": "Share link"
   },

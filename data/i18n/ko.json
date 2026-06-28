@@ -90,6 +90,7 @@
   },
   "share": {
     "label": "공유",
+    "copy": "복사하기",
     "copied": "복사됨",
     "ariaLabel": "링크 공유"
   },
