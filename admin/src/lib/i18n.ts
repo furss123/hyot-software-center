@@ -202,7 +202,7 @@ export const ko = {
     doneOk: '✅ 완료',
     failOk: '❌ 실패',
     iconHint: '256×256 권장',
-    bannerHint: '1200×630 권장',
+    bannerHint: '1200×340 권장',
     maxSize: '최대 5MB',
   },
   deploy: {

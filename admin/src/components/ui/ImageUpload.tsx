@@ -36,8 +36,8 @@ export function ImageUpload({
 
   const isIcon = type === 'icon'
   const boxStyle: React.CSSProperties = {
-    width: isIcon ? 80 : 240,
-    height: 80,
+    width: isIcon ? 80 : 270,
+    height: isIcon ? 80 : 76,
     border: '2px dashed rgba(255,255,255,0.2)',
     borderRadius: isIcon ? 12 : 8,
     display: 'flex',

@@ -41,7 +41,7 @@ async function processImage(buf: Buffer, type: UploadType): Promise<Buffer> {
     return sharp(buf).resize(256, 256, { fit: 'cover' }).webp().toBuffer()
   }
   if (type === 'banner') {
-    return sharp(buf).resize(1200, 630, { fit: 'cover' }).webp().toBuffer()
+    return sharp(buf).resize(1200, 340, { fit: 'cover' }).webp().toBuffer()
   }
   return sharp(buf)
     .resize(1920, undefined, { fit: 'inside', withoutEnlargement: true })
