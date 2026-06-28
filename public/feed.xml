@@ -5,31 +5,22 @@
     <link>https://furss123.github.io/hyot-software-center</link>
     <description>Releases from HyoT Software Center</description>
     <language>en</language>
-    <lastBuildDate>Sat, 27 Jun 2026 14:43:21 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 28 Jun 2026 01:07:56 GMT</lastBuildDate>
     <atom:link href="https://furss123.github.io/hyot-software-center/feed.xml" rel="self" type="application/rss+xml"/>
     
   <item>
-    <title><![CDATA[quick-note v1.0.0 (stable)]]></title>
-    <link>https://furss123.github.io/hyot-software-center/en/software/quick-note</link>
-    <guid>https://furss123.github.io/hyot-software-center/en/software/quick-note/releases/1.0.0</guid>
-    <pubDate>Mon, 15 Jan 2024 00:00:00 GMT</pubDate>
-    <description><![CDATA[## v1.0.0
-
-### Features
-- System tray icon
-- Quick note creation (Ctrl+Shift+N)
-- Note list view
-- Auto-start on login
-- Dark mode support]]></description>
+    <title><![CDATA[hyot-image-tools v1.0.0 (stable)]]></title>
+    <link>https://furss123.github.io/hyot-software-center/en/software/hyot-image-tools</link>
+    <guid>https://furss123.github.io/hyot-software-center/en/software/hyot-image-tools/releases/1.0.0</guid>
+    <pubDate>Sun, 28 Jun 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[]]></description>
   </item>
   <item>
-    <title><![CDATA[sample-app v1.0.0 (stable)]]></title>
-    <link>https://furss123.github.io/hyot-software-center/en/software/sample-app</link>
-    <guid>https://furss123.github.io/hyot-software-center/en/software/sample-app/releases/1.0.0</guid>
-    <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
-    <description><![CDATA[## v1.0.0
-
-- Initial release]]></description>
+    <title><![CDATA[bidanwin v0.1.0 (stable)]]></title>
+    <link>https://furss123.github.io/hyot-software-center/en/software/bidanwin</link>
+    <guid>https://furss123.github.io/hyot-software-center/en/software/bidanwin/releases/0.1.0</guid>
+    <pubDate>Sat, 27 Jun 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[]]></description>
   </item>
   </channel>
 </rss>

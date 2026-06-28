@@ -1,18 +1,33 @@
 {
+  "slug": "hyot-image-tools",
+  "latest": {
+    "stable": "1.0.0",
+    "beta": null
+  },
   "releases": [
     {
       "version": "1.0.0",
       "channel": "stable",
-      "date": "2026-06-28",
-      "changelog": {
-        "ko": "최초 릴리스 — 12가지 이미지 처리 도구",
-        "en": "Initial release — 12 image processing tools"
-      },
-      "assets": {
-        "setup": "https://github.com/furss123/hyot-image-tools/releases/download/v1.0.0/HyoT-Image-Tools-1.0.0-x64-setup.exe",
-        "portable": "https://github.com/furss123/hyot-image-tools/releases/download/v1.0.0/HyoT-Image-Tools-1.0.0-x64-portable.zip",
-        "sha256": "https://github.com/furss123/hyot-image-tools/releases/download/v1.0.0/sha256.txt"
-      }
+      "releaseDate": "2026-06-28",
+      "githubTag": "v1.0.0",
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoT-Image-Tools-1.0.0-x64-setup.exe",
+          "url": "https://github.com/furss123/hyot-image-tools/releases/download/v1.0.0/HyoT-Image-Tools-1.0.0-x64-setup.exe",
+          "size": 0,
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "downloadCount": 0
+        },
+        {
+          "type": "portable",
+          "filename": "HyoT-Image-Tools-1.0.0-x64-portable.zip",
+          "url": "https://github.com/furss123/hyot-image-tools/releases/download/v1.0.0/HyoT-Image-Tools-1.0.0-x64-portable.zip",
+          "size": 0,
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "downloadCount": 0
+        }
+      ]
     }
   ]
 }

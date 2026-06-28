@@ -42,6 +42,7 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
           href={`/${locale}`}
           className="flex items-center gap-2.5 text-text-primary hover:opacity-80 transition-opacity"
         >
+          {/* eslint-disable-next-line @next/next/no-img-element -- static export; logo from /public */}
           <img
             src="/hyot-software-center/assets/logo.png"
             alt="HyoT"

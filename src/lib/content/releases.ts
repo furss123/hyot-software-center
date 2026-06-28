@@ -16,7 +16,7 @@ export function getLatestRelease(
   channel: 'stable' | 'beta' = 'stable',
 ): Release | null {
   const data = getReleasesData(slug)
-  if (!data) return null
+  if (!data?.latest) return null
   const version = data.latest[channel]
   if (!version) return null
   return data.releases.find((r) => r.version === version) ?? null
