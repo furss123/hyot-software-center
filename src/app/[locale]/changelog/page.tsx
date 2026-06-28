@@ -26,8 +26,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 function channelBorderColor(channel: string): string {
-  if (channel === 'stable') return 'var(--hyot-teal)'
-  if (channel === 'beta') return 'var(--hyot-blue)'
+  if (channel === 'stable') return '#2A9B8A'
+  if (channel === 'beta') return '#4A9FE0'
   return 'var(--text-tertiary)'
 }
 

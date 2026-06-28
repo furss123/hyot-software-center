@@ -27,6 +27,12 @@ function channelBadgeVariant(channel: ReleaseChannel): 'stable' | 'beta' | 'lega
   return 'default'
 }
 
+function channelBorderColor(channel: ReleaseChannel): string {
+  if (channel === 'stable') return '#2A9B8A'
+  if (channel === 'beta') return '#4A9FE0'
+  return 'var(--text-tertiary)'
+}
+
 export async function generateStaticParams(): Promise<Array<{ locale: string; slug: string }>> {
   const slugs = getAllSoftwareSlugs()
   return locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })))
@@ -91,8 +97,11 @@ export default async function SoftwareChangelogPage({
           return (
             <Card
               key={release.version}
-              className="changelog-release-card p-6"
-              data-channel={release.channel}
+              className="pl-4 relative p-6"
+              style={{
+                borderLeft: `3px solid ${channelBorderColor(release.channel)}`,
+                borderRadius: '0 8px 8px 0',
+              }}
             >
               <div className="flex flex-wrap items-center gap-2 mb-4">
                 <span className="version-number">v{release.version}</span>

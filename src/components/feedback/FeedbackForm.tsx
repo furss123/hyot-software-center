@@ -41,15 +41,15 @@ export function FeedbackForm({
   const [attempted, setAttempted] = useState(false)
 
   const typeActiveStyles: Record<FeedbackType, string> = {
-    bug: 'bg-[rgba(255,107,107,0.15)] text-[#FF6B6B] border border-[rgba(255,107,107,0.3)]',
+    bug: 'bg-[rgba(255,112,112,0.15)] text-[#FF7070] border border-[rgba(255,112,112,0.35)]',
     feature:
-      'bg-[rgba(0,120,212,0.15)] text-[var(--hyot-blue-light)] border border-[rgba(0,120,212,0.3)]',
+      'bg-[rgba(74,159,224,0.15)] text-[#7BBFED] border border-[rgba(74,159,224,0.35)]',
     other:
-      'bg-[rgba(123,47,190,0.15)] text-[var(--hyot-purple-light)] border border-[rgba(123,47,190,0.3)]',
+      'bg-[rgba(139,79,204,0.15)] text-[#AA72DC] border border-[rgba(139,79,204,0.35)]',
   }
 
   const inputClass =
-    'form-input p-2.5 w-full text-text-primary text-sm focus:outline-none'
+    'form-input w-full text-sm focus:outline-none px-3 py-2.5'
 
   const typeOptions: Array<{ value: FeedbackType; label: string }> = [
     { value: 'bug', label: t('typeBug') },
@@ -128,7 +128,7 @@ export function FeedbackForm({
                 'h-9 px-4 rounded-[var(--radius-md)] text-xs font-medium transition-colors border border-transparent',
                 type === opt.value
                   ? typeActiveStyles[opt.value]
-                  : 'bg-fill-subtle text-text-secondary hover:bg-fill-secondary border-border-pixel',
+                  : 'bg-fill-subtle text-text-secondary border border-border hover:bg-fill-secondary',
               )}
             >
               {opt.label}
@@ -207,7 +207,7 @@ export function FeedbackForm({
         type="submit"
         variant="primary"
         size="lg"
-        className="w-full h-11 rounded-xl text-sm font-semibold mt-2"
+        className="w-full mt-2"
         disabled={status === 'submitting'}
         loading={status === 'submitting'}
       >

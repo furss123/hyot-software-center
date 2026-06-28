@@ -15,9 +15,9 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variants: Record<Variant, string> = {
   primary: cn(
-    'bg-[var(--hyot-blue)] text-white',
+    'bg-[var(--hyot-blue)] text-white font-semibold',
     'border border-[var(--hyot-blue-dark)]',
-    'hover:bg-[var(--hyot-blue-light)] hover:shadow-[var(--shadow-accent)]',
+    'hover:bg-[var(--hyot-blue-dark)] hover:shadow-[0_4px_16px_rgba(74,159,224,0.35)]',
     'active:bg-[var(--hyot-blue-dark)]',
   ),
   secondary: cn(
@@ -35,7 +35,7 @@ const variants: Record<Variant, string> = {
 const sizes: Record<Size, string> = {
   sm: 'h-8 px-3 text-sm gap-1.5',
   md: 'h-10 px-4 text-sm gap-2',
-  lg: 'h-12 px-6 text-base gap-2.5',
+  lg: 'h-12 px-6 text-base gap-2',
 }
 
 export function Button({
@@ -74,7 +74,7 @@ export function Button({
       {...props}
       disabled={disabled || loading}
       className={cn(
-        'group/btn inline-flex items-center justify-center font-medium',
+        'group/btn inline-flex items-center justify-center',
         'rounded-[var(--radius-md)] tracking-[0.01em]',
         'transition-all duration-[var(--duration-base)] ease-[var(--ease-fluent)]',
         'focus-visible:outline-2 focus-visible:outline-[var(--hyot-blue)] focus-visible:outline-offset-2',

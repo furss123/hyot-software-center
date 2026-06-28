@@ -14,31 +14,23 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Dot grid background */
 body {
-  background-image: radial-gradient(
-    circle,
-    var(--dot-pattern) 1.5px,
-    transparent 1.5px
-  );
-  background-size: 20px 20px;
+  background-image: radial-gradient(circle, var(--dot-color) 1.5px, transparent 1.5px);
+  background-size: var(--dot-gap) var(--dot-gap);
   background-attachment: fixed;
 }
 
-/* Pixel selection */
 ::selection {
-  background: rgba(0, 120, 212, 0.25);
+  background: rgba(74, 159, 224, 0.2);
   color: var(--text-primary);
 }
 
-/* Focus */
 :focus-visible {
   outline: 2px solid var(--hyot-blue);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -50,35 +42,12 @@ body {
   border-radius: 3px;
 }
 
-/* Pixel border utility */
-.pixel-border {
-  border: 1px solid var(--border-pixel);
-  box-shadow: var(--shadow-sm);
-  position: relative;
-}
-.pixel-border::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: linear-gradient(
-    135deg,
-    rgba(0, 120, 212, 0.15) 0%,
-    transparent 50%,
-    rgba(123, 47, 190, 0.08) 100%
-  );
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Mica */
 .mica {
   background: var(--bg-mica);
-  backdrop-filter: blur(20px) saturate(1.5);
-  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
 }
 
-/* Acrylic */
 .acrylic {
   background: var(--bg-acrylic);
   backdrop-filter: blur(12px);
@@ -92,7 +61,17 @@ body {
   border: 1px solid var(--border-pixel);
 }
 
-/* Version number style */
+.logo-img {
+  height: 32px;
+  width: auto;
+}
+[data-theme='light'] .logo-img {
+  filter: none;
+}
+[data-theme='dark'] .logo-img {
+  filter: none;
+}
+
 .version-number {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -101,47 +80,11 @@ body {
   letter-spacing: 0.02em;
 }
 
-/* Section title accent bar */
-.section-title {
-  display: flex;
-  align-items: center;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-}
-.section-title::before {
-  content: '';
-  display: block;
-  width: 3px;
-  height: 14px;
-  margin-right: 10px;
-  border-radius: 2px;
-  background: linear-gradient(180deg, var(--hyot-blue), var(--hyot-purple));
-  flex-shrink: 0;
-}
-
-/* Changelog release card */
-.changelog-release-card {
-  border-left: 3px solid var(--text-tertiary);
-  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-}
-.changelog-release-card[data-channel='stable'] {
-  border-left-color: var(--hyot-teal);
-}
-.changelog-release-card[data-channel='beta'] {
-  border-left-color: var(--hyot-blue);
-}
-.changelog-release-card[data-channel='legacy'] {
-  border-left-color: var(--text-tertiary);
-}
-
-/* Form inputs */
 .form-input {
   background: var(--bg-surface-2);
   border: 1px solid var(--border-pixel);
   border-radius: var(--radius-md);
+  color: var(--text-primary);
   font-family: var(--font-sans);
   transition: border-color var(--duration-base) var(--ease-fluent),
     box-shadow var(--duration-base) var(--ease-fluent);
@@ -149,10 +92,9 @@ body {
 .form-input:focus {
   outline: none;
   border-color: var(--hyot-blue);
-  box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.12);
+  box-shadow: 0 0 0 3px rgba(74, 159, 224, 0.12);
 }
 
-/* Prose */
 .prose {
   color: var(--text-primary);
   line-height: 1.75;
@@ -194,11 +136,10 @@ body {
   border: 1px solid var(--border);
 }
 
-/* Hero animation */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -218,17 +159,6 @@ body {
   animation-delay: 300ms;
 }
 
-@keyframes pixelPulse {
-  0%,
-  100% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-/* No scrollbar utility */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -244,6 +174,7 @@ body {
   --color-accent-subtle: var(--accent-subtle);
   --color-accent-foreground: var(--accent-foreground);
   --color-hyot-blue: var(--hyot-blue);
+  --color-hyot-blue-dark: var(--hyot-blue-dark);
   --color-hyot-purple: var(--hyot-purple);
   --color-hyot-orange: var(--hyot-orange);
   --color-hyot-teal: var(--hyot-teal);
@@ -270,7 +201,6 @@ body {
   --color-status-info: var(--status-info);
 }
 
-/* Print */
 @media print {
   header,
   footer,

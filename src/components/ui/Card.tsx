@@ -36,16 +36,17 @@ export function Card({
         hover &&
           cn(
             'cursor-pointer',
-            'hover:border-border-strong hover:shadow-[var(--shadow-md)] hover:-translate-y-px',
+            'hover:border-border-strong hover:shadow-[var(--shadow-md)] hover:-translate-y-0.5',
           ),
         className,
       )}
     >
       {hover && (
         <div
-          className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-10"
+          className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none z-10"
           style={{
-            background: 'linear-gradient(90deg, #0078D4, #7B2FBE, #FF6B00, #00897B)',
+            background:
+              'linear-gradient(90deg, #4A9FE0 0%, #8B4FCC 33%, #E87820 66%, #2A9B8A 100%)',
           }}
           aria-hidden
         />

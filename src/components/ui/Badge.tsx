@@ -21,19 +21,19 @@ interface BadgeProps {
 
 const variants: Record<BadgeVariant, string> = {
   stable:
-    'bg-[rgba(0,137,123,0.15)] text-[var(--hyot-teal-light)] border border-[rgba(0,137,123,0.25)]',
-  beta: 'bg-[rgba(0,120,212,0.12)] text-[var(--hyot-blue-light)] border border-[rgba(0,120,212,0.2)]',
+    'bg-[rgba(42,155,138,0.15)] text-[#4DBDAD] border border-[rgba(42,155,138,0.3)]',
+  beta: 'bg-[rgba(74,159,224,0.15)] text-[#7BBFED] border border-[rgba(74,159,224,0.3)]',
   legacy: 'bg-fill-secondary text-text-tertiary border border-border',
   experimental:
-    'bg-[rgba(255,107,0,0.12)] text-[var(--hyot-orange-light)] border border-[rgba(255,107,0,0.2)]',
+    'bg-[rgba(232,120,32,0.15)] text-[#F09A50] border border-[rgba(232,120,32,0.3)]',
   deprecated:
-    'bg-[rgba(255,107,107,0.12)] text-[#FF6B6B] border border-[rgba(255,107,107,0.2)]',
+    'bg-[rgba(255,112,112,0.12)] text-[#FF7070] border border-[rgba(255,112,112,0.25)]',
   success:
-    'bg-[rgba(0,137,123,0.15)] text-[var(--hyot-teal-light)] border border-[rgba(0,137,123,0.25)]',
+    'bg-[rgba(42,155,138,0.15)] text-[#4DBDAD] border border-[rgba(42,155,138,0.3)]',
   warning:
-    'bg-[rgba(255,107,0,0.12)] text-[var(--hyot-orange-light)] border border-[rgba(255,107,0,0.2)]',
-  error: 'bg-[rgba(255,107,107,0.12)] text-[#FF6B6B] border border-[rgba(255,107,107,0.2)]',
-  info: 'bg-[rgba(0,120,212,0.12)] text-[var(--hyot-blue-light)] border border-[rgba(0,120,212,0.2)]',
+    'bg-[rgba(232,120,32,0.15)] text-[#F09A50] border border-[rgba(232,120,32,0.3)]',
+  error: 'bg-[rgba(255,112,112,0.12)] text-[#FF7070] border border-[rgba(255,112,112,0.25)]',
+  info: 'bg-[rgba(74,159,224,0.15)] text-[#7BBFED] border border-[rgba(74,159,224,0.3)]',
   default: 'bg-fill-subtle text-text-secondary border border-border',
 }
 
@@ -45,9 +45,9 @@ export function Badge({
   return (
     <span
       className={cn(
-        'inline-flex items-center px-1.5 py-0.5',
+        'inline-flex items-center px-[7px] py-0.5',
         'rounded-[var(--radius-sm)]',
-        'text-[10px] font-semibold uppercase tracking-[0.04em]',
+        'text-[10px] font-bold uppercase tracking-[0.05em]',
         variants[variant],
         className,
       )}

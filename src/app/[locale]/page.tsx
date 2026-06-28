@@ -40,20 +40,20 @@ function statusBadgeVariant(
   return 'default'
 }
 
+const sectionAccentStyle = {
+  width: '3px',
+  height: '16px',
+  borderRadius: '2px',
+  flexShrink: 0,
+  background: 'linear-gradient(180deg, #4A9FE0, #8B4FCC)',
+} as const
+
 const sectionTitleStyle = {
-  fontSize: '0.8125rem',
-  fontWeight: 600,
+  fontSize: '0.75rem',
+  fontWeight: 700,
   letterSpacing: '0.08em',
   textTransform: 'uppercase' as const,
   color: 'var(--text-tertiary)',
-}
-
-const sectionAccentStyle = {
-  width: '4px',
-  height: '18px',
-  background: 'linear-gradient(180deg, #0078D4, #7B2FBE)',
-  borderRadius: '2px',
-  flexShrink: 0,
 }
 
 function SectionHeader({
@@ -69,9 +69,9 @@ function SectionHeader({
 }): React.JSX.Element {
   return (
     <div className="flex items-center justify-between mb-6">
-      <div className="flex items-center gap-3">
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <div style={sectionAccentStyle} aria-hidden />
-        <h2 style={sectionTitleStyle}>{title}</h2>
+        <span style={sectionTitleStyle}>{title}</span>
       </div>
       <Link href={viewAllHref} className={viewAllClassName} aria-label={viewAllLabel}>
         <ArrowRight size={15} />
@@ -98,32 +98,44 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
 
   return (
     <div className="flex flex-col">
-      <section className="relative px-4 pt-16 pb-12 overflow-hidden">
+      <section className="relative px-4 pt-16 pb-10 overflow-hidden">
         <div
-          className="absolute top-0 right-0 w-[200px] h-[200px] pointer-events-none"
+          aria-hidden="true"
           style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            width: '280px',
+            height: '280px',
             backgroundImage:
-              'radial-gradient(circle, rgba(0,120,212,0.15) 1px, transparent 1px)',
+              'radial-gradient(circle, rgba(74,159,224,0.18) 1.5px, transparent 1.5px)',
             backgroundSize: '16px 16px',
-            maskImage: 'radial-gradient(ellipse at top right, black 30%, transparent 70%)',
             WebkitMaskImage:
-              'radial-gradient(ellipse at top right, black 30%, transparent 70%)',
+              'radial-gradient(ellipse at top right, black 20%, transparent 65%)',
+            maskImage: 'radial-gradient(ellipse at top right, black 20%, transparent 65%)',
+            pointerEvents: 'none',
           }}
-          aria-hidden
         />
         <div className="max-w-7xl mx-auto text-center relative">
           <h1
             className={cn(
-              'text-5xl sm:text-6xl font-bold tracking-[-0.03em] leading-[1.1] whitespace-pre-line',
-              'opacity-0 animate-fade-in-up animate-delay-100',
-              'bg-gradient-to-br from-text-primary from-60% to-[var(--hyot-blue-light)]',
-              'bg-clip-text text-transparent',
+              'whitespace-pre-line opacity-0 animate-fade-in-up animate-delay-100',
             )}
+            style={{
+              fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
+              fontWeight: 800,
+              letterSpacing: '-0.03em',
+              lineHeight: 1.1,
+              background: 'linear-gradient(135deg, var(--text-primary) 40%, #4A9FE0 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
           >
             {t('hero.title')}
           </h1>
 
-          <p className="text-base text-text-secondary max-w-lg mx-auto mt-4 mb-8 opacity-0 animate-fade-in-up animate-delay-200">
+          <p className="text-base text-text-secondary max-w-md mx-auto mt-3 mb-8 opacity-0 animate-fade-in-up animate-delay-200">
             {t('hero.subtitle')}
           </p>
 

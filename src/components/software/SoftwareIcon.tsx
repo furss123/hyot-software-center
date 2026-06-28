@@ -1,4 +1,4 @@
-import { cn, slugToHue } from '@/lib/utils'
+import { cn, slugToColor } from '@/lib/utils'
 import type { SoftwareMeta } from '@/types'
 
 type SoftwareIconProps = {
@@ -7,9 +7,9 @@ type SoftwareIconProps = {
   className?: string
 }
 
-const sizeClasses = {
-  sm: 'w-11 h-11 rounded-[var(--radius-lg)] text-lg',
-  lg: 'w-20 h-20 rounded-[var(--radius-xl)] text-3xl shadow-[var(--shadow-sm)]',
+const sizeStyles = {
+  sm: { width: '44px', height: '44px', fontSize: '1.125rem', borderRadius: '10px' },
+  lg: { width: '80px', height: '80px', fontSize: '1.875rem', borderRadius: '14px' },
 }
 
 export function SoftwareIcon({
@@ -17,6 +17,8 @@ export function SoftwareIcon({
   size = 'sm',
   className,
 }: SoftwareIconProps): React.JSX.Element {
+  const dims = sizeStyles[size]
+
   if (app.icon) {
     return (
       // eslint-disable-next-line @next/next/no-img-element -- static export; lazy-loaded icons from /public
@@ -25,34 +27,37 @@ export function SoftwareIcon({
         alt=""
         loading="lazy"
         decoding="async"
-        className={cn('flex-shrink-0 object-cover', sizeClasses[size], className)}
+        className={cn('flex-shrink-0 object-cover', className)}
+        style={{
+          width: dims.width,
+          height: dims.height,
+          borderRadius: dims.borderRadius,
+        }}
       />
     )
   }
 
-  const hue = slugToHue(app.slug)
-
   return (
     <div
       style={{
-        background: `linear-gradient(135deg, hsl(${hue}, 70%, 35%), hsl(${hue + 30}, 60%, 25%))`,
+        background: slugToColor(app.slug),
+        width: dims.width,
+        height: dims.height,
+        borderRadius: dims.borderRadius,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+        fontSize: dims.fontSize,
+        fontWeight: 800,
+        color: 'white',
+        letterSpacing: '-0.02em',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
       }}
-      className={cn(
-        'relative flex items-center justify-center text-white font-bold flex-shrink-0 overflow-hidden',
-        sizeClasses[size],
-        className,
-      )}
+      className={className}
       aria-hidden
     >
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)',
-          backgroundSize: '6px 6px',
-        }}
-      />
-      <span className="relative z-10">{app.name.en.charAt(0).toUpperCase()}</span>
+      {app.name.en.charAt(0).toUpperCase()}
     </div>
   )
 }

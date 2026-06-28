@@ -32,16 +32,11 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 w-full h-14',
+        'sticky top-0 z-50 w-full h-[54px] mica',
         'border-b border-border-pixel',
         'transition-shadow duration-[var(--duration-base)]',
         scrolled ? 'shadow-[var(--shadow-sm)]' : '',
       )}
-      style={{
-        background: `linear-gradient(180deg, rgba(0,120,212,0.03) 0%, transparent 100%), var(--bg-mica)`,
-        backdropFilter: 'blur(20px) saturate(1.5)',
-        WebkitBackdropFilter: 'blur(20px) saturate(1.5)',
-      }}
     >
       <div className="max-w-7xl mx-auto px-6 h-full flex items-center gap-8">
         <Link
@@ -51,11 +46,19 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
           {/* eslint-disable-next-line @next/next/no-img-element -- static export; logo from /public */}
           <img
             src="/hyot-software-center/assets/logo.png"
+            className="logo-img"
             alt="HyoT"
-            height={36}
-            style={{ height: '36px', width: 'auto' }}
           />
-          <span className="hidden sm:block text-base font-semibold">{config.brand.name}</span>
+          <span
+            className="hidden sm:block"
+            style={{
+              fontWeight: 700,
+              fontSize: '0.9rem',
+              letterSpacing: '-0.01em',
+            }}
+          >
+            {config.brand.name}
+          </span>
         </Link>
 
         <nav className="flex items-center gap-1 flex-1" aria-label="Main">
@@ -77,7 +80,7 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
                   isActive
                     ? cn(
                         'text-[var(--hyot-blue)]',
-                        'after:absolute after:bottom-1 after:left-3 after:right-3',
+                        'after:absolute after:bottom-0 after:left-3 after:right-3',
                         'after:h-0.5 after:bg-[var(--hyot-blue)] after:rounded-[1px]',
                       )
                     : 'text-text-secondary hover:text-text-primary hover:bg-fill-subtle',
