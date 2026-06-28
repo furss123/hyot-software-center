@@ -8,7 +8,7 @@ type SoftwareIconProps = {
 }
 
 const sizeStyles = {
-  sm: { width: '44px', height: '44px', fontSize: '1.125rem', borderRadius: '10px' },
+  sm: { width: '52px', height: '52px', fontSize: '1.25rem', borderRadius: '12px' },
   lg: { width: '80px', height: '80px', fontSize: '1.875rem', borderRadius: '14px' },
 }
 

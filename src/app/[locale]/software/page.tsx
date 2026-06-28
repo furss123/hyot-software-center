@@ -41,7 +41,7 @@ export default async function SoftwareListPage({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-      <h1 className="text-2xl font-bold text-text-primary mb-2">{tNav('software')}</h1>
+      <h1 className="text-3xl font-bold text-text-primary mb-2">{tNav('software')}</h1>
       <Suspense fallback={null}>
         <SoftwareListView software={software} categories={categories} locale={locale} />
       </Suspense>

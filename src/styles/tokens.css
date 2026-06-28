@@ -99,3 +99,7 @@
 
   --dot-color: rgba(74, 159, 224, 0.08);
 }
+
+html {
+  font-size: 16px;
+}

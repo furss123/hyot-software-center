@@ -41,15 +41,15 @@ function statusBadgeVariant(
 }
 
 const sectionAccentStyle = {
-  width: '3px',
-  height: '16px',
+  width: '4px',
+  height: '20px',
   borderRadius: '2px',
   flexShrink: 0,
   background: 'linear-gradient(180deg, #4A9FE0, #8B4FCC)',
 } as const
 
 const sectionTitleStyle = {
-  fontSize: '0.75rem',
+  fontSize: '0.9375rem',
   fontWeight: 700,
   letterSpacing: '0.08em',
   textTransform: 'uppercase' as const,
@@ -164,10 +164,10 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
                     <div className="flex items-start gap-4">
                       <SoftwareIcon app={app} size="sm" />
                       <div className="min-w-0 flex-1">
-                        <h3 className="text-sm font-semibold text-text-primary truncate tracking-[-0.01em]">
+                        <h3 className="text-base font-bold text-text-primary truncate tracking-[-0.01em]">
                           {app.name[l]}
                         </h3>
-                        <p className="text-[12px] leading-normal text-text-secondary mt-1 line-clamp-2">
+                        <p className="text-sm leading-[1.6] text-text-secondary mt-1 line-clamp-2">
                           {app.shortDescription[l]}
                         </p>
                         <div className="flex flex-wrap items-center gap-1 mt-2">
@@ -203,14 +203,16 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {latestReleases.map(({ slug, release }) => (
                 <Link key={`${slug}-${release.version}`} href={`/${locale}/software/${slug}`}>
-                  <Card hover className="p-4">
+                  <Card hover className="px-5 py-4">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-semibold text-text-primary">{slug}</span>
+                      <span className="text-base font-semibold text-text-primary">{slug}</span>
                       <Badge variant={release.channel}>{release.channel}</Badge>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="version-number">v{release.version}</span>
-                      <span className="text-xs text-text-tertiary">
+                      <span className="text-sm font-mono font-bold text-[var(--hyot-blue)]">
+                        v{release.version}
+                      </span>
+                      <span className="text-sm text-text-tertiary">
                         {formatDate(release.releaseDate, locale)}
                       </span>
                     </div>

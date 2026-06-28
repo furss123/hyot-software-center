@@ -31,14 +31,14 @@ export function SoftwareCard({
 
   return (
     <Link href={`/${locale}/software/${app.slug}`}>
-      <Card hover className="p-4 h-full">
+      <Card hover className="p-5 h-full">
         <div className="flex items-start gap-3">
           <SoftwareIcon app={app} size="sm" />
           <div className="min-w-0 flex-1">
-            <h2 className="text-sm font-semibold text-text-primary truncate tracking-[-0.01em]">
+            <h2 className="text-base font-bold text-text-primary truncate tracking-[-0.01em]">
               {app.name[l]}
             </h2>
-            <p className="text-[12px] leading-normal text-text-secondary mt-0.5 line-clamp-2">
+            <p className="text-sm leading-[1.6] text-text-secondary mt-0.5 line-clamp-2">
               {app.shortDescription[l]}
             </p>
             <div className="flex flex-wrap items-center gap-1 mt-2">

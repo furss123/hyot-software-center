@@ -58,7 +58,7 @@ export function SoftwareListView({
 
   return (
     <>
-      <p className="text-sm text-text-tertiary mb-6">{t('resultCount', { count: filtered.length })}</p>
+      <p className="text-base text-text-tertiary mb-6">{t('resultCount', { count: filtered.length })}</p>
       <FilterBar
         categories={categories}
         activeCategory={category}

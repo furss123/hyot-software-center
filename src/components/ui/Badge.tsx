@@ -45,9 +45,9 @@ export function Badge({
   return (
     <span
       className={cn(
-        'inline-flex items-center px-[7px] py-0.5',
+        'inline-flex items-center px-2 py-[3px]',
         'rounded-[var(--radius-sm)]',
-        'text-[10px] font-bold uppercase tracking-[0.05em]',
+        'text-[11px] font-bold uppercase tracking-[0.04em]',
         variants[variant],
         className,
       )}

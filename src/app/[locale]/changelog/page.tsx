@@ -60,7 +60,7 @@ export default async function ChangelogPage({
           {allReleases.map((release, i) => (
             <Card
               key={`${release.slug}-${release.version}-${i}`}
-              className="pl-4 relative p-5"
+              className="pl-4 relative p-6"
               style={{
                 borderLeft: `3px solid ${channelBorderColor(release.channel)}`,
                 borderRadius: '0 8px 8px 0',
@@ -69,14 +69,16 @@ export default async function ChangelogPage({
               <div className="flex items-start justify-between gap-4 mb-3">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm font-semibold text-text-primary">
+                    <span className="text-base font-semibold text-text-primary">
                       {release.appName}
                     </span>
                     <Badge variant={release.channel}>{release.channel}</Badge>
                   </div>
-                  <span className="version-number">v{release.version}</span>
+                  <span className="text-base font-mono font-bold text-[var(--hyot-blue)]">
+                    v{release.version}
+                  </span>
                 </div>
-                <span className="text-xs text-text-tertiary flex-shrink-0">
+                <span className="text-sm text-text-tertiary flex-shrink-0">
                   {formatDate(release.releaseDate, locale)}
                 </span>
               </div>
