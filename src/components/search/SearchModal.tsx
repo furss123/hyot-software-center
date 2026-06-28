@@ -216,7 +216,7 @@ export function SearchModal({
       />
       <Card
         variant="glass"
-        className="relative w-full max-w-lg p-0 overflow-hidden shadow-xl"
+        className="relative w-full max-w-lg overflow-visible p-[2px] shadow-xl"
       >
         <div ref={modalRef} className="relative">
           <div className="flex items-center gap-3 px-4 border-b border-border">
