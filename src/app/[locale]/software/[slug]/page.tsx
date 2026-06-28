@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { MDXRemote } from 'next-mdx-remote/rsc'
+import { MarkdownContent } from '@/components/content/MarkdownContent'
 import type { Metadata } from 'next'
 import { ExternalLink } from 'lucide-react'
 
@@ -152,9 +152,7 @@ export default async function SoftwareDetailPage({
               <AdSlot position="softwareTop" className="mb-6" />
               <Card className="p-6">
                 <h2 className="font-semibold text-text-primary mb-3">{t('descriptionLabel')}</h2>
-                <div className="prose">
-                  <MDXRemote source={app.description[l]} />
-                </div>
+                <MarkdownContent source={app.description[l]} />
               </Card>
               {releasesData && <DownloadSection releasesData={releasesData} locale={locale} />}
               <AdSlot position="softwareBottom" className="mt-6" />
@@ -252,11 +250,7 @@ export default async function SoftwareDetailPage({
                         {formatDate(release.releaseDate, locale)}
                       </span>
                     </div>
-                    {notes && (
-                      <div className="prose">
-                        <MDXRemote source={notes} />
-                      </div>
-                    )}
+                    {notes && <MarkdownContent source={notes} />}
                   </Card>
                 )
               })

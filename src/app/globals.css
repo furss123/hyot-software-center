@@ -119,6 +119,9 @@ body {
   color: var(--text-secondary);
   margin-bottom: 0.875rem;
 }
+.prose p:last-child {
+  margin-bottom: 0;
+}
 .prose a {
   color: var(--hyot-blue);
 }

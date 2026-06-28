@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { MDXRemote } from 'next-mdx-remote/rsc'
+import { MarkdownContent } from '@/components/content/MarkdownContent'
 import type { Metadata } from 'next'
 
 import { Badge } from '@/components/ui/Badge'
@@ -110,11 +110,7 @@ export default async function SoftwareChangelogPage({
                   {formatDate(release.releaseDate, locale)}
                 </span>
               </div>
-              {notes && (
-                <div className="prose">
-                  <MDXRemote source={notes} />
-                </div>
-              )}
+              {notes && <MarkdownContent source={notes} />}
             </Card>
           )
         })}
