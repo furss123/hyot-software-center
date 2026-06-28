@@ -36,10 +36,10 @@ export function SoftwareCard({
           <div className="flex items-start gap-4 flex-1">
             <SoftwareIcon app={app} size="sm" />
             <div className="min-w-0 flex-1">
-              <h2 className="text-base font-bold text-text-primary truncate tracking-[-0.01em]">
+              <h2 className="text-lg font-bold text-text-primary truncate tracking-[-0.01em]">
                 {app.name[l]}
               </h2>
-              <p className="text-sm leading-[1.6] text-text-secondary mt-1 line-clamp-2">
+              <p className="text-base leading-[1.6] text-text-secondary mt-1 line-clamp-2">
                 {app.shortDescription[l]}
               </p>
             </div>
