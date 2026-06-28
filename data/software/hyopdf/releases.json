@@ -1,10 +1,54 @@
 {
   "slug": "hyopdf",
   "latest": {
-    "stable": "1.0.1",
+    "stable": "1.0.2",
     "beta": "1.0.0-beta.1"
   },
   "releases": [
+    {
+      "version": "1.0.2",
+      "channel": "stable",
+      "releaseDate": "2026-06-28",
+      "githubTag": "v1.0.2",
+      "assets": [
+        {
+          "arch": "x64",
+          "downloadCount": 0,
+          "filename": "HyoPDF-1.0.2-x64.exe",
+          "sha256": "0f8da0a03bb0f2f51bd5c7e5056141e08139ab8a8bf262f9fe2d9a344e77fdcd",
+          "size": 127876046,
+          "type": "portable",
+          "url": "https://github.com/furss123/HyoPDF/releases/download/v1.0.2/HyoPDF-1.0.2-x64.exe"
+        },
+        {
+          "arch": "x64",
+          "downloadCount": 0,
+          "filename": "HyoPDF-1.0.2-x64.msi",
+          "sha256": "6798ea10a8cae51f357e734e670724011e2e43588c40a39c6517ea9c184a3d86",
+          "size": 120152064,
+          "type": "installer",
+          "url": "https://github.com/furss123/HyoPDF/releases/download/v1.0.2/HyoPDF-1.0.2-x64.msi"
+        },
+        {
+          "arch": "arm64",
+          "downloadCount": 0,
+          "filename": "HyoPDF-1.0.2-arm64.exe",
+          "sha256": "9e67e6f8e9bfb9624549f82aba8a19f26a472aa1b4b920de8316a4b82d58ee7e",
+          "size": 121746870,
+          "type": "portable",
+          "url": "https://github.com/furss123/HyoPDF/releases/download/v1.0.2/HyoPDF-1.0.2-arm64.exe"
+        },
+        {
+          "arch": "arm64",
+          "downloadCount": 0,
+          "filename": "HyoPDF-1.0.2-arm64.msi",
+          "sha256": "f87b053f7f5b530d7821acd429432fd9ad6f360797e0559cff96be0c429c2e68",
+          "size": 113475584,
+          "type": "installer",
+          "url": "https://github.com/furss123/HyoPDF/releases/download/v1.0.2/HyoPDF-1.0.2-arm64.msi"
+        }
+      ]
+    },
     {
       "version": "1.0.1",
       "channel": "stable",
