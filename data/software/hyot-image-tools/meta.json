@@ -26,7 +26,10 @@
       }
     }
   ],
-  "name": { "ko": "HyoT Image Tools", "en": "HyoT Image Tools" },
+  "name": {
+    "ko": "HyoT Image Tools",
+    "en": "HyoT Image Tools"
+  },
   "description": {
     "ko": "HyoT Image Tools는 Windows용 일괄 이미지 처리 데스크톱 앱입니다. 용량 줄이기, 크기 변경, 형식 변환, 회전·뒤집기, 자르기, 이미지 합치기, 파일명 일괄 변경 7가지 도구를 제공합니다. 드래그 앤 드롭, 미리보기, 다크/라이트 테마, 한국어/영어 UI를 지원합니다.",
     "en": "HyoT Image Tools is a Windows batch image processor with seven tools: resize, compress, format conversion, rotate/flip, crop, merge, and bulk rename. Drag-and-drop import, live preview, dark/light themes, and Korean/English UI included."
@@ -37,7 +40,9 @@
   },
   "requirements": {
     "os": "Windows 10 22H2+",
-    "arch": ["x64"],
+    "arch": [
+      "x64"
+    ],
     "ram": "4 GB 이상 권장",
     "disk": "약 150 MB (설치 후)"
   },
