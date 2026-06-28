@@ -5,17 +5,19 @@ type SoftwareIconProps = {
   app: Pick<SoftwareMeta, 'slug' | 'name' | 'icon'>
   size?: 'sm' | 'lg'
   className?: string
+  alt?: string
 }
 
 const sizeStyles = {
   sm: { width: '52px', height: '52px', fontSize: '1.25rem', borderRadius: '12px' },
-  lg: { width: '80px', height: '80px', fontSize: '1.875rem', borderRadius: '14px' },
+  lg: { width: '80px', height: '80px', fontSize: '2rem', borderRadius: '16px' },
 }
 
 export function SoftwareIcon({
   app,
   size = 'sm',
   className,
+  alt,
 }: SoftwareIconProps): React.JSX.Element {
   const dims = sizeStyles[size]
 
@@ -24,7 +26,7 @@ export function SoftwareIcon({
       // eslint-disable-next-line @next/next/no-img-element -- static export; lazy-loaded icons from /public
       <img
         src={getAssetUrl(app.icon)}
-        alt=""
+        alt={alt ?? app.name.en}
         loading="lazy"
         decoding="async"
         className={cn('flex-shrink-0 object-cover', className)}

@@ -19,7 +19,7 @@ import { getAllSoftwareSlugs, getSoftwareMeta } from '@/lib/content/software'
 import { getSiteConfig } from '@/lib/content/config'
 import { breadcrumbJsonLd, softwareJsonLd } from '@/lib/seo/jsonld'
 import { pageMetadata } from '@/lib/seo/meta'
-import { formatDate, sumDownloadCounts } from '@/lib/utils'
+import { formatDate, getAssetUrl, sumDownloadCounts } from '@/lib/utils'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { locales } from '@/i18n/config'
 import type { Locale } from '@/i18n/config'
@@ -122,8 +122,44 @@ export default async function SoftwareDetailPage({
             { label: app.name[l] },
           ]}
         />
+        {app.banner && (
+          <div
+            style={{
+              width: '100%',
+              height: '240px',
+              borderRadius: '16px',
+              overflow: 'hidden',
+              marginBottom: '2rem',
+              position: 'relative',
+            }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element -- static export */}
+            <img
+              src={getAssetUrl(app.banner)}
+              alt={`${app.name[l]} banner`}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'center',
+              }}
+            />
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: '80px',
+                background: 'linear-gradient(to top, var(--bg-base), transparent)',
+                pointerEvents: 'none',
+              }}
+            />
+          </div>
+        )}
       <div className="flex items-start gap-6 mb-6">
-        <SoftwareIcon app={app} size="lg" />
+        <SoftwareIcon app={app} size="lg" alt={app.name[l]} />
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-center gap-2 mb-2">
             <h1 className="text-3xl font-bold text-text-primary">{app.name[l]}</h1>
