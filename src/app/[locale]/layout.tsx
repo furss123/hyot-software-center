@@ -67,15 +67,7 @@ export default async function LocaleLayout({
   const siteJsonLd = websiteJsonLd(config.brand.url, config.brand.name)
 
   return (
-    <>
-      <head>
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9694429813677076"
-          crossOrigin="anonymous"
-        />
-      </head>
-      <div lang={locale} className="min-h-screen bg-bg-base text-text-primary antialiased flex flex-col">
+    <div lang={locale} className="min-h-screen bg-bg-base text-text-primary antialiased flex flex-col">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }}
@@ -93,6 +85,5 @@ export default async function LocaleLayout({
         </ThemeProvider>
       </NextIntlClientProvider>
     </div>
-    </>
   )
 }
