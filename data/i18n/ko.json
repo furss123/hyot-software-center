@@ -46,6 +46,7 @@
     "disk": "디스크",
     "tagsLabel": "태그",
     "noChangelog": "변경 내역이 없습니다",
+    "noReleases": "다운로드 가능한 릴리스가 없습니다",
     "noDocumentation": "문서가 없습니다",
     "downloadCountLabel": "다운로드 {count}회",
     "downloadsLabel": "다운로드",

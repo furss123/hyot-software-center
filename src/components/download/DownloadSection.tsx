@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/Card'
 import { Check, ChevronDown, Copy, Download, Shield } from 'lucide-react'
 import {
   getAdvancedAssets,
+  getMostRecentRelease,
   hasValidSha256,
   pickPrimaryAsset,
   type AdvancedSlot,
@@ -19,8 +20,6 @@ interface DownloadSectionProps {
   releasesData: ReleasesData
   locale: string
 }
-
-type DownloadChannel = 'stable' | 'beta'
 
 const ADVANCED_LABEL_KEYS: Record<AdvancedSlot, 'advancedPortableX64' | 'advancedInstallerX64Msi' | 'advancedPortableArm64' | 'advancedInstallerArm64Msi'> = {
   portableX64: 'advancedPortableX64',
@@ -73,25 +72,7 @@ export function DownloadSection({ releasesData, locale }: DownloadSectionProps):
   const [copiedHash, setCopiedHash] = useState<string | null>(null)
   const [advancedOpen, setAdvancedOpen] = useState(false)
 
-  const channels: DownloadChannel[] = ['stable']
-  if (releasesData.latest.beta) channels.push('beta')
-
-  const defaultChannel: DownloadChannel =
-    releasesData.latest.stable !== null
-      ? 'stable'
-      : releasesData.latest.beta !== null
-        ? 'beta'
-        : 'stable'
-
-  const [activeChannel, setActiveChannel] = useState<DownloadChannel>(defaultChannel)
-
-  const latestVersion = releasesData.latest[activeChannel]
-  const activeRelease = latestVersion
-    ? releasesData.releases.find((r) => r.version === latestVersion)
-    : null
-
-  const visibleChannels = channels.filter((ch) => releasesData.latest[ch] !== null)
-
+  const activeRelease = getMostRecentRelease(releasesData.releases)
   const primaryAsset = activeRelease ? pickPrimaryAsset(activeRelease.assets) : null
   const advancedAssets = activeRelease
     ? getAdvancedAssets(activeRelease.assets, primaryAsset)
@@ -106,26 +87,6 @@ export function DownloadSection({ releasesData, locale }: DownloadSectionProps):
   return (
     <Card className="p-6">
       <h2 className="font-semibold text-text-primary mb-4">{t('download')}</h2>
-
-      {visibleChannels.length > 1 && (
-        <div className="flex gap-1 p-1 bg-fill-subtle rounded-lg mb-5 w-fit">
-          {visibleChannels.map((ch) => (
-            <button
-              key={ch}
-              type="button"
-              onClick={() => setActiveChannel(ch)}
-              className={cn(
-                'px-4 py-1.5 rounded-md text-sm font-medium transition-all duration-[var(--duration-base)]',
-                activeChannel === ch
-                  ? 'bg-bg-surface text-text-primary shadow-sm'
-                  : 'text-text-secondary hover:text-text-primary',
-              )}
-            >
-              {ch === 'stable' ? t('stable') : t('beta')}
-            </button>
-          ))}
-        </div>
-      )}
 
       {activeRelease && primaryAsset ? (
         <div className="space-y-5">
@@ -220,7 +181,7 @@ export function DownloadSection({ releasesData, locale }: DownloadSectionProps):
           )}
         </div>
       ) : (
-        <p className="text-text-tertiary text-sm">No releases available for this channel.</p>
+        <p className="text-text-tertiary text-sm">{t('noReleases')}</p>
       )}
     </Card>
   )

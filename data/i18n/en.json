@@ -46,6 +46,7 @@
     "disk": "Disk",
     "tagsLabel": "Tags",
     "noChangelog": "No changelog entries yet",
+    "noReleases": "No releases available for download",
     "noDocumentation": "No documentation available",
     "downloadCountLabel": "{count} downloads",
     "downloadsLabel": "Downloads",

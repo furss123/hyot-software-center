@@ -1,4 +1,13 @@
-import type { ReleaseAsset } from '@/types'
+import type { Release, ReleaseAsset } from '@/types'
+
+export function getMostRecentRelease(releases: Release[]): Release | null {
+  if (releases.length === 0) return null
+  return [...releases].sort((a, b) => {
+    const byDate = b.releaseDate.localeCompare(a.releaseDate)
+    if (byDate !== 0) return byDate
+    return b.version.localeCompare(a.version, undefined, { numeric: true })
+  })[0] ?? null
+}
 
 export type AssetArch = 'x64' | 'arm64'
 export type AdvancedSlot =
