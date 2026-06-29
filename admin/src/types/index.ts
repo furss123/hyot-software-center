@@ -21,6 +21,7 @@ export interface SoftwareMeta {
   category: SoftwareCategory
   tags: string[]
   featured: boolean
+  visible?: boolean
   icon?: string
   banner?: string
   githubRepo?: string

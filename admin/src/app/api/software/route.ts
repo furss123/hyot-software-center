@@ -60,6 +60,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 export async function PUT(request: Request): Promise<NextResponse> {
   const { searchParams } = new URL(request.url)
   const featuredToggle = searchParams.get('featuredToggle') === '1'
+  const visibleToggle = searchParams.get('visibleToggle') === '1'
   const meta = (await request.json()) as SoftwareMeta
 
   if (!readMeta(meta.slug)) {
@@ -75,7 +76,9 @@ export async function PUT(request: Request): Promise<NextResponse> {
 
   const commitMessage = featuredToggle
     ? `feat(software): toggle featured for ${meta.slug}`
-    : `feat(software): update ${meta.slug} meta`
+    : visibleToggle
+      ? `feat(software): toggle visibility for ${meta.slug}`
+      : `feat(software): update ${meta.slug} meta`
 
   gitCommitAndPush(commitMessage, [`data/software/${meta.slug}/meta.json`])
 

@@ -25,6 +25,8 @@ export interface SoftwareMeta {
   category: SoftwareCategory
   tags: string[]
   featured: boolean
+  /** false = hidden from public listings (homepage, software list, search) */
+  visible?: boolean
   githubRepo?: string
   icon?: string
   banner?: string

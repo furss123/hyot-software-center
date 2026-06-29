@@ -37,3 +37,8 @@ th {
 .admin-table tbody tr:hover {
   background: rgba(255, 255, 255, 0.03);
 }
+.admin-table td:last-child,
+.admin-table th:last-child {
+  min-width: 240px;
+  white-space: nowrap;
+}

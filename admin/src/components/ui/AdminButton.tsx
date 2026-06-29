@@ -32,6 +32,8 @@ export function AdminButton({
         padding: '0.5rem 1rem',
         borderRadius: '8px',
         fontSize: '0.875rem',
+        whiteSpace: 'nowrap',
+        flexShrink: 0,
         cursor: disabled ? 'not-allowed' : 'pointer',
         opacity: disabled ? 0.5 : 1,
       }}

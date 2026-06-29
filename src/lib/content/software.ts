@@ -19,11 +19,16 @@ export function getSoftwareMeta(slug: string): SoftwareMeta | null {
   return JSON.parse(raw) as SoftwareMeta
 }
 
+export function isSoftwareVisible(meta: SoftwareMeta): boolean {
+  return meta.visible !== false
+}
+
 export function getAllSoftware(): SoftwareMeta[] {
   return getAllSoftwareSlugs()
     .map((slug) => getSoftwareMeta(slug))
     .filter((s): s is SoftwareMeta => s !== null)
     .filter((s) => s.status !== 'archived')
+    .filter(isSoftwareVisible)
 }
 
 export function getFeaturedSoftware(): SoftwareMeta[] {

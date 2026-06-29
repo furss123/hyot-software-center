@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { getSoftwareMeta, isSoftwareVisible } from '@/lib/content/software'
 import type { ReleasesData, Release } from '@/types'
 
 const DATA_DIR = path.join(process.cwd(), 'data', 'software')
@@ -28,6 +29,8 @@ export function getAllLatestReleases(): Array<{ slug: string; release: Release }
   const slugs = fs.readdirSync(dataDir)
   return slugs
     .map((slug) => {
+      const meta = getSoftwareMeta(slug)
+      if (!meta || !isSoftwareVisible(meta)) return null
       const release = getLatestRelease(slug)
       return release ? { slug, release } : null
     })

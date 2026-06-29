@@ -48,6 +48,7 @@ export default function NewSoftwarePage() {
         .map((tag) => tag.trim())
         .filter(Boolean),
       featured,
+      visible: true,
       name: {
         ko: String(form.get('name_ko') ?? ''),
         en: String(form.get('name_en') ?? ''),

@@ -7,12 +7,18 @@ import { AdminCard } from '@/components/ui/AdminCard'
 import { t } from '@/lib/i18n'
 import type { SoftwareMeta } from '@/types'
 
+function isVisible(meta: SoftwareMeta): boolean {
+  return meta.visible !== false
+}
+
 export default function SoftwareListPage() {
   const [items, setItems] = useState<SoftwareMeta[]>([])
   const [featuredMap, setFeaturedMap] = useState<Map<string, boolean>>(new Map())
+  const [visibleMap, setVisibleMap] = useState<Map<string, boolean>>(new Map())
   const [loading, setLoading] = useState(true)
   const [deleting, setDeleting] = useState<string | null>(null)
-  const [toggling, setToggling] = useState<string | null>(null)
+  const [togglingFeatured, setTogglingFeatured] = useState<string | null>(null)
+  const [togglingVisible, setTogglingVisible] = useState<string | null>(null)
 
   useEffect(() => {
     void fetch('/api/software')
@@ -20,6 +26,7 @@ export default function SoftwareListPage() {
       .then((list) => {
         setItems(list)
         setFeaturedMap(new Map(list.map((item) => [item.slug, item.featured])))
+        setVisibleMap(new Map(list.map((item) => [item.slug, isVisible(item)])))
       })
       .finally(() => setLoading(false))
   }, [])
@@ -47,14 +54,14 @@ export default function SoftwareListPage() {
     const next = !current
 
     setFeaturedMap((prev) => new Map(prev).set(slug, next))
-    setToggling(slug)
+    setTogglingFeatured(slug)
 
     try {
       const res = await fetch(`/api/software?slug=${encodeURIComponent(slug)}`)
       if (!res.ok) throw new Error('fetch failed')
       const meta = (await res.json()) as SoftwareMeta
 
-      const putRes = await fetch('/api/software', {
+      const putRes = await fetch('/api/software?featuredToggle=1', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...meta, featured: next }),
@@ -68,7 +75,37 @@ export default function SoftwareListPage() {
       setFeaturedMap((prev) => new Map(prev).set(slug, current))
       alert(t.common.error)
     } finally {
-      setToggling(null)
+      setTogglingFeatured(null)
+    }
+  }
+
+  async function toggleVisible(slug: string): Promise<void> {
+    const current = visibleMap.get(slug) ?? true
+    const next = !current
+
+    setVisibleMap((prev) => new Map(prev).set(slug, next))
+    setTogglingVisible(slug)
+
+    try {
+      const res = await fetch(`/api/software?slug=${encodeURIComponent(slug)}`)
+      if (!res.ok) throw new Error('fetch failed')
+      const meta = (await res.json()) as SoftwareMeta
+
+      const putRes = await fetch('/api/software?visibleToggle=1', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...meta, visible: next }),
+      })
+      if (!putRes.ok) throw new Error('put failed')
+
+      const saved = (await putRes.json()) as SoftwareMeta
+      setItems((prev) => prev.map((i) => (i.slug === slug ? saved : i)))
+      setVisibleMap((prev) => new Map(prev).set(slug, isVisible(saved)))
+    } catch {
+      setVisibleMap((prev) => new Map(prev).set(slug, current))
+      alert(t.common.error)
+    } finally {
+      setTogglingVisible(null)
     }
   }
 
@@ -109,12 +146,12 @@ export default function SoftwareListPage() {
         ) : (
           <table className="admin-table">
             <colgroup>
-              <col style={{ width: '20%' }} />
-              <col style={{ width: '30%' }} />
-              <col style={{ width: '15%' }} />
-              <col style={{ width: '15%' }} />
-              <col style={{ width: '10%' }} />
-              <col style={{ width: '10%' }} />
+              <col style={{ width: '14%' }} />
+              <col style={{ width: '22%' }} />
+              <col style={{ width: '12%' }} />
+              <col style={{ width: '12%' }} />
+              <col style={{ width: '8%' }} />
+              <col />
             </colgroup>
             <thead>
               <tr>
@@ -123,43 +160,71 @@ export default function SoftwareListPage() {
                 <th>{t.software.status}</th>
                 <th>{t.software.category}</th>
                 <th>{t.software.featured}</th>
-                <th />
+                <th>{t.common.actions}</th>
               </tr>
             </thead>
             <tbody>
               {items.map((item) => {
                 const featured = featuredMap.get(item.slug) ?? item.featured
+                const visible = visibleMap.get(item.slug) ?? isVisible(item)
                 return (
-                  <tr key={item.slug}>
+                  <tr
+                    key={item.slug}
+                    style={visible ? undefined : { opacity: 0.55 }}
+                  >
                     <td style={{ fontFamily: 'monospace' }}>{item.slug}</td>
                     <td>{item.name.en}</td>
-                    <td>{t.software.statusOptions[item.status] ?? item.status}</td>
+                    <td>
+                      {!visible ? (
+                        <span style={{ color: '#F9C74F' }}>{t.software.hidden}</span>
+                      ) : (
+                        (t.software.statusOptions[item.status] ?? item.status)
+                      )}
+                    </td>
                     <td>{t.software.categoryOptions[item.category] ?? item.category}</td>
                     <td>
                       <button
                         type="button"
-                        disabled={toggling === item.slug}
+                        disabled={togglingFeatured === item.slug}
                         onClick={() => void toggleFeatured(item.slug)}
                         style={{
                           background: 'none',
                           border: 'none',
-                          cursor: toggling === item.slug ? 'not-allowed' : 'pointer',
+                          cursor: togglingFeatured === item.slug ? 'not-allowed' : 'pointer',
                           fontSize: '1.25rem',
                           lineHeight: 1,
                           padding: '0.25rem',
                           color: featured ? '#F9C74F' : '#686868',
-                          opacity: toggling === item.slug ? 0.5 : 1,
+                          opacity: togglingFeatured === item.slug ? 0.5 : 1,
                         }}
                         aria-label={featured ? t.software.featuredOn : t.software.featuredOff}
                       >
                         {featured ? '⭐' : '☆'}
                       </button>
                     </td>
-                    <td>
-                      <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <td style={{ whiteSpace: 'nowrap' }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexWrap: 'nowrap',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                        }}
+                      >
                         <a href={`/software/${item.slug}`} style={{ textDecoration: 'none' }}>
                           <AdminButton variant="secondary">{t.software.edit}</AdminButton>
                         </a>
+                        <AdminButton
+                          variant="secondary"
+                          disabled={togglingVisible === item.slug}
+                          onClick={() => void toggleVisible(item.slug)}
+                        >
+                          {togglingVisible === item.slug
+                            ? t.software.hiding
+                            : visible
+                              ? t.software.hide
+                              : t.software.show}
+                        </AdminButton>
                         <AdminButton
                           variant="danger"
                           disabled={deleting === item.slug}
