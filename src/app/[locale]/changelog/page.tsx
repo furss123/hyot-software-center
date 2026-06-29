@@ -1,5 +1,5 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server'
-import { getAllSoftwareSlugs, getSoftwareMeta } from '@/lib/content/software'
+import { getPublicSoftwareSlugs, getSoftwareMeta } from '@/lib/content/software'
 import { getReleasesData } from '@/lib/content/releases'
 import { getSiteConfig } from '@/lib/content/config'
 import { pageMetadata } from '@/lib/seo/meta'
@@ -39,7 +39,7 @@ export default async function ChangelogPage({
   const l = locale as Locale
   const tNav = await getTranslations('nav')
 
-  const slugs = getAllSoftwareSlugs()
+  const slugs = getPublicSoftwareSlugs()
   const allReleases = slugs
     .flatMap((slug) => {
       const data = getReleasesData(slug)

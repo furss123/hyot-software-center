@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 import { FeedbackForm } from '@/components/feedback/FeedbackForm'
 import { SoftwareIcon } from '@/components/software/SoftwareIcon'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
-import { getAllSoftware, getAllSoftwareSlugs, getSoftwareMeta } from '@/lib/content/software'
+import { getAllSoftware, getPublicSoftwareSlugs, getSoftwareMeta, isSoftwareVisible } from '@/lib/content/software'
 import { getSiteConfig } from '@/lib/content/config'
 import { pageMetadata } from '@/lib/seo/meta'
 import { locales } from '@/i18n/config'
@@ -17,7 +17,7 @@ interface PageProps {
 }
 
 export async function generateStaticParams(): Promise<Array<{ locale: string; slug: string }>> {
-  const slugs = getAllSoftwareSlugs()
+  const slugs = getPublicSoftwareSlugs()
   return locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })))
 }
 
@@ -47,7 +47,7 @@ export default async function SoftwareFeedbackPage({
   const tNav = await getTranslations('nav')
 
   const app = getSoftwareMeta(slug)
-  if (!app) notFound()
+  if (!app || !isSoftwareVisible(app)) notFound()
 
   const config = getSiteConfig()
   const software = getAllSoftware()

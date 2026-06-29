@@ -31,6 +31,11 @@ export function getAllSoftware(): SoftwareMeta[] {
     .filter(isSoftwareVisible)
 }
 
+/** Slugs included in public listings, search, sitemap, and static routes */
+export function getPublicSoftwareSlugs(): string[] {
+  return getAllSoftware().map((s) => s.slug)
+}
+
 export function getFeaturedSoftware(): SoftwareMeta[] {
   return getAllSoftware().filter((s) => s.featured)
 }

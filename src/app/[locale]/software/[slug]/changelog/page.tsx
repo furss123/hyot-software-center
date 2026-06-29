@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/Badge'
 import { Card } from '@/components/ui/Card'
 import { Breadcrumb } from '@/components/ui/Breadcrumb'
 import { getReleasesData } from '@/lib/content/releases'
-import { getAllSoftwareSlugs, getSoftwareMeta } from '@/lib/content/software'
+import { getPublicSoftwareSlugs, getSoftwareMeta, isSoftwareVisible } from '@/lib/content/software'
 import { getSiteConfig } from '@/lib/content/config'
 import { pageMetadata } from '@/lib/seo/meta'
 import { formatDate } from '@/lib/utils'
@@ -34,7 +34,7 @@ function channelBorderColor(channel: ReleaseChannel): string {
 }
 
 export async function generateStaticParams(): Promise<Array<{ locale: string; slug: string }>> {
-  const slugs = getAllSoftwareSlugs()
+  const slugs = getPublicSoftwareSlugs()
   return locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })))
 }
 
@@ -63,7 +63,7 @@ export default async function SoftwareChangelogPage({
   const tNav = await getTranslations('nav')
 
   const app = getSoftwareMeta(slug)
-  if (!app) notFound()
+  if (!app || !isSoftwareVisible(app)) notFound()
 
   const releasesData = getReleasesData(slug)
   if (!releasesData) notFound()
