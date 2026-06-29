@@ -4,8 +4,9 @@ import path from 'path'
 import { getSiteConfig } from '../src/lib/content/config'
 import { getAllLatestReleases } from '../src/lib/content/releases'
 
+const BASE_URL = 'https://hyot.dev'
 const config = getSiteConfig()
-const BASE = config.brand.url
+const BASE = BASE_URL
 const now = new Date().toUTCString()
 
 const releases = getAllLatestReleases()

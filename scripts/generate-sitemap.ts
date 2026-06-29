@@ -4,8 +4,9 @@ import path from 'path'
 import { getSiteConfig } from '../src/lib/content/config'
 import { getAllSoftware } from '../src/lib/content/software'
 
+const BASE_URL = 'https://hyot.dev'
 const config = getSiteConfig()
-const BASE = config.brand.url
+const BASE = BASE_URL
 const locales = ['ko', 'en']
 
 const staticRoutes = ['', '/software', '/changelog', '/feedback']
