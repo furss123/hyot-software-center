@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import { useSearchModal } from '@/components/search/search-context'
 import { LanguageToggle } from '@/components/theme/LanguageToggle'
 import { ThemeToggle } from '@/components/theme/ThemeToggle'
-import { cn } from '@/lib/utils'
+import { cn, getAssetUrl } from '@/lib/utils'
 import type { SiteConfig } from '@/types'
 
 interface HeaderProps {
@@ -45,7 +45,7 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
         >
           {/* eslint-disable-next-line @next/next/no-img-element -- static export; logo from /public */}
           <img
-            src="/hyot-software-center/assets/logo.png"
+            src={getAssetUrl('/assets/logo.png')}
             className="logo-img"
             alt="HyoT"
           />

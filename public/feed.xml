@@ -2,23 +2,45 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>HyoT Software Center</title>
-    <link>https://furss123.github.io/hyot-software-center</link>
+    <link>https://hyot.dev</link>
     <description>Releases from HyoT Software Center</description>
     <language>en</language>
-    <lastBuildDate>Sun, 28 Jun 2026 01:07:56 GMT</lastBuildDate>
-    <atom:link href="https://furss123.github.io/hyot-software-center/feed.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Mon, 29 Jun 2026 00:11:06 GMT</lastBuildDate>
+    <atom:link href="https://hyot.dev/feed.xml" rel="self" type="application/rss+xml"/>
     
   <item>
-    <title><![CDATA[hyot-image-tools v1.0.0 (stable)]]></title>
-    <link>https://furss123.github.io/hyot-software-center/en/software/hyot-image-tools</link>
-    <guid>https://furss123.github.io/hyot-software-center/en/software/hyot-image-tools/releases/1.0.0</guid>
+    <title><![CDATA[hyopdf v1.0.2 (stable)]]></title>
+    <link>https://hyot.dev/en/software/hyopdf</link>
+    <guid>https://hyot.dev/en/software/hyopdf/releases/1.0.2</guid>
     <pubDate>Sun, 28 Jun 2026 00:00:00 GMT</pubDate>
     <description><![CDATA[]]></description>
   </item>
   <item>
+    <title><![CDATA[hyot-image-tools v1.0.0 (stable)]]></title>
+    <link>https://hyot.dev/en/software/hyot-image-tools</link>
+    <guid>https://hyot.dev/en/software/hyot-image-tools/releases/1.0.0</guid>
+    <pubDate>Sun, 28 Jun 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[## v1.0.0 — Initial stable release
+
+### Tools (7)
+- **Reduce Size** — quality- or target-size compression
+- **Resize** — percentage, exact dimensions, or longest side
+- **Convert Format** — JPG, PNG, WebP, BMP, TIFF
+- **Rotate / Flip** — angle, horizontal/vertical flip, EXIF auto-orient
+- **Crop** — aspect presets and interactive crop
+- **Merge Images** — horizontal, vertical, or grid layout
+- **Bulk Rename** — prefix, numbering, and padding
+
+### Highlights
+- Drag-and-drop and folder import
+- Live preview for resize, rotate, and merge
+- Dark/light themes · Korean/English UI
+- Background batch processing with progress]]></description>
+  </item>
+  <item>
     <title><![CDATA[bidanwin v0.1.0 (stable)]]></title>
-    <link>https://furss123.github.io/hyot-software-center/en/software/bidanwin</link>
-    <guid>https://furss123.github.io/hyot-software-center/en/software/bidanwin/releases/0.1.0</guid>
+    <link>https://hyot.dev/en/software/bidanwin</link>
+    <guid>https://hyot.dev/en/software/bidanwin/releases/0.1.0</guid>
     <pubDate>Sat, 27 Jun 2026 00:00:00 GMT</pubDate>
     <description><![CDATA[]]></description>
   </item>

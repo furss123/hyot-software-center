@@ -21,14 +21,13 @@ jobs:
       - run: npm run build:search-index
       - run: npm run build
         env:
-          GITHUB_PAGES_REPO: hyot-software-center
-          NEXT_PUBLIC_BASE_PATH: /hyot-software-center
+          NEXT_PUBLIC_BASE_PATH: ''
       - name: Check broken links
         uses: lycheeverse/lychee-action@v2
         with:
           args: >
             ./out
-            --base https://furss123.github.io/hyot-software-center
+            --base https://hyot.dev
             --exclude "localhost"
             --exclude "github.com"
             --exclude "cdn.jsdelivr.net"

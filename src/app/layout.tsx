@@ -4,7 +4,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'HyoT Software Center',
-  metadataBase: new URL('https://furss123.github.io/hyot-software-center'),
+  metadataBase: new URL('https://hyot.dev'),
 }
 
 const themeScript = `(function(){try{var t=localStorage.getItem('theme');var m=t||'system';if(m==='system')m=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',m)}catch(e){}})()`

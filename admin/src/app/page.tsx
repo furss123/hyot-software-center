@@ -62,7 +62,7 @@ export default function AdminDashboardPage() {
           </a>
         ))}
         <a
-          href="https://furss123.github.io/hyot-software-center/ko/"
+          href="https://hyot.dev/ko/"
           target="_blank"
           rel="noopener noreferrer"
           style={{ textDecoration: 'none' }}
