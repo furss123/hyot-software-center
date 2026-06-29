@@ -1,18 +1,46 @@
 {
   "slug": "hyot-image-tools",
   "latest": {
-    "stable": "1.0.0",
+    "stable": "1.0.1",
     "beta": null
   },
   "releases": [
+    {
+      "version": "1.0.1",
+      "channel": "stable",
+      "releaseDate": "2026-06-28",
+      "githubTag": "v1.0.1",
+      "notes": {
+        "ko": "## v1.0.1\n\n### 변경 사항\n- 7가지 도구 UI 정식 반영 (용량 줄이기, 크기 변경, 형식 변환, 회전·뒤집기, 자르기, 합치기, 파일명 변경)\n- 미리보기·일괄 변환 백그라운드 처리\n- PyInstaller 번들링 및 설치 프로그램 아이콘 수정\n- 다크/라이트 테마, 한국어/영어 UI",
+        "en": "## v1.0.1\n\n### Changes\n- Shipping 7-tool UI (compress, resize, convert, rotate/flip, crop, merge, bulk rename)\n- Background preview and batch conversion\n- PyInstaller bundling and installer icon fixes\n- Dark/light themes · Korean/English UI"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoT-Image-Tools-1.0.1-x64-setup.exe",
+          "url": "https://github.com/furss123/hyot-image-tools/releases/download/v1.0.1/HyoT-Image-Tools-1.0.1-x64-setup.exe",
+          "size": 0,
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "downloadCount": 0
+        },
+        {
+          "type": "portable",
+          "filename": "HyoT-Image-Tools-1.0.1-x64-portable.zip",
+          "url": "https://github.com/furss123/hyot-image-tools/releases/download/v1.0.1/HyoT-Image-Tools-1.0.1-x64-portable.zip",
+          "size": 0,
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "downloadCount": 0
+        }
+      ]
+    },
     {
       "version": "1.0.0",
       "channel": "stable",
       "releaseDate": "2026-06-28",
       "githubTag": "v1.0.0",
       "notes": {
-        "ko": "## v1.0.0 — 최초 정식 릴리스\n\n### 포함 도구 (7종)\n- **용량 줄이기** — 품질·목표 용량 기반 압축\n- **크기 변경** — 비율·정확한 크기·긴 변 기준 리사이즈\n- **형식 변환** — JPG, PNG, WebP, BMP, TIFF 변환\n- **회전 / 뒤집기** — 각도 회전, 좌우·상하 뒤집기, EXIF 자동 보정\n- **자르기** — 비율 프리셋 및 인터랙티브 크롭\n- **이미지 합치기** — 가로·세로·그리드 병합\n- **파일명 일괄 변경** — 접두어·번호·패딩 일괄 적용\n\n### 주요 기능\n- 드래그 앤 드롭 및 폴더 일괄 추가\n- 리사이즈·회전·합치기 실시간 미리보기\n- 다크/라이트 테마, 한국어/영어 UI\n- 백그라운드 일괄 처리 및 진행률 표시",
-        "en": "## v1.0.0 — Initial stable release\n\n### Tools (7)\n- **Reduce Size** — quality- or target-size compression\n- **Resize** — percentage, exact dimensions, or longest side\n- **Convert Format** — JPG, PNG, WebP, BMP, TIFF\n- **Rotate / Flip** — angle, horizontal/vertical flip, EXIF auto-orient\n- **Crop** — aspect presets and interactive crop\n- **Merge Images** — horizontal, vertical, or grid layout\n- **Bulk Rename** — prefix, numbering, and padding\n\n### Highlights\n- Drag-and-drop and folder import\n- Live preview for resize, rotate, and merge\n- Dark/light themes · Korean/English UI\n- Background batch processing with progress"
+        "ko": "## v1.0.0 — 최초 정식 릴리스\n\n문서 및 초기 릴리스.",
+        "en": "## v1.0.0 — Initial release\n\nDocumentation and initial release."
       },
       "assets": [
         {
