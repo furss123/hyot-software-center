@@ -41,7 +41,6 @@
   },
   "requirements": {
     "os": "Windows 10 22H2+ (x64)",
-    "arch": ["x64"],
     "ram": "4 GB 이상 권장",
     "disk": "약 150 MB (설치 후)"
   },
@@ -49,5 +48,5 @@
     "github": "https://github.com/furss123/hyot-image-tools"
   },
   "createdAt": "2026-06-28",
-  "updatedAt": "2026-06-28"
+  "updatedAt": "2026-06-29"
 }
