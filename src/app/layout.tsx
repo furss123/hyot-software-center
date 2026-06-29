@@ -7,9 +7,6 @@ const ADSENSE_CLIENT = 'ca-pub-9694429813677076'
 export const metadata: Metadata = {
   title: 'HyoT Software Center',
   metadataBase: new URL('https://hyot.dev'),
-  other: {
-    'google-adsense-account': ADSENSE_CLIENT,
-  },
 }
 
 const themeScript = `(function(){try{var t=localStorage.getItem('theme');var m=t||'system';if(m==='system')m=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',m)}catch(e){}})()`
@@ -22,6 +19,7 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning>
       <head>
+        <meta name="google-adsense-account" content="ca-pub-9694429813677076" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         {/* eslint-disable-next-line @next/next/no-sync-scripts -- AdSense site verification */}
         <script
