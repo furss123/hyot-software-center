@@ -49,6 +49,12 @@
     "noDocumentation": "문서가 없습니다",
     "downloadCountLabel": "다운로드 {count}회",
     "downloadsLabel": "다운로드",
+    "downloadWindows": "↓ Windows 다운로드",
+    "advancedOptions": "고급 옵션",
+    "advancedPortableX64": "포터블 x64 (.exe)",
+    "advancedInstallerX64Msi": "설치형 x64 (.msi)",
+    "advancedPortableArm64": "포터블 ARM64 (.exe)",
+    "advancedInstallerArm64Msi": "설치형 ARM64 (.msi)",
     "tabs": {
       "overview": "개요",
       "changelog": "변경 내역",

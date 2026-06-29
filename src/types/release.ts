@@ -8,6 +8,7 @@ export interface ReleaseAsset {
   size?: number
   sha256: string
   downloadCount?: number
+  arch?: 'x64' | 'arm64' | string
 }
 
 export interface Release {

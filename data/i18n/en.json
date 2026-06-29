@@ -49,6 +49,12 @@
     "noDocumentation": "No documentation available",
     "downloadCountLabel": "{count} downloads",
     "downloadsLabel": "Downloads",
+    "downloadWindows": "↓ Download for Windows",
+    "advancedOptions": "Advanced options",
+    "advancedPortableX64": "Portable x64 (.exe)",
+    "advancedInstallerX64Msi": "Installer x64 (.msi)",
+    "advancedPortableArm64": "Portable ARM64 (.exe)",
+    "advancedInstallerArm64Msi": "Installer ARM64 (.msi)",
     "tabs": {
       "overview": "Overview",
       "changelog": "Changelog",
