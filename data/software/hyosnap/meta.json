@@ -1,0 +1,38 @@
+{
+  "slug": "hyosnap",
+  "status": "active",
+  "category": "utility",
+  "tags": [
+    "스크린샷",
+    "캡쳐",
+    "자동저장",
+    "트레이",
+    "생산성",
+    "스니핑"
+  ],
+  "featured": true,
+  "visible": true,
+  "name": {
+    "ko": "효스냅",
+    "en": "HyoSnap"
+  },
+  "description": {
+    "ko": "Windows 기본 캡쳐(Win+Shift+S)로 찍은 이미지를 클립보드에서 감지해 지정한 폴더에 자동으로 저장합니다. 기본 저장 위치는 바탕화면의 HyoSnap 폴더이며, 창 없이 트레이에 조용히 상주합니다.\n\n저장 확장자(PNG/JPG/BMP)와 JPG 화질을 설정에서 지정할 수 있고, 중복 저장 방지·저장 알림·Windows 시작 시 자동 실행을 지원합니다. 저장 작업은 백그라운드 스레드에서 처리되며, 시작 시 인코더를 미리 예열해 실행 직후 첫 캡쳐부터 즉시 저장됩니다. 단일 인스턴스로 동작해 중복 실행을 막습니다.",
+    "en": "HyoSnap watches the clipboard for images produced by the built-in Windows capture (Win+Shift+S) and automatically saves them to a folder of your choice — by default a \"HyoSnap\" folder on the Desktop. It runs quietly in the system tray with no window.\n\nYou can choose the output format (PNG/JPG/BMP) and JPG quality, with duplicate-save prevention, save notifications, and run-at-startup. Saving runs on a background thread and the image encoders are warmed up at launch, so even the very first capture after starting is saved instantly. A single-instance guard prevents duplicate runs."
+  },
+  "shortDescription": {
+    "ko": "Win+Shift+S 캡쳐를 폴더에 자동 저장하는 트레이 상주 도우미",
+    "en": "Tray app that auto-saves Win+Shift+S captures to a folder"
+  },
+  "requirements": {
+    "os": "Windows 10 22H2+",
+    "ram": "60MB",
+    "disk": "70MB (포터블) / 1MB (런타임 설치 시)"
+  },
+  "links": {
+    "github": "https://github.com/furss123/HyoSnap"
+  },
+  "githubRepo": "furss123/HyoSnap",
+  "createdAt": "2026-06-30",
+  "updatedAt": "2026-06-30"
+}
