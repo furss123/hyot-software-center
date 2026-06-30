@@ -30,16 +30,49 @@ consistent. Read it before adding a new program.
 - Platform badges render automatically on cards, the detail page, and the
   software-list filter via `PlatformBadges` — never hand-roll platform UI.
 
-## Visual unity (per product)
+## Visual identity & assets (one look across every product)
 
-- **Icon:** `data/software/<slug>/icon.webp`, square, 512×512, transparent or
-  solid brand background. Single focal glyph, generous padding.
-- **Banner:** `data/software/<slug>/banner.webp`, wide (≈1200×480).
-- **Accent:** lean on the site tokens (`--hyot-blue #4A9FE0`,
-  `--hyot-purple #8B4FCC`, `--hyot-orange #E87820`). Avoid introducing new
-  brand hues per app.
-- **Category & tags:** pick one `category` from the fixed enum; keep tags
-  lowercase, ≤ 10, platform/feature oriented.
+All artwork must read as one family. Shared rules first, then per-asset specs.
+
+### Shared rules
+- **Palette only.** Use the brand tokens — `--hyot-blue #4A9FE0` (primary),
+  `--hyot-blue-dark #2B7CC7`, `--hyot-purple #8B4FCC`, `--hyot-orange #E87820`,
+  `--hyot-teal #2A9B8A`. **No new brand hues per app.**
+- **Signature accent:** the **HyoT Blue gradient** `#4A9FE0 → #2B7CC7`
+  (135°). It's the thread tying every icon/banner together.
+- **Backgrounds:** dark base `#07090C–#0D1117` (default) or the blue gradient.
+  Light variants use `#F6F8FC`. Keep them consistent within one app.
+- **Shape:** rounded-square motif everywhere (icon container, cards, chips),
+  corner radius ≈ 22% of size. Flat, minimal, generous padding. No skeuomorphism,
+  no drop-shadow-heavy 3D, no photographic icons.
+- **One glyph per product.** A single focal mark that still reads at 24px.
+- **Formats:** `webp` for site (banner/screenshots), `png` for app icons &
+  OG; transparent where the asset floats, otherwise the brand background.
+
+### App / product icon
+- Master **1024×1024**, export **512 / 256 / 128 / 48 / 32 / 24 / 16**.
+- Single glyph centered in the rounded square, **~18% safe padding**, on a
+  brand-blue gradient or dark base. Same construction for every app so the
+  taskbar/launcher reads as a set.
+- Site copy: `data/software/<slug>/icon.webp`, 512×512.
+
+### Banner
+- `data/software/<slug>/banner.webp`, **1200×480** (2.5:1).
+- Composition: glyph/icon at left, product name + one-line tagline at right,
+  brand gradient or dark base. Keep text out of the outer 64px (safe area).
+
+### Screenshots
+- `data/software/<slug>/screenshots/*.png`, **16:10** landscape, real UI in
+  the app's own dark theme. Consistent crop/framing across apps; no random
+  device mockups. First file `main.png` is the hero shot.
+
+### Social / OG image
+- 1200×630, brand gradient or dark base, glyph + product name + `hyot.dev`.
+  Generated for the site automatically — keep the same template per app.
+
+### Category & tags
+- One `category` from the fixed enum; tags lowercase, ≤ 10, platform/feature
+  oriented (e.g. `windows`, `pdf`, `utility`).
 
 ## Copy tone
 
