@@ -6,7 +6,7 @@
   },
   "brand": {
     "name": "HyoT Software Center",
-    "tagline": { "ko": "당신의 Windows를 더 스마트하게", "en": "Make Your Windows Smarter" },
+    "tagline": { "ko": "당신의 기기를 더 스마트하게", "en": "Make Your Devices Smarter" },
     "logo": "/assets/logo.svg",
     "favicon": "/assets/favicon.ico",
     "url": "https://hyot.dev",
@@ -18,8 +18,8 @@
     "defaultTitle": "HyoT Software Center",
     "titleTemplate": "%s | HyoT Software Center",
     "description": {
-      "ko": "HyoT가 만든 Windows 유틸리티 소프트웨어를 무료로 다운로드하세요.",
-      "en": "Download free Windows utility software made by HyoT."
+      "ko": "HyoT가 만든 Windows·Android 유틸리티 소프트웨어와 앱을 무료로 다운로드하세요.",
+      "en": "Download free Windows and Android utility software and apps made by HyoT."
     },
     "ogImage": "/assets/og-default.png"
   },

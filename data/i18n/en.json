@@ -7,8 +7,8 @@
   },
   "home": {
     "hero": {
-      "title": "Make Your Windows\nSmarter",
-      "subtitle": "Download free, high-quality Windows utility software made by HyoT.",
+      "title": "Make Your Devices\nSmarter",
+      "subtitle": "Download free, high-quality Windows & Android utilities made by HyoT.",
       "cta": "Browse Software",
       "ctaSecondary": "View on GitHub"
     },
@@ -35,6 +35,11 @@
     "searchPlaceholder": "Search software...",
     "resultCount": "{count} apps",
     "filterAll": "All",
+    "filterAllPlatforms": "All platforms",
+    "platforms": {
+      "windows": "Windows",
+      "android": "Android"
+    },
     "sortLabel": "Sort",
     "sortName": "Name",
     "sortUpdated": "Latest",

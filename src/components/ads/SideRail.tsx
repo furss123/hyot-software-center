@@ -46,22 +46,13 @@ export function SideRail({ side }: SideRailProps): React.JSX.Element | null {
 
   if (!shouldRender || !config?.publisherId || !slot) return null
 
+  // Width, vertical centering, and horizontal placement (which depend on the
+  // active breakpoint) all live in globals.css under `.side-rail`.
   return (
     <aside
       aria-hidden="true"
       data-ad-position={position}
-      className="side-rail z-30"
-      style={{
-        position: 'fixed',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        width: '160px',
-        height: '600px',
-        left:
-          side === 'left'
-            ? 'calc(50% - 640px - 24px - 160px)'
-            : 'calc(50% + 640px + 24px)',
-      }}
+      className={`side-rail side-rail--${side} z-30`}
     >
       <span className="side-rail__label">{locale === 'ko' ? '광고' : 'Advertisement'}</span>
       <AdSenseUnit format="vertical" publisherId={config.publisherId} slot={slot} />

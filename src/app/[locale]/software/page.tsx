@@ -5,9 +5,12 @@ import type { Metadata } from 'next'
 import { SoftwareListView } from '@/components/software/SoftwareListView'
 import { getSiteConfig } from '@/lib/content/config'
 import { getReleasesData } from '@/lib/content/releases'
-import { getAllSoftware } from '@/lib/content/software'
+import { getAllSoftware, softwarePlatforms } from '@/lib/content/software'
 import { pageMetadata } from '@/lib/seo/meta'
 import { sumDownloadCounts } from '@/lib/utils'
+import type { Platform } from '@/types'
+
+const PLATFORM_ORDER: Platform[] = ['windows', 'android']
 
 interface PageProps {
   params: Promise<{ locale: string }>
@@ -34,6 +37,8 @@ export default async function SoftwareListPage({
 
   const apps = getAllSoftware()
   const categories = [...new Set(apps.map((app) => app.category))].sort()
+  const platformSet = new Set(apps.flatMap((app) => softwarePlatforms(app)))
+  const platforms = PLATFORM_ORDER.filter((p) => platformSet.has(p))
   const software = apps.map((app) => ({
     ...app,
     downloadCount: sumDownloadCounts(getReleasesData(app.slug)?.releases),
@@ -43,7 +48,12 @@ export default async function SoftwareListPage({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
       <h1 className="text-3xl font-bold text-text-primary mb-2">{tNav('software')}</h1>
       <Suspense fallback={null}>
-        <SoftwareListView software={software} categories={categories} locale={locale} />
+        <SoftwareListView
+          software={software}
+          categories={categories}
+          platforms={platforms}
+          locale={locale}
+        />
       </Suspense>
     </div>
   )

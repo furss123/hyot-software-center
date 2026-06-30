@@ -2,6 +2,9 @@
   "slug": "hyopdf",
   "status": "active",
   "category": "utility",
+  "platforms": [
+    "windows"
+  ],
   "tags": [
     "windows",
     "pdf",

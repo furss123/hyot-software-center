@@ -8,6 +8,7 @@ import { ExternalLink } from 'lucide-react'
 import { AdSlot } from '@/components/ads/AdSlot'
 import { DownloadCount } from '@/components/download/DownloadCount'
 import { DownloadSection } from '@/components/download/DownloadSection'
+import { PlatformBadges } from '@/components/software/PlatformBadges'
 import { ShareButton } from '@/components/software/ShareButton'
 import { SoftwareIcon } from '@/components/software/SoftwareIcon'
 import { SoftwareTabPanel, SoftwareTabs } from '@/components/software/SoftwareTabs'
@@ -15,7 +16,12 @@ import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { getReleasesData, getLatestRelease } from '@/lib/content/releases'
-import { getPublicSoftwareSlugs, getSoftwareMeta, isSoftwareVisible } from '@/lib/content/software'
+import {
+  getPublicSoftwareSlugs,
+  getSoftwareMeta,
+  isSoftwareVisible,
+  softwarePlatforms,
+} from '@/lib/content/software'
 import { getSiteConfig } from '@/lib/content/config'
 import { breadcrumbJsonLd, softwareJsonLd } from '@/lib/seo/jsonld'
 import { pageMetadata } from '@/lib/seo/meta'
@@ -148,6 +154,7 @@ export default async function SoftwareDetailPage({
           <div className="flex flex-wrap items-center gap-2 mb-2">
             <h1 className="text-3xl font-bold text-text-primary">{app.name[l]}</h1>
             <Badge variant={statusBadgeVariant(app.status)}>{app.status}</Badge>
+            <PlatformBadges platforms={softwarePlatforms(app)} variant="full" />
           </div>
           <p className="text-text-secondary text-lg mb-4">{app.shortDescription[l]}</p>
           <div className="flex flex-wrap items-center gap-2">

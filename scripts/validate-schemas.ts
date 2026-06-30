@@ -104,6 +104,7 @@ const MetaSchema = z.object({
     'security',
     'other',
   ]),
+  platforms: z.array(z.enum(['windows', 'android'])).optional(),
   tags: z.array(z.string()).max(10),
   featured: z.boolean(),
   visible: z.boolean().optional(),

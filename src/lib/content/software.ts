@@ -1,6 +1,11 @@
 import fs from 'fs'
 import path from 'path'
-import type { SoftwareMeta } from '@/types'
+import type { Platform, SoftwareMeta } from '@/types'
+
+/** Platforms a piece of software targets; defaults to Windows for legacy meta. */
+export function softwarePlatforms(meta: Pick<SoftwareMeta, 'platforms'>): Platform[] {
+  return meta.platforms && meta.platforms.length > 0 ? meta.platforms : ['windows']
+}
 
 const DATA_DIR = path.join(process.cwd(), 'data', 'software')
 

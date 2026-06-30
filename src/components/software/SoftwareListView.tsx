@@ -7,23 +7,32 @@ import { useMemo } from 'react'
 import { FilterBar } from '@/components/software/FilterBar'
 import { SoftwareCard } from '@/components/software/SoftwareCard'
 import type { Locale } from '@/i18n/config'
-import type { SoftwareMeta } from '@/types'
+import type { Platform, SoftwareMeta } from '@/types'
 
 type SoftwareWithCount = SoftwareMeta & { downloadCount: number }
 
 type SoftwareListViewProps = {
   software: SoftwareWithCount[]
   categories: string[]
+  platforms: Platform[]
   locale: string
+}
+
+const ALL_PLATFORMS: Platform[] = ['windows', 'android']
+
+function platformsOf(app: SoftwareMeta): Platform[] {
+  return app.platforms?.length ? app.platforms : ['windows']
 }
 
 function filterAndSort(
   software: SoftwareWithCount[],
   category: string | undefined,
+  platform: Platform | undefined,
   sort: string,
   locale: Locale,
 ): SoftwareWithCount[] {
   let result = category ? software.filter((app) => app.category === category) : [...software]
+  if (platform) result = result.filter((app) => platformsOf(app).includes(platform))
 
   if (sort === 'name') {
     result = result.sort((a, b) => a.name[locale].localeCompare(b.name[locale], locale))
@@ -42,6 +51,7 @@ function filterAndSort(
 export function SoftwareListView({
   software,
   categories,
+  platforms,
   locale,
 }: SoftwareListViewProps): React.JSX.Element {
   const searchParams = useSearchParams()
@@ -50,10 +60,14 @@ export function SoftwareListView({
 
   const category = searchParams.get('category') ?? ''
   const sort = searchParams.get('sort') ?? 'updated'
+  const platformParam = searchParams.get('platform') ?? ''
+  const platform = ALL_PLATFORMS.includes(platformParam as Platform)
+    ? (platformParam as Platform)
+    : undefined
 
   const filtered = useMemo(
-    () => filterAndSort(software, category || undefined, sort, l),
-    [software, category, sort, l],
+    () => filterAndSort(software, category || undefined, platform, sort, l),
+    [software, category, platform, sort, l],
   )
 
   return (
@@ -61,7 +75,9 @@ export function SoftwareListView({
       <p className="text-base text-text-tertiary mb-6">{t('resultCount', { count: filtered.length })}</p>
       <FilterBar
         categories={categories}
+        platforms={platforms}
         activeCategory={category}
+        activePlatform={platform ?? ''}
         activeSort={sort}
         locale={locale}
       />

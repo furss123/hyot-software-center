@@ -268,17 +268,42 @@ body {
 }
 
 /* Side-rail (gutter) ads: hidden by default; shown only when there is real
-   empty space beside the centered 1280px content column, and the window is
-   tall enough that the vertically-centered 617px rail (600px ad + 17px label)
-   clears the 128px sticky header. Clearance needs (H - 617) / 2 >= 128, i.e.
-   H >= ~873px, so we reveal only at >= 880px for a small safety margin. */
+   empty space beside the centered 1280px content column. The rail tracks the
+   content-column edge with a constant 24px gap, and is biased 40px below center
+   so the 617px block (600px ad + 17px label) clears the 128px sticky header
+   even on shorter windows (>= 800px tall). Two width tiers widen coverage:
+   a 120px skyscraper from 1600px, a 160px one from 1700px. */
 .side-rail {
   display: none;
+  position: fixed;
+  top: calc(50% + 40px);
+  transform: translateY(-50%);
+  overflow: hidden;
+  z-index: 30;
 }
 
-@media (min-width: 1700px) and (min-height: 880px) {
+@media (min-width: 1600px) and (min-height: 800px) {
   .side-rail {
     display: block;
+    width: 120px;
+  }
+  .side-rail--left {
+    left: calc(50% - 640px - 24px - 120px);
+  }
+  .side-rail--right {
+    left: calc(50% + 640px + 24px);
+  }
+}
+
+@media (min-width: 1700px) and (min-height: 800px) {
+  .side-rail {
+    width: 160px;
+  }
+  .side-rail--left {
+    left: calc(50% - 640px - 24px - 160px);
+  }
+  .side-rail--right {
+    left: calc(50% + 640px + 24px);
   }
 }
 

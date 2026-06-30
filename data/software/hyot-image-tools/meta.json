@@ -2,6 +2,9 @@
   "slug": "hyot-image-tools",
   "status": "active",
   "category": "utility",
+  "platforms": [
+    "windows"
+  ],
   "tags": [
     "image",
     "batch",

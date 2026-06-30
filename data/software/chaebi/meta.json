@@ -2,6 +2,9 @@
   "slug": "chaebi",
   "status": "active",
   "category": "utility",
+  "platforms": [
+    "windows"
+  ],
   "tags": [
     "windows",
     "calendar",

@@ -7,8 +7,8 @@
   },
   "home": {
     "hero": {
-      "title": "당신의 Windows를\n더 스마트하게",
-      "subtitle": "HyoT가 만든 고품질 Windows 유틸리티 소프트웨어를 무료로 다운로드하세요.",
+      "title": "당신의 기기를\n더 스마트하게",
+      "subtitle": "HyoT가 만든 고품질 Windows·Android 유틸리티를 무료로 다운로드하세요.",
       "cta": "소프트웨어 둘러보기",
       "ctaSecondary": "GitHub에서 보기"
     },
@@ -35,6 +35,11 @@
     "searchPlaceholder": "소프트웨어 검색...",
     "resultCount": "{count}개 앱",
     "filterAll": "전체",
+    "filterAllPlatforms": "모든 플랫폼",
+    "platforms": {
+      "windows": "Windows",
+      "android": "Android"
+    },
     "sortLabel": "정렬",
     "sortName": "이름",
     "sortUpdated": "최신순",

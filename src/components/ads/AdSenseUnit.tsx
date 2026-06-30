@@ -39,14 +39,18 @@ export function AdSenseUnit({
   }, [])
 
   if (format === 'vertical') {
-    // Fixed 160x600 skyscraper. No data-ad-format/full-width-responsive so the
-    // unit cannot reflow to a non-skyscraper size and overflow the gutter box.
+    // Vertical skyscraper sized by its container width (120px or 160px,
+    // set in globals.css per breakpoint). data-ad-format="vertical" keeps the
+    // served creative a skyscraper; the container has overflow:hidden so it can
+    // never spill into the content column.
     return (
       <ins
         className="adsbygoogle"
-        style={{ display: 'inline-block', width: '160px', height: '600px' }}
+        style={{ display: 'block', width: '100%', height: '600px' }}
         data-ad-client={publisherId}
         data-ad-slot={slot}
+        data-ad-format="vertical"
+        data-full-width-responsive="false"
       />
     )
   }

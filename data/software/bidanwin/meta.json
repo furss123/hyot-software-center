@@ -2,6 +2,9 @@
   "slug": "bidanwin",
   "status": "active",
   "category": "utility",
+  "platforms": [
+    "windows"
+  ],
   "tags": [
     "windows",
     "debloat",

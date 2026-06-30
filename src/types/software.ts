@@ -8,6 +8,7 @@ export type SoftwareCategory =
   | 'security'
   | 'other'
 export type Arch = 'x64' | 'arm64' | 'x86'
+export type Platform = 'windows' | 'android'
 
 export interface I18nString {
   ko: string
@@ -23,6 +24,8 @@ export interface SoftwareMeta {
   slug: string
   status: SoftwareStatus
   category: SoftwareCategory
+  /** Target platforms; defaults to ['windows'] when omitted */
+  platforms?: Platform[]
   tags: string[]
   featured: boolean
   /** false = hidden from public listings (homepage, software list, search) */

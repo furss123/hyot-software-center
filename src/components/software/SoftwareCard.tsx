@@ -1,11 +1,12 @@
 import Link from 'next/link'
 
 import { DownloadCount } from '@/components/download/DownloadCount'
+import { PlatformBadges } from '@/components/software/PlatformBadges'
 import { SoftwareIcon } from '@/components/software/SoftwareIcon'
 import { Badge } from '@/components/ui/Badge'
 import { Card } from '@/components/ui/Card'
 import type { Locale } from '@/i18n/config'
-import type { SoftwareMeta, SoftwareStatus } from '@/types'
+import type { Platform, SoftwareMeta, SoftwareStatus } from '@/types'
 
 type SoftwareCardProps = {
   app: SoftwareMeta
@@ -28,6 +29,7 @@ export function SoftwareCard({
   initialDownloadCount = 0,
 }: SoftwareCardProps): React.JSX.Element {
   const l = locale as Locale
+  const platforms: Platform[] = app.platforms?.length ? app.platforms : ['windows']
 
   return (
     <Link href={`/${locale}/software/${app.slug}`} className="h-full block">
@@ -46,7 +48,8 @@ export function SoftwareCard({
           </div>
           <div className="mt-auto pt-3 border-t border-border flex items-center gap-2 flex-wrap">
             <Badge variant={statusBadgeVariant(app.status)}>{app.category}</Badge>
-            {app.tags.slice(0, 2).map((tag) => (
+            <PlatformBadges platforms={platforms} />
+            {app.tags.slice(0, 1).map((tag) => (
               <Badge key={tag} variant="default" className="normal-case tracking-[0.05em]">
                 {tag}
               </Badge>
