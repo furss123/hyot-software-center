@@ -35,5 +35,6 @@
   "githubRepo": "furss123/HyoSnap",
   "createdAt": "2026-06-30",
   "updatedAt": "2026-06-30",
-  "icon": "/data/software/hyosnap/icon.webp"
+  "icon": "/data/software/hyosnap/icon.webp",
+  "banner": "/data/software/hyosnap/banner.webp"
 }
