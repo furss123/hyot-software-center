@@ -89,6 +89,7 @@
     }
   },
   "theme": {
+    "label": "테마",
     "dark": "다크 모드",
     "light": "라이트 모드",
     "system": "시스템 설정",
@@ -101,13 +102,16 @@
     "ariaLabel": "링크 공유"
   },
   "a11y": {
-    "backToTop": "맨 위로"
+    "backToTop": "맨 위로",
+    "openMenu": "메뉴 열기",
+    "closeMenu": "메뉴 닫기"
   },
   "footer": {
     "github": "GitHub",
     "twitter": "X (Twitter)"
   },
   "lang": {
+    "label": "언어",
     "switchKo": "한국어",
     "switchEn": "English",
     "ko": "한",

@@ -89,6 +89,7 @@
     }
   },
   "theme": {
+    "label": "Theme",
     "dark": "Dark Mode",
     "light": "Light Mode",
     "system": "System",
@@ -101,13 +102,16 @@
     "ariaLabel": "Share link"
   },
   "a11y": {
-    "backToTop": "Back to top"
+    "backToTop": "Back to top",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "footer": {
     "github": "GitHub",
     "twitter": "X (Twitter)"
   },
   "lang": {
+    "label": "Language",
     "switchKo": "한국어",
     "switchEn": "English",
     "ko": "한",

@@ -3,7 +3,7 @@
 import { useTheme } from 'next-themes'
 import { Moon, Sun, Monitor } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useState, useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 
 const themes = [
@@ -16,18 +16,41 @@ export function ThemeToggle(): React.JSX.Element | null {
   const { theme, setTheme } = useTheme()
   const t = useTranslations('theme')
   const [mounted, setMounted] = useState(false)
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => setMounted(true), [])
+
+  // Close on outside click or Escape (works on touch, unlike hover).
+  useEffect(() => {
+    if (!open) return
+    const onPointer = (e: MouseEvent): void => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    const onKey = (e: KeyboardEvent): void => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('mousedown', onPointer)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onPointer)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
   if (!mounted) return null
 
   const current = themes.find((th) => th.value === theme) ?? themes[2]!
   const Icon = current.icon
 
   return (
-    <div className="relative group">
+    <div className="relative" ref={ref}>
       <button
         type="button"
+        onClick={() => setOpen((v) => !v)}
         aria-label={t('toggle', { mode: t(current.labelKey) })}
+        aria-haspopup="menu"
+        aria-expanded={open}
         className={cn(
           'flex items-center justify-center w-12 h-12 rounded-lg',
           'text-text-secondary hover:bg-fill-subtle',
@@ -39,19 +62,23 @@ export function ThemeToggle(): React.JSX.Element | null {
         <Icon size={22} style={{ color: 'var(--text-secondary)' }} />
       </button>
       <div
+        role="menu"
         className={cn(
-          'absolute right-0 top-full mt-1 py-1 min-w-[120px]',
-          'bg-bg-surface border border-border rounded-xl shadow-lg',
-          'opacity-0 invisible group-hover:opacity-100 group-hover:visible',
-          'transition-all duration-[var(--duration-base)] ease-[var(--ease-fluent)]',
-          'z-50',
+          'absolute right-0 top-full mt-1 py-1 min-w-[140px]',
+          'bg-bg-surface border border-border rounded-xl shadow-[var(--shadow-lg)]',
+          'transition-all duration-[var(--duration-base)] ease-[var(--ease-fluent)] z-50',
+          open ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none',
         )}
       >
         {themes.map(({ value, icon: ItemIcon, labelKey }) => (
           <button
             key={value}
             type="button"
-            onClick={() => setTheme(value)}
+            role="menuitem"
+            onClick={() => {
+              setTheme(value)
+              setOpen(false)
+            }}
             className={cn(
               'flex items-center gap-2 w-full px-3 py-2 text-sm min-h-[44px]',
               'hover:bg-fill-subtle transition-colors duration-[var(--duration-fast)]',

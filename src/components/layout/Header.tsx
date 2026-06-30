@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
 import { useSearchModal } from '@/components/search/search-context'
+import { MobileMenu } from '@/components/layout/MobileMenu'
 import { LanguageToggle } from '@/components/theme/LanguageToggle'
 import { ThemeToggle } from '@/components/theme/ThemeToggle'
 import { cn, getAssetUrl } from '@/lib/utils'
@@ -32,13 +33,13 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 w-full h-32 mica',
+        'sticky top-0 z-50 w-full h-16 md:h-32 mica',
         'border-b border-border-pixel',
         'transition-shadow duration-[var(--duration-base)]',
         scrolled ? 'shadow-[var(--shadow-sm)]' : '',
       )}
     >
-      <div className="max-w-7xl mx-auto px-10 h-full flex items-center gap-10">
+      <div className="max-w-7xl mx-auto px-4 md:px-10 h-full flex items-center gap-3 md:gap-10">
         <Link
           href={`/${locale}`}
           className="flex items-center shrink-0 text-text-primary hover:opacity-80 transition-opacity"
@@ -52,6 +53,7 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
         </Link>
 
         <div
+          className="hidden md:block"
           style={{
             width: '1px',
             height: '28px',
@@ -62,7 +64,7 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
           aria-hidden="true"
         />
 
-        <nav className="flex items-center gap-2 flex-1" aria-label="Main">
+        <nav className="hidden md:flex items-center gap-2 flex-1" aria-label="Main">
           {config.nav?.map((item) => {
             const href = item.external ? item.href : `/${locale}${item.href}`
             const isActive =
@@ -93,13 +95,13 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
           })}
         </nav>
 
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-1 sm:gap-2 shrink-0 ml-auto md:ml-0">
           <button
             type="button"
             onClick={open}
             aria-label={t('shortcut')}
             className={cn(
-              'flex items-center justify-center w-12 h-12 rounded-lg',
+              'flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-lg',
               'text-text-secondary hover:text-text-primary hover:bg-fill-subtle',
               'transition-all duration-[var(--duration-base)] ease-[var(--ease-fluent)]',
               'focus-visible:outline-2 focus-visible:outline-[var(--hyot-blue)]',
@@ -107,8 +109,11 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
           >
             <Search size={22} />
           </button>
-          <LanguageToggle />
-          <ThemeToggle />
+          <div className="hidden md:flex items-center gap-2">
+            <LanguageToggle />
+            <ThemeToggle />
+          </div>
+          <MobileMenu config={config} locale={locale} />
         </div>
       </div>
     </header>

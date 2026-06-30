@@ -69,6 +69,11 @@ body {
   height: 64px;
   width: auto;
 }
+@media (max-width: 767px) {
+  .logo-img {
+    height: 34px;
+  }
+}
 [data-theme='light'] .logo-img {
   filter: none;
 }
