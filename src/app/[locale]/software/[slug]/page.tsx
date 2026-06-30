@@ -238,7 +238,7 @@ export default async function SoftwareDetailPage({
                 <h3 className="font-semibold text-text-primary mb-4 text-sm uppercase tracking-wide">
                   {t('downloadsLabel')}
                 </h3>
-                <DownloadCount slug={slug} initialCount={initialDownloadCount} />
+                <DownloadCount repo={app.githubRepo} initialCount={initialDownloadCount} />
               </Card>
               <Card className="p-5">
                 <dl className="space-y-3 text-sm">

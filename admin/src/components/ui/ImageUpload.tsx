@@ -12,6 +12,9 @@ interface ImageUploadProps {
   type: 'icon' | 'banner' | 'screenshot'
   currentUrl?: string
   onUpload?: (url: string) => void
+  /** true면 즉시 업로드하지 않고 선택한 File을 onSelect로만 넘긴다 (생성 폼에서 사용) */
+  deferred?: boolean
+  onSelect?: (file: File) => void
 }
 
 function serverPreviewSrc(slug: string, type: 'icon' | 'banner'): string {
@@ -23,6 +26,8 @@ export function ImageUpload({
   type,
   currentUrl,
   onUpload,
+  deferred = false,
+  onSelect,
 }: ImageUploadProps): React.JSX.Element {
   const inputRef = useRef<HTMLInputElement>(null)
   const [preview, setPreview] = useState<string | null>(null)
@@ -66,6 +71,14 @@ export function ImageUpload({
     if (preview) URL.revokeObjectURL(preview)
     const objectUrl = URL.createObjectURL(file)
     setPreview(objectUrl)
+
+    // 생성 폼: 아직 slug가 없으므로 업로드를 미루고 파일만 부모로 전달
+    if (deferred) {
+      setStatus('idle')
+      onSelect?.(file)
+      return
+    }
+
     setStatus('uploading')
 
     const form = new FormData()

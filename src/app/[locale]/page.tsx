@@ -219,7 +219,7 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
                         </Badge>
                         <Badge variant="default">{app.category}</Badge>
                         <DownloadCount
-                          slug={app.slug}
+                          repo={app.githubRepo}
                           initialCount={sumDownloadCounts(getReleasesData(app.slug)?.releases)}
                         />
                       </div>

@@ -54,7 +54,7 @@ export function SoftwareCard({
                 {tag}
               </Badge>
             ))}
-            <DownloadCount slug={app.slug} initialCount={initialDownloadCount} />
+            <DownloadCount repo={app.githubRepo} initialCount={initialDownloadCount} />
           </div>
         </div>
       </Card>

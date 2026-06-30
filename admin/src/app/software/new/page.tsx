@@ -8,8 +8,27 @@ import { AdminCard } from '@/components/ui/AdminCard'
 import { AdminInput } from '@/components/ui/AdminInput'
 import { AdminSelect } from '@/components/ui/AdminSelect'
 import { AdminTextarea } from '@/components/ui/AdminTextarea'
+import { ImageUpload } from '@/components/ui/ImageUpload'
 import { t } from '@/lib/i18n'
 import type { SoftwareCategory, SoftwareMeta, SoftwareStatus } from '@/types'
+
+const labelStyle: React.CSSProperties = {
+  fontSize: '0.875rem',
+  color: '#A0A0A0',
+  marginBottom: '0.5rem',
+}
+
+async function uploadAsset(slug: string, type: 'icon' | 'banner', file: File): Promise<void> {
+  const fd = new FormData()
+  fd.append('file', file)
+  fd.append('slug', slug)
+  fd.append('type', type)
+  const res = await fetch('/api/upload', { method: 'POST', body: fd })
+  if (!res.ok) {
+    const data = (await res.json().catch(() => ({}))) as { error?: string }
+    throw new Error(data.error ?? `${type} ${t.common.error}`)
+  }
+}
 
 const STATUS_OPTIONS = (Object.keys(t.software.statusOptions) as SoftwareStatus[]).map((value) => ({
   value,
@@ -30,64 +49,83 @@ export default function NewSoftwarePage() {
   const [featured, setFeatured] = useState(false)
   const [status, setStatus] = useState<SoftwareStatus>('active')
   const [category, setCategory] = useState<SoftwareCategory>('utility')
+  const [iconFile, setIconFile] = useState<File | null>(null)
+  const [bannerFile, setBannerFile] = useState<File | null>(null)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault()
     setLoading(true)
     setError('')
 
-    const form = new FormData(e.currentTarget)
-    const slug = String(form.get('slug') ?? '').trim()
+    try {
+      const form = new FormData(e.currentTarget)
+      const slug = String(form.get('slug') ?? '').trim()
 
-    const meta: SoftwareMeta = {
-      slug,
-      status,
-      category,
-      tags: String(form.get('tags') ?? '')
-        .split(',')
-        .map((tag) => tag.trim())
-        .filter(Boolean),
-      featured,
-      visible: true,
-      name: {
-        ko: String(form.get('name_ko') ?? ''),
-        en: String(form.get('name_en') ?? ''),
-      },
-      description: {
-        ko: String(form.get('description_ko') ?? ''),
-        en: String(form.get('description_en') ?? ''),
-      },
-      shortDescription: {
-        ko: String(form.get('shortDescription_ko') ?? ''),
-        en: String(form.get('shortDescription_en') ?? ''),
-      },
-      requirements: {
-        os: String(form.get('requirements_os') ?? ''),
-        ram: String(form.get('requirements_ram') ?? '') || undefined,
-        disk: String(form.get('requirements_disk') ?? '') || undefined,
-      },
-      links: {
-        github: String(form.get('links_github') ?? '') || undefined,
-      },
-      githubRepo: String(form.get('githubRepo') ?? '').trim() || undefined,
-      createdAt: new Date().toISOString().split('T')[0],
-      updatedAt: new Date().toISOString().split('T')[0],
-    }
+      const meta: SoftwareMeta = {
+        slug,
+        status,
+        category,
+        tags: String(form.get('tags') ?? '')
+          .split(',')
+          .map((tag) => tag.trim())
+          .filter(Boolean),
+        featured,
+        visible: true,
+        name: {
+          ko: String(form.get('name_ko') ?? ''),
+          en: String(form.get('name_en') ?? ''),
+        },
+        description: {
+          ko: String(form.get('description_ko') ?? ''),
+          en: String(form.get('description_en') ?? ''),
+        },
+        shortDescription: {
+          ko: String(form.get('shortDescription_ko') ?? ''),
+          en: String(form.get('shortDescription_en') ?? ''),
+        },
+        requirements: {
+          os: String(form.get('requirements_os') ?? ''),
+          ram: String(form.get('requirements_ram') ?? '') || undefined,
+          disk: String(form.get('requirements_disk') ?? '') || undefined,
+        },
+        links: {
+          github: String(form.get('links_github') ?? '') || undefined,
+        },
+        githubRepo: String(form.get('githubRepo') ?? '').trim() || undefined,
+        createdAt: new Date().toISOString().split('T')[0],
+        updatedAt: new Date().toISOString().split('T')[0],
+      }
 
-    const res = await fetch('/api/software', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(meta),
-    })
+      // 30초 안에 응답이 없으면 중단 (서버가 멈춰도 화면이 영구 고정되지 않게)
+      const res = await fetch('/api/software', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(meta),
+        signal: AbortSignal.timeout(30000),
+      })
 
-    if (!res.ok) {
-      const data = (await res.json()) as { error?: string }
-      setError(data.error ?? t.common.error)
+      if (!res.ok) {
+        const data = (await res.json().catch(() => ({}))) as { error?: string }
+        setError(data.error ?? t.common.error)
+        return
+      }
+
+      // 소프트웨어 생성 성공 후, 선택한 아이콘/배너를 함께 업로드
+      if (iconFile) await uploadAsset(slug, 'icon', iconFile)
+      if (bannerFile) await uploadAsset(slug, 'banner', bannerFile)
+
+      router.push('/software')
+    } catch (err) {
+      const msg =
+        err instanceof DOMException && err.name === 'TimeoutError'
+          ? t.common.error
+          : err instanceof Error
+            ? err.message
+            : t.common.error
+      setError(msg)
+    } finally {
       setLoading(false)
-      return
     }
-
-    router.push('/software')
   }
 
   return (
@@ -95,6 +133,20 @@ export default function NewSoftwarePage() {
       <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>{t.software.addNew}</h1>
       <div style={{ maxWidth: '760px' }}>
         <AdminCard>
+          <div style={{ display: 'flex', gap: '2rem', marginBottom: '2rem' }}>
+            <div>
+              <p style={labelStyle}>
+                {t.upload.icon} ({t.upload.iconHint})
+              </p>
+              <ImageUpload slug="" type="icon" deferred onSelect={setIconFile} />
+            </div>
+            <div>
+              <p style={labelStyle}>
+                {t.upload.banner} ({t.upload.bannerHint})
+              </p>
+              <ImageUpload slug="" type="banner" deferred onSelect={setBannerFile} />
+            </div>
+          </div>
           <form onSubmit={(e) => void handleSubmit(e)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <AdminInput label={t.software.slug} name="slug" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" />
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>

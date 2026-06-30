@@ -91,19 +91,26 @@ export default function EditSoftwarePage() {
       githubRepo: String(form.get('githubRepo') ?? '').trim() || undefined,
     }
 
-    const res = await fetch('/api/software', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updated),
-    })
+    try {
+      const res = await fetch('/api/software', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updated),
+        signal: AbortSignal.timeout(30000),
+      })
 
-    if (!res.ok) {
+      if (!res.ok) {
+        const data = (await res.json().catch(() => ({}))) as { error?: string }
+        setError(data.error ?? t.common.error)
+        return
+      }
+
+      router.push('/software')
+    } catch {
       setError(t.common.error)
+    } finally {
       setSaving(false)
-      return
     }
-
-    router.push('/software')
   }
 
   if (loading) return <p style={{ color: '#A0A0A0' }}>{t.common.loading}</p>

@@ -1,8 +1,30 @@
 {
   "slug": "hyosnap",
   "latest": {
-    "stable": null,
+    "stable": "1.0.0",
     "beta": null
   },
-  "releases": []
+  "releases": [
+    {
+      "version": "1.0.0",
+      "channel": "stable",
+      "releaseDate": "2026-07-01",
+      "githubTag": "v1.0.0",
+      "notes": {
+        "ko": "## v1.0.0 — 최초 릴리스\n\nWin+Shift+S 캡쳐를 폴더에 자동 저장. 트레이 상주, 저장 확장자(PNG/JPG/BMP)·JPG 화질 설정, 중복 저장 방지, 자동 실행, 단일 인스턴스.",
+        "en": "## v1.0.0 — Initial release\n\nAuto-saves Win+Shift+S captures to a folder. Tray-resident, format (PNG/JPG/BMP) and JPG-quality settings, duplicate-save prevention, run-at-startup, single instance."
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoSnap-1.0.0-win-x64.zip",
+          "url": "https://github.com/furss123/HyoSnap/releases/download/v1.0.0/HyoSnap-1.0.0-win-x64.zip",
+          "size": 173919,
+          "sha256": "a78b308d225c6c96145e7e79d148a0ad2aa8b1471264765a0e3100934d81545e",
+          "downloadCount": 0,
+          "arch": "x64"
+        }
+      ]
+    }
+  ]
 }
