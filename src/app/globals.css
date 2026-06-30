@@ -46,6 +46,12 @@ body {
   border-radius: 3px;
 }
 
+/* Native select popups follow the theme (prevents a white list in dark mode) */
+select option {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+}
+
 .mica {
   background: var(--bg-mica);
   backdrop-filter: blur(20px) saturate(1.4);

@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { Monitor, Smartphone } from 'lucide-react'
+import { ChevronDown, Monitor, Smartphone } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import type { Platform } from '@/types'
@@ -118,16 +118,23 @@ export function FilterBar({
         <label htmlFor="software-sort" className="text-sm text-text-tertiary">
           {t('sortLabel')}
         </label>
-        <select
-          id="software-sort"
-          value={activeSort}
-          onChange={(e) => navigate({ sort: e.target.value })}
-          className="text-sm h-9 bg-fill-subtle border border-border rounded-lg px-4 text-text-primary outline-none focus:ring-2 focus:ring-accent"
-        >
-          <option value="updated">{t('sortUpdated')}</option>
-          <option value="name">{t('sortName')}</option>
-          <option value="featured">{t('sortFeatured')}</option>
-        </select>
+        <div className="relative">
+          <select
+            id="software-sort"
+            value={activeSort}
+            onChange={(e) => navigate({ sort: e.target.value })}
+            className="appearance-none cursor-pointer text-sm h-9 bg-fill-subtle border border-border rounded-lg pl-4 pr-9 text-text-primary outline-none focus:ring-2 focus:ring-accent"
+          >
+            <option value="updated">{t('sortUpdated')}</option>
+            <option value="name">{t('sortName')}</option>
+            <option value="featured">{t('sortFeatured')}</option>
+          </select>
+          <ChevronDown
+            size={15}
+            aria-hidden
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-text-tertiary"
+          />
+        </div>
       </div>
     </div>
   )
