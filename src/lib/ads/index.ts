@@ -2,7 +2,12 @@ import type { ReactNode } from 'react'
 
 export interface AdProvider {
   type: string
-  render(props: { position: string; className?: string }): ReactNode
+  render(props: {
+    position: string
+    className?: string
+    publisherId?: string
+    slot?: string
+  }): ReactNode
 }
 
 const registry = new Map<string, AdProvider>()

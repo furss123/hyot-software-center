@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { ThemeProvider } from '@/components/theme/ThemeProvider'
 import { AdProvider } from '@/components/ads/AdProvider'
+import { SideRail } from '@/components/ads/SideRail'
 import { SearchModalHost } from '@/components/search/SearchModalHost'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
@@ -77,6 +78,8 @@ export default async function LocaleLayout({
           <AdProvider config={config.monetization}>
             <SearchModalHost locale={locale}>
               <Header config={config} locale={locale} />
+              <SideRail side="left" />
+              <SideRail side="right" />
               <main className="flex-1">{children}</main>
               <Footer />
               <BackToTop />

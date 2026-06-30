@@ -165,7 +165,7 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
             {t('hero.title')}
           </h1>
 
-          <p className="text-lg text-text-secondary max-w-2xl mx-auto mt-5 mb-10 whitespace-nowrap opacity-0 animate-fade-in-up animate-delay-200">
+          <p className="text-base sm:text-lg text-text-secondary max-w-2xl mx-auto mt-5 mb-10 text-balance sm:whitespace-nowrap opacity-0 animate-fade-in-up animate-delay-200">
             {t('hero.subtitle')}
           </p>
 

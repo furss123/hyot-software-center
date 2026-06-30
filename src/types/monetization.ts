@@ -15,6 +15,10 @@ export interface AdProviderConfig {
 export interface AdRenderProps {
   position: AdPosition
   className?: string
+  /** AdSense publisher ID (ca-pub-...) */
+  publisherId?: string
+  /** AdSense ad-unit slot ID for this position */
+  slot?: string
 }
 
 export interface AdProvider {

@@ -50,6 +50,7 @@
   "monetization": {
     "enabled": false,
     "provider": "adsense",
+    "publisherId": "ca-pub-9694429813677076",
     "adFreeDownloadPages": true,
     "lazyLoadAds": true,
     "positions": {
@@ -59,7 +60,18 @@
       "softwareBottom": true,
       "faq": true,
       "news": true,
-      "about": true
+      "about": true,
+      "railLeft": true,
+      "railRight": true
+    },
+    "slots": {
+      "homeBottom": "",
+      "softwareBottom": "",
+      "faq": "",
+      "news": "",
+      "about": "",
+      "railLeft": "",
+      "railRight": ""
     }
   }
 }

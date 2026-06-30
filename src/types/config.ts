@@ -12,6 +12,8 @@ export interface MonetizationPositions {
   faq: boolean
   news: boolean
   about: boolean
+  railLeft: boolean
+  railRight: boolean
 }
 
 export interface MonetizationConfig {
@@ -20,6 +22,10 @@ export interface MonetizationConfig {
   adFreeDownloadPages: boolean
   lazyLoadAds: boolean
   positions: MonetizationPositions
+  /** AdSense publisher ID, e.g. "ca-pub-XXXXXXXXXXXXXXXX" */
+  publisherId?: string
+  /** AdSense ad-unit slot IDs per position (fill in after creating units in AdSense) */
+  slots?: Partial<Record<keyof MonetizationPositions, string>>
 }
 
 export interface SiteConfig {

@@ -267,6 +267,31 @@ body {
   --color-status-info: var(--status-info);
 }
 
+/* Side-rail (gutter) ads: hidden by default; shown only when there is real
+   empty space beside the centered 1280px content column, and the window is
+   tall enough that the vertically-centered 617px rail (600px ad + 17px label)
+   clears the 128px sticky header. Clearance needs (H - 617) / 2 >= 128, i.e.
+   H >= ~873px, so we reveal only at >= 880px for a small safety margin. */
+.side-rail {
+  display: none;
+}
+
+@media (min-width: 1700px) and (min-height: 880px) {
+  .side-rail {
+    display: block;
+  }
+}
+
+.side-rail__label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  line-height: 1;
+  text-align: center;
+  letter-spacing: 0.04em;
+  color: var(--text-tertiary);
+}
+
 @media print {
   header,
   footer,

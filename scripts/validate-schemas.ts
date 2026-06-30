@@ -17,7 +17,11 @@ const MonetizationSchema = z.object({
     faq: z.boolean(),
     news: z.boolean(),
     about: z.boolean(),
+    railLeft: z.boolean(),
+    railRight: z.boolean(),
   }),
+  publisherId: z.string().optional(),
+  slots: z.record(z.string(), z.string()).optional(),
 })
 
 const SiteConfigSchema = z.object({

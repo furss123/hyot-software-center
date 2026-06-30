@@ -21,6 +21,10 @@ const SLOT_HEIGHTS: Record<AdPosition, string> = {
   faq: 'h-[250px]',
   news: 'h-[250px]',
   about: 'h-[250px]',
+  // Rails are rendered by SideRail (fixed-position), never inline via AdSlot.
+  // These entries exist only to satisfy the Record<AdPosition, string> type.
+  railLeft: 'h-[600px]',
+  railRight: 'h-[600px]',
 }
 
 const SOFTWARE_POSITIONS: AdPosition[] = ['softwareTop', 'softwareBottom']
@@ -82,7 +86,13 @@ export function AdSlot({ position, className }: AdSlotProps): React.JSX.Element 
         className,
       )}
     >
-      {visible && provider?.render({ position, className })}
+      {visible &&
+        provider?.render({
+          position,
+          className,
+          publisherId: config.publisherId,
+          slot: config.slots?.[position],
+        })}
     </div>
   )
 }
