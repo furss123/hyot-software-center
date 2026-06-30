@@ -126,9 +126,19 @@ automatically.
 
 ## 7. In-app boilerplate checklist
 
+Follow the HyoT visual standard — see **Visual language** in
+[`brand-guidelines.md`](./brand-guidelines.md) (reference app: Chaebi).
+
 - [ ] Window/app title shows the `Hyo` name.
-- [ ] About dialog: name, version (mono font), `제작: HyoT · © <year>`.
-- [ ] Accent color = HyoT Blue; dark + light themes.
+- [ ] **Modular panel layout** with rounded cards (12–16px), airy spacing.
+- [ ] **Dark + light themes**; accent = HyoT Blue, success = Teal/Green.
+- [ ] **Glass/Mica** surface with an adjustable opacity setting.
+- [ ] **Settings modal** (centered, `설정` / `✕ 닫기`) with grouped section cards:
+      language · theme · panel order (drag to reorder, show/hide) · font &
+      sizes · glass opacity · data export/import (JSON + ICS where relevant).
+- [ ] Category labels as **colored dismissible chips** (small, consistent set).
+- [ ] Footer/about line, verbatim format:
+      `AppName (한글명) vX.Y.Z | © <year> HyoT. All rights reserved.`
 - [ ] Icon set exported (16/24/32/48/256/512).
 - [ ] "More from HyoT" / feedback link → `https://hyot.dev`.
 - [ ] License/EULA names **HyoT** as the author.
