@@ -1,0 +1,54 @@
+{
+  "slug": "hyoexam",
+  "status": "active",
+  "category": "utility",
+  "platforms": [
+    "windows"
+  ],
+  "tags": [
+    "windows",
+    "exam",
+    "schedule",
+    "clock",
+    "classroom",
+    "tv-display",
+    "korean",
+    "win32"
+  ],
+  "featured": true,
+  "visible": true,
+  "githubRepo": "furss123/hyoexam",
+  "icon": "/data/software/hyoexam/icon.webp",
+  "banner": "/data/software/hyoexam/banner.webp",
+  "screenshots": [
+    {
+      "file": "screenshots/main.png",
+      "alt": {
+        "ko": "HyoExam 메인 화면 - 실시간 시계와 시험 시간표",
+        "en": "HyoExam main screen with real-time clock and exam timetable"
+      }
+    }
+  ],
+  "name": {
+    "ko": "HyoExam",
+    "en": "HyoExam"
+  },
+  "description": {
+    "ko": "HyoExam은 시험(모의고사·내신) 시간표와 실시간 시계를 TV/모니터로 송출하는 Windows 앱입니다. 수업·시험 운영 현장에서 가독성을 높이기 위해 시계와 교시 정보를 크게 보여주고, 전체화면 송출 모드와 메모 기능을 제공합니다.\n\n표준 SNTP(UDP/123) 기반 시간 동기화, 6:4 송출 레이아웃, 라이트/다크 테마, 저장/불러오기 프로필, 교시 드래그 정렬을 지원합니다. 학교 방송실·교실 전자칠판·프로젝터 환경을 고려해 빠른 시작과 안정적인 표시를 목표로 설계되었습니다.\n\n제작: HyoT · © 2026",
+    "en": "HyoExam is a Windows app that broadcasts exam schedules (mock exams and school tests) with a real-time clock to TVs and classroom displays. It focuses on readability in live classroom and test environments, with large clock/timetable visuals, fullscreen output mode, and memo support.\n\nIt supports SNTP (UDP/123) time sync, a 6:4 display layout, light/dark themes, profile save/load, and drag-to-reorder periods. Designed for school broadcasting rooms, smart boards, and projectors with fast startup and stable rendering.\n\nBy HyoT · © 2026"
+  },
+  "shortDescription": {
+    "ko": "시험 시간표와 실시간 시계를 TV/모니터로 송출하는 Windows 앱",
+    "en": "Windows app for broadcasting exam timetables with a real-time clock"
+  },
+  "requirements": {
+    "os": "Windows 10 / 11 (x64)",
+    "ram": "2 GB 이상 권장",
+    "disk": "50 MB 이상"
+  },
+  "links": {
+    "github": "https://github.com/furss123/hyoexam"
+  },
+  "createdAt": "2026-07-02",
+  "updatedAt": "2026-07-02"
+}
