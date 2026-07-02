@@ -1,7 +1,7 @@
 'use client'
 
 import { useParams, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { AdminButton } from '@/components/ui/AdminButton'
 import { AdminCard } from '@/components/ui/AdminCard'
@@ -31,6 +31,12 @@ const labelStyle: React.CSSProperties = {
   marginBottom: '0.5rem',
 }
 
+function screenshotPreviewSrc(slug: string, file: string): string {
+  if (file.startsWith('http://') || file.startsWith('https://')) return file
+  if (file.startsWith('/')) return file
+  return `/data/software/${slug}/${file.replace(/^\/+/, '')}`
+}
+
 export default function EditSoftwarePage() {
   const params = useParams<{ slug: string }>()
   const router = useRouter()
@@ -39,7 +45,9 @@ export default function EditSoftwarePage() {
   const [meta, setMeta] = useState<SoftwareMeta | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [uploadingScreenshots, setUploadingScreenshots] = useState(false)
   const [error, setError] = useState('')
+  const screenshotInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     void fetch(`/api/software?slug=${slug}`)
@@ -113,6 +121,55 @@ export default function EditSoftwarePage() {
     }
   }
 
+  async function handleScreenshotSelect(files: FileList | null): Promise<void> {
+    if (!files || files.length === 0 || !meta) return
+    setUploadingScreenshots(true)
+    setError('')
+
+    try {
+      const uploaded: NonNullable<SoftwareMeta['screenshots']> = []
+      for (const file of Array.from(files)) {
+        const form = new FormData()
+        form.append('file', file)
+        form.append('slug', slug)
+        form.append('type', 'screenshot')
+
+        const res = await fetch('/api/upload', { method: 'POST', body: form })
+        if (!res.ok) {
+          const data = (await res.json().catch(() => ({}))) as { error?: string }
+          throw new Error(data.error ?? t.common.error)
+        }
+
+        const data = (await res.json()) as {
+          success: boolean
+          url: string
+          screenshot?: { file: string; alt: { ko: string; en: string } }
+        }
+        if (data.screenshot) {
+          uploaded.push(data.screenshot)
+        }
+      }
+
+      if (uploaded.length > 0) {
+        setMeta((prev) =>
+          prev
+            ? {
+                ...prev,
+                screenshots: [...(prev.screenshots ?? []), ...uploaded],
+              }
+            : prev,
+        )
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t.common.error)
+    } finally {
+      setUploadingScreenshots(false)
+      if (screenshotInputRef.current) {
+        screenshotInputRef.current.value = ''
+      }
+    }
+  }
+
   if (loading) return <p style={{ color: '#A0A0A0' }}>{t.common.loading}</p>
   if (!meta) return <p style={{ color: '#C42B1C' }}>{error || t.common.notFound}</p>
 
@@ -160,6 +217,72 @@ export default function EditSoftwarePage() {
                 currentUrl={meta.banner}
                 onUpload={(url) => setMeta((prev) => (prev ? { ...prev, banner: url } : prev))}
               />
+            </div>
+          </div>
+          <div style={{ marginBottom: '2rem' }}>
+            <p style={labelStyle}>
+              {t.upload.screenshot} ({t.upload.screenshotHint})
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <input
+                ref={screenshotInputRef}
+                type="file"
+                accept="image/*"
+                multiple
+                hidden
+                onChange={(e) => {
+                  void handleScreenshotSelect(e.currentTarget.files)
+                }}
+              />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                <AdminButton
+                  variant="secondary"
+                  disabled={uploadingScreenshots}
+                  onClick={() => screenshotInputRef.current?.click()}
+                >
+                  {uploadingScreenshots ? t.upload.uploading : t.upload.screenshotAdd}
+                </AdminButton>
+                <span style={{ fontSize: '0.75rem', color: '#A0A0A0' }}>{t.upload.screenshotGuide}</span>
+              </div>
+              {meta.screenshots && meta.screenshots.length > 0 && (
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '0.75rem' }}>
+                  {meta.screenshots.map((shot, index) => (
+                    <div
+                      key={`${shot.file}-${index}`}
+                      style={{
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        borderRadius: '8px',
+                        padding: '0.5rem',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.5rem',
+                      }}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={screenshotPreviewSrc(slug, shot.file)}
+                        alt={shot.alt?.ko || `${meta.name.ko} screenshot ${index + 1}`}
+                        style={{ width: '100%', height: 110, objectFit: 'cover', borderRadius: '6px' }}
+                      />
+                      <AdminButton
+                        variant="danger"
+                        onClick={() =>
+                          setMeta((prev) =>
+                            prev
+                              ? {
+                                  ...prev,
+                                  screenshots: (prev.screenshots ?? []).filter((_, i) => i !== index),
+                                }
+                              : prev,
+                          )
+                        }
+                      >
+                        {t.upload.screenshotRemove}
+                      </AdminButton>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
           <form key={meta.updatedAt} onSubmit={(e) => void handleSubmit(e)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>

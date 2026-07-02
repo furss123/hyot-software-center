@@ -98,6 +98,8 @@ export async function POST(request: Request): Promise<NextResponse> {
   const processed = await processImage(buf, type)
   fs.writeFileSync(abs, processed)
 
+  const today = new Date().toISOString().split('T')[0]
+
   if (type === 'icon' || type === 'banner') {
     const meta = readMeta(slug)!
     const assetPath =
@@ -107,14 +109,33 @@ export async function POST(request: Request): Promise<NextResponse> {
     writeMeta(slug, {
       ...meta,
       ...(type === 'icon' ? { icon: assetPath } : { banner: assetPath }),
-      updatedAt: new Date().toISOString().split('T')[0],
+      updatedAt: today,
     })
     gitCommitAndPush(`feat(software): update ${type} for ${slug}`, [
       rel,
       `data/software/${slug}/meta.json`,
     ])
   } else {
-    gitCommitAndPush(`feat(software): update ${type} for ${slug}`, [rel])
+    const meta = readMeta(slug)!
+    const filename = path.basename(abs)
+    const nextIndex = (meta.screenshots?.length ?? 0) + 1
+    const screenshot = {
+      file: `screenshots/${filename}`,
+      alt: {
+        ko: `${meta.name.ko} 스크린샷 ${nextIndex}`,
+        en: `${meta.name.en} screenshot ${nextIndex}`,
+      },
+    }
+    writeMeta(slug, {
+      ...meta,
+      screenshots: [...(meta.screenshots ?? []), screenshot],
+      updatedAt: today,
+    })
+    gitCommitAndPush(`feat(software): update ${type} for ${slug}`, [
+      rel,
+      `data/software/${slug}/meta.json`,
+    ])
+    return NextResponse.json({ success: true, url, screenshot })
   }
 
   return NextResponse.json({ success: true, url })

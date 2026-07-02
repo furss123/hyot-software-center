@@ -15,6 +15,11 @@ export interface I18nString {
   en: string
 }
 
+export interface Screenshot {
+  file: string
+  alt: I18nString
+}
+
 export interface SoftwareMeta {
   slug: string
   status: SoftwareStatus
@@ -24,6 +29,7 @@ export interface SoftwareMeta {
   visible?: boolean
   icon?: string
   banner?: string
+  screenshots?: Screenshot[]
   githubRepo?: string
   name: I18nString
   description: I18nString

@@ -33,7 +33,7 @@ export interface SoftwareMeta {
   githubRepo?: string
   icon?: string
   banner?: string
-  screenshots: Screenshot[]
+  screenshots?: Screenshot[]
   name: I18nString
   description: I18nString
   shortDescription: I18nString

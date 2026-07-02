@@ -18,7 +18,11 @@ const labelStyle: React.CSSProperties = {
   marginBottom: '0.5rem',
 }
 
-async function uploadAsset(slug: string, type: 'icon' | 'banner', file: File): Promise<void> {
+async function uploadAsset(
+  slug: string,
+  type: 'icon' | 'banner' | 'screenshot',
+  file: File,
+): Promise<void> {
   const fd = new FormData()
   fd.append('file', file)
   fd.append('slug', slug)
@@ -51,6 +55,7 @@ export default function NewSoftwarePage() {
   const [category, setCategory] = useState<SoftwareCategory>('utility')
   const [iconFile, setIconFile] = useState<File | null>(null)
   const [bannerFile, setBannerFile] = useState<File | null>(null)
+  const [screenshotFiles, setScreenshotFiles] = useState<File[]>([])
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault()
@@ -113,6 +118,9 @@ export default function NewSoftwarePage() {
       // 소프트웨어 생성 성공 후, 선택한 아이콘/배너를 함께 업로드
       if (iconFile) await uploadAsset(slug, 'icon', iconFile)
       if (bannerFile) await uploadAsset(slug, 'banner', bannerFile)
+      for (const screenshotFile of screenshotFiles) {
+        await uploadAsset(slug, 'screenshot', screenshotFile)
+      }
 
       router.push('/software')
     } catch (err) {
@@ -145,6 +153,35 @@ export default function NewSoftwarePage() {
                 {t.upload.banner} ({t.upload.bannerHint})
               </p>
               <ImageUpload slug="" type="banner" deferred onSelect={setBannerFile} />
+            </div>
+          </div>
+          <div style={{ marginBottom: '2rem' }}>
+            <p style={labelStyle}>
+              {t.upload.screenshot} ({t.upload.screenshotHint})
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={(e) => {
+                  const files = Array.from(e.currentTarget.files ?? [])
+                  setScreenshotFiles(files)
+                }}
+                style={{
+                  background: '#242424',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  borderRadius: '8px',
+                  padding: '0.5rem 0.75rem',
+                  color: '#F0F0F0',
+                  fontSize: '0.875rem',
+                  outline: 'none',
+                }}
+              />
+              <p style={{ fontSize: '0.75rem', color: '#A0A0A0' }}>
+                {t.upload.screenshotGuide}
+                {screenshotFiles.length > 0 ? ` · ${screenshotFiles.length}장 선택됨` : ''}
+              </p>
             </div>
           </div>
           <form onSubmit={(e) => void handleSubmit(e)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>

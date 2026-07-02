@@ -57,6 +57,12 @@ function channelBorderColor(channel: ReleaseChannel): string {
   return 'var(--text-tertiary)'
 }
 
+function screenshotSrc(slug: string, file: string): string {
+  if (file.startsWith('http://') || file.startsWith('https://')) return file
+  if (file.startsWith('/')) return getAssetUrl(file)
+  return getAssetUrl(`/data/software/${slug}/${file.replace(/^\/+/, '')}`)
+}
+
 export async function generateStaticParams(): Promise<Array<{ locale: string; slug: string }>> {
   const slugs = getPublicSoftwareSlugs()
   return locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })))
@@ -109,6 +115,7 @@ export default async function SoftwareDetailPage({
   const releases = [...(releasesData?.releases ?? [])].sort((a, b) =>
     b.releaseDate.localeCompare(a.releaseDate),
   )
+  const screenshots = Array.isArray(app.screenshots) ? app.screenshots : []
 
   return (
     <>
@@ -182,6 +189,24 @@ export default async function SoftwareDetailPage({
                 <MarkdownContent source={app.description[l]} />
               </Card>
               {releasesData && <DownloadSection releasesData={releasesData} locale={locale} />}
+              {screenshots.length > 0 && (
+                <Card className="p-6">
+                  <h2 className="font-semibold text-text-primary mb-4">{t('screenshotsLabel')}</h2>
+                  <div className="space-y-4">
+                    {screenshots.map((shot, index) => (
+                      <div key={`${shot.file}-${index}`} className="rounded-xl overflow-hidden border border-white/10 bg-black/20">
+                        {/* eslint-disable-next-line @next/next/no-img-element -- static export */}
+                        <img
+                          src={screenshotSrc(app.slug, shot.file)}
+                          alt={shot.alt?.[l] ?? shot.alt?.en ?? `${app.name[l]} screenshot ${index + 1}`}
+                          className="block w-full h-auto object-cover"
+                          loading="lazy"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+              )}
               <AdSlot position="softwareBottom" className="mt-6" />
             </div>
             <div className="space-y-4">
