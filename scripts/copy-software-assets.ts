@@ -11,13 +11,22 @@ if (!fs.existsSync(softwareDir)) {
 
 let copied = 0
 
+const topLevelAssetCandidates = [
+  'icon.webp',
+  'icon.png',
+  'icon.svg',
+  'banner.webp',
+  'banner.png',
+  'banner.svg',
+]
+
 for (const slug of fs.readdirSync(softwareDir)) {
   const slugDir = path.join(softwareDir, slug)
   if (!fs.statSync(slugDir).isDirectory()) continue
 
   const destSlugDir = path.join(publicDir, slug)
 
-  for (const file of ['icon.webp', 'banner.webp']) {
+  for (const file of topLevelAssetCandidates) {
     const src = path.join(slugDir, file)
     if (!fs.existsSync(src)) continue
     fs.mkdirSync(destSlugDir, { recursive: true })
