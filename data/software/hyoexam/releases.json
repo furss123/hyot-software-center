@@ -1,10 +1,31 @@
 {
   "slug": "hyoexam",
   "latest": {
-    "stable": "1.0.1",
+    "stable": "1.0.2",
     "beta": null
   },
   "releases": [
+    {
+      "version": "1.0.2",
+      "channel": "stable",
+      "releaseDate": "2026-07-03",
+      "githubTag": "v1.0.2",
+      "notes": {
+        "ko": "## v1.0.2\n\n- 툴바 재구성: 왼쪽 박스 순서·너비·간격 통일, \"표시\"→\"화면구성\" 명칭 변경\n- 다크 모드: 교시 편집·저장 팝업의 입력창/콤보박스 다크 테마 적용\n- 교시 편집 중 시간 콤보 드롭다운이 즉시 닫히던 문제 수정\n- 메모: 테마 전환 시 글자색 문제·팝업 겹침·전체화면 커서 깜빡임 수정\n- 우측 시간표: 교시명/시간 두 줄 간격 3pt로 정리, 창 모드 시간 글자 크기 상향\n- 새 브랜드 아이콘, 시작 안정성·렌더링 성능 개선\n\n포함 파일: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`",
+        "en": "## v1.0.2\n\n- Toolbar restructure: uniform left-box order/width/spacing, renamed \"Display\"→\"Screen layout\"\n- Dark mode for the period-editor / save-profile input and combo boxes\n- Fixed the time combo drop-down closing instantly during period editing\n- Memo: fixed text color on theme switch, popup overlap, and fullscreen caret blink\n- Right timetable: 3pt gap between period title and time line, larger windowed time text\n- New brand icon, startup robustness and rendering perf improvements\n\nIncludes: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.2-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.2/HyoExam-1.0.2-win-x64.zip",
+          "size": 242505,
+          "sha256": "5af1b225df65a3a9c31fbf8351cca9ad69e92e25929dba0cec745b353d6a1002",
+          "downloadCount": 0,
+          "arch": "x64"
+        }
+      ]
+    },
     {
       "version": "1.0.1",
       "channel": "stable",
