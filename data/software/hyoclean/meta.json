@@ -1,0 +1,53 @@
+{
+  "slug": "hyoclean",
+  "status": "active",
+  "category": "utility",
+  "platforms": [
+    "windows"
+  ],
+  "tags": [
+    "windows",
+    "cleaner",
+    "privacy",
+    "memory",
+    "optimizer",
+    "tauri"
+  ],
+  "featured": true,
+  "githubRepo": "furss123/hyoclean",
+  "icon": "/data/software/hyoclean/icon.svg",
+  "banner": "/data/software/hyoclean/banner.svg",
+  "screenshots": [
+    {
+      "file": "screenshots/main.svg",
+      "alt": {
+        "ko": "HyoClean 메인 화면 - 메모리, 저장공간, 시스템 상태 대시보드",
+        "en": "HyoClean main dashboard with memory, storage, and system status"
+      }
+    }
+  ],
+  "name": {
+    "ko": "효클린",
+    "en": "HyoClean"
+  },
+  "description": {
+    "ko": "HyoClean은 Windows 10/11용 시스템 정리·최적화 앱입니다. 딥 스캔, 스마트 정리, 실시간 메모리 정리, 시작프로그램 최적화, 프라이버시 정리, 복원 리포트를 한 번에 제공합니다. 정리 결과는 백업 기반으로 복원할 수 있어 안전하게 유지 관리를 진행할 수 있습니다.",
+    "en": "HyoClean is a Windows 10/11 system cleanup and optimization app. It provides deep scan, smart cleanup, real-time memory cleanup, startup optimization, privacy cleanup, and restore-ready reports in one place. Cleanup actions are backup-based so you can recover safely when needed."
+  },
+  "shortDescription": {
+    "ko": "실시간 메모리 정리와 딥 스캔을 제공하는 Windows 최적화 도구",
+    "en": "Windows optimization tool with deep scan and real-time memory cleanup"
+  },
+  "requirements": {
+    "os": "Windows 10 / 11 (x64)",
+    "ram": "4 GB 이상 권장",
+    "disk": "200 MB 이상"
+  },
+  "links": {
+    "github": "https://github.com/furss123/hyoclean",
+    "homepage": "https://hyot.dev"
+  },
+  "createdAt": "2026-07-02",
+  "updatedAt": "2026-07-02",
+  "visible": true
+}
