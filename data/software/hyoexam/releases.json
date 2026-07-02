@@ -1,8 +1,30 @@
 {
   "slug": "hyoexam",
   "latest": {
-    "stable": null,
+    "stable": "1.0.1",
     "beta": null
   },
-  "releases": []
+  "releases": [
+    {
+      "version": "1.0.1",
+      "channel": "stable",
+      "releaseDate": "2026-07-02",
+      "githubTag": "v1.0.1",
+      "notes": {
+        "ko": "## v1.0.1\n\n- 전체화면 우측 패널의 교시/시간 간격 조정\n- 한글이 물음표로 깨지는 표시 문제 수정\n\n포함 파일: `HyoExam.exe`, `data/schedules.json`",
+        "en": "## v1.0.1\n\n- Adjusted period/time spacing in the fullscreen right panel\n- Fixed Korean text rendering as question marks\n\nIncludes: `HyoExam.exe`, `data/schedules.json`"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.1-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.1/HyoExam-1.0.1-win-x64.zip",
+          "size": 236635,
+          "sha256": "cad9f780ff80ae6ca264ebaeac5b77ed23a993b1ea791244a318c270aadb3bad",
+          "downloadCount": 0,
+          "arch": "x64"
+        }
+      ]
+    }
+  ]
 }
