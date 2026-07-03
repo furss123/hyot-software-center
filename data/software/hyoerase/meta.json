@@ -1,6 +1,6 @@
 {
   "slug": "hyoerase",
-  "status": "beta",
+  "status": "active",
   "category": "system",
   "platforms": [
     "windows"
@@ -37,7 +37,11 @@
     "ram": "2 GB 이상 권장",
     "disk": "약 10 MB"
   },
+  "links": {
+    "github": "https://github.com/furss123/hyoerase"
+  },
+  "githubRepo": "furss123/hyoerase",
   "createdAt": "2026-07-04",
   "updatedAt": "2026-07-04",
-  "visible": false
+  "visible": true
 }
