@@ -1,10 +1,31 @@
 {
   "slug": "hyoexam",
   "latest": {
-    "stable": "1.0.4",
+    "stable": "1.0.5",
     "beta": null
   },
   "releases": [
+    {
+      "version": "1.0.5",
+      "channel": "stable",
+      "releaseDate": "2026-07-03",
+      "githubTag": "v1.0.5",
+      "notes": {
+        "ko": "## v1.0.5\n\n- 우측 시간표: 과목/교시 글자 크기 추가로 축소 (가독성 위해 최소 10pt 보장)\n- 교시-시간 두 줄 간격을 1mm → 6mm로 확대\n\n포함 파일: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`",
+        "en": "## v1.0.5\n\n- Right timetable: subject/period title text shrunk further (floored at 10pt for legibility)\n- Increased the title↔time gap from 1mm to 6mm\n\nIncludes: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.5-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.5/HyoExam-1.0.5-win-x64.zip",
+          "size": 245853,
+          "sha256": "0edfe27301fbbc5f7969b95706ac75e0d141539d5282a3857b632a86ccfc8a2d",
+          "downloadCount": 0,
+          "arch": "x64"
+        }
+      ]
+    },
     {
       "version": "1.0.4",
       "channel": "stable",
