@@ -15,8 +15,8 @@
   ],
   "featured": true,
   "githubRepo": "furss123/hyoclean",
-  "icon": "/data/software/hyoclean/icon.svg",
-  "banner": "/data/software/hyoclean/banner.svg",
+  "icon": "/data/software/hyoclean/icon.webp",
+  "banner": "/data/software/hyoclean/banner.webp",
   "screenshots": [
     {
       "file": "screenshots/main.svg",
@@ -48,6 +48,6 @@
     "homepage": "https://hyot.dev"
   },
   "createdAt": "2026-07-02",
-  "updatedAt": "2026-07-02",
+  "updatedAt": "2026-07-03",
   "visible": true
 }
