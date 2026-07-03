@@ -1,10 +1,31 @@
 {
   "slug": "hyoexam",
   "latest": {
-    "stable": "1.0.2",
+    "stable": "1.0.3",
     "beta": null
   },
   "releases": [
+    {
+      "version": "1.0.3",
+      "channel": "stable",
+      "releaseDate": "2026-07-03",
+      "githubTag": "v1.0.3",
+      "notes": {
+        "ko": "## v1.0.3\n\n- 우측 시간표: 교시명과 시간 두 줄 간격을 1mm로 축소\n- 시간 표기에서 `~` 양옆 공백 제거 (`09:00~09:50`)\n- 시간 글자를 1.3배 키우고 굵게 처리\n- 과목/시간이 길어져도 줄바꿈 없이 폰트가 자동으로 맞춰지도록 적응형 처리\n\n포함 파일: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`",
+        "en": "## v1.0.3\n\n- Right timetable: 1mm gap between the period title and time line\n- Removed the spaces around \"~\" in the time (`09:00~09:50`)\n- Time text is 1.3x larger and bold\n- Adaptive font sizing so long subject/time text never wraps\n\nIncludes: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.3-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.3/HyoExam-1.0.3-win-x64.zip",
+          "size": 245130,
+          "sha256": "efff21ea793fa580f387f03e15218ad972117196151b3d8b07c8849bc9f1f76c",
+          "downloadCount": 0,
+          "arch": "x64"
+        }
+      ]
+    },
     {
       "version": "1.0.2",
       "channel": "stable",
