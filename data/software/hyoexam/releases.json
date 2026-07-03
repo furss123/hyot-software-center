@@ -1,10 +1,31 @@
 {
   "slug": "hyoexam",
   "latest": {
-    "stable": "1.0.5",
+    "stable": "1.0.6",
     "beta": null
   },
   "releases": [
+    {
+      "version": "1.0.6",
+      "channel": "stable",
+      "releaseDate": "2026-07-03",
+      "githubTag": "v1.0.6",
+      "notes": {
+        "ko": "## v1.0.6\n\n- 우측 시간표 디자인 개편: 교시 카드를 헤더(교시+시간)와 콘텐츠(과목+소요시간) 2단 박스로 재구성\n- 시계 카드의 날짜를 상단 겹침 배지 형태로 변경\n\n포함 파일: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`",
+        "en": "## v1.0.6\n\n- Redesigned the right timetable: each period is now a two-tier card (header: period+time, content: subject+duration)\n- The clock card's date is now a small badge overlapping the top border\n\nIncludes: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.6-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.6/HyoExam-1.0.6-win-x64.zip",
+          "size": 245780,
+          "sha256": "5cb1ff3993cb99f2421a235ad0903736574464ad4a3885f1e04a72be841e29a2",
+          "downloadCount": 0,
+          "arch": "x64"
+        }
+      ]
+    },
     {
       "version": "1.0.5",
       "channel": "stable",
