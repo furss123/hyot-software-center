@@ -1,0 +1,43 @@
+{
+  "slug": "hyoerase",
+  "status": "beta",
+  "category": "system",
+  "platforms": [
+    "windows"
+  ],
+  "tags": [
+    "windows",
+    "cleanup",
+    "school",
+    "classroom",
+    "uninstaller",
+    "security",
+    "admin",
+    "system",
+    "whitelist",
+    "utility"
+  ],
+  "featured": false,
+  "icon": "/data/software/hyoerase/icon.png",
+  "banner": "/data/software/hyoerase/banner.png",
+  "name": {
+    "ko": "지우개",
+    "en": "HyoErase"
+  },
+  "description": {
+    "ko": "HyoErase(지우개)는 학교·교실 공용 Windows PC를 관리하기 위한 초강력 정리 도구입니다. HyoT가 제작했습니다.\n\n**주요 기능**\n• **게임·VPN 자동 감지 및 제거**: Steam·에픽·넥슨·로블록스 등 게임과 주요 VPN 앱을 자동으로 찾아 정식 제거 관리자로 삭제\n• **스토어(UWP) 블로트웨어 제거**: 캔디크러시 등 확실한 게임/블로트웨어만 정밀하게 골라 제거 (Xbox 컨트롤러·로그인 프레임워크는 항상 보호)\n• **딥 시스템 청소**: Windows Update 캐시·오류 보고·메모리 덤프·모든 사용자 임시폴더·휴지통 정리\n• **재설치 차단·설치 잠금**: hosts 차단, Microsoft Store 비활성화, 표준 사용자 설치 차단 (관리자 계정은 항상 예외)\n• **실행 화이트리스트**: 바탕화면·다운로드·USB 등 학생이 새 파일을 쓸 수 있는 위치에서만 프로그램 실행을 차단해, 이미 설치된 정상 프로그램은 그대로 유지\n• **자동 정리 예약**: 매일 지정 시간에 창 없이 자동 정리 (Windows 작업 스케줄러)\n• **정리 전 복원 지점 생성**: 문제가 생기면 되돌릴 수 있는 안전장치\n• **감사 로그**: 무엇을 언제 정리했는지 기록\n\n**절대 건드리지 않는 것**\n오피스(한컴/MS)·문서·그림 등 개인 파일·백신·드라이버·브라우저·은행 공인인증 보안모듈은 항상 보호됩니다.\n\n**사용 방법**\n1. GitHub Releases에서 **HyoErase**를 다운로드합니다.\n2. `HyoErase 실행.cmd`를 더블클릭하고 관리자 권한 요청에 동의합니다.\n3. 정리할 항목을 확인 후 정리하기를 누릅니다.\n\n**시스템 요구사항**\n• Windows 10 / 11 (64-bit)\n\n제작: HyoT · © 2026",
+    "en": "HyoErase is a heavy-duty cleanup and management tool for shared school/classroom Windows PCs. Created by HyoT.\n\n**Key features**\n• **Auto-detect and remove games/VPNs**: Finds Steam, Epic, Nexon, Roblox and major VPN clients and removes them via their official uninstallers\n• **Store (UWP) bloatware removal**: Precisely targets known game/bloatware packages only (Xbox controller/identity framework packages are always protected)\n• **Deep system cleanup**: Windows Update cache, error reports, memory dumps, all user temp folders, Recycle Bin\n• **Reinstall blocking / install lockdown**: hosts-based blocking, disabling Microsoft Store, blocking standard-user installs (administrator accounts are always exempt)\n• **Execution whitelist**: Blocks running programs from locations students can write to (Desktop, Downloads, USB) while leaving properly installed software untouched\n• **Scheduled auto-clean**: Runs silently on a daily schedule via Windows Task Scheduler\n• **Pre-cleanup restore point**: A safety net you can roll back to\n• **Audit log**: Records what was cleaned and when\n\n**Always protected**\nOffice (Hangul/MS), personal documents/photos, antivirus, drivers, browsers, and Korean banking security modules are never touched.\n\n**How to use**\n1. Download **HyoErase** from GitHub Releases.\n2. Double-click `HyoErase 실행.cmd` and approve the admin prompt.\n3. Review the detected items and click clean.\n\n**Requirements**\n• Windows 10 / 11 (64-bit)\n\nAuthor: HyoT · © 2026"
+  },
+  "shortDescription": {
+    "ko": "학교·교실 공용 PC를 위한 게임·VPN 정리 + 초강력 시스템 관리 도구",
+    "en": "A heavy-duty game/VPN cleanup and management tool for shared school PCs."
+  },
+  "requirements": {
+    "os": "Windows 10 / 11 (64-bit)",
+    "ram": "2 GB 이상 권장",
+    "disk": "약 10 MB"
+  },
+  "createdAt": "2026-07-04",
+  "updatedAt": "2026-07-04",
+  "visible": false
+}
