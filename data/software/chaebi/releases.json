@@ -1,8 +1,39 @@
 {
   "slug": "chaebi",
   "latest": {
-    "stable": null,
+    "stable": "1.3.0",
     "beta": null
   },
-  "releases": []
+  "releases": [
+    {
+      "version": "1.3.0",
+      "channel": "stable",
+      "releaseDate": "2026-07-05",
+      "githubTag": "v1.3.0",
+      "notes": {
+        "ko": "## v1.3.0\n\n- 한국 공휴일·기념일 표시(음력 설날·추석·부처님오신날, 대체공휴일 자동 계산)\n- 메모 개별 분리 창 + 화면 고정(잠금) 모드\n- 바탕화면 고정(마우스 통과) 모드, Ctrl+Shift+P 전역 단축키\n- 레이아웃 편집(위젯 높이·사이드바 너비 조절), 날짜 더블클릭 일정 추가\n- 설정 하단 홈페이지 바로가기, 라이트/다크 테마 점검",
+        "en": "## v1.3.0\n\n- Korean public holidays & anniversaries (lunar Seollal/Chuseok/Buddha's Birthday, auto substitute holidays)\n- Per-memo detachable window + lock-in-place mode\n- Desktop pin (click-through) mode with Ctrl+Shift+P global shortcut\n- Layout editing (widget height & sidebar width), double-click a date to add an event\n- Homepage link in settings, light/dark theme pass"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "Chaebi_1.3.0_x64-setup.exe",
+          "url": "https://github.com/furss123/chaebi/releases/download/v1.3.0/Chaebi_1.3.0_x64-setup.exe",
+          "size": 1225363,
+          "sha256": "8c7d26b6e431b6d96385ad192c86636dbcf09f41ee10478dc8d0269b90d5ae4c",
+          "downloadCount": 0,
+          "arch": "x64"
+        },
+        {
+          "type": "installer",
+          "filename": "Chaebi_1.3.0_x64_en-US.msi",
+          "url": "https://github.com/furss123/chaebi/releases/download/v1.3.0/Chaebi_1.3.0_x64_en-US.msi",
+          "size": 1744896,
+          "sha256": "a62752b668688b0693976cb11bdd4534e46fa5eedfbce90e343a6d5177e686aa",
+          "downloadCount": 0,
+          "arch": "x64"
+        }
+      ]
+    }
+  ]
 }
