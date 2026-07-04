@@ -1,10 +1,40 @@
 {
   "slug": "hyoclean",
   "latest": {
-    "stable": "0.1.0",
+    "stable": "0.1.2",
     "beta": null
   },
   "releases": [
+    {
+      "version": "0.1.2",
+      "channel": "stable",
+      "releaseDate": "2026-07-04",
+      "githubTag": "v0.1.2",
+      "notes": {
+        "ko": "## 변경 사항\n- 메모리 자동 정리가 실제로 RAM을 회수하도록 수정 (기존엔 재측정만 하고 끝났음)\n- CPU 사용률 측정 시 매 폴링마다 발생하던 120ms 병목 제거\n- 위험 등급(크래시 덤프) 스캔 대상 추가 — 3단계 신뢰등급이 실제로 전부 동작\n- 정리 후 스캔 요약 수치가 그대로 남아있던 버그 수정\n- 프로그램 컨셉(청소/최적화)에 맞춘 새 아이콘·배너로 전면 교체 (빗자루 + 반짝임)\n\n## 다운로드\n- `HyoClean_0.1.2_x64-setup.exe` — 일반 설치 (권장)\n- `HyoClean_0.1.2_x64_en-US.msi` — MSI 설치",
+        "en": "## 변경 사항\n- 메모리 자동 정리가 실제로 RAM을 회수하도록 수정 (기존엔 재측정만 하고 끝났음)\n- CPU 사용률 측정 시 매 폴링마다 발생하던 120ms 병목 제거\n- 위험 등급(크래시 덤프) 스캔 대상 추가 — 3단계 신뢰등급이 실제로 전부 동작\n- 정리 후 스캔 요약 수치가 그대로 남아있던 버그 수정\n- 프로그램 컨셉(청소/최적화)에 맞춘 새 아이콘·배너로 전면 교체 (빗자루 + 반짝임)\n\n## 다운로드\n- `HyoClean_0.1.2_x64-setup.exe` — 일반 설치 (권장)\n- `HyoClean_0.1.2_x64_en-US.msi` — MSI 설치"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoClean_0.1.2_x64-setup.exe",
+          "url": "https://github.com/furss123/hyoclean/releases/download/v0.1.2/HyoClean_0.1.2_x64-setup.exe",
+          "size": 2897806,
+          "sha256": "a9384c72a2760459af8d2bd29015e8927de7a2c419a0047ab8cf39ee97c0d0bb",
+          "downloadCount": 0,
+          "arch": "x64"
+        },
+        {
+          "type": "installer",
+          "filename": "HyoClean_0.1.2_x64_en-US.msi",
+          "url": "https://github.com/furss123/hyoclean/releases/download/v0.1.2/HyoClean_0.1.2_x64_en-US.msi",
+          "size": 4325376,
+          "sha256": "739553b4f3143325217cd8cbcfa56bd1f46d5b19c26a3972ce7dd10cd55d6e13",
+          "downloadCount": 0,
+          "arch": "x64"
+        }
+      ]
+    },
     {
       "version": "0.1.0",
       "channel": "stable",
