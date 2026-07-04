@@ -1,13 +1,27 @@
 {
   "slug": "hyoerase",
   "latest": {
-    "stable": "1.4.0",
+    "stable": "1.4.1",
     "beta": null
   },
   "releases": [
     {
-      "version": "1.4.0",
+      "version": "1.4.1",
       "channel": "stable",
+      "releaseDate": "2026-07-04",
+      "githubTag": "v1.4.1",
+      "assets": [
+        {
+          "type": "portable",
+          "filename": "HyoErase-v1.4.1.zip",
+          "url": "https://github.com/furss123/hyoerase/releases/download/v1.4.1/HyoErase-v1.4.1.zip",
+          "sha256": "f570ca4764298759352facae3afcb0f091f3a51b599ab7087b3215dc84cc0b9d"
+        }
+      ]
+    },
+    {
+      "version": "1.4.0",
+      "channel": "legacy",
       "releaseDate": "2026-07-04",
       "githubTag": "v1.4.0",
       "assets": [
