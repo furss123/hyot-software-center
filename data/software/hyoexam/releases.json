@@ -1,10 +1,31 @@
 {
   "slug": "hyoexam",
   "latest": {
-    "stable": "1.0.6",
+    "stable": "1.0.7",
     "beta": null
   },
   "releases": [
+    {
+      "version": "1.0.7",
+      "channel": "stable",
+      "releaseDate": "2026-07-04",
+      "githubTag": "v1.0.7",
+      "notes": {
+        "ko": "## v1.0.7\n\n- 우측 시간표 교시 카드 개편: 헤더:콘텐츠 5:5 비율·동일 폰트 크기, 3mm 간격, 폰트 13pt 확대\n- 교시별로 다른 브랜드 색상(파랑/보라/주황/청록)을 순환 적용해 구분이 한눈에 되도록 개선, 진행 중인 교시는 흰색 테두리로 표시\n- 시작 시 KRISS(한국표준과학연구원) 시간으로 자동 동기화\n- 월일/요일과 시계 사이 간격 축소\n\n포함 파일: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`",
+        "en": "## v1.0.7\n\n- Redesigned period cards: header:content 5:5 height ratio with matching font size, 3mm gap, +13pt font\n- Each period now cycles through a distinct accent color (blue/purple/orange/teal) for clearer at-a-glance distinction; the current period gets a white outline\n- Startup now always syncs against KRISS\n- Tightened the gap between the date and the clock\n\nIncludes: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.7-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.7/HyoExam-1.0.7-win-x64.zip",
+          "size": 246015,
+          "sha256": "4c086162471cfd7bbdb8c885ae23935bf5dce67c0df22c47623bcbb4079a4f7f",
+          "downloadCount": 0,
+          "arch": "x64"
+        }
+      ]
+    },
     {
       "version": "1.0.6",
       "channel": "stable",
