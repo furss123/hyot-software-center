@@ -1,10 +1,31 @@
 {
   "slug": "hyoexam",
   "latest": {
-    "stable": "1.0.7",
+    "stable": "1.0.8",
     "beta": null
   },
   "releases": [
+    {
+      "version": "1.0.8",
+      "channel": "stable",
+      "releaseDate": "2026-07-05",
+      "githubTag": "v1.0.8",
+      "notes": {
+        "ko": "## v1.0.8\n\n- 교시 카드 색상을 단일 브랜드 색으로 통일 (다색 순환이 오히려 혼란스럽다는 피드백 반영)\n- 헤더(교시+시간)와 콘텐츠(과목+분)를 이음새 없이 하나의 카드로 붙여서 표시, 교시 간 구분은 카드 사이 간격으로 명확히 함\n\n포함 파일: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`",
+        "en": "## v1.0.8\n\n- Unified period cards back to a single brand color (the per-period rainbow read as visual noise)\n- Header and content are now fused into one seamless card; separation between periods comes from spacing, not color\n\nIncludes: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.8-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.8/HyoExam-1.0.8-win-x64.zip",
+          "size": 245475,
+          "sha256": "d91b281a35b34e83b7a5776ccab6f1a5fa3c72aa6b30b240309aceecea8d249f",
+          "downloadCount": 0,
+          "arch": "x64"
+        }
+      ]
+    },
     {
       "version": "1.0.7",
       "channel": "stable",
