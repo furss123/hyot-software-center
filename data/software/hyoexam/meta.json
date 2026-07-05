@@ -34,12 +34,12 @@
     "en": "HyoExam"
   },
   "description": {
-    "ko": "HyoExam은 시험(모의고사·내신) 시간표와 실시간 시계를 TV/모니터로 송출하는 Windows 앱입니다. 수업·시험 운영 현장에서 가독성을 높이기 위해 시계와 교시 정보를 크게 보여주고, 전체화면 송출 모드와 메모 기능을 제공합니다.\n\n표준 SNTP(UDP/123) 기반 시간 동기화, 6:4 송출 레이아웃, 라이트/다크 테마, 저장/불러오기 프로필, 교시 드래그 정렬을 지원합니다. 학교 방송실·교실 전자칠판·프로젝터 환경을 고려해 빠른 시작과 안정적인 표시를 목표로 설계되었습니다.\n\n제작: HyoT · © 2026",
-    "en": "HyoExam is a Windows app that broadcasts exam schedules (mock exams and school tests) with a real-time clock to TVs and classroom displays. It focuses on readability in live classroom and test environments, with large clock/timetable visuals, fullscreen output mode, and memo support.\n\nIt supports SNTP (UDP/123) time sync, a 6:4 display layout, light/dark themes, profile save/load, and drag-to-reorder periods. Designed for school broadcasting rooms, smart boards, and projectors with fast startup and stable rendering.\n\nBy HyoT · © 2026"
+    "ko": "**시험 날, 교실 화면 하나로 끝.**\n\nHyoExam은 실시간 시계와 그날의 교시 시간표를 교실 TV·전자칠판·프로젝터에 크게 띄워주는 Windows 앱입니다. 뒷자리 학생도 한눈에 보이도록 시계와 교시·과목을 시원하게 키웠고, 켜는 순간 표준시에 맞춰 정확한 시간을 보여줍니다.\n\n### 이런 점이 좋아요\n\n- **크고 선명하게** — 교실 뒷자리에서도 읽히는 대형 시계와 교시 카드\n- **정확한 시간** — 켜는 즉시 KRISS(한국표준과학연구원) 표준시로 자동 동기화\n- **원클릭 전체화면** — 군더더기 없는 학생용 송출 화면 (F11)\n- **바로 편집** — 교시 추가·수정, 드래그로 순서 변경, 소요시간 자동 계산\n- **자유 메모** — 시계 아래에 유의사항을 적고 글자 크기·색·정렬까지 조절\n- **시험 유형 전환** — 모의고사·지필평가 시간표를 저장해두고 한 번에 전환\n- **라이트/다크 테마** — 방송실·교실 조명에 맞춰 선택\n\n가볍고 빠릅니다. 설치 없이 실행 파일 하나로 바로 켜지고, 학교 방송실·교실 환경에서 안정적으로 돌아가도록 만들었습니다.\n\n제작: HyoT · © 2026",
+    "en": "**One screen for exam day.**\n\nHyoExam puts a big real-time clock and the day's period-by-period timetable on your classroom TV, smart board, or projector. The clock and subjects are sized to read from the back row, and it locks onto official standard time the moment it starts.\n\n### Why you'll like it\n\n- **Big and clear** — a large clock and period cards readable from anywhere in the room\n- **Accurate time** — auto-syncs to KRISS (Korea's national metrology institute) on launch\n- **Fullscreen in one click** — a clean, distraction-free student-facing view (F11)\n- **Quick to edit** — add or edit periods, drag to reorder, duration calculated for you\n- **Free-form memo** — jot notices under the clock, with size, color, and alignment\n- **Exam-type profiles** — save mock-exam and school-test timetables and switch instantly\n- **Light and dark themes** — match the room's lighting\n\nLightweight and fast: a single executable, no install, built to run reliably in school broadcast rooms and classrooms.\n\nAuthor: HyoT · © 2026"
   },
   "shortDescription": {
-    "ko": "시험 시간표와 실시간 시계를 TV/모니터로 송출하는 Windows 앱",
-    "en": "Windows app for broadcasting exam timetables with a real-time clock"
+    "ko": "시험 날 교실 TV를 채우는 큰 시계와 교시 시간표",
+    "en": "A big classroom clock and exam timetable for test day"
   },
   "requirements": {
     "os": "Windows 10 / 11 (x64)",
@@ -50,5 +50,5 @@
     "github": "https://github.com/furss123/hyoexam"
   },
   "createdAt": "2026-07-02",
-  "updatedAt": "2026-07-03"
+  "updatedAt": "2026-07-06"
 }
