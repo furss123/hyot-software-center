@@ -1,10 +1,40 @@
 {
   "slug": "chaebi",
   "latest": {
-    "stable": "1.3.0",
+    "stable": "1.4.0",
     "beta": null
   },
   "releases": [
+    {
+      "version": "1.4.0",
+      "channel": "stable",
+      "releaseDate": "2026-07-05",
+      "githubTag": "v1.4.0",
+      "notes": {
+        "ko": "## v1.4.0\n\n- 바탕화면 색상 자동 틴트 + 데스크톱 임베딩\n- 할 일 색상 태그, 메모 리치텍스트(이미지 붙여넣기), 일정 시간·업무량, D-Day 마감 강조\n- 유틸리티 모드(고대비)\n- 레거시 채비 백업 파일 자동 변환 가져오기\n- 레이아웃 편집 모드가 아닐 때 창 크기 잠금",
+        "en": "## v1.4.0\n\n- Adaptive wallpaper tint + desktop embedding\n- Todo color tags, rich-text memo (paste images), event time/workload, D-Day deadline highlight\n- Utility mode (high contrast)\n- Auto-convert import of legacy Chaebi backup files\n- Window size locked outside layout-edit mode"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "Chaebi_1.4.0_x64-setup.exe",
+          "url": "https://github.com/furss123/chaebi/releases/download/v1.4.0/Chaebi_1.4.0_x64-setup.exe",
+          "size": 1358629,
+          "sha256": "33c36adf63b6eec22a2c3812fc5ddb7e92dc3b4cb386e5b2456f0e5d908645d0",
+          "downloadCount": 0,
+          "arch": "x64"
+        },
+        {
+          "type": "installer",
+          "filename": "Chaebi_1.4.0_x64_en-US.msi",
+          "url": "https://github.com/furss123/chaebi/releases/download/v1.4.0/Chaebi_1.4.0_x64_en-US.msi",
+          "size": 1912832,
+          "sha256": "8465f523930006588a114dafacc7e80be5d2ef18530a12de735bb6539d860e3d",
+          "downloadCount": 0,
+          "arch": "x64"
+        }
+      ]
+    },
     {
       "version": "1.3.0",
       "channel": "stable",
