@@ -17,7 +17,7 @@ export default function RootLayout({
   children: ReactNode
 }): React.JSX.Element {
   return (
-    <html suppressHydrationWarning>
+    <html lang="ko" suppressHydrationWarning>
       <head>
         <meta name="google-adsense-account" content="ca-pub-9694429813677076" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
