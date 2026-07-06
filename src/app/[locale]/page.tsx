@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { AdSlot } from '@/components/ads/AdSlot'
-import { cn, formatDate, sumDownloadCounts } from '@/lib/utils'
+import { cn, formatDate, sumDownloadCounts, getAssetUrl } from '@/lib/utils'
 import { ArrowRight } from 'lucide-react'
 import { SoftwareIcon } from '@/components/software/SoftwareIcon'
 import { DownloadCount } from '@/components/download/DownloadCount'
@@ -163,21 +163,30 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
           }}
         />
         <div className="max-w-7xl mx-auto text-center relative">
+          <div className="flex justify-center mb-8 opacity-0 animate-fade-in-up animate-delay-100">
+            {/* eslint-disable-next-line @next/next/no-img-element -- static export; logo from /public */}
+            <img
+              src={getAssetUrl('/assets/logo.png')}
+              className="logo-hero"
+              alt="HyoT"
+            />
+          </div>
+
           <h1
             className={cn(
               'text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-[-0.03em] leading-[1.1]',
-              'whitespace-pre-line opacity-0 animate-fade-in-up animate-delay-100',
+              'whitespace-pre-line opacity-0 animate-fade-in-up animate-delay-200',
               'bg-gradient-to-br from-text-primary from-40% to-[#4A9FE0] bg-clip-text text-transparent',
             )}
           >
             {t('hero.title')}
           </h1>
 
-          <p className="text-base sm:text-lg text-text-secondary max-w-2xl mx-auto mt-5 mb-10 text-balance sm:whitespace-nowrap opacity-0 animate-fade-in-up animate-delay-200">
+          <p className="text-base sm:text-lg text-text-secondary max-w-2xl mx-auto mt-5 mb-10 text-balance sm:whitespace-nowrap opacity-0 animate-fade-in-up animate-delay-300">
             {t('hero.subtitle')}
           </p>
 
-          <div className="flex items-center justify-center opacity-0 animate-fade-in-up animate-delay-300">
+          <div className="flex items-center justify-center opacity-0 animate-fade-in-up animate-delay-400">
             <Link href={`/${locale}/software`}>
               <Button size="lg" icon={<ArrowRight size={18} />} iconPosition="end">
                 {t('hero.cta')}
