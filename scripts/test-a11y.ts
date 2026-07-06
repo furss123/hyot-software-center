@@ -6,6 +6,7 @@ const ROUTES = [
   '/ko',
   '/ko/software',
   '/ko/software/bidanwin',
+  '/ko/software/hyoviewer',
   '/ko/feedback',
   '/ko/changelog',
   '/ko/software/bidanwin/feedback',
@@ -16,7 +17,8 @@ async function main(): Promise<void> {
   let failed = false
 
   for (const route of ROUTES) {
-    const page = await browser.newPage()
+    const context = await browser.newContext()
+    const page = await context.newPage()
     await page.goto(`${BASE}${route}`)
     const axe = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
@@ -35,7 +37,7 @@ async function main(): Promise<void> {
         `✅ ${route}: 0 critical violations (${axe.violations.length} total)\n`,
       )
     }
-    await page.close()
+    await context.close()
   }
 
   await browser.close()

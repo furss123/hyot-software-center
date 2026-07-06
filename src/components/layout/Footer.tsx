@@ -4,7 +4,7 @@ export function Footer(): React.JSX.Element {
     <footer className="py-5 mt-16">
       <div className="max-w-7xl mx-auto px-6">
         <div className="dot-divider mb-5" aria-hidden="true" />
-        <p className="text-center text-[11px] text-text-tertiary/70">
+        <p className="text-center text-xs text-text-tertiary">
           © {year} HyoT. All rights reserved.
         </p>
       </div>

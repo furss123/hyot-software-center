@@ -41,11 +41,11 @@ export function FeedbackForm({
   const [attempted, setAttempted] = useState(false)
 
   const typeActiveStyles: Record<FeedbackType, string> = {
-    bug: 'bg-[rgba(255,112,112,0.15)] text-[#FF7070] border border-[rgba(255,112,112,0.35)]',
+    bug: 'bg-[rgba(255,112,112,0.15)] text-[var(--status-error)] border border-[rgba(255,112,112,0.35)]',
     feature:
-      'bg-[rgba(74,159,224,0.15)] text-[#7BBFED] border border-[rgba(74,159,224,0.35)]',
+      'bg-[rgba(74,159,224,0.15)] text-[var(--status-info)] border border-[rgba(74,159,224,0.35)]',
     other:
-      'bg-[rgba(139,79,204,0.15)] text-[#AA72DC] border border-[rgba(139,79,204,0.35)]',
+      'bg-[rgba(139,79,204,0.15)] text-[var(--hyot-purple-dark)] border border-[rgba(139,79,204,0.35)]',
   }
 
   const inputClass =

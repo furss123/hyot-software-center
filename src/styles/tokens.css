@@ -53,7 +53,7 @@
 
   --text-primary: #EEF2FF;
   --text-secondary: #8896AA;
-  --text-tertiary: #4A5870;
+  --text-tertiary: #A4B1C3;
   --text-disabled: #2A3448;
 
   --border: rgba(74, 159, 224, 0.14);
@@ -75,6 +75,10 @@
 
 [data-theme='light'] {
   color-scheme: light;
+  --hyot-blue: #1F66B1;
+  --hyot-blue-dark: #174F8C;
+  --hyot-blue-light: #2B7CC7;
+
   --bg-base: #F6F8FC;
   --bg-surface: #FFFFFF;
   --bg-surface-2: #EEF2F8;
@@ -85,7 +89,7 @@
 
   --text-primary: #0A0E1A;
   --text-secondary: #3A4A60;
-  --text-tertiary: #7A8898;
+  --text-tertiary: #526073;
   --text-disabled: #B8C4D4;
 
   /* Neutral slate borders/fills read cleaner than faint sky-blue on near-white */
@@ -102,9 +106,9 @@
   --shadow-md: 0 4px 12px rgba(16, 24, 40, 0.08), 0 0 0 1px rgba(31, 54, 92, 0.07);
   --shadow-lg: 0 12px 28px rgba(16, 24, 40, 0.12), 0 0 0 1px rgba(31, 54, 92, 0.08);
 
-  --status-success: var(--hyot-teal);
-  --status-warning: var(--hyot-orange);
-  --status-error: #C42B1C;
+  --status-success: #126A5B;
+  --status-warning: #9A4D12;
+  --status-error: #A9362B;
   --status-info: var(--hyot-blue);
 
   --dot-color: rgba(74, 159, 224, 0.12);
