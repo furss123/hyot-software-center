@@ -19,8 +19,8 @@
           "type": "installer",
           "filename": "HyoPlayer_1.1.0_x64_Setup.exe",
           "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.1.0_x64_Setup.exe",
-          "size": 24750844,
-          "sha256": "437cc70a9351e6273145bb1f509fae2b6288d3f3f20a7374acf005dc20ab5e37",
+          "size": 24765708,
+          "sha256": "05f0198159d6f0e0d129df28f0fab7407b6312bba438db9e63f7948f7f4359b7",
           "downloadCount": 0,
           "arch": "x64"
         },
@@ -28,8 +28,8 @@
           "type": "portable",
           "filename": "HyoPlayer_1.1.0_x64_portable.zip",
           "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.1.0_x64_portable.zip",
-          "size": 46115311,
-          "sha256": "83f1dae58ccbe67afd86f87591b1784f854030c2705d8e71fe990afeaf5f8511",
+          "size": 46121254,
+          "sha256": "1473fc6fa47d6d66fc1ccc1e864b3cdd186f0ff18669b9acffb4fc77cf7481e5",
           "downloadCount": 0,
           "arch": "x64"
         }
@@ -41,7 +41,7 @@
       "releaseDate": "2026-07-07",
       "githubTag": "v1.0.0",
       "notes": {
-        "ko": "## 첫 공개 버전\n\n- VLC 엔진 기반 동영상 재생\n- 4K 재생용 하드웨어 가속 옵션 활성화\n- 파일 열기, 드래그 앤 드롭, 재생/일시정지, 탐색, 볼륨, 전체화면 지원\n- 키보드 단축키: Space, 방향키, F, Esc\n- 설치 없이 실행 가능한 x64 포터블 ZIP 배포",
+        "ko": "## 첫 공개 버전\n\n- VLC 엔진 기반 동영상 재생\n- 4K 재생을 위한 하드웨어 가속 옵션 활성화\n- 파일 열기, 드래그 앤 드롭, 재생/일시정지, 탐색, 볼륨, 전체화면 지원\n- 키보드 단축키: Space, 방향키, F, Esc\n- 설치 없이 실행 가능한 x64 포터블 ZIP 배포",
         "en": "## Initial public release\n\n- VLC-engine video playback\n- Hardware acceleration option enabled for 4K playback\n- Open file, drag and drop, play/pause, seek, volume, and fullscreen controls\n- Keyboard shortcuts: Space, arrow keys, F, Esc\n- x64 portable ZIP release with no installation required"
       },
       "assets": [
