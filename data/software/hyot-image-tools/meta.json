@@ -25,18 +25,18 @@
     {
       "file": "screenshots/main.png",
       "alt": {
-        "ko": "HyoT Image Tools 메인 화면",
-        "en": "HyoT Image Tools main window"
+        "ko": "HyoImage 메인 화면",
+        "en": "HyoImage main window"
       }
     }
   ],
   "name": {
-    "ko": "HyoT Image Tools",
-    "en": "HyoT Image Tools"
+    "ko": "HyoImage",
+    "en": "HyoImage"
   },
   "description": {
-    "ko": "**사진 여러 장, 한 번에 끝.**\n\nHyoT Image Tools는 Windows용 일괄 이미지 처리 데스크톱 앱입니다. 사진을 드래그 앤 드롭하거나 폴더를 추가한 뒤, 한 번에 변환할 수 있습니다.\n\n### 이런 점이 좋아요\n\n- **용량 줄이기** — 품질·목표 용량 기준 압축\n- **크기 변경** — 비율·정확한 크기·긴 변 기준 리사이즈\n- **형식 변환** — JPG, PNG, WebP, BMP, TIFF\n- **회전 / 뒤집기** — 각도 회전, 좌우·상하 뒤집기, EXIF 자동 보정\n- **자르기** — 비율 프리셋 및 인터랙티브 크롭\n- **이미지 합치기** — 가로·세로·그리드 병합\n- **파일명 일괄 변경** — 접두어·번호·패딩 일괄 적용\n- **드래그 앤 드롭** — 폴더 일괄 추가 지원\n- **실시간 미리보기** — 리사이즈·회전·합치기 결과를 바로 확인\n- **다크 / 라이트 테마**, **한국어 / 영어 UI**\n\n### 사용 방법\n\n1. GitHub Releases에서 설치 파일을 다운로드합니다.\n2. 설치 후 HyoT Image Tools를 실행하고 사진을 추가합니다.\n3. 도구를 선택한 뒤 옵션을 설정하고 「변환 시작」을 누릅니다.\n\n제작: HyoT · © 2026",
-    "en": "**Dozens of photos, done in one pass.**\n\nHyoT Image Tools is a Windows desktop app for batch image processing. Drop photos or add a folder, configure options, and convert in one go.\n\n### Why you'll like it\n\n- **Reduce size** — compress by quality or target file size\n- **Resize** — percentage, exact dimensions, or longest side\n- **Convert format** — JPG, PNG, WebP, BMP, TIFF\n- **Rotate / flip** — angle rotation, horizontal/vertical flip, EXIF auto-orient\n- **Crop** — aspect presets and interactive crop\n- **Merge images** — horizontal, vertical, or grid layout\n- **Bulk rename** — prefix, numbering, and zero-padding\n- **Drag and drop** — plus folder batch import\n- **Live preview** — for resize, rotate, and merge\n- **Dark / light themes**, **Korean / English UI**\n\n### How to use\n\n1. Download the installer from GitHub Releases.\n2. Launch HyoT Image Tools and add your photos.\n3. Pick a tool, set options, and click Start.\n\nAuthor: HyoT · © 2026"
+    "ko": "**사진 여러 장, 한 번에 끝.**\n\nHyoImage는 Windows용 일괄 이미지 처리 데스크톱 앱입니다. 사진을 드래그 앤 드롭하거나 폴더를 추가한 뒤, 한 번에 변환할 수 있습니다.\n\n### 이런 점이 좋아요\n\n- **용량 줄이기** — 품질·목표 용량 기준 압축\n- **크기 변경** — 비율·정확한 크기·긴 변 기준 리사이즈\n- **형식 변환** — JPG, PNG, WebP, BMP, TIFF\n- **회전 / 뒤집기** — 각도 회전, 좌우·상하 뒤집기, EXIF 자동 보정\n- **자르기** — 비율 프리셋 및 인터랙티브 크롭\n- **이미지 합치기** — 가로·세로·그리드 병합\n- **파일명 일괄 변경** — 접두어·번호·패딩 일괄 적용\n- **드래그 앤 드롭** — 폴더 일괄 추가 지원\n- **실시간 미리보기** — 리사이즈·회전·합치기 결과를 바로 확인\n- **다크 / 라이트 테마**, **한국어 / 영어 UI**\n\n### 사용 방법\n\n1. GitHub Releases에서 설치 파일을 다운로드합니다.\n2. 설치 후 HyoImage를 실행하고 사진을 추가합니다.\n3. 도구를 선택한 뒤 옵션을 설정하고 「변환 시작」을 누릅니다.\n\n제작: HyoT · © 2026",
+    "en": "**Dozens of photos, done in one pass.**\n\nHyoImage is a Windows desktop app for batch image processing. Drop photos or add a folder, configure options, and convert in one go.\n\n### Why you'll like it\n\n- **Reduce size** — compress by quality or target file size\n- **Resize** — percentage, exact dimensions, or longest side\n- **Convert format** — JPG, PNG, WebP, BMP, TIFF\n- **Rotate / flip** — angle rotation, horizontal/vertical flip, EXIF auto-orient\n- **Crop** — aspect presets and interactive crop\n- **Merge images** — horizontal, vertical, or grid layout\n- **Bulk rename** — prefix, numbering, and zero-padding\n- **Drag and drop** — plus folder batch import\n- **Live preview** — for resize, rotate, and merge\n- **Dark / light themes**, **Korean / English UI**\n\n### How to use\n\n1. Download the installer from GitHub Releases.\n2. Launch HyoImage and add your photos.\n3. Pick a tool, set options, and click Start.\n\nAuthor: HyoT · © 2026"
   },
   "shortDescription": {
     "ko": "Windows용 7가지 이미지 일괄 처리 도구",
@@ -51,5 +51,5 @@
     "github": "https://github.com/furss123/hyot-image-tools"
   },
   "createdAt": "2026-06-28",
-  "updatedAt": "2026-06-29"
+  "updatedAt": "2026-07-06"
 }
