@@ -20,8 +20,8 @@
   "featured": true,
   "visible": true,
   "githubRepo": "furss123/HyoViewer",
-  "icon": "/data/software/hyoviewer/icon.png",
-  "banner": "/data/software/hyoviewer/banner.png",
+  "icon": "/data/software/hyoviewer/icon.webp",
+  "banner": "/data/software/hyoviewer/banner.webp",
   "screenshots": [],
   "name": {
     "ko": "HyoViewer",

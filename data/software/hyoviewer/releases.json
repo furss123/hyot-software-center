@@ -19,8 +19,8 @@
           "arch": "x64",
           "downloadCount": 0,
           "filename": "HyoViewer-v1.0.0-windows.exe",
-          "sha256": "dfc995dab8fa550d5813fa0252f687423890e34f2b0c290802a5f4e8a0058a79",
-          "size": 19401945,
+          "sha256": "fce6d0520f04ffef3cfecff80f54ac8b534f3b3809cf58b8d61ae13283a0d862",
+          "size": 19209618,
           "type": "portable",
           "url": "https://github.com/furss123/HyoViewer/releases/download/v1.0.0/HyoViewer-v1.0.0-windows.exe"
         }
