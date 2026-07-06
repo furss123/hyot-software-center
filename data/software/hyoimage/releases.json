@@ -19,16 +19,16 @@
           "type": "installer",
           "filename": "HyoT-Image-Tools-1.0.1-x64-setup.exe",
           "url": "https://github.com/furss123/hyoimage/releases/download/v1.0.1/HyoT-Image-Tools-1.0.1-x64-setup.exe",
-          "size": 0,
-          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "size": 32575408,
+          "sha256": "df84b4c621c9974f2cc73adf11053f2c6c5374d480a2bdd5ece2e40ed2e89cd9",
           "downloadCount": 0
         },
         {
           "type": "portable",
           "filename": "HyoT-Image-Tools-1.0.1-x64-portable.zip",
           "url": "https://github.com/furss123/hyoimage/releases/download/v1.0.1/HyoT-Image-Tools-1.0.1-x64-portable.zip",
-          "size": 0,
-          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "size": 48184846,
+          "sha256": "183ffe8251ae025c3d67900aa17ceee5aa05d1aba295db6d262a3d7ba7c4cd85",
           "downloadCount": 0
         }
       ]
@@ -47,16 +47,16 @@
           "type": "installer",
           "filename": "HyoT-Image-Tools-1.0.0-x64-setup.exe",
           "url": "https://github.com/furss123/hyoimage/releases/download/v1.0.0/HyoT-Image-Tools-1.0.0-x64-setup.exe",
-          "size": 0,
-          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "size": 66876342,
+          "sha256": "bc6b4c4cdc54eb6697f8154fefa7b0f076c82295da801c1a1bf504a5587d02bd",
           "downloadCount": 0
         },
         {
           "type": "portable",
           "filename": "HyoT-Image-Tools-1.0.0-x64-portable.zip",
           "url": "https://github.com/furss123/hyoimage/releases/download/v1.0.0/HyoT-Image-Tools-1.0.0-x64-portable.zip",
-          "size": 0,
-          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "size": 83246505,
+          "sha256": "871200e6db499828aaa96f912660d528e54ce1e5417beaf8d4565d5293038eca",
           "downloadCount": 0
         }
       ]
