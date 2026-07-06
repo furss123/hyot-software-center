@@ -22,13 +22,18 @@ jobs:
       - run: npm run build
         env:
           NEXT_PUBLIC_BASE_PATH: ''
+      - name: Install Playwright
+        run: npx playwright install chromium --with-deps
+      - name: Start server
+        run: npx serve out -p 3000 &
+      - name: Wait for server
+        run: npx wait-on http://localhost:3000/ko --timeout 30000
       - name: Check broken links
         uses: lycheeverse/lychee-action@v2
         with:
           args: >
             ./out
-            --base https://hyot.dev
-            --exclude "localhost"
+            --base http://localhost:3000
             --exclude "github.com"
             --exclude "cdn.jsdelivr.net"
             --exclude "formspree.io"
@@ -41,12 +46,6 @@ jobs:
             --max-retries 2
             --accept 200,201,204,301,302,403,429
           fail: true
-      - name: Install Playwright
-        run: npx playwright install chromium --with-deps
-      - name: Start server
-        run: npx serve out -p 3000 &
-      - name: Wait for server
-        run: npx wait-on http://localhost:3000/ko --timeout 30000
       - name: Accessibility check
         run: npm run test:a11y
       - name: Lighthouse CI
