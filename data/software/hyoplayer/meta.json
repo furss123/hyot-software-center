@@ -11,7 +11,8 @@
     "player",
     "4k",
     "vlc",
-    "portable"
+    "subtitle",
+    "installer"
   ],
   "featured": true,
   "icon": "/data/software/hyoplayer/icon.webp",
@@ -30,12 +31,12 @@
     "en": "HyoPlayer"
   },
   "description": {
-    "ko": "**가볍고 빠른 Windows용 4K 동영상 플레이어.**\n\nHyoPlayer는 꼭 필요한 기능만 남긴 포터블 동영상 플레이어입니다. VLC 엔진 기반으로 다양한 동영상 파일을 열 수 있고, 4K 재생을 위해 하드웨어 가속을 켜 둔 x64 Windows 빌드로 배포됩니다.\n\n### 핵심 기능\n\n- **폭넓은 포맷 지원** - MP4, MKV, AVI, MOV, WMV, WEBM, TS 등 VLC 기반 재생\n- **4K 재생 대응** - 하드웨어 가속 옵션 활성화\n- **빠른 조작** - 재생/일시정지, 탐색, 볼륨, 전체화면만 배치\n- **드래그 앤 드롭** - 파일을 창에 놓으면 바로 재생\n- **포터블 배포** - 설치 없이 압축 해제 후 실행\n\nAuthor: HyoT · © 2026",
-    "en": "**A lightweight, fast 4K video player for Windows.**\n\nHyoPlayer is a portable video player with only the essential controls. It uses the VLC engine for broad file compatibility and ships as an x64 Windows build with hardware acceleration enabled for 4K playback.\n\n### Core features\n\n- **Broad format support** - VLC-based playback for MP4, MKV, AVI, MOV, WMV, WEBM, TS, and more\n- **4K-ready playback** - hardware acceleration enabled\n- **Fast controls** - play/pause, seek, volume, and fullscreen only\n- **Drag and drop** - drop a file onto the window to play immediately\n- **Portable release** - unzip and run without installation\n\nAuthor: HyoT · © 2026"
+    "ko": "**가볍고 빠른 Windows용 4K 동영상 플레이어.**\n\nHyoPlayer는 꼭 필요한 기능만 남긴 동영상 플레이어입니다. VLC 엔진 기반으로 다양한 동영상 파일을 열 수 있고, 4K 재생을 위해 하드웨어 가속을 켠 x64 Windows 빌드로 배포됩니다. 이제 설치 파일로 더 깔끔하게 설치할 수 있고, 외부 자막 파일도 바로 불러올 수 있습니다.\n\n### 핵심 기능\n\n- **폭넓은 포맷 지원** - MP4, MKV, AVI, MOV, WMV, WEBM, TS 등 VLC 기반 재생\n- **4K 재생 대응** - 하드웨어 가속 옵션 활성화\n- **자막 지원** - 같은 이름의 자막 자동 로드 및 SRT, ASS, SSA, VTT, SUB 수동 열기\n- **빠른 조작** - 파일 열기, 자막 열기, 재생/일시정지, 탐색, 볼륨, 전체화면만 배치\n- **드래그 앤 드롭** - 동영상이나 자막 파일을 창에 놓으면 바로 반영\n- **깔끔한 설치 파일** - 시작 메뉴/바탕화면 바로가기를 제공하는 Windows 설치형 배포\n\nAuthor: HyoT · © 2026",
+    "en": "**A lightweight, fast 4K video player for Windows.**\n\nHyoPlayer keeps only the controls that matter. It uses the VLC engine for broad file compatibility and ships as an x64 Windows build with hardware acceleration enabled for 4K playback. It now includes a clean Windows installer and external subtitle loading.\n\n### Core features\n\n- **Broad format support** - VLC-based playback for MP4, MKV, AVI, MOV, WMV, WEBM, TS, and more\n- **4K-ready playback** - hardware acceleration enabled\n- **Subtitle support** - auto-loads same-name subtitles and supports SRT, ASS, SSA, VTT, and SUB files\n- **Fast controls** - open file, open subtitle, play/pause, seek, volume, and fullscreen only\n- **Drag and drop** - drop video or subtitle files onto the window\n- **Clean installer** - Windows setup with Start Menu and optional desktop shortcuts\n\nAuthor: HyoT · © 2026"
   },
   "shortDescription": {
-    "ko": "VLC 엔진 기반의 가볍고 빠른 Windows용 4K 동영상 플레이어",
-    "en": "Lightweight VLC-powered 4K video player for Windows"
+    "ko": "자막과 4K 재생을 지원하는 VLC 엔진 기반 Windows 동영상 플레이어",
+    "en": "VLC-powered 4K Windows video player with subtitle support"
   },
   "requirements": {
     "os": "Windows 10 / 11 (x64)",

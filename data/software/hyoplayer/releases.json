@@ -1,10 +1,40 @@
 {
   "slug": "hyoplayer",
   "latest": {
-    "stable": "1.0.0",
+    "stable": "1.1.0",
     "beta": null
   },
   "releases": [
+    {
+      "version": "1.1.0",
+      "channel": "stable",
+      "releaseDate": "2026-07-07",
+      "githubTag": "v1.1.0",
+      "notes": {
+        "ko": "## 자막 및 설치 파일 배포\n\n- Windows 설치 파일(`HyoPlayer_1.1.0_x64_Setup.exe`) 추가\n- 자막 열기(CC) 버튼 추가\n- SRT, ASS, SSA, VTT, SUB 자막 파일 수동 로드 지원\n- 동영상 파일과 같은 이름의 자막 자동 로드\n- 자막 파일 드래그 앤 드롭 지원\n- 새 동영상 열기 시 자막 상태 표시 초기화",
+        "en": "## Subtitle support and installer release\n\n- Added Windows installer (`HyoPlayer_1.1.0_x64_Setup.exe`)\n- Added subtitle open (CC) button\n- Supports manual SRT, ASS, SSA, VTT, and SUB subtitle loading\n- Auto-loads same-name subtitle files next to the video\n- Supports drag and drop for subtitle files\n- Resets subtitle state when opening a new video"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoPlayer_1.1.0_x64_Setup.exe",
+          "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.1.0_x64_Setup.exe",
+          "size": 24750844,
+          "sha256": "437cc70a9351e6273145bb1f509fae2b6288d3f3f20a7374acf005dc20ab5e37",
+          "downloadCount": 0,
+          "arch": "x64"
+        },
+        {
+          "type": "portable",
+          "filename": "HyoPlayer_1.1.0_x64_portable.zip",
+          "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.1.0_x64_portable.zip",
+          "size": 46115311,
+          "sha256": "83f1dae58ccbe67afd86f87591b1784f854030c2705d8e71fe990afeaf5f8511",
+          "downloadCount": 0,
+          "arch": "x64"
+        }
+      ]
+    },
     {
       "version": "1.0.0",
       "channel": "stable",
