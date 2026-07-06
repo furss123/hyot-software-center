@@ -1,10 +1,40 @@
 {
   "slug": "chaebi",
   "latest": {
-    "stable": "1.4.0",
+    "stable": "1.4.1",
     "beta": null
   },
   "releases": [
+    {
+      "version": "1.4.1",
+      "channel": "stable",
+      "releaseDate": "2026-07-05",
+      "githubTag": "v1.4.1",
+      "notes": {
+        "ko": "## v1.4.1\n\n- 유틸리티 모드가 켰을 때 투명해지던 문제 수정 (불투명 고대비로 정상 동작)\n- 시간 지정 일정의 시작 시간이 캘린더에 표시되도록 수정",
+        "en": "## v1.4.1\n\n- Fix utility mode rendering panels transparent instead of opaque high-contrast\n- Show start time on timed calendar events"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "Chaebi_1.4.1_x64-setup.exe",
+          "url": "https://github.com/furss123/chaebi/releases/download/v1.4.1/Chaebi_1.4.1_x64-setup.exe",
+          "size": 1358793,
+          "sha256": "7c4497acd8a7bced7b1ec78cceb06ad3a224418febec01f2fbb4dd7d371a640f",
+          "downloadCount": 0,
+          "arch": "x64"
+        },
+        {
+          "type": "installer",
+          "filename": "Chaebi_1.4.1_x64_en-US.msi",
+          "url": "https://github.com/furss123/chaebi/releases/download/v1.4.1/Chaebi_1.4.1_x64_en-US.msi",
+          "size": 1912832,
+          "sha256": "7b100b27b7e43b8904b2b4650f7295b928539272960cc1db198a559d295f69de",
+          "downloadCount": 0,
+          "arch": "x64"
+        }
+      ]
+    },
     {
       "version": "1.4.0",
       "channel": "stable",
