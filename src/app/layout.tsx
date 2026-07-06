@@ -7,6 +7,13 @@ const ADSENSE_CLIENT = 'ca-pub-9694429813677076'
 export const metadata: Metadata = {
   title: 'HyoT Software Center',
   metadataBase: new URL('https://hyot.dev'),
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [{ url: '/assets/icon-192.png', sizes: '192x192', type: 'image/png' }],
+  },
 }
 
 const themeScript = `(function(){try{var t=localStorage.getItem('theme');var m=t||'system';if(m==='system')m=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',m)}catch(e){}})()`
