@@ -1,0 +1,52 @@
+{
+  "slug": "hyoviewer",
+  "status": "active",
+  "category": "media",
+  "platforms": [
+    "windows"
+  ],
+  "tags": [
+    "windows",
+    "image",
+    "viewer",
+    "desktop",
+    "pillow",
+    "tkinter",
+    "portable",
+    "gif",
+    "webp",
+    "utility"
+  ],
+  "featured": true,
+  "visible": true,
+  "githubRepo": "furss123/HyoViewer",
+  "icon": "/data/software/hyoviewer/icon.png",
+  "banner": "/data/software/hyoviewer/banner.png",
+  "screenshots": [],
+  "name": {
+    "ko": "HyoViewer",
+    "en": "HyoViewer"
+  },
+  "description": {
+    "ko": "**거의 모든 이미지 포맷을 빠르게 여는 초경량 이미지 뷰어.**\n\nHyoViewer는 Python, Tkinter, Pillow 기반의 Windows용 이미지 뷰어입니다. 설치가 필요 없는 단일 실행 파일로 배포되며, 큰 이미지도 화면에 보이는 영역만 렌더링해 가볍게 탐색합니다.\n\n### 주요 기능\n\n- **넓은 포맷 지원** - PNG, JPG, GIF, WebP, BMP, TIFF, ICO, TGA, PPM 등 Pillow가 읽는 대부분의 래스터 이미지\n- **애니메이션 재생** - 움직이는 GIF와 WebP를 바로 재생\n- **빠른 탐색** - 같은 폴더의 이미지를 이전/다음으로 즉시 이동\n- **확대/축소와 이동** - 마우스 커서 기준 휠 줌, 드래그 팬, 화면 맞춤, 실제 크기 보기\n- **편의 기능** - 회전, 슬라이드쇼, 전체화면, 드래그 앤 드롭, EXIF 방향 자동 보정\n\n가볍지만 매일 쓰는 이미지 확인 작업에 필요한 기능은 빠짐없이 담았습니다.",
+    "en": "**A tiny, fast image viewer that opens almost every common image format.**\n\nHyoViewer is a Windows image viewer built with Python, Tkinter, and Pillow. It ships as a portable single-file executable and keeps large images responsive by rendering only the visible viewport.\n\n### Highlights\n\n- **Broad format support** - PNG, JPG, GIF, WebP, BMP, TIFF, ICO, TGA, PPM, and most raster formats Pillow can read\n- **Animation playback** - animated GIF and WebP support\n- **Fast folder browsing** - previous/next navigation without rescanning the folder every time\n- **Zoom and pan** - cursor-centered wheel zoom, drag panning, fit-to-window, and 100% view\n- **Everyday tools** - rotate, slideshow, fullscreen, drag and drop, and EXIF orientation correction\n\nSmall enough to stay out of the way, practical enough to be the default image checker."
+  },
+  "shortDescription": {
+    "ko": "거의 모든 이미지 포맷을 빠르게 여는 초경량 Windows 이미지 뷰어",
+    "en": "A tiny Windows image viewer for almost every common image format"
+  },
+  "requirements": {
+    "os": "Windows 10 / Windows 11",
+    "arch": [
+      "x64"
+    ],
+    "ram": "2 GB 이상 권장",
+    "disk": "약 25 MB"
+  },
+  "links": {
+    "github": "https://github.com/furss123/HyoViewer",
+    "homepage": "https://hyot.dev"
+  },
+  "createdAt": "2026-07-07",
+  "updatedAt": "2026-07-07"
+}

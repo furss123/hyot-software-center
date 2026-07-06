@@ -1,0 +1,30 @@
+{
+  "slug": "hyoviewer",
+  "latest": {
+    "stable": "1.0.0",
+    "beta": null
+  },
+  "releases": [
+    {
+      "version": "1.0.0",
+      "channel": "stable",
+      "releaseDate": "2026-07-07",
+      "githubTag": "v1.0.0",
+      "notes": {
+        "ko": "첫 공개 릴리스입니다. PNG, JPG, GIF, WebP, BMP, TIFF 등 대부분의 이미지 포맷을 열 수 있고, 애니메이션 재생, 폴더 탐색, 확대/축소, 회전, 슬라이드쇼, 드래그 앤 드롭을 지원합니다.",
+        "en": "Initial public release. Supports most image formats including PNG, JPG, GIF, WebP, BMP, and TIFF, with animation playback, folder navigation, zoom, rotation, slideshow, and drag and drop."
+      },
+      "assets": [
+        {
+          "arch": "x64",
+          "downloadCount": 0,
+          "filename": "HyoViewer-v1.0.0-windows.exe",
+          "sha256": "dfc995dab8fa550d5813fa0252f687423890e34f2b0c290802a5f4e8a0058a79",
+          "size": 19401945,
+          "type": "portable",
+          "url": "https://github.com/furss123/HyoViewer/releases/download/v1.0.0/HyoViewer-v1.0.0-windows.exe"
+        }
+      ]
+    }
+  ]
+}
