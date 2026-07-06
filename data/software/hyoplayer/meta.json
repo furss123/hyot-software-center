@@ -1,0 +1,51 @@
+{
+  "slug": "hyoplayer",
+  "status": "active",
+  "category": "media",
+  "platforms": [
+    "windows"
+  ],
+  "tags": [
+    "windows",
+    "video",
+    "player",
+    "4k",
+    "vlc",
+    "portable"
+  ],
+  "featured": true,
+  "icon": "/data/software/hyoplayer/icon.webp",
+  "banner": "/data/software/hyoplayer/banner.webp",
+  "screenshots": [
+    {
+      "file": "screenshots/main.svg",
+      "alt": {
+        "ko": "HyoPlayer의 미니멀한 4K 동영상 플레이어 화면",
+        "en": "Minimal HyoPlayer 4K video playback interface"
+      }
+    }
+  ],
+  "name": {
+    "ko": "HyoPlayer",
+    "en": "HyoPlayer"
+  },
+  "description": {
+    "ko": "**가볍고 빠른 Windows용 4K 동영상 플레이어.**\n\nHyoPlayer는 꼭 필요한 기능만 남긴 포터블 동영상 플레이어입니다. VLC 엔진 기반으로 다양한 동영상 파일을 열 수 있고, 4K 재생을 위해 하드웨어 가속을 켜 둔 x64 Windows 빌드로 배포됩니다.\n\n### 핵심 기능\n\n- **폭넓은 포맷 지원** - MP4, MKV, AVI, MOV, WMV, WEBM, TS 등 VLC 기반 재생\n- **4K 재생 대응** - 하드웨어 가속 옵션 활성화\n- **빠른 조작** - 재생/일시정지, 탐색, 볼륨, 전체화면만 배치\n- **드래그 앤 드롭** - 파일을 창에 놓으면 바로 재생\n- **포터블 배포** - 설치 없이 압축 해제 후 실행\n\nAuthor: HyoT · © 2026",
+    "en": "**A lightweight, fast 4K video player for Windows.**\n\nHyoPlayer is a portable video player with only the essential controls. It uses the VLC engine for broad file compatibility and ships as an x64 Windows build with hardware acceleration enabled for 4K playback.\n\n### Core features\n\n- **Broad format support** - VLC-based playback for MP4, MKV, AVI, MOV, WMV, WEBM, TS, and more\n- **4K-ready playback** - hardware acceleration enabled\n- **Fast controls** - play/pause, seek, volume, and fullscreen only\n- **Drag and drop** - drop a file onto the window to play immediately\n- **Portable release** - unzip and run without installation\n\nAuthor: HyoT · © 2026"
+  },
+  "shortDescription": {
+    "ko": "VLC 엔진 기반의 가볍고 빠른 Windows용 4K 동영상 플레이어",
+    "en": "Lightweight VLC-powered 4K video player for Windows"
+  },
+  "requirements": {
+    "os": "Windows 10 / 11 (x64)",
+    "ram": "4 GB or more recommended",
+    "disk": "120 MB or more"
+  },
+  "links": {
+    "homepage": "https://hyot.dev"
+  },
+  "createdAt": "2026-07-07",
+  "updatedAt": "2026-07-07",
+  "visible": true
+}

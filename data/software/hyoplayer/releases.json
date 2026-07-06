@@ -1,0 +1,30 @@
+{
+  "slug": "hyoplayer",
+  "latest": {
+    "stable": "1.0.0",
+    "beta": null
+  },
+  "releases": [
+    {
+      "version": "1.0.0",
+      "channel": "stable",
+      "releaseDate": "2026-07-07",
+      "githubTag": "v1.0.0",
+      "notes": {
+        "ko": "## 첫 공개 버전\n\n- VLC 엔진 기반 동영상 재생\n- 4K 재생용 하드웨어 가속 옵션 활성화\n- 파일 열기, 드래그 앤 드롭, 재생/일시정지, 탐색, 볼륨, 전체화면 지원\n- 키보드 단축키: Space, 방향키, F, Esc\n- 설치 없이 실행 가능한 x64 포터블 ZIP 배포",
+        "en": "## Initial public release\n\n- VLC-engine video playback\n- Hardware acceleration option enabled for 4K playback\n- Open file, drag and drop, play/pause, seek, volume, and fullscreen controls\n- Keyboard shortcuts: Space, arrow keys, F, Esc\n- x64 portable ZIP release with no installation required"
+      },
+      "assets": [
+        {
+          "type": "portable",
+          "filename": "HyoPlayer_1.0.0_x64_portable.zip",
+          "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.0.0_x64_portable.zip",
+          "size": 46113778,
+          "sha256": "25e9e263274aa68ea1669ef866262561e2ccc0424b7e2d6c8a65d3dffdf19ca6",
+          "downloadCount": 0,
+          "arch": "x64"
+        }
+      ]
+    }
+  ]
+}

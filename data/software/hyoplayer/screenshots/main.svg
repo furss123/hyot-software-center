@@ -1,0 +1,23 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1440" height="900" fill="#101010"/>
+  <rect x="70" y="70" width="1300" height="760" rx="18" fill="#07090C" stroke="#26323B"/>
+  <rect x="70" y="662" width="1300" height="168" rx="0" fill="#000" opacity=".78"/>
+  <text x="720" y="390" text-anchor="middle" fill="#8A949C" font-family="Segoe UI, Arial, sans-serif" font-size="30">Drop a video file here or click to open</text>
+  <rect x="116" y="700" width="1208" height="6" rx="3" fill="#26323B"/>
+  <rect x="116" y="700" width="520" height="6" rx="3" fill="#48E8FF"/>
+  <circle cx="636" cy="703" r="13" fill="#F6FAFF" stroke="#48E8FF" stroke-width="5"/>
+  <g font-family="Segoe MDL2 Assets, Segoe UI Symbol" font-size="24" fill="#F6FAFF">
+    <rect x="116" y="740" width="44" height="36" rx="8" fill="#1A2229" stroke="#32404A"/>
+    <text x="138" y="766" text-anchor="middle">&#xE8E5;</text>
+    <rect x="174" y="740" width="44" height="36" rx="8" fill="#1A2229" stroke="#48E8FF"/>
+    <text x="196" y="766" text-anchor="middle">&#xE768;</text>
+    <text x="1176" y="766">&#xE767;</text>
+    <rect x="1280" y="740" width="44" height="36" rx="8" fill="#1A2229" stroke="#32404A"/>
+    <text x="1302" y="766" text-anchor="middle">&#xE740;</text>
+  </g>
+  <text x="244" y="764" fill="#F6FAFF" font-family="Segoe UI, Arial, sans-serif" font-size="20">00:12:44 / 01:48:05</text>
+  <rect x="1208" y="755" width="88" height="5" rx="2.5" fill="#2E3A43"/>
+  <rect x="1208" y="755" width="64" height="5" rx="2.5" fill="#97FF5F"/>
+  <path d="M672 323L672 577L878 450L672 323Z" fill="#F6FAFF"/>
+  <circle cx="720" cy="450" r="184" stroke="#48E8FF" stroke-width="10" opacity=".85"/>
+</svg>
