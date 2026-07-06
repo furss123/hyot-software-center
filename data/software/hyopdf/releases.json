@@ -1,10 +1,63 @@
 {
   "slug": "hyopdf",
   "latest": {
-    "stable": "1.0.4",
+    "stable": "1.1.0",
     "beta": "1.0.0-beta.1"
   },
   "releases": [
+    {
+      "version": "1.1.0",
+      "channel": "stable",
+      "releaseDate": "2026-07-06",
+      "githubTag": "v1.1.0",
+      "assets": [
+        {
+          "arch": "x64",
+          "downloadCount": 0,
+          "filename": "HyoPDF-1.1.0-x64.exe",
+          "sha256": "48762358d66608b0b7dce5be908d2b90950ae7f60aa376356d532b3f330d3bf8",
+          "size": 126889831,
+          "type": "portable",
+          "url": "https://github.com/furss123/HyoPDF/releases/download/v1.1.0/HyoPDF-1.1.0-x64.exe"
+        },
+        {
+          "arch": "x64",
+          "downloadCount": 0,
+          "filename": "HyoPDF-1.1.0-x64.msi",
+          "sha256": "f9313277ed916235c2a6491bd748210363ff7d27c007adc716cd09fca14df109",
+          "size": 119181312,
+          "type": "installer",
+          "url": "https://github.com/furss123/HyoPDF/releases/download/v1.1.0/HyoPDF-1.1.0-x64.msi"
+        },
+        {
+          "arch": "x64",
+          "downloadCount": 0,
+          "filename": "HyoPDF-1.1.0-Setup.exe",
+          "sha256": "db18e8de5a9aba98a27cc6f999d5e78ee398d56349a513e226bbcb082cf68612",
+          "size": 132221477,
+          "type": "installer",
+          "url": "https://github.com/furss123/HyoPDF/releases/download/v1.1.0/HyoPDF-1.1.0-Setup.exe"
+        },
+        {
+          "arch": "arm64",
+          "downloadCount": 0,
+          "filename": "HyoPDF-1.1.0-arm64.exe",
+          "sha256": "7175986ff73526bc95c4e6f9fa606a3b6267e2b62505f31841266cf1701dda80",
+          "size": 120774487,
+          "type": "portable",
+          "url": "https://github.com/furss123/HyoPDF/releases/download/v1.1.0/HyoPDF-1.1.0-arm64.exe"
+        },
+        {
+          "arch": "arm64",
+          "downloadCount": 0,
+          "filename": "HyoPDF-1.1.0-arm64.msi",
+          "sha256": "76553a597686296d28227b90228c093ca9e1de7cef865aa98e9ac8481ef080be",
+          "size": 112508928,
+          "type": "installer",
+          "url": "https://github.com/furss123/HyoPDF/releases/download/v1.1.0/HyoPDF-1.1.0-arm64.msi"
+        }
+      ]
+    },
     {
       "version": "1.0.4",
       "channel": "stable",
