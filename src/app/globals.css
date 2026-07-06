@@ -235,36 +235,6 @@ select option {
 .animate-delay-300 {
   animation-delay: 300ms;
 }
-.animate-delay-400 {
-  animation-delay: 400ms;
-}
-
-.logo-hero {
-  height: clamp(80px, 11vw, 136px);
-  width: auto;
-  filter: drop-shadow(0 10px 28px rgba(74, 159, 224, 0.22))
-    drop-shadow(0 3px 10px rgba(139, 79, 204, 0.16));
-  animation: logoFloat 6s var(--ease-fluent) infinite;
-}
-@media (max-width: 767px) {
-  .logo-hero {
-    height: clamp(56px, 20vw, 88px);
-  }
-}
-@keyframes logoFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .logo-hero {
-    animation: none;
-  }
-}
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
