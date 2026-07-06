@@ -105,7 +105,9 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
   setRequestLocale(locale)
   const l = locale as Locale
   const t = await getTranslations('home')
-  const featured = getAllSoftware()
+  const featured = getAllSoftware().sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+  )
   const latestReleases = getAllLatestReleases().slice(0, 6)
 
   const viewAllLinkClass = cn(
