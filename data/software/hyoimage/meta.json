@@ -1,5 +1,5 @@
 {
-  "slug": "hyot-image-tools",
+  "slug": "hyoimage",
   "status": "active",
   "category": "utility",
   "platforms": [
@@ -18,9 +18,9 @@
     "korean"
   ],
   "featured": true,
-  "githubRepo": "furss123/hyot-image-tools",
-  "icon": "/data/software/hyot-image-tools/icon.webp",
-  "banner": "/data/software/hyot-image-tools/banner.webp",
+  "githubRepo": "furss123/hyoimage",
+  "icon": "/data/software/hyoimage/icon.webp",
+  "banner": "/data/software/hyoimage/banner.webp",
   "screenshots": [
     {
       "file": "screenshots/main.png",
@@ -48,7 +48,7 @@
     "disk": "약 150 MB (설치 후)"
   },
   "links": {
-    "github": "https://github.com/furss123/hyot-image-tools"
+    "github": "https://github.com/furss123/hyoimage"
   },
   "createdAt": "2026-06-28",
   "updatedAt": "2026-07-06"
