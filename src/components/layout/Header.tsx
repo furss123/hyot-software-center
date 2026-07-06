@@ -64,7 +64,10 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
           aria-hidden="true"
         />
 
-        <nav className="hidden md:flex items-center gap-2 flex-1" aria-label="Main">
+        <nav
+          className="hidden md:flex items-center gap-1 lg:gap-2 flex-1 min-w-0"
+          aria-label="Main"
+        >
           {config.nav?.map((item) => {
             const href = item.external ? item.href : `/${locale}${item.href}`
             const isActive =
@@ -77,13 +80,13 @@ export function Header({ config, locale }: HeaderProps): React.JSX.Element {
                 target={item.external ? '_blank' : undefined}
                 rel={item.external ? 'noopener noreferrer' : undefined}
                 className={cn(
-                  'relative px-6 py-3 text-lg font-medium rounded-md flex items-center',
+                  'relative shrink-0 whitespace-nowrap px-3 lg:px-6 py-3 text-base lg:text-lg font-medium rounded-md flex items-center',
                   'transition-all duration-[var(--duration-fast)] ease-[var(--ease-fluent)]',
                   'focus-visible:outline-2 focus-visible:outline-[var(--hyot-blue)]',
                   isActive
                     ? cn(
                         'text-[var(--hyot-blue)]',
-                        'after:absolute after:bottom-0 after:left-6 after:right-6',
+                        'after:absolute after:bottom-0 after:left-3 after:right-3 lg:after:left-6 lg:after:right-6',
                         'after:h-0.5 after:bg-[var(--hyot-blue)] after:rounded-[1px]',
                       )
                     : 'text-text-secondary hover:text-text-primary hover:bg-fill-subtle',

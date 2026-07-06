@@ -31,8 +31,8 @@
     "en": "HyoClean"
   },
   "description": {
-    "ko": "HyoClean은 Windows 10/11용 시스템 정리·최적화 앱입니다. 딥 스캔, 스마트 정리, 실시간 메모리 정리, 시작프로그램 최적화, 프라이버시 정리, 복원 리포트를 한 번에 제공합니다. 정리 결과는 백업 기반으로 복원할 수 있어 안전하게 유지 관리를 진행할 수 있습니다.",
-    "en": "HyoClean is a Windows 10/11 system cleanup and optimization app. It provides deep scan, smart cleanup, real-time memory cleanup, startup optimization, privacy cleanup, and restore-ready reports in one place. Cleanup actions are backup-based so you can recover safely when needed."
+    "ko": "**클릭 한 번으로, 더 가벼운 Windows.**\n\nHyoClean은 Windows 10/11을 위한 시스템 정리·최적화 앱입니다. 딥 스캔부터 실시간 메모리 정리까지, 관리에 필요한 도구를 한곳에 모았습니다.\n\n### 이런 점이 좋아요\n\n- **딥 스캔** — 불필요한 파일과 정리 대상을 꼼꼼히 찾아냄\n- **스마트 정리** — 안전한 기준으로 자동 분류된 항목만 정리\n- **실시간 메모리 정리** — 필요한 순간 즉시 메모리 확보\n- **시작프로그램 최적화** — 부팅 속도를 늦추는 항목 관리\n- **프라이버시 정리** — 흔적을 남기지 않는 정리\n- **복원 리포트** — 정리 결과는 백업 기반이라 언제든 되돌릴 수 있음\n\n안전하게 유지 관리를 진행할 수 있도록 설계했습니다.\n\n제작: HyoT · © 2026",
+    "en": "**One click to a lighter Windows.**\n\nHyoClean is a system cleanup and optimization app for Windows 10/11, bringing deep scan, smart cleanup, and real-time memory cleanup together in one place.\n\n### Why you'll like it\n\n- **Deep scan** — thoroughly finds files and clutter worth cleaning\n- **Smart cleanup** — only touches items that are safe by default\n- **Real-time memory cleanup** — frees up memory the moment you need it\n- **Startup optimization** — manage the items slowing down your boot\n- **Privacy cleanup** — clears traces without digging through settings\n- **Restore-ready reports** — every cleanup is backup-based, so you can roll back anytime\n\nBuilt so you can keep your PC tidy without worrying about safety.\n\nAuthor: HyoT · © 2026"
   },
   "shortDescription": {
     "ko": "실시간 메모리 정리와 딥 스캔을 제공하는 Windows 최적화 도구",

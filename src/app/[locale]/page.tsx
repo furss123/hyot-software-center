@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { getFeaturedSoftware } from '@/lib/content/software'
+import { getAllSoftware } from '@/lib/content/software'
 import { getAllLatestReleases } from '@/lib/content/releases'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
@@ -105,7 +105,7 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
   setRequestLocale(locale)
   const l = locale as Locale
   const t = await getTranslations('home')
-  const featured = getFeaturedSoftware()
+  const featured = getAllSoftware()
   const latestReleases = getAllLatestReleases().slice(0, 6)
 
   const viewAllLinkClass = cn(
