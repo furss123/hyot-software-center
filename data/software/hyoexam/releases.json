@@ -1,10 +1,31 @@
 {
   "slug": "hyoexam",
   "latest": {
-    "stable": "1.0.9",
+    "stable": "1.0.10",
     "beta": null
   },
   "releases": [
+    {
+      "version": "1.0.10",
+      "channel": "stable",
+      "releaseDate": "2026-07-07",
+      "githubTag": "v1.0.10",
+      "notes": {
+        "ko": "## v1.0.10\n\n- ?? ?? ??? ???? ????? ????? Winsock ??? ??? ??\n- ?? ??? ?? `data` ??? ?? ????? ?? ??? ??\n- ??? ?? ?? ???? ?? activeId? ?? ?? ?? ??\n\n?? ??: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`, `data/banner.webp`",
+        "en": "## v1.0.10\n\n- Fixed Winsock initialization so standard-time sync works reliably immediately on startup\n- Hardened packaging so the `data` folder is included beside the built executable\n- Added guards for invalid schedule time strings and missing activeId values\n\nIncludes: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`, `data/banner.webp`"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.10-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.10/HyoExam-1.0.10-win-x64.zip",
+          "size": 269805,
+          "sha256": "cf47ccade73aa1145a186fa5215a64dfb581dcd2894ba04ec77766a0dcaae2c1",
+          "downloadCount": 0,
+          "arch": "x64"
+        }
+      ]
+    },
     {
       "version": "1.0.9",
       "channel": "stable",
