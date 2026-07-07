@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "slug": "hyoexam",
+  "name": {
+    "ko": "HyoExam",
+    "en": "HyoExam"
+  },
+  "platforms": [
+    "windows"
+  ],
+  "homepageUrl": "https://hyot.dev/ko/software/hyoexam/",
+  "updatePolicy": {
+    "style": "background-ready-to-restart",
+    "checkOnStartup": true,
+    "checkIntervalHours": 12,
+    "downloadAutomatically": true,
+    "notifyWhenReady": true,
+    "installOnQuit": true,
+    "requireUserApprovalBeforeDownload": false
+  },
+  "latest": {
+    "stable": "1.0.10",
+    "beta": null
+  },
+  "releases": [
+    {
+      "version": "1.0.10",
+      "channel": "stable",
+      "releaseDate": "2026-07-07",
+      "githubTag": "v1.0.10",
+      "notes": {
+        "ko": "## v1.0.10\n\n- ?? ?? ??? ???? ????? ????? Winsock ??? ??? ??\n- ?? ??? ?? `data` ??? ?? ????? ?? ??? ??\n- ??? ?? ?? ???? ?? activeId? ?? ?? ?? ??\n\n?? ??: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`, `data/banner.webp`",
+        "en": "## v1.0.10\n\n- Fixed Winsock initialization so standard-time sync works reliably immediately on startup\n- Hardened packaging so the `data` folder is included beside the built executable\n- Added guards for invalid schedule time strings and missing activeId values\n\nIncludes: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`, `data/banner.webp`"
+      },
+      "primaryAsset": {
+        "type": "installer",
+        "filename": "HyoExam-1.0.10-win-x64.zip",
+        "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.10/HyoExam-1.0.10-win-x64.zip",
+        "size": 269805,
+        "sha256": "cf47ccade73aa1145a186fa5215a64dfb581dcd2894ba04ec77766a0dcaae2c1",
+        "arch": "x64"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.10-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.10/HyoExam-1.0.10-win-x64.zip",
+          "size": 269805,
+          "sha256": "cf47ccade73aa1145a186fa5215a64dfb581dcd2894ba04ec77766a0dcaae2c1",
+          "arch": "x64"
+        }
+      ]
+    },
+    {
+      "version": "1.0.9",
+      "channel": "stable",
+      "releaseDate": "2026-07-06",
+      "githubTag": "v1.0.9",
+      "notes": {
+        "ko": "## v1.0.9\n\n- 교실 뒷자리 가독성 개선: 월일/요일 글자 확대, 교시+시간 헤더를 과목명보다 크게 표시\n\n포함 파일: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`",
+        "en": "## v1.0.9\n\n- Better legibility from the back of a classroom: larger date text, and the period+time header is now bigger than the subject name\n\nIncludes: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`"
+      },
+      "primaryAsset": {
+        "type": "installer",
+        "filename": "HyoExam-1.0.9-win-x64.zip",
+        "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.9/HyoExam-1.0.9-win-x64.zip",
+        "size": 245382,
+        "sha256": "d35fe9cb29f46c48fb1c6819d35ddba818f52a25e58c79e001739b1a965c5750",
+        "arch": "x64"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.9-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.9/HyoExam-1.0.9-win-x64.zip",
+          "size": 245382,
+          "sha256": "d35fe9cb29f46c48fb1c6819d35ddba818f52a25e58c79e001739b1a965c5750",
+          "arch": "x64"
+        }
+      ]
+    },
+    {
+      "version": "1.0.8",
+      "channel": "stable",
+      "releaseDate": "2026-07-05",
+      "githubTag": "v1.0.8",
+      "notes": {
+        "ko": "## v1.0.8\n\n- 교시 카드 색상을 단일 브랜드 색으로 통일 (다색 순환이 오히려 혼란스럽다는 피드백 반영)\n- 헤더(교시+시간)와 콘텐츠(과목+분)를 이음새 없이 하나의 카드로 붙여서 표시, 교시 간 구분은 카드 사이 간격으로 명확히 함\n\n포함 파일: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`",
+        "en": "## v1.0.8\n\n- Unified period cards back to a single brand color (the per-period rainbow read as visual noise)\n- Header and content are now fused into one seamless card; separation between periods comes from spacing, not color\n\nIncludes: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`"
+      },
+      "primaryAsset": {
+        "type": "installer",
+        "filename": "HyoExam-1.0.8-win-x64.zip",
+        "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.8/HyoExam-1.0.8-win-x64.zip",
+        "size": 245475,
+        "sha256": "d91b281a35b34e83b7a5776ccab6f1a5fa3c72aa6b30b240309aceecea8d249f",
+        "arch": "x64"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.8-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.8/HyoExam-1.0.8-win-x64.zip",
+          "size": 245475,
+          "sha256": "d91b281a35b34e83b7a5776ccab6f1a5fa3c72aa6b30b240309aceecea8d249f",
+          "arch": "x64"
+        }
+      ]
+    },
+    {
+      "version": "1.0.7",
+      "channel": "stable",
+      "releaseDate": "2026-07-04",
+      "githubTag": "v1.0.7",
+      "notes": {
+        "ko": "## v1.0.7\n\n- 우측 시간표 교시 카드 개편: 헤더:콘텐츠 5:5 비율·동일 폰트 크기, 3mm 간격, 폰트 13pt 확대\n- 교시별로 다른 브랜드 색상(파랑/보라/주황/청록)을 순환 적용해 구분이 한눈에 되도록 개선, 진행 중인 교시는 흰색 테두리로 표시\n- 시작 시 KRISS(한국표준과학연구원) 시간으로 자동 동기화\n- 월일/요일과 시계 사이 간격 축소\n\n포함 파일: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`",
+        "en": "## v1.0.7\n\n- Redesigned period cards: header:content 5:5 height ratio with matching font size, 3mm gap, +13pt font\n- Each period now cycles through a distinct accent color (blue/purple/orange/teal) for clearer at-a-glance distinction; the current period gets a white outline\n- Startup now always syncs against KRISS\n- Tightened the gap between the date and the clock\n\nIncludes: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`"
+      },
+      "primaryAsset": {
+        "type": "installer",
+        "filename": "HyoExam-1.0.7-win-x64.zip",
+        "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.7/HyoExam-1.0.7-win-x64.zip",
+        "size": 246015,
+        "sha256": "4c086162471cfd7bbdb8c885ae23935bf5dce67c0df22c47623bcbb4079a4f7f",
+        "arch": "x64"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.7-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.7/HyoExam-1.0.7-win-x64.zip",
+          "size": 246015,
+          "sha256": "4c086162471cfd7bbdb8c885ae23935bf5dce67c0df22c47623bcbb4079a4f7f",
+          "arch": "x64"
+        }
+      ]
+    },
+    {
+      "version": "1.0.6",
+      "channel": "stable",
+      "releaseDate": "2026-07-03",
+      "githubTag": "v1.0.6",
+      "notes": {
+        "ko": "## v1.0.6\n\n- 우측 시간표 디자인 개편: 교시 카드를 헤더(교시+시간)와 콘텐츠(과목+소요시간) 2단 박스로 재구성\n- 시계 카드의 날짜를 상단 겹침 배지 형태로 변경\n\n포함 파일: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`",
+        "en": "## v1.0.6\n\n- Redesigned the right timetable: each period is now a two-tier card (header: period+time, content: subject+duration)\n- The clock card's date is now a small badge overlapping the top border\n\nIncludes: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`"
+      },
+      "primaryAsset": {
+        "type": "installer",
+        "filename": "HyoExam-1.0.6-win-x64.zip",
+        "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.6/HyoExam-1.0.6-win-x64.zip",
+        "size": 245780,
+        "sha256": "5cb1ff3993cb99f2421a235ad0903736574464ad4a3885f1e04a72be841e29a2",
+        "arch": "x64"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.6-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.6/HyoExam-1.0.6-win-x64.zip",
+          "size": 245780,
+          "sha256": "5cb1ff3993cb99f2421a235ad0903736574464ad4a3885f1e04a72be841e29a2",
+          "arch": "x64"
+        }
+      ]
+    },
+    {
+      "version": "1.0.5",
+      "channel": "stable",
+      "releaseDate": "2026-07-03",
+      "githubTag": "v1.0.5",
+      "notes": {
+        "ko": "## v1.0.5\n\n- 우측 시간표: 과목/교시 글자 크기 추가로 축소 (가독성 위해 최소 10pt 보장)\n- 교시-시간 두 줄 간격을 1mm → 6mm로 확대\n\n포함 파일: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`",
+        "en": "## v1.0.5\n\n- Right timetable: subject/period title text shrunk further (floored at 10pt for legibility)\n- Increased the title↔time gap from 1mm to 6mm\n\nIncludes: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`"
+      },
+      "primaryAsset": {
+        "type": "installer",
+        "filename": "HyoExam-1.0.5-win-x64.zip",
+        "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.5/HyoExam-1.0.5-win-x64.zip",
+        "size": 245853,
+        "sha256": "0edfe27301fbbc5f7969b95706ac75e0d141539d5282a3857b632a86ccfc8a2d",
+        "arch": "x64"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.5-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.5/HyoExam-1.0.5-win-x64.zip",
+          "size": 245853,
+          "sha256": "0edfe27301fbbc5f7969b95706ac75e0d141539d5282a3857b632a86ccfc8a2d",
+          "arch": "x64"
+        }
+      ]
+    },
+    {
+      "version": "1.0.4",
+      "channel": "stable",
+      "releaseDate": "2026-07-03",
+      "githubTag": "v1.0.4",
+      "notes": {
+        "ko": "## v1.0.4\n\n- 우측 시간표: 교시명과 시간 두 줄 사이 간격을 실제 1mm로 정밀 조정 (글꼴 여백 때문에 실제로는 더 벌어져 있던 문제 수정)\n\n포함 파일: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`",
+        "en": "## v1.0.4\n\n- Right timetable: the gap between the period title and time line is now a true 1mm (fixes the font-whitespace making it wider than intended)\n\nIncludes: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`"
+      },
+      "primaryAsset": {
+        "type": "installer",
+        "filename": "HyoExam-1.0.4-win-x64.zip",
+        "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.4/HyoExam-1.0.4-win-x64.zip",
+        "size": 245790,
+        "sha256": "479d6a18ed8aa30e3f6f0a07ce21d4199fa95f698bf5f831399c2172eb49dc55",
+        "arch": "x64"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.4-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.4/HyoExam-1.0.4-win-x64.zip",
+          "size": 245790,
+          "sha256": "479d6a18ed8aa30e3f6f0a07ce21d4199fa95f698bf5f831399c2172eb49dc55",
+          "arch": "x64"
+        }
+      ]
+    },
+    {
+      "version": "1.0.3",
+      "channel": "stable",
+      "releaseDate": "2026-07-03",
+      "githubTag": "v1.0.3",
+      "notes": {
+        "ko": "## v1.0.3\n\n- 우측 시간표: 교시명과 시간 두 줄 간격을 1mm로 축소\n- 시간 표기에서 `~` 양옆 공백 제거 (`09:00~09:50`)\n- 시간 글자를 1.3배 키우고 굵게 처리\n- 과목/시간이 길어져도 줄바꿈 없이 폰트가 자동으로 맞춰지도록 적응형 처리\n\n포함 파일: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`",
+        "en": "## v1.0.3\n\n- Right timetable: 1mm gap between the period title and time line\n- Removed the spaces around \"~\" in the time (`09:00~09:50`)\n- Time text is 1.3x larger and bold\n- Adaptive font sizing so long subject/time text never wraps\n\nIncludes: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`"
+      },
+      "primaryAsset": {
+        "type": "installer",
+        "filename": "HyoExam-1.0.3-win-x64.zip",
+        "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.3/HyoExam-1.0.3-win-x64.zip",
+        "size": 245130,
+        "sha256": "efff21ea793fa580f387f03e15218ad972117196151b3d8b07c8849bc9f1f76c",
+        "arch": "x64"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.3-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.3/HyoExam-1.0.3-win-x64.zip",
+          "size": 245130,
+          "sha256": "efff21ea793fa580f387f03e15218ad972117196151b3d8b07c8849bc9f1f76c",
+          "arch": "x64"
+        }
+      ]
+    },
+    {
+      "version": "1.0.2",
+      "channel": "stable",
+      "releaseDate": "2026-07-03",
+      "githubTag": "v1.0.2",
+      "notes": {
+        "ko": "## v1.0.2\n\n- 툴바 재구성: 왼쪽 박스 순서·너비·간격 통일, \"표시\"→\"화면구성\" 명칭 변경\n- 다크 모드: 교시 편집·저장 팝업의 입력창/콤보박스 다크 테마 적용\n- 교시 편집 중 시간 콤보 드롭다운이 즉시 닫히던 문제 수정\n- 메모: 테마 전환 시 글자색 문제·팝업 겹침·전체화면 커서 깜빡임 수정\n- 우측 시간표: 교시명/시간 두 줄 간격 3pt로 정리, 창 모드 시간 글자 크기 상향\n- 새 브랜드 아이콘, 시작 안정성·렌더링 성능 개선\n\n포함 파일: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`",
+        "en": "## v1.0.2\n\n- Toolbar restructure: uniform left-box order/width/spacing, renamed \"Display\"→\"Screen layout\"\n- Dark mode for the period-editor / save-profile input and combo boxes\n- Fixed the time combo drop-down closing instantly during period editing\n- Memo: fixed text color on theme switch, popup overlap, and fullscreen caret blink\n- Right timetable: 3pt gap between period title and time line, larger windowed time text\n- New brand icon, startup robustness and rendering perf improvements\n\nIncludes: `HyoExam.exe`, `data/schedules.json`, `data/icon.webp`"
+      },
+      "primaryAsset": {
+        "type": "installer",
+        "filename": "HyoExam-1.0.2-win-x64.zip",
+        "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.2/HyoExam-1.0.2-win-x64.zip",
+        "size": 242505,
+        "sha256": "5af1b225df65a3a9c31fbf8351cca9ad69e92e25929dba0cec745b353d6a1002",
+        "arch": "x64"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.2-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.2/HyoExam-1.0.2-win-x64.zip",
+          "size": 242505,
+          "sha256": "5af1b225df65a3a9c31fbf8351cca9ad69e92e25929dba0cec745b353d6a1002",
+          "arch": "x64"
+        }
+      ]
+    },
+    {
+      "version": "1.0.1",
+      "channel": "stable",
+      "releaseDate": "2026-07-02",
+      "githubTag": "v1.0.1",
+      "notes": {
+        "ko": "## v1.0.1\n\n- 전체화면 우측 패널의 교시/시간 간격 조정\n- 한글이 물음표로 깨지는 표시 문제 수정\n\n포함 파일: `HyoExam.exe`, `data/schedules.json`",
+        "en": "## v1.0.1\n\n- Adjusted period/time spacing in the fullscreen right panel\n- Fixed Korean text rendering as question marks\n\nIncludes: `HyoExam.exe`, `data/schedules.json`"
+      },
+      "primaryAsset": {
+        "type": "installer",
+        "filename": "HyoExam-1.0.1-win-x64.zip",
+        "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.1/HyoExam-1.0.1-win-x64.zip",
+        "size": 236635,
+        "sha256": "cad9f780ff80ae6ca264ebaeac5b77ed23a993b1ea791244a318c270aadb3bad",
+        "arch": "x64"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoExam-1.0.1-win-x64.zip",
+          "url": "https://github.com/furss123/hyoexam/releases/download/v1.0.1/HyoExam-1.0.1-win-x64.zip",
+          "size": 236635,
+          "sha256": "cad9f780ff80ae6ca264ebaeac5b77ed23a993b1ea791244a318c270aadb3bad",
+          "arch": "x64"
+        }
+      ]
+    }
+  ]
+}
