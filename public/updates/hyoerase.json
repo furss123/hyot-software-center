@@ -1,5 +1,23 @@
 {
+  "schemaVersion": 1,
   "slug": "hyoerase",
+  "name": {
+    "ko": "지우개",
+    "en": "HyoErase"
+  },
+  "platforms": [
+    "windows"
+  ],
+  "homepageUrl": "https://hyot.dev/ko/software/hyoerase/",
+  "updatePolicy": {
+    "style": "background-ready-to-restart",
+    "checkOnStartup": true,
+    "checkIntervalHours": 12,
+    "downloadAutomatically": true,
+    "notifyWhenReady": true,
+    "installOnQuit": true,
+    "requireUserApprovalBeforeDownload": false
+  },
   "latest": {
     "stable": "1.6.2",
     "beta": null
@@ -14,22 +32,27 @@
         "ko": "- Align HyoErase footer branding with HyoExam.\n- Add startup update manifest check.\n\nSHA256\n- HyoErase.exe: F36832027B8E6BAB53BF3A71031E2B3DA8AFEB8A4A2C30EA5FF21E9B12D9ED24\n- HyoErase-v1.6.2.zip: 370286CF3E5650AA6FAC1846833263B78057754DA7B71FAE2F328EFC02193749",
         "en": "- Align HyoErase footer branding with HyoExam.\n- Add startup update manifest check.\n\nSHA256\n- HyoErase.exe: F36832027B8E6BAB53BF3A71031E2B3DA8AFEB8A4A2C30EA5FF21E9B12D9ED24\n- HyoErase-v1.6.2.zip: 370286CF3E5650AA6FAC1846833263B78057754DA7B71FAE2F328EFC02193749"
       },
+      "primaryAsset": {
+        "type": "installer",
+        "filename": "HyoErase.exe",
+        "url": "https://github.com/furss123/hyoerase/releases/download/v1.6.2/HyoErase.exe",
+        "size": 185344,
+        "sha256": "f36832027b8e6bab53bf3a71031e2b3da8afeb8a4a2c30ea5ff21e9b12d9ed24"
+      },
       "assets": [
         {
           "type": "portable",
           "filename": "HyoErase-v1.6.2.zip",
           "url": "https://github.com/furss123/hyoerase/releases/download/v1.6.2/HyoErase-v1.6.2.zip",
           "size": 100386,
-          "sha256": "370286cf3e5650aa6fac1846833263b78057754da7b71fae2f328efc02193749",
-          "downloadCount": 0
+          "sha256": "370286cf3e5650aa6fac1846833263b78057754da7b71fae2f328efc02193749"
         },
         {
           "type": "installer",
           "filename": "HyoErase.exe",
           "url": "https://github.com/furss123/hyoerase/releases/download/v1.6.2/HyoErase.exe",
           "size": 185344,
-          "sha256": "f36832027b8e6bab53bf3a71031e2b3da8afeb8a4a2c30ea5ff21e9b12d9ed24",
-          "downloadCount": 0
+          "sha256": "f36832027b8e6bab53bf3a71031e2b3da8afeb8a4a2c30ea5ff21e9b12d9ed24"
         }
       ]
     },
@@ -38,6 +61,12 @@
       "channel": "stable",
       "releaseDate": "2026-07-06",
       "githubTag": "v1.6.1",
+      "primaryAsset": {
+        "type": "portable",
+        "filename": "HyoErase.exe",
+        "url": "https://github.com/furss123/hyoerase/releases/download/v1.6.1/HyoErase.exe",
+        "sha256": "f048d2d07fbc0b7e224654dcf01dd2b41a77704886d813b01e94f929dd646e13"
+      },
       "assets": [
         {
           "type": "portable",
@@ -52,6 +81,12 @@
       "channel": "legacy",
       "releaseDate": "2026-07-05",
       "githubTag": "v1.6.0",
+      "primaryAsset": {
+        "type": "portable",
+        "filename": "HyoErase.exe",
+        "url": "https://github.com/furss123/hyoerase/releases/download/v1.6.0/HyoErase.exe",
+        "sha256": "3edd4b13f297d40cac2023f905e2f8758c5e121f8fb16282456a09409a787f3f"
+      },
       "assets": [
         {
           "type": "portable",
@@ -66,6 +101,12 @@
       "channel": "legacy",
       "releaseDate": "2026-07-05",
       "githubTag": "v1.5.0",
+      "primaryAsset": {
+        "type": "portable",
+        "filename": "HyoErase.exe",
+        "url": "https://github.com/furss123/hyoerase/releases/download/v1.5.0/HyoErase.exe",
+        "sha256": "597f71243e82bd64f4d4db43a4fd3a769b45ace26ece097148fdb341add65c31"
+      },
       "assets": [
         {
           "type": "portable",
@@ -80,6 +121,12 @@
       "channel": "legacy",
       "releaseDate": "2026-07-04",
       "githubTag": "v1.4.1",
+      "primaryAsset": {
+        "type": "portable",
+        "filename": "HyoErase-v1.4.1.zip",
+        "url": "https://github.com/furss123/hyoerase/releases/download/v1.4.1/HyoErase-v1.4.1.zip",
+        "sha256": "f570ca4764298759352facae3afcb0f091f3a51b599ab7087b3215dc84cc0b9d"
+      },
       "assets": [
         {
           "type": "portable",
@@ -94,6 +141,12 @@
       "channel": "legacy",
       "releaseDate": "2026-07-04",
       "githubTag": "v1.4.0",
+      "primaryAsset": {
+        "type": "portable",
+        "filename": "HyoErase-v1.4.0.zip",
+        "url": "https://github.com/furss123/hyoerase/releases/download/v1.4.0/HyoErase-v1.4.0.zip",
+        "sha256": "d173eb0bfc290972705647401ef2d758abd73221ba5e4134c2e852008c93afd7"
+      },
       "assets": [
         {
           "type": "portable",
@@ -108,6 +161,12 @@
       "channel": "legacy",
       "releaseDate": "2026-07-04",
       "githubTag": "v1.3.0",
+      "primaryAsset": {
+        "type": "portable",
+        "filename": "HyoErase-v1.3.0.zip",
+        "url": "https://github.com/furss123/hyoerase/releases/download/v1.3.0/HyoErase-v1.3.0.zip",
+        "sha256": "525bb5befd594ede555d82dd7b3b5b33bacc4b385391b9e9f5b16e54c98a71e5"
+      },
       "assets": [
         {
           "type": "portable",
