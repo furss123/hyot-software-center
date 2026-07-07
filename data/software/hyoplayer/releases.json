@@ -1,10 +1,40 @@
 {
   "slug": "hyoplayer",
   "latest": {
-    "stable": "1.1.0",
+    "stable": "1.2.0",
     "beta": null
   },
   "releases": [
+    {
+      "version": "1.2.0",
+      "channel": "stable",
+      "releaseDate": "2026-07-07",
+      "githubTag": "v1.2.0",
+      "notes": {
+        "ko": "## 우클릭 메뉴와 설정 페이지 추가\n\n- 동영상 화면 우클릭 메뉴 추가\n- 동영상 열기, 자막 열기, 재생/일시정지, 전체화면, 설정, 홈페이지 메뉴 추가\n- 간단한 설정 페이지 추가\n- 프로그램 이름, 버전, 저작권, 홈페이지 정보를 설정 페이지에 표시\n- 기본 볼륨, 마지막 볼륨 기억, 탐색 간격, 자막 자동 로드, 하드웨어 가속 설정 추가\n- 깨진 UI 문구와 아이콘 표시 문제 정리\n- 설정 저장과 볼륨 초기화 동작 안정화",
+        "en": "## Right-click menu and settings page\n\n- Added a right-click menu on the video surface\n- Added open video, open subtitle, play/pause, fullscreen, settings, and homepage actions\n- Added a compact settings page\n- Shows program name, version, copyright, and homepage in settings\n- Added default volume, remember volume, seek step, subtitle auto-load, and hardware acceleration settings\n- Cleaned up broken UI labels and icon text\n- Stabilized settings persistence and initial volume handling"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoPlayer_1.2.0_x64_Setup.exe",
+          "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.2.0_x64_Setup.exe",
+          "size": 24768885,
+          "sha256": "6217a7d23c06c87bc89176aad56e98947d05412d986e68894e7f28fd0dc52208",
+          "downloadCount": 0,
+          "arch": "x64"
+        },
+        {
+          "type": "portable",
+          "filename": "HyoPlayer_1.2.0_x64_portable.zip",
+          "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.2.0_x64_portable.zip",
+          "size": 46126646,
+          "sha256": "9c30c04ac6a8605c067ca53344bbc69bd707fa7738549ec427b8ec8a83c3cf4a",
+          "downloadCount": 0,
+          "arch": "x64"
+        }
+      ]
+    },
     {
       "version": "1.1.0",
       "channel": "stable",
