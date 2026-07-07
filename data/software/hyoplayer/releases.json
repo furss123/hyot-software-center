@@ -1,10 +1,40 @@
 {
   "slug": "hyoplayer",
   "latest": {
-    "stable": "1.2.0",
+    "stable": "1.2.1",
     "beta": null
   },
   "releases": [
+    {
+      "version": "1.2.1",
+      "channel": "stable",
+      "releaseDate": "2026-07-07",
+      "githubTag": "v1.2.1",
+      "notes": {
+        "ko": "## 실제 재생 점검 및 우클릭 메뉴 수정\n\n- 실제 MP4 파일 재생 테스트 완료\n- 같은 이름의 SRT 자막 자동 로드 테스트 완료\n- LibVLC 네이티브 영상 영역에서 우클릭 메뉴가 열리지 않던 문제 수정\n- 우클릭 메뉴에서 설정 페이지 진입 확인\n- 설정 페이지의 프로그램 이름, 버전, 저작권, 홈페이지 표시 확인\n- 설치 파일 설치/제거 검증 완료",
+        "en": "## Playback verification and right-click menu fix\n\n- Verified real MP4 playback\n- Verified same-name SRT subtitle auto-load\n- Fixed the right-click menu not opening over the native LibVLC video surface\n- Verified settings page access from the right-click menu\n- Verified program name, version, copyright, and homepage display in settings\n- Verified installer install/uninstall flow"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoPlayer_1.2.1_x64_Setup.exe",
+          "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.2.1_x64_Setup.exe",
+          "size": 24767869,
+          "sha256": "ee0ca893bc2f1feaeff70f9dbbad88f3a89bcae9f5ae973dfa37eee37de8699b",
+          "downloadCount": 0,
+          "arch": "x64"
+        },
+        {
+          "type": "portable",
+          "filename": "HyoPlayer_1.2.1_x64_portable.zip",
+          "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.2.1_x64_portable.zip",
+          "size": 46128115,
+          "sha256": "d866ccf69a0f73aa9deddc9da328fce6d8695e973be54ce94ef06432d034251a",
+          "downloadCount": 0,
+          "arch": "x64"
+        }
+      ]
+    },
     {
       "version": "1.2.0",
       "channel": "stable",
