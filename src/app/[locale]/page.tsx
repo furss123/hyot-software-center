@@ -109,7 +109,9 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
   const releaseDateBySlug = new Map(
     allLatestReleases.map(({ slug, release }) => [slug, release.releaseDate]),
   )
-  const featured = getAllSoftware().sort((a, b) => {
+  const allSoftware = getAllSoftware()
+  const nameBySlug = new Map(allSoftware.map((s) => [s.slug, s.name[l]]))
+  const featured = [...allSoftware].sort((a, b) => {
     const bDate = releaseDateBySlug.get(b.slug) ?? b.createdAt
     const aDate = releaseDateBySlug.get(a.slug) ?? a.createdAt
     return bDate.localeCompare(aDate)
@@ -259,7 +261,7 @@ export default async function HomePage({ params }: PageProps): Promise<React.JSX
                 <Link key={`${slug}-${release.version}`} href={`/${locale}/software/${slug}`}>
                   <Card hover className="px-5 py-4">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-lg font-semibold text-text-primary">{slug}</span>
+                      <span className="text-lg font-semibold text-text-primary">{nameBySlug.get(slug) ?? slug}</span>
                       <Badge variant={release.channel}>{release.channel}</Badge>
                     </div>
                     <div className="flex items-center justify-between">
