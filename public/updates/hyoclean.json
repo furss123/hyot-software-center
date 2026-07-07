@@ -1,5 +1,23 @@
 {
+  "schemaVersion": 1,
   "slug": "hyoclean",
+  "name": {
+    "ko": "효클린",
+    "en": "HyoClean"
+  },
+  "platforms": [
+    "windows"
+  ],
+  "homepageUrl": "https://hyot.dev/ko/software/hyoclean/",
+  "updatePolicy": {
+    "style": "background-ready-to-restart",
+    "checkOnStartup": true,
+    "checkIntervalHours": 12,
+    "downloadAutomatically": true,
+    "notifyWhenReady": true,
+    "installOnQuit": true,
+    "requireUserApprovalBeforeDownload": false
+  },
   "latest": {
     "stable": "0.1.3",
     "beta": null
@@ -14,22 +32,27 @@
         "ko": "## 변경 사항\n- 하단 프로그램명, 저작권, 홈페이지 표시 형식을 HyoExam과 동일하게 정리\n- 업데이트 매니페스트 기반 다운로드 및 설치 준비 흐름 개선\n\n## 다운로드\n- HyoClean_0.1.3_x64-setup.exe - 일반 설치 권장\n- HyoClean_0.1.3_x64_en-US.msi - MSI 설치",
         "en": "## 변경 사항\n- 하단 프로그램명, 저작권, 홈페이지 표시 형식을 HyoExam과 동일하게 정리\n- 업데이트 매니페스트 기반 다운로드 및 설치 준비 흐름 개선\n\n## 다운로드\n- HyoClean_0.1.3_x64-setup.exe - 일반 설치 권장\n- HyoClean_0.1.3_x64_en-US.msi - MSI 설치"
       },
+      "primaryAsset": {
+        "type": "installer",
+        "filename": "HyoClean_0.1.3_x64-setup.exe",
+        "url": "https://github.com/furss123/hyoclean/releases/download/v0.1.3/HyoClean_0.1.3_x64-setup.exe",
+        "size": 2904476,
+        "sha256": "4250bf58cbf29ebdf045fafdcbeeacffc0de9af69f5dd2387e21a0e377d220e3"
+      },
       "assets": [
         {
           "type": "installer",
           "filename": "HyoClean_0.1.3_x64-setup.exe",
           "url": "https://github.com/furss123/hyoclean/releases/download/v0.1.3/HyoClean_0.1.3_x64-setup.exe",
           "size": 2904476,
-          "sha256": "4250bf58cbf29ebdf045fafdcbeeacffc0de9af69f5dd2387e21a0e377d220e3",
-          "downloadCount": 0
+          "sha256": "4250bf58cbf29ebdf045fafdcbeeacffc0de9af69f5dd2387e21a0e377d220e3"
         },
         {
           "type": "installer",
           "filename": "HyoClean_0.1.3_x64_en-US.msi",
           "url": "https://github.com/furss123/hyoclean/releases/download/v0.1.3/HyoClean_0.1.3_x64_en-US.msi",
           "size": 4333568,
-          "sha256": "ead17a64c579a64239af45367356620354a42515f1d5f5fbc72d0a2ed8e7f777",
-          "downloadCount": 0
+          "sha256": "ead17a64c579a64239af45367356620354a42515f1d5f5fbc72d0a2ed8e7f777"
         }
       ]
     },
@@ -42,6 +65,14 @@
         "ko": "## 변경 사항\n- 메모리 자동 정리가 실제로 RAM을 회수하도록 수정 (기존엔 재측정만 하고 끝났음)\n- CPU 사용률 측정 시 매 폴링마다 발생하던 120ms 병목 제거\n- 위험 등급(크래시 덤프) 스캔 대상 추가 — 3단계 신뢰등급이 실제로 전부 동작\n- 정리 후 스캔 요약 수치가 그대로 남아있던 버그 수정\n- 프로그램 컨셉(청소/최적화)에 맞춘 새 아이콘·배너로 전면 교체 (빗자루 + 반짝임)\n\n## 다운로드\n- `HyoClean_0.1.2_x64-setup.exe` — 일반 설치 (권장)\n- `HyoClean_0.1.2_x64_en-US.msi` — MSI 설치",
         "en": "## 변경 사항\n- 메모리 자동 정리가 실제로 RAM을 회수하도록 수정 (기존엔 재측정만 하고 끝났음)\n- CPU 사용률 측정 시 매 폴링마다 발생하던 120ms 병목 제거\n- 위험 등급(크래시 덤프) 스캔 대상 추가 — 3단계 신뢰등급이 실제로 전부 동작\n- 정리 후 스캔 요약 수치가 그대로 남아있던 버그 수정\n- 프로그램 컨셉(청소/최적화)에 맞춘 새 아이콘·배너로 전면 교체 (빗자루 + 반짝임)\n\n## 다운로드\n- `HyoClean_0.1.2_x64-setup.exe` — 일반 설치 (권장)\n- `HyoClean_0.1.2_x64_en-US.msi` — MSI 설치"
       },
+      "primaryAsset": {
+        "type": "installer",
+        "filename": "HyoClean_0.1.2_x64-setup.exe",
+        "url": "https://github.com/furss123/hyoclean/releases/download/v0.1.2/HyoClean_0.1.2_x64-setup.exe",
+        "size": 2897806,
+        "sha256": "a9384c72a2760459af8d2bd29015e8927de7a2c419a0047ab8cf39ee97c0d0bb",
+        "arch": "x64"
+      },
       "assets": [
         {
           "type": "installer",
@@ -49,7 +80,6 @@
           "url": "https://github.com/furss123/hyoclean/releases/download/v0.1.2/HyoClean_0.1.2_x64-setup.exe",
           "size": 2897806,
           "sha256": "a9384c72a2760459af8d2bd29015e8927de7a2c419a0047ab8cf39ee97c0d0bb",
-          "downloadCount": 0,
           "arch": "x64"
         },
         {
@@ -58,7 +88,6 @@
           "url": "https://github.com/furss123/hyoclean/releases/download/v0.1.2/HyoClean_0.1.2_x64_en-US.msi",
           "size": 4325376,
           "sha256": "739553b4f3143325217cd8cbcfa56bd1f46d5b19c26a3972ce7dd10cd55d6e13",
-          "downloadCount": 0,
           "arch": "x64"
         }
       ]
@@ -72,6 +101,14 @@
         "ko": "## v0.1.0\n\n- 딥 스캔, 스마트 정리, 실시간 메모리 정리\n- 시작프로그램 최적화, 프라이버시 정리, 복원 리포트\n- KO/EN UI 및 업데이트 체크\n- 공식 아이콘/배너 에셋 포함",
         "en": "## v0.1.0\n\n- Deep scan, smart cleanup, and real-time memory cleanup\n- Startup optimization, privacy cleanup, and restore reports\n- KO/EN UI and update check\n- Includes official icon/banner assets"
       },
+      "primaryAsset": {
+        "type": "installer",
+        "filename": "HyoClean_0.1.0_x64-setup.exe",
+        "url": "https://github.com/furss123/hyoclean/releases/download/v0.1.0/HyoClean_0.1.0_x64-setup.exe",
+        "size": 2883077,
+        "sha256": "30faa810bda7459c0b1aa817294a28ab2a7dfe80f849f56f43f40ddbc4f65b50",
+        "arch": "x64"
+      },
       "assets": [
         {
           "type": "portable",
@@ -79,7 +116,6 @@
           "url": "https://github.com/furss123/hyoclean/releases/download/v0.1.0/HyoClean_0.1.0_release.zip",
           "size": 6930771,
           "sha256": "7f7c26ed6b1dbbd0827efa5bd2086409469c076276fd0da0349b2d241ecaa4fa",
-          "downloadCount": 0,
           "arch": "x64"
         },
         {
@@ -88,7 +124,6 @@
           "url": "https://github.com/furss123/hyoclean/releases/download/v0.1.0/HyoClean_0.1.0_x64-setup.exe",
           "size": 2883077,
           "sha256": "30faa810bda7459c0b1aa817294a28ab2a7dfe80f849f56f43f40ddbc4f65b50",
-          "downloadCount": 0,
           "arch": "x64"
         },
         {
@@ -97,7 +132,6 @@
           "url": "https://github.com/furss123/hyoclean/releases/download/v0.1.0/HyoClean_0.1.0_x64_en-US.msi",
           "size": 4366336,
           "sha256": "fa8f7024e00c09b3da7f91cde831518a87d8c67d24de9bcccda4e9fefc838832",
-          "downloadCount": 0,
           "arch": "x64"
         }
       ]

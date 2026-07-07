@@ -49,9 +49,9 @@ async function main(): Promise<void> {
 
   const assets = await Promise.all(
     release.assets
-      .filter((a) => a.name.endsWith('.exe') || a.name.endsWith('.zip'))
+      .filter((a) => a.name.endsWith('.exe') || a.name.endsWith('.msi') || a.name.endsWith('.zip'))
       .map(async (a) => ({
-        type: a.name.endsWith('.exe') ? ('installer' as const) : ('portable' as const),
+        type: a.name.endsWith('.zip') ? ('portable' as const) : ('installer' as const),
         filename: a.name,
         url: a.browser_download_url,
         size: a.size,
