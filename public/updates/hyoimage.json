@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "slug": "hyoimage",
+  "name": {
+    "ko": "HyoImage",
+    "en": "HyoImage"
+  },
+  "platforms": [
+    "windows"
+  ],
+  "homepageUrl": "https://hyot.dev/ko/software/hyoimage/",
+  "updatePolicy": {
+    "style": "background-ready-to-restart",
+    "checkOnStartup": true,
+    "checkIntervalHours": 12,
+    "downloadAutomatically": true,
+    "notifyWhenReady": true,
+    "installOnQuit": true,
+    "requireUserApprovalBeforeDownload": false
+  },
+  "latest": {
+    "stable": "1.0.1",
+    "beta": null
+  },
+  "releases": [
+    {
+      "version": "1.0.1",
+      "channel": "stable",
+      "releaseDate": "2026-06-28",
+      "githubTag": "v1.0.1",
+      "primaryAsset": {
+        "type": "installer",
+        "filename": "HyoT-Image-Tools-1.0.1-x64-setup.exe",
+        "url": "https://github.com/furss123/hyoimage/releases/download/v1.0.1/HyoT-Image-Tools-1.0.1-x64-setup.exe",
+        "size": 32575408,
+        "sha256": "df84b4c621c9974f2cc73adf11053f2c6c5374d480a2bdd5ece2e40ed2e89cd9"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoT-Image-Tools-1.0.1-x64-setup.exe",
+          "url": "https://github.com/furss123/hyoimage/releases/download/v1.0.1/HyoT-Image-Tools-1.0.1-x64-setup.exe",
+          "size": 32575408,
+          "sha256": "df84b4c621c9974f2cc73adf11053f2c6c5374d480a2bdd5ece2e40ed2e89cd9"
+        },
+        {
+          "type": "portable",
+          "filename": "HyoT-Image-Tools-1.0.1-x64-portable.zip",
+          "url": "https://github.com/furss123/hyoimage/releases/download/v1.0.1/HyoT-Image-Tools-1.0.1-x64-portable.zip",
+          "size": 48184846,
+          "sha256": "183ffe8251ae025c3d67900aa17ceee5aa05d1aba295db6d262a3d7ba7c4cd85"
+        }
+      ]
+    }
+  ]
+}
