@@ -21,12 +21,12 @@
   "icon": "/data/software/bidanwin/icon.webp",
   "banner": "/data/software/bidanwin/banner.webp",
   "name": {
-    "ko": "비단윈",
-    "en": "BidanWin"
+    "ko": "HyoWin",
+    "en": "HyoWin"
   },
   "description": {
-    "ko": "**불필요한 앱, 한 번에 골라 지우기.**\n\n비단윈(BidanWin)은 Windows에 기본으로 깔려 있는 Microsoft Store 앱(빌트인·OEM·게임·위젯 등)을 카테고리별로 정리해 보여주고, 선택한 항목만 원클릭으로 제거하는 디블로트 도구입니다.\n\n### 이런 점이 좋아요\n\n- **42개 이상 카탈로그** — 안전도·주의 표시가 붙은 제거 대상 목록\n- **카테고리 필터** — 앱, 게임 & Xbox, Microsoft, 위젯 & AI, OEM, 시스템\n- **OEM 자동 감지** — Samsung, LG 등 제조사 앱을 자동으로 찾아 표시\n- **복원 지점 안내** — 삭제 전 시스템 복원 지점 생성을 권장\n- **실시간 삭제 로그** — 무엇을 지웠는지 작업 이력으로 확인\n- **복원 가이드 내장** — 시스템 복원, Appx 재설치, Microsoft Store 안내\n- **한국어 / English UI**\n\n> ⚠️ **주의사항** 삭제된 앱은 일부만 Microsoft Store에서 다시 설치할 수 있습니다. 반드시 복원 지점을 만든 뒤 사용하고, 사용자 책임 하에 이용해 주세요.\n\n관리자 권한으로 실행하면 바로 제거를 진행할 수 있습니다.\n\n라이선스: MIT · 제작: HyoT · © 2026",
-    "en": "**Pick the bloat, remove it in one click.**\n\nBidanWin is a one-click Windows debloat tool that lists pre-installed Microsoft Store apps (built-in, OEM, games, widgets, and more) by category so you can remove only what you select.\n\n### Why you'll like it\n\n- **42+ app catalog** — removal targets with safety ratings\n- **Category filters** — Apps, Games & Xbox, Microsoft, Widgets & AI, OEM, System\n- **Automatic OEM detection** — surfaces manufacturer bloatware like Samsung and LG apps\n- **Restore point prompt** — nudges you to create a system restore point before removing anything\n- **Live removal logs** — see exactly what was removed and when\n- **Built-in restore guide** — System Restore, Appx reinstall, and Microsoft Store links\n- **Korean / English UI**\n\n⚠️ **Warning** Some removed apps cannot be reinstalled from the Microsoft Store. Always create a restore point first, and use at your own risk.\n\nRun as administrator to perform actual removal.\n\nLicense: MIT · Author: HyoT · © 2026"
+    "ko": "HyoWin(비단윈)은 Windows 10/11에서 사용할 수 있는 무료 기본 앱 제거 및 디블로트 도구입니다.\n\n### 이런 분께 추천\n\n- Windows에 기본 설치된 불필요한 앱을 정리하고 싶은 사용자\n- Microsoft Store 앱, 게임, 위젯, OEM 앱을 골라 삭제하고 싶은 사용자\n- 개인 PC나 학교, 사무실 PC를 가볍게 유지하고 싶은 사용자\n\n### 주요 기능\n\n- 기본 설치 앱 목록 분류\n- Microsoft Store 앱 선택 제거\n- 게임, Xbox, 위젯, OEM 앱 필터\n- 복원 지점 생성 안내\n- 삭제 로그 확인\n- Windows 10/11 지원\n- 무료 사용 가능\n- 광고 없음\n\n### 자주 묻는 질문\n\nQ. HyoWin은 무료인가요?\nA. 네, HyoWin은 무료로 사용할 수 있습니다.\n\nQ. Windows 11에서도 사용할 수 있나요?\nA. 네, Windows 10/11을 지원합니다.\n\nQ. 삭제한 앱을 다시 설치할 수 있나요?\nA. 일부 앱은 Microsoft Store에서 다시 설치할 수 있지만, 사용 전 복원 지점 생성을 권장합니다.",
+    "en": "**Pick the bloat, remove it in one click.**\n\nHyoWin is a one-click Windows debloat tool that lists pre-installed Microsoft Store apps (built-in, OEM, games, widgets, and more) by category so you can remove only what you select.\n\n### Why you'll like it\n\n- **42+ app catalog** — removal targets with safety ratings\n- **Category filters** — Apps, Games & Xbox, Microsoft, Widgets & AI, OEM, System\n- **Automatic OEM detection** — surfaces manufacturer bloatware like Samsung and LG apps\n- **Restore point prompt** — nudges you to create a system restore point before removing anything\n- **Live removal logs** — see exactly what was removed and when\n- **Built-in restore guide** — System Restore, Appx reinstall, and Microsoft Store links\n- **Korean / English UI**\n\n⚠️ **Warning** Some removed apps cannot be reinstalled from the Microsoft Store. Always create a restore point first, and use at your own risk.\n\nRun as administrator to perform actual removal.\n\nLicense: MIT · Author: HyoT · © 2026"
   },
   "shortDescription": {
     "ko": "Windows 10/11에 기본 설치된 불필요한 Microsoft Store 앱을 안전하게 골라 한 번에 제거하는 데스크톱 유틸리티입니다.",
@@ -42,5 +42,15 @@
   },
   "githubRepo": "furss123/bidanwin",
   "createdAt": "2026-06-27",
-  "updatedAt": "2026-06-28"
+  "updatedAt": "2026-07-07",
+  "seo": {
+    "title": {
+      "ko": "HyoWin - 무료 Windows 기본 앱 제거 도구",
+      "en": "HyoWin - Free Windows 11 Bloatware Removal Tool"
+    },
+    "description": {
+      "ko": "HyoWin(비단윈)은 Windows 10/11에서 사용할 수 있는 무료 기본 앱 제거 및 디블로트 도구입니다.",
+      "en": "HyoWin is a free Windows 10/11 bloatware removal tool for safely deleting unwanted Microsoft Store apps, Xbox apps, widgets, and OEM apps."
+    }
+  }
 }
