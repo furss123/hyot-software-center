@@ -58,7 +58,7 @@ jobs:
       # 평소(1차 시도 성공)에는 재시도 단계들이 전부 건너뛰어져 동작이 그대로다.
       - name: Deploy to GitHub Pages (attempt 1)
         id: deploy1
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
         continue-on-error: true
 
       - name: Wait before retry 1
@@ -68,7 +68,7 @@ jobs:
       - name: Deploy to GitHub Pages (attempt 2)
         id: deploy2
         if: steps.deploy1.outcome == 'failure'
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
         continue-on-error: true
 
       - name: Wait before retry 2
@@ -78,7 +78,7 @@ jobs:
       - name: Deploy to GitHub Pages (attempt 3, final)
         id: deploy3
         if: steps.deploy1.outcome == 'failure' && steps.deploy2.outcome == 'failure'
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
       - name: Resolve deployment result
         id: deployment
