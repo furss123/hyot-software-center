@@ -41,14 +41,15 @@ function hyoimageOgSvg(): string {
   <ellipse cx="1000" cy="590" rx="300" ry="240" fill="#008684" opacity="0.12" filter="url(#soft)"/>
   <g filter="url(#shadow)">
     <rect x="88" y="104" width="210" height="210" rx="43" fill="url(#iconBg)"/>
-    <rect x="132" y="158" width="100" height="78" rx="10" fill="none" stroke="#fff" stroke-width="10"/>
-    <circle cx="156" cy="181" r="9" fill="#fff"/>
-    <path d="M138 224l34-31 21 23 32-43 35 51z" fill="#fff"/>
-    <path d="M139 249l143-143" stroke="#fff" stroke-width="14" stroke-linecap="square"/>
-    <path d="M172 249l92 92" stroke="#fff" stroke-width="14" stroke-linecap="square"/>
-    <circle cx="146" cy="260" r="14" fill="none" stroke="#fff" stroke-width="10"/>
-    <circle cx="263" cy="265" r="14" fill="none" stroke="#fff" stroke-width="10"/>
-    <circle cx="212" cy="221" r="8" fill="#fff"/>
+    <rect x="132" y="158" width="108" height="80" rx="11" fill="none" stroke="#fff" stroke-width="10"/>
+    <circle cx="158" cy="182" r="9" fill="#fff"/>
+    <path d="M140 226l35-32 22 24 35-45 36 53z" fill="#fff"/>
+    <path d="M152 272l168-168" stroke="#fff" stroke-width="22" stroke-linecap="round"/>
+    <path d="M186 302l170-170" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
+    <path d="M320 103l58-56 27 27-58 56z" fill="#fff"/>
+    <rect x="134" y="250" width="42" height="56" rx="18" fill="#fff"/>
+    <circle cx="140" cy="302" r="16" fill="#fff"/>
+    <path d="M186 286l118-118" stroke="#2C80CA" stroke-width="5" stroke-linecap="round"/>
     <rect x="136" y="268" width="11" height="11" rx="3" fill="#8429D3"/>
     <rect x="152" y="268" width="11" height="11" rx="3" fill="#FF6000"/>
     <rect x="168" y="268" width="11" height="11" rx="3" fill="#008684"/>
