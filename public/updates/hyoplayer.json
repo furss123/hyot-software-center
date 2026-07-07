@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "slug": "hyoplayer",
+  "name": {
+    "ko": "HyoPlayer",
+    "en": "HyoPlayer"
+  },
+  "platforms": [
+    "windows"
+  ],
+  "homepageUrl": "https://hyot.dev/ko/software/hyoplayer/",
+  "updatePolicy": {
+    "style": "background-ready-to-restart",
+    "checkOnStartup": true,
+    "checkIntervalHours": 12,
+    "downloadAutomatically": true,
+    "notifyWhenReady": true,
+    "installOnQuit": true,
+    "requireUserApprovalBeforeDownload": false
+  },
+  "latest": {
+    "stable": "1.2.1",
+    "beta": null
+  },
+  "releases": [
+    {
+      "version": "1.2.1",
+      "channel": "stable",
+      "releaseDate": "2026-07-07",
+      "githubTag": "v1.2.1",
+      "notes": {
+        "ko": "## 실제 재생 점검 및 우클릭 메뉴 수정\n\n- 실제 MP4 파일 재생 테스트 완료\n- 같은 이름의 SRT 자막 자동 로드 테스트 완료\n- LibVLC 네이티브 영상 영역에서 우클릭 메뉴가 열리지 않던 문제 수정\n- 우클릭 메뉴에서 설정 페이지 진입 확인\n- 설정 페이지의 프로그램 이름, 버전, 저작권, 홈페이지 표시 확인\n- 설치 파일 설치/제거 검증 완료",
+        "en": "## Playback verification and right-click menu fix\n\n- Verified real MP4 playback\n- Verified same-name SRT subtitle auto-load\n- Fixed the right-click menu not opening over the native LibVLC video surface\n- Verified settings page access from the right-click menu\n- Verified program name, version, copyright, and homepage display in settings\n- Verified installer install/uninstall flow"
+      },
+      "primaryAsset": {
+        "type": "portable",
+        "filename": "HyoPlayer_1.2.1_x64_portable.zip",
+        "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.2.1_x64_portable.zip",
+        "size": 46134931,
+        "sha256": "5f663d432d237847362bbccdd86d97f34578894e33d580550361219ee9175dc9",
+        "arch": "x64"
+      },
+      "assets": [
+        {
+          "type": "portable",
+          "filename": "HyoPlayer_1.2.1_x64_portable.zip",
+          "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.2.1_x64_portable.zip",
+          "size": 46134931,
+          "sha256": "5f663d432d237847362bbccdd86d97f34578894e33d580550361219ee9175dc9",
+          "arch": "x64"
+        }
+      ]
+    },
+    {
+      "version": "1.2.0",
+      "channel": "stable",
+      "releaseDate": "2026-07-07",
+      "githubTag": "v1.2.0",
+      "notes": {
+        "ko": "## 우클릭 메뉴와 설정 페이지 추가\n\n- 동영상 화면 우클릭 메뉴 추가\n- 동영상 열기, 자막 열기, 재생/일시정지, 전체화면, 설정, 홈페이지 메뉴 추가\n- 간단한 설정 페이지 추가\n- 프로그램 이름, 버전, 저작권, 홈페이지 정보를 설정 페이지에 표시\n- 기본 볼륨, 마지막 볼륨 기억, 탐색 간격, 자막 자동 로드, 하드웨어 가속 설정 추가\n- 깨진 UI 문구와 아이콘 표시 문제 정리\n- 설정 저장과 볼륨 초기화 동작 안정화",
+        "en": "## Right-click menu and settings page\n\n- Added a right-click menu on the video surface\n- Added open video, open subtitle, play/pause, fullscreen, settings, and homepage actions\n- Added a compact settings page\n- Shows program name, version, copyright, and homepage in settings\n- Added default volume, remember volume, seek step, subtitle auto-load, and hardware acceleration settings\n- Cleaned up broken UI labels and icon text\n- Stabilized settings persistence and initial volume handling"
+      },
+      "primaryAsset": {
+        "type": "installer",
+        "filename": "HyoPlayer_1.2.0_x64_Setup.exe",
+        "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.2.0_x64_Setup.exe",
+        "size": 24768885,
+        "sha256": "6217a7d23c06c87bc89176aad56e98947d05412d986e68894e7f28fd0dc52208",
+        "arch": "x64"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoPlayer_1.2.0_x64_Setup.exe",
+          "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.2.0_x64_Setup.exe",
+          "size": 24768885,
+          "sha256": "6217a7d23c06c87bc89176aad56e98947d05412d986e68894e7f28fd0dc52208",
+          "arch": "x64"
+        },
+        {
+          "type": "portable",
+          "filename": "HyoPlayer_1.2.0_x64_portable.zip",
+          "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.2.0_x64_portable.zip",
+          "size": 46126646,
+          "sha256": "9c30c04ac6a8605c067ca53344bbc69bd707fa7738549ec427b8ec8a83c3cf4a",
+          "arch": "x64"
+        }
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "channel": "stable",
+      "releaseDate": "2026-07-07",
+      "githubTag": "v1.1.0",
+      "notes": {
+        "ko": "## 자막 및 설치 파일 배포\n\n- Windows 설치 파일(`HyoPlayer_1.1.0_x64_Setup.exe`) 추가\n- 자막 열기(CC) 버튼 추가\n- SRT, ASS, SSA, VTT, SUB 자막 파일 수동 로드 지원\n- 동영상 파일과 같은 이름의 자막 자동 로드\n- 자막 파일 드래그 앤 드롭 지원\n- 새 동영상 열기 시 자막 상태 표시 초기화",
+        "en": "## Subtitle support and installer release\n\n- Added Windows installer (`HyoPlayer_1.1.0_x64_Setup.exe`)\n- Added subtitle open (CC) button\n- Supports manual SRT, ASS, SSA, VTT, and SUB subtitle loading\n- Auto-loads same-name subtitle files next to the video\n- Supports drag and drop for subtitle files\n- Resets subtitle state when opening a new video"
+      },
+      "primaryAsset": {
+        "type": "installer",
+        "filename": "HyoPlayer_1.1.0_x64_Setup.exe",
+        "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.1.0_x64_Setup.exe",
+        "size": 24765708,
+        "sha256": "05f0198159d6f0e0d129df28f0fab7407b6312bba438db9e63f7948f7f4359b7",
+        "arch": "x64"
+      },
+      "assets": [
+        {
+          "type": "installer",
+          "filename": "HyoPlayer_1.1.0_x64_Setup.exe",
+          "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.1.0_x64_Setup.exe",
+          "size": 24765708,
+          "sha256": "05f0198159d6f0e0d129df28f0fab7407b6312bba438db9e63f7948f7f4359b7",
+          "arch": "x64"
+        },
+        {
+          "type": "portable",
+          "filename": "HyoPlayer_1.1.0_x64_portable.zip",
+          "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.1.0_x64_portable.zip",
+          "size": 46121254,
+          "sha256": "1473fc6fa47d6d66fc1ccc1e864b3cdd186f0ff18669b9acffb4fc77cf7481e5",
+          "arch": "x64"
+        }
+      ]
+    },
+    {
+      "version": "1.0.0",
+      "channel": "stable",
+      "releaseDate": "2026-07-07",
+      "githubTag": "v1.0.0",
+      "notes": {
+        "ko": "## 첫 공개 버전\n\n- VLC 엔진 기반 동영상 재생\n- 4K 재생을 위한 하드웨어 가속 옵션 활성화\n- 파일 열기, 드래그 앤 드롭, 재생/일시정지, 탐색, 볼륨, 전체화면 지원\n- 키보드 단축키: Space, 방향키, F, Esc\n- 설치 없이 실행 가능한 x64 포터블 ZIP 배포",
+        "en": "## Initial public release\n\n- VLC-engine video playback\n- Hardware acceleration option enabled for 4K playback\n- Open file, drag and drop, play/pause, seek, volume, and fullscreen controls\n- Keyboard shortcuts: Space, arrow keys, F, Esc\n- x64 portable ZIP release with no installation required"
+      },
+      "primaryAsset": {
+        "type": "portable",
+        "filename": "HyoPlayer_1.0.0_x64_portable.zip",
+        "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.0.0_x64_portable.zip",
+        "size": 46113778,
+        "sha256": "25e9e263274aa68ea1669ef866262561e2ccc0424b7e2d6c8a65d3dffdf19ca6",
+        "arch": "x64"
+      },
+      "assets": [
+        {
+          "type": "portable",
+          "filename": "HyoPlayer_1.0.0_x64_portable.zip",
+          "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.0.0_x64_portable.zip",
+          "size": 46113778,
+          "sha256": "25e9e263274aa68ea1669ef866262561e2ccc0424b7e2d6c8a65d3dffdf19ca6",
+          "arch": "x64"
+        }
+      ]
+    }
+  ]
+}

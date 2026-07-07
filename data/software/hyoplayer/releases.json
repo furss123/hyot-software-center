@@ -16,20 +16,11 @@
       },
       "assets": [
         {
-          "type": "installer",
-          "filename": "HyoPlayer_1.2.1_x64_Setup.exe",
-          "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.2.1_x64_Setup.exe",
-          "size": 24767869,
-          "sha256": "ee0ca893bc2f1feaeff70f9dbbad88f3a89bcae9f5ae973dfa37eee37de8699b",
-          "downloadCount": 0,
-          "arch": "x64"
-        },
-        {
           "type": "portable",
           "filename": "HyoPlayer_1.2.1_x64_portable.zip",
           "url": "https://hyot.dev/downloads/hyoplayer/HyoPlayer_1.2.1_x64_portable.zip",
-          "size": 46128115,
-          "sha256": "d866ccf69a0f73aa9deddc9da328fce6d8695e973be54ce94ef06432d034251a",
+          "size": 46134931,
+          "sha256": "5f663d432d237847362bbccdd86d97f34578894e33d580550361219ee9175dc9",
           "downloadCount": 0,
           "arch": "x64"
         }

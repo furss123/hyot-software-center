@@ -12,8 +12,8 @@
     "4k",
     "vlc",
     "subtitle",
-    "installer",
-    "settings"
+    "settings",
+    "portable"
   ],
   "featured": true,
   "icon": "/data/software/hyoplayer/icon.webp",
@@ -32,8 +32,8 @@
     "en": "HyoPlayer"
   },
   "description": {
-    "ko": "**가볍고 빠른 Windows용 4K 동영상 플레이어.**\n\nHyoPlayer는 꼭 필요한 기능만 남긴 동영상 플레이어입니다. VLC 엔진 기반으로 다양한 동영상 파일을 열 수 있고, 4K 재생을 위해 하드웨어 가속을 켠 x64 Windows 빌드로 배포됩니다. 설치 파일로 깔끔하게 설치할 수 있으며, 외부 자막 파일도 바로 불러올 수 있습니다.\n\n### 핵심 기능\n\n- **폭넓은 포맷 지원** - MP4, MKV, AVI, MOV, WMV, WEBM, TS 등 VLC 기반 재생\n- **4K 재생 지원** - 하드웨어 가속 옵션 활성화\n- **자막 지원** - 같은 이름의 자막 자동 로드 및 SRT, ASS, SSA, VTT, SUB 수동 열기\n- **우클릭 메뉴** - 동영상 열기, 자막 열기, 재생/일시정지, 전체화면, 설정, 홈페이지 바로가기\n- **간단한 설정** - 기본 볼륨, 마지막 볼륨 기억, 탐색 간격, 자막 자동 로드, 하드웨어 가속 관리\n- **깔끔한 설치 파일** - 시작 메뉴와 선택형 바탕화면 바로가기를 제공하는 Windows 설치형 배포\n\nAuthor: HyoT · © 2026",
-    "en": "**A lightweight, fast 4K video player for Windows.**\n\nHyoPlayer keeps only the controls that matter. It uses the VLC engine for broad file compatibility and ships as an x64 Windows build with hardware acceleration enabled for 4K playback. It includes a clean Windows installer, subtitle loading, a right-click menu, and a compact settings page.\n\n### Core features\n\n- **Broad format support** - VLC-based playback for MP4, MKV, AVI, MOV, WMV, WEBM, TS, and more\n- **4K-ready playback** - hardware acceleration enabled\n- **Subtitle support** - auto-loads same-name subtitles and supports SRT, ASS, SSA, VTT, and SUB files\n- **Right-click menu** - open video, open subtitle, play/pause, fullscreen, settings, and homepage\n- **Simple settings** - default volume, remember volume, seek step, subtitle auto-load, and hardware acceleration\n- **Clean installer** - Windows setup with Start Menu and optional desktop shortcuts\n\nAuthor: HyoT · © 2026"
+    "ko": "**가볍고 빠른 Windows용 4K 동영상 플레이어.**\n\nHyoPlayer는 꼭 필요한 기능만 남긴 동영상 플레이어입니다. VLC 엔진 기반으로 다양한 동영상 파일을 열 수 있고, 4K 재생을 위해 하드웨어 가속을 켠 x64 Windows 빌드로 배포됩니다. 설치 없이 압축을 풀어 바로 실행할 수 있는 portable ZIP으로 제공되며, 외부 자막 파일도 바로 불러올 수 있습니다.\n\n### 핵심 기능\n\n- **폭넓은 포맷 지원** - MP4, MKV, AVI, MOV, WMV, WEBM, TS 등 VLC 기반 재생\n- **4K 재생 지원** - 하드웨어 가속 옵션 활성화\n- **자막 지원** - 같은 이름의 자막 자동 로드 및 SRT, ASS, SSA, VTT, SUB 수동 열기\n- **우클릭 메뉴** - 동영상 열기, 자막 열기, 재생/일시정지, 전체화면, 설정, 홈페이지 바로가기\n- **간단한 설정** - 기본 볼륨, 마지막 볼륨 기억, 탐색 간격, 자막 자동 로드, 하드웨어 가속 관리\n- **Portable ZIP 배포** - 설치 파일 경고를 줄이기 위해 압축 파일을 기본 다운로드로 제공\n\nAuthor: HyoT · © 2026",
+    "en": "**A lightweight, fast 4K video player for Windows.**\n\nHyoPlayer keeps only the controls that matter. It uses the VLC engine for broad file compatibility and ships as an x64 Windows build with hardware acceleration enabled for 4K playback. It is distributed as a portable ZIP that can run after extraction, with subtitle loading, a right-click menu, and a compact settings page.\n\n### Core features\n\n- **Broad format support** - VLC-based playback for MP4, MKV, AVI, MOV, WMV, WEBM, TS, and more\n- **4K-ready playback** - hardware acceleration enabled\n- **Subtitle support** - auto-loads same-name subtitles and supports SRT, ASS, SSA, VTT, and SUB files\n- **Right-click menu** - open video, open subtitle, play/pause, fullscreen, settings, and homepage\n- **Simple settings** - default volume, remember volume, seek step, subtitle auto-load, and hardware acceleration\n- **Portable ZIP distribution** - uses a compressed download as the default public package\n\nAuthor: HyoT · © 2026"
   },
   "shortDescription": {
     "ko": "자막과 4K 재생을 지원하는 VLC 엔진 기반 Windows 동영상 플레이어",
@@ -56,8 +56,8 @@
       "en": "HyoPlayer - Free 4K Video Player for Windows"
     },
     "description": {
-      "ko": "HyoPlayer는 Windows 10/11에서 사용할 수 있는 무료 동영상 플레이어입니다. VLC 기반 4K 재생, 자막, 우클릭 메뉴, 간단한 설정을 지원합니다.",
-      "en": "HyoPlayer is a free Windows 10/11 video player powered by VLC with 4K playback, subtitle support, a right-click menu, compact settings, and a clean installer."
+      "ko": "HyoPlayer는 Windows 10/11에서 사용할 수 있는 무료 동영상 플레이어입니다. VLC 기반 4K 재생, 자막, 우클릭 메뉴, 간단한 설정을 지원하며 portable ZIP으로 배포됩니다.",
+      "en": "HyoPlayer is a free Windows 10/11 video player powered by VLC with 4K playback, subtitle support, a right-click menu, compact settings, and portable ZIP distribution."
     }
   }
 }
