@@ -1,72 +1,86 @@
 ---
 import Base from '../../layouts/Base.astro'
 import SoftwareIndex from '../../components/SoftwareIndex.astro'
-import ReleaseList from '../../components/ReleaseList.astro'
-import { t, path, localeStaticPaths, type Locale } from '../../lib/i18n'
-import { getSoftware, getAllReleases } from '../../lib/software'
+import { t, categories, localeStaticPaths, type Locale } from '../../lib/i18n'
+import { getSoftware } from '../../lib/software'
 
 export const getStaticPaths = localeStaticPaths
 
 const locale = Astro.params.locale as Locale
 const items = await getSoftware()
-const recent = (await getAllReleases()).slice(0, 5)
+const used = [...new Set(items.map((s) => s.data.category))]
+const cats = (Object.keys(categories) as (keyof typeof categories)[]).filter((c) => used.includes(c))
 ---
 
-<Base locale={locale} current="home">
-  <section class="wrap hero">
-    <h1>{t(locale, 'home.title')}</h1>
-    <p>{t(locale, 'home.lead')}</p>
-  </section>
+<Base locale={locale}>
+  <div class="wrap">
+    <h1 class="sr-only">HyoT</h1>
 
-  <section class="wrap programs" aria-labelledby="programs-title">
-    <h2 id="programs-title" class="sr-only">{t(locale, 'home.programs')}</h2>
-    <SoftwareIndex locale={locale} items={items} />
-  </section>
-
-  {
-    recent.length > 0 && (
-      <section class="wrap updates" aria-labelledby="updates-title">
-        <div class="updates-head">
-          <h2 id="updates-title" class="section-title">
-            {t(locale, 'home.updates')}
-          </h2>
-          <a href={path(locale, 'changelog')}>{t(locale, 'home.allUpdates')}</a>
+    {
+      cats.length > 1 && (
+        <div class="filters" role="group" aria-label={t(locale, 'software.category')}>
+          <button type="button" data-filter="all" aria-pressed="true">
+            {t(locale, 'software.all')} <span class="num">{items.length}</span>
+          </button>
+          {cats.map((c) => (
+            <button type="button" data-filter={c} aria-pressed="false">
+              {categories[c][locale]}{' '}
+              <span class="num">{items.filter((s) => s.data.category === c).length}</span>
+            </button>
+          ))}
         </div>
-        <ReleaseList locale={locale} entries={recent} />
-      </section>
-    )
-  }
+      )
+    }
+
+    <SoftwareIndex locale={locale} items={items} />
+  </div>
 </Base>
 
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filters button')
+  buttons.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const f = btn.dataset.filter
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)))
+      document.querySelectorAll<HTMLLIElement>('.index > li').forEach((li) => {
+        li.hidden = f !== 'all' && li.dataset.category !== f
+      })
+    }),
+  )
+</script>
+
 <style>
-  .hero {
-    padding-block: clamp(3.5rem, 10vw, 7.5rem) clamp(2.5rem, 6vw, 4.5rem);
-    display: grid;
-    gap: 1.25rem;
+  .wrap {
+    padding-top: clamp(2.5rem, 6vw, 4.5rem);
   }
-  .hero h1 {
-    font-size: var(--t-xl);
-    font-weight: 820;
-    letter-spacing: -0.04em;
-    max-width: 15em;
-  }
-  .hero p {
-    font-size: var(--t-md);
-    line-height: 1.55;
-    color: var(--ink-soft);
-    max-width: 32em;
-  }
-  .updates {
-    margin-top: clamp(4rem, 9vw, 7rem);
-  }
-  .updates-head {
+  .filters {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
   }
-  .updates-head a {
+  .filters button {
+    font: inherit;
     font-size: var(--t-sm);
+    font-weight: 620;
+    padding: 0.45rem 0.95rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .filters button .num {
+    color: var(--ink-soft);
+    margin-left: 0.15rem;
+  }
+  .filters button[aria-pressed='true'] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+  .filters button[aria-pressed='true'] .num {
+    color: inherit;
+    opacity: 0.6;
   }
 </style>

@@ -8,13 +8,12 @@ interface Props {
   locale: Locale
   title?: string
   description?: string
-  current?: 'home' | 'software' | 'changelog' | 'feedback'
   image?: string
 }
 
-const { locale, title, description, current, image } = Astro.props
+const { locale, title, description, image } = Astro.props
 const site = 'HyoT'
-const fullTitle = title ? `${title} | ${site}` : `${site} — ${t(locale, 'home.title')}`
+const fullTitle = title ? `${title} | ${site}` : site
 const desc = description ?? t(locale, 'site.description')
 const canonical = new URL(Astro.url.pathname, Astro.site)
 const altPath = Astro.url.pathname.replace(/^\/(ko|en)\//, `/${otherLocale(locale)}/`)
@@ -54,11 +53,11 @@ const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(!t)t
   </head>
   <body>
     <a class="skip" href="#main">{locale === 'ko' ? '본문으로 건너뛰기' : 'Skip to content'}</a>
-    <Header locale={locale} current={current} altPath={altPath} />
+    <Header locale={locale} altPath={altPath} />
     <main id="main">
       <slot />
     </main>
-    <Footer locale={locale} />
+    <Footer />
   </body>
 </html>
 

@@ -5,7 +5,6 @@ HyoT가 만든 무료 Windows·Android 프로그램 배포 사이트. [Astro](ht
 - 프로그램 추가·업데이트: [ADDING.md](ADDING.md)
 - 디자인 토큰: `src/styles/global.css`
 - 화면 문구(한/영): `src/lib/i18n.ts`
-- 피드백은 Supabase `feedback` 테이블에 저장됩니다.
 
 ```bash
 npm install

@@ -14,10 +14,6 @@ const { locale, items } = Astro.props
   items.length === 0 ? (
     <div class="empty">
       <p class="empty-title">{t(locale, 'empty.software.title')}</p>
-      <p class="muted">{t(locale, 'empty.software.body')}</p>
-      <a class="btn" href={path(locale, 'feedback') + '?type=feature'}>
-        {t(locale, 'empty.software.cta')}
-      </a>
     </div>
   ) : (
     <ul class="index" role="list">
@@ -118,8 +114,5 @@ const { locale, items } = Astro.props
     font-size: var(--t-lg);
     font-weight: 780;
     letter-spacing: -0.02em;
-  }
-  .empty .btn {
-    margin-top: 0.75rem;
   }
 </style>

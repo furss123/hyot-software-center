@@ -3,16 +3,10 @@ import { t, path, type Locale } from '../lib/i18n'
 
 interface Props {
   locale: Locale
-  current?: string
   altPath: string
 }
 
-const { locale, current, altPath } = Astro.props
-const items = [
-  { key: 'software', label: t(locale, 'nav.software'), href: path(locale, 'software') },
-  { key: 'changelog', label: t(locale, 'nav.changelog'), href: path(locale, 'changelog') },
-  { key: 'feedback', label: t(locale, 'nav.feedback'), href: path(locale, 'feedback') },
-]
+const { locale, altPath } = Astro.props
 ---
 
 <header class="site-header">
@@ -21,23 +15,6 @@ const items = [
       <span class="logo-mark" aria-hidden="true"></span>
       <span class="logo-word">HyoT</span>
     </a>
-    <nav aria-label={locale === 'ko' ? '주 메뉴' : 'Main'}>
-      <ul>
-        {
-          items.map((it) => (
-            <li>
-              <a
-                href={it.href}
-                class:list={['nav-link', { active: current === it.key }]}
-                aria-current={current === it.key ? 'page' : undefined}
-              >
-                <span class="mark-stroke">{it.label}</span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
     <div class="tools">
       <a class="lang" href={altPath} hreflang={locale === 'ko' ? 'en' : 'ko'}>{t(locale, 'nav.lang')}</a>
       <button class="theme" type="button" aria-label={t(locale, 'nav.theme')} title={t(locale, 'nav.theme')}>
@@ -102,28 +79,8 @@ const items = [
     font-weight: 880;
     letter-spacing: -0.04em;
   }
-  nav {
-    flex: 1;
-  }
-  nav ul {
-    display: flex;
-    gap: clamp(0.9rem, 2.4vw, 2rem);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .nav-link {
-    color: var(--ink);
-    text-decoration: none;
-    font-weight: 600;
-    white-space: nowrap;
-  }
-  .nav-link:hover .mark-stroke,
-  .nav-link:focus-visible .mark-stroke,
-  .nav-link.active .mark-stroke {
-    background-size: 100% 0.42em;
-  }
   .tools {
+    margin-left: auto;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -150,21 +107,5 @@ const items = [
   }
   .theme:hover {
     border-color: var(--ink-soft);
-  }
-  @media (max-width: 640px) {
-    .bar {
-      flex-wrap: wrap;
-      row-gap: 0;
-      padding-top: 0.5rem;
-    }
-    .tools {
-      margin-left: auto;
-    }
-    nav {
-      order: 3;
-      flex-basis: 100%;
-      overflow-x: auto;
-      padding-block: 0.4rem 0.8rem;
-    }
   }
 </style>

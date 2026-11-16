@@ -1,86 +1,17 @@
 ---
-import Base from '../../../layouts/Base.astro'
-import SoftwareIndex from '../../../components/SoftwareIndex.astro'
-import { t, categories, localeStaticPaths, type Locale } from '../../../lib/i18n'
-import { getSoftware } from '../../../lib/software'
+import { path, localeStaticPaths, type Locale } from '../../../lib/i18n'
 
 export const getStaticPaths = localeStaticPaths
-
-const locale = Astro.params.locale as Locale
-const items = await getSoftware()
-const used = [...new Set(items.map((s) => s.data.category))]
-const cats = (Object.keys(categories) as (keyof typeof categories)[]).filter((c) => used.includes(c))
+const to = path(Astro.params.locale as Locale)
 ---
 
-<Base locale={locale} title={t(locale, 'software.title')} current="software">
-  <div class="wrap">
-    <header class="page-head">
-      <h1>{t(locale, 'software.title')}</h1>
-      <p>{t(locale, 'software.lead')}</p>
-    </header>
-
-    {
-      cats.length > 1 && (
-        <div class="filters" role="group" aria-label={t(locale, 'software.category')}>
-          <button type="button" data-filter="all" aria-pressed="true">
-            {t(locale, 'software.all')} <span class="num">{items.length}</span>
-          </button>
-          {cats.map((c) => (
-            <button type="button" data-filter={c} aria-pressed="false">
-              {categories[c][locale]}{' '}
-              <span class="num">{items.filter((s) => s.data.category === c).length}</span>
-            </button>
-          ))}
-        </div>
-      )
-    }
-
-    <SoftwareIndex locale={locale} items={items} />
-  </div>
-</Base>
-
-<script>
-  const buttons = document.querySelectorAll<HTMLButtonElement>('.filters button')
-  buttons.forEach((btn) =>
-    btn.addEventListener('click', () => {
-      const f = btn.dataset.filter
-      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)))
-      document.querySelectorAll<HTMLLIElement>('.index > li').forEach((li) => {
-        li.hidden = f !== 'all' && li.dataset.category !== f
-      })
-    }),
-  )
-</script>
-
-<style>
-  .filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-  }
-  .filters button {
-    font: inherit;
-    font-size: var(--t-sm);
-    font-weight: 620;
-    padding: 0.45rem 0.95rem;
-    border-radius: 999px;
-    border: 1px solid var(--line);
-    background: var(--surface);
-    color: var(--ink);
-    cursor: pointer;
-  }
-  .filters button .num {
-    color: var(--ink-soft);
-    margin-left: 0.15rem;
-  }
-  .filters button[aria-pressed='true'] {
-    background: var(--ink);
-    border-color: var(--ink);
-    color: var(--paper);
-  }
-  .filters button[aria-pressed='true'] .num {
-    color: inherit;
-    opacity: 0.6;
-  }
-</style>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0; url=${to}`} />
+    <link rel="canonical" href={new URL(to, Astro.site)} />
+    <meta name="robots" content="noindex" />
+  </head>
+  <body><a href={to}>HyoT</a></body>
+</html>

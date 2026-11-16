@@ -11,9 +11,7 @@ const { locale, entries, showName = true } = Astro.props
 ---
 
 {
-  entries.length === 0 ? (
-    <p class="muted">{t(locale, 'empty.updates')}</p>
-  ) : (
+  entries.length > 0 && (
     <ol class="log" role="list">
       {entries.map(({ software, release }) => {
         const n = notes(release, locale)

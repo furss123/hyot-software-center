@@ -5,5 +5,5 @@ export default defineConfig({
   site: 'https://hyot.dev',
   trailingSlash: 'always',
   build: { format: 'directory' },
-  integrations: [sitemap({ filter: (page) => !page.endsWith('/404/') })],
+  integrations: [sitemap({ filter: (page) => !page.endsWith('/404/') && !/\/(ko|en)\/software\/$/.test(page) })],
 })
