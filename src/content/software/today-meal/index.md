@@ -25,8 +25,8 @@ releases:
         label: Windows 위젯
         filename: 오늘급식-위젯_1.0.0.zip
         url: /downloads/today-meal/today-meal-widget_1.0.0_x64.zip
-        size: 82275921
-        sha256: 2956bec547e190a4d520dab90c47cc1be46187aa847b2e5cf29bbce6b952e027
+        size: 82276153
+        sha256: 851e8d31a0087b946823cd6bfba95902ae47e5453d63a4202b8d4490094ff4e4
         arch: x64
       - type: apk
         label: Android 앱
