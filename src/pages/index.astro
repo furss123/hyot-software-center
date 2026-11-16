@@ -1,0 +1,22 @@
+---
+// 루트(/) → 브라우저 언어에 따라 /ko/ 또는 /en/
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>HyoT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="https://hyot.dev/ko/" />
+    <meta name="google-adsense-account" content="ca-pub-9694429813677076" />
+    <script is:inline>
+      var l = (navigator.language || 'ko').toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en'
+      location.replace('/' + l + '/')
+    </script>
+    <noscript><meta http-equiv="refresh" content="0; url=/ko/" /></noscript>
+  </head>
+  <body>
+    <a href="/ko/">HyoT</a>
+  </body>
+</html>

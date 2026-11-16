@@ -1,2 +1,0 @@
-Contact: https://github.com/furss123/hyot-software-center/security/advisories/new
-Preferred-Languages: ko, en

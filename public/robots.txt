@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /admin/
 
-Sitemap: https://hyot.dev/sitemap.xml
-Feed: https://hyot.dev/feed.xml
+Sitemap: https://hyot.dev/sitemap-index.xml

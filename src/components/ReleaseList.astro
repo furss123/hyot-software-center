@@ -1,0 +1,110 @@
+---
+import { t, path, formatDate, type Locale } from '../lib/i18n'
+import { displayName, notes, type Software, type Release } from '../lib/software'
+
+interface Props {
+  locale: Locale
+  entries: { software: Software; release: Release }[]
+  showName?: boolean
+}
+const { locale, entries, showName = true } = Astro.props
+---
+
+{
+  entries.length === 0 ? (
+    <p class="muted">{t(locale, 'empty.updates')}</p>
+  ) : (
+    <ol class="log" role="list">
+      {entries.map(({ software, release }) => {
+        const n = notes(release, locale)
+        return (
+          <li>
+            <time class="date num" datetime={release.date.toISOString().slice(0, 10)}>
+              {formatDate(release.date, locale)}
+            </time>
+            <div class="body">
+              <p class="head">
+                {showName && (
+                  <a class="prog" href={path(locale, `software/${software.id}`)}>
+                    {displayName(software, locale)}
+                  </a>
+                )}
+                <span class="ver num">v{release.version}</span>
+                {release.channel === 'beta' && <span class="beta">{t(locale, 'software.beta')}</span>}
+              </p>
+              {n.length > 0 && (
+                <ul class="notes">
+                  {n.map((line) => (
+                    <li>{line}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </li>
+        )
+      })}
+    </ol>
+  )
+}
+
+<style>
+  .log {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .log > li {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    gap: 1.5rem;
+    padding-block: 1.25rem;
+    border-top: 1px solid var(--line);
+  }
+  .date {
+    color: var(--ink-soft);
+    font-size: var(--t-sm);
+    padding-top: 0.15rem;
+  }
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.6rem;
+    font-weight: 700;
+  }
+  .prog {
+    color: var(--ink);
+    font-size: var(--t-md);
+    text-decoration: none;
+  }
+  .prog:hover {
+    text-decoration: underline;
+  }
+  .ver {
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+  .beta {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    color: var(--ink-soft);
+  }
+  .notes {
+    margin: 0.5rem 0 0;
+    padding-left: 1.1em;
+    max-width: 42rem;
+    color: var(--ink);
+  }
+  .notes li + li {
+    margin-top: 0.2rem;
+  }
+  @media (max-width: 560px) {
+    .log > li {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+</style>

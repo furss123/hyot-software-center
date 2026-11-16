@@ -1,0 +1,88 @@
+---
+import '../styles/global.css'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import { t, otherLocale, type Locale } from '../lib/i18n'
+
+interface Props {
+  locale: Locale
+  title?: string
+  description?: string
+  current?: 'home' | 'software' | 'changelog' | 'feedback'
+  image?: string
+}
+
+const { locale, title, description, current, image } = Astro.props
+const site = 'HyoT'
+const fullTitle = title ? `${title} | ${site}` : `${site} — ${t(locale, 'home.title')}`
+const desc = description ?? t(locale, 'site.description')
+const canonical = new URL(Astro.url.pathname, Astro.site)
+const altPath = Astro.url.pathname.replace(/^\/(ko|en)\//, `/${otherLocale(locale)}/`)
+const ogImage = new URL(image ?? '/og.png', Astro.site)
+const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t}catch(e){}})()`
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={locale} href={canonical} />
+    <link rel="alternate" hreflang={otherLocale(locale)} href={new URL(altPath, Astro.site)} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#f4f6f9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#101a2e" media="(prefers-color-scheme: dark)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={locale === 'ko' ? 'ko_KR' : 'en_US'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="google-adsense-account" content="ca-pub-9694429813677076" />
+    <script is:inline set:html={themeScript} />
+    <script
+      is:inline
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9694429813677076"
+      crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">{locale === 'ko' ? '본문으로 건너뛰기' : 'Skip to content'}</a>
+    <Header locale={locale} current={current} altPath={altPath} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>
+
+<style>
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  main {
+    flex: 1;
+  }
+  .skip {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 10;
+    background: var(--mark);
+    color: var(--mark-ink);
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-weight: 700;
+  }
+  .skip:focus {
+    top: 1rem;
+  }
+</style>

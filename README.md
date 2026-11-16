@@ -1,59 +1,14 @@
-# HyoT Software Center
+# HyoT — hyot.dev
 
-Windows utility software distribution platform.
+HyoT가 만든 무료 Windows·Android 프로그램 배포 사이트. [Astro](https://astro.build) 정적 사이트이며 main에 푸시하면 GitHub Pages로 배포됩니다.
 
-## Quick Start
+- 프로그램 추가·업데이트: [ADDING.md](ADDING.md)
+- 디자인 토큰: `src/styles/global.css`
+- 화면 문구(한/영): `src/lib/i18n.ts`
+- 피드백은 Supabase `feedback` 테이블에 저장됩니다.
 
 ```bash
 npm install
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) — redirects to `/ko/`.
-
-## Scripts
-
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start dev server |
-| `npm run build` | Validate schemas + static export |
-| `npm run typecheck` | TypeScript check |
-| `npm run lint` | ESLint |
-| `npm run validate:schemas` | Zod validation of `/data` |
-
-## Documentation
-
-See [docs/architecture.md](docs/architecture.md) for full project structure and conventions.
-
-## Admin
-
-Local CMS at `/admin` — never deployed. Run separately:
-
-```bash
-cd admin && npm install && npm run dev
-```
-
-## Deployment
-
-### GitHub Pages Setup
-
-1. Go to repo Settings → Pages → Source: GitHub Actions
-2. Go to repo Settings → Variables → New repository variable:
-   - Name: `GITHUB_PAGES_REPO`
-   - Value: your repo name (e.g. `hyot-software-center`) OR leave empty for custom domain
-3. Push to `main` → pages.yml deploys automatically
-
-### Custom Domain
-
-1. Add CNAME record pointing to `hyot.github.io`
-2. Set `GITHUB_PAGES_REPO` to empty string in Actions variables
-3. Replace `public/CNAME` content with your domain
-
-### Local Development
-
-```bash
-cp .env.local.example .env.local
-# Edit .env.local — leave GITHUB_PAGES_REPO empty for local dev
-npm install
-npm run dev
+npm run dev     # 개발 서버
+npm run build   # dist/ 생성
 ```

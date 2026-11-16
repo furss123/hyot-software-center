@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro'
+import { t, path } from '../lib/i18n'
+
+const locale = 'ko' as const
+---
+
+<Base locale={locale} title={t(locale, 'notfound.title')}>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>{t(locale, 'notfound.title')}</h1>
+      <p>{t(locale, 'notfound.body')}</p>
+    </header>
+    <p class="links">
+      <a class="btn btn-primary" href={path('ko')}>{t('ko', 'notfound.cta')}</a>
+      <a class="btn" href={path('en')}>English home</a>
+    </p>
+  </div>
+</Base>
+
+<style>
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+</style>

@@ -1,0 +1,125 @@
+---
+import AppIcon from './AppIcon.astro'
+import { t, path, formatDate, categories, platformNames, type Locale } from '../lib/i18n'
+import { displayName, tagline, latestAny, type Software } from '../lib/software'
+
+interface Props {
+  locale: Locale
+  items: Software[]
+}
+const { locale, items } = Astro.props
+---
+
+{
+  items.length === 0 ? (
+    <div class="empty">
+      <p class="empty-title">{t(locale, 'empty.software.title')}</p>
+      <p class="muted">{t(locale, 'empty.software.body')}</p>
+      <a class="btn" href={path(locale, 'feedback') + '?type=feature'}>
+        {t(locale, 'empty.software.cta')}
+      </a>
+    </div>
+  ) : (
+    <ul class="index" role="list">
+      {items.map((s) => {
+        const r = latestAny(s)
+        return (
+          <li data-category={s.data.category}>
+            <a class="row" href={path(locale, `software/${s.id}`)}>
+              <AppIcon software={s} size={60} />
+              <span class="name">
+                <span class="mark-stroke">{displayName(s, locale)}</span>
+              </span>
+              <span class="meta">
+                <span class="tagline">{tagline(s, locale)}</span>
+                <span class="facts muted">
+                  <span>{s.data.platforms.map((p) => platformNames[p]).join(', ')}</span>
+                  <span>{categories[s.data.category][locale]}</span>
+                  {r && <span class="num">v{r.version}</span>}
+                  {r && <span class="num">{formatDate(r.date, locale)}</span>}
+                </span>
+              </span>
+            </a>
+          </li>
+        )
+      })}
+    </ul>
+  )
+}
+
+<style>
+  .index {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 2px solid var(--ink);
+  }
+  .index li {
+    border-bottom: 1px solid var(--line);
+  }
+  .index li[hidden] {
+    display: none;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) minmax(0, 20rem);
+    align-items: center;
+    gap: clamp(1rem, 2.6vw, 2.25rem);
+    padding-block: clamp(1.1rem, 2.4vw, 1.75rem);
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .name {
+    font-size: var(--t-index);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 1;
+    min-width: 0;
+  }
+  .row:hover .mark-stroke,
+  .row:focus-visible .mark-stroke {
+    background-size: 100% 0.42em;
+  }
+  .row:focus-visible {
+    outline-offset: -3px;
+  }
+  .meta {
+    display: grid;
+    gap: 0.35rem;
+  }
+  .tagline {
+    font-weight: 560;
+    line-height: 1.45;
+  }
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.9rem;
+    font-size: var(--t-sm);
+  }
+  @media (max-width: 760px) {
+    .row {
+      grid-template-columns: auto minmax(0, 1fr);
+      row-gap: 0.75rem;
+    }
+    .meta {
+      grid-column: 1 / -1;
+    }
+  }
+  .empty {
+    border: 2px dashed var(--line);
+    border-radius: var(--radius);
+    padding: clamp(2rem, 6vw, 4rem);
+    display: grid;
+    justify-items: start;
+    gap: 0.75rem;
+  }
+  .empty-title {
+    font-size: var(--t-lg);
+    font-weight: 780;
+    letter-spacing: -0.02em;
+  }
+  .empty .btn {
+    margin-top: 0.75rem;
+  }
+</style>

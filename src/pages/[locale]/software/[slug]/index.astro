@@ -1,0 +1,310 @@
+---
+import { Image } from 'astro:assets'
+import { render } from 'astro:content'
+import Base from '../../../../layouts/Base.astro'
+import AppIcon from '../../../../components/AppIcon.astro'
+import ReleaseList from '../../../../components/ReleaseList.astro'
+import {
+  t,
+  path,
+  locales,
+  formatDate,
+  formatSize,
+  categories,
+  platformNames,
+  assetNames,
+  type Locale,
+} from '../../../../lib/i18n'
+import {
+  getSoftware,
+  displayName,
+  tagline,
+  latestRelease,
+  latestAny,
+  sortedReleases,
+  type Software,
+} from '../../../../lib/software'
+
+export async function getStaticPaths() {
+  const items = await getSoftware()
+  return locales.flatMap((locale) =>
+    items.map((software) => ({ params: { locale, slug: software.id }, props: { software } })),
+  )
+}
+
+const locale = Astro.params.locale as Locale
+const { software } = Astro.props as { software: Software }
+const d = software.data
+const name = displayName(software, locale)
+const stable = latestRelease(software)
+const beta = latestRelease(software, 'beta')
+const current = stable ?? latestAny(software)
+const assets = current?.downloads ?? []
+const primary = assets.find((a) => a.type === 'installer') ?? assets[0]
+const others = assets.filter((a) => a !== primary)
+const platform = platformNames[d.platforms[0]]
+const primaryLabel =
+  locale === 'ko' ? `${platform}용 내려받기` : `Download for ${platform}`
+const history = sortedReleases(software).map((release) => ({ software, release }))
+const { Content } = await render(software)
+const enParagraphs = locale === 'en' && d.description_en ? d.description_en.split(/\n{2,}/) : null
+const fileName = (a: (typeof assets)[number]) => a.filename ?? a.url.split('/').pop()
+---
+
+<Base locale={locale} title={name} description={tagline(software, locale)} current="software">
+  <div class="wrap">
+    <a class="back" href={path(locale, 'software')}>{t(locale, 'software.back')}</a>
+
+    <header class="hero">
+      <AppIcon software={software} size={104} />
+      <div class="hero-text">
+        <h1>{name}</h1>
+        <p class="tagline">{tagline(software, locale)}</p>
+
+        <div class="actions">
+          {
+            primary ? (
+              <a class="btn btn-primary" href={primary.url} download={fileName(primary)}>
+                {primaryLabel}
+                <small class="num">
+                  v{current?.version}
+                  {formatSize(primary.size) && ` / ${formatSize(primary.size)}`}
+                </small>
+              </a>
+            ) : (
+              <p class="muted">{t(locale, 'software.noDownload')}</p>
+            )
+          }
+          {
+            others.map((a) => (
+              <a class="btn" href={a.url} download={fileName(a)}>
+                {a.label ?? assetNames[a.type][locale]}
+                {formatSize(a.size) && <small class="num">{formatSize(a.size)}</small>}
+              </a>
+            ))
+          }
+        </div>
+        {
+          beta && stable && beta.date > stable.date && beta.downloads[0] && (
+            <p class="beta-line">
+              <a href={beta.downloads[0].url}>
+                {t(locale, 'software.beta')} v{beta.version}
+              </a>
+            </p>
+          )
+        }
+        {d.requirements.length > 0 && <p class="req muted">{d.requirements.join(', ')}</p>}
+      </div>
+    </header>
+
+    {
+      d.screenshots.length > 0 && (
+        <div class="shots">
+          {d.screenshots.map((img, i) => (
+            <figure class="shot">
+              <Image
+                src={img}
+                alt={`${name} ${locale === 'ko' ? '화면' : 'screenshot'} ${i + 1}`}
+                widths={[640, 1200, 1800]}
+                sizes="(max-width: 1200px) 100vw, 1200px"
+                loading={i === 0 ? 'eager' : 'lazy'}
+              />
+            </figure>
+          ))}
+        </div>
+      )
+    }
+
+    <div class="body">
+      <div class="prose">
+        {enParagraphs ? enParagraphs.map((p) => <p>{p}</p>) : <Content />}
+      </div>
+
+      <aside class="info" aria-labelledby="info-title">
+        <h2 id="info-title" class="sr-only">{t(locale, 'software.info')}</h2>
+        <dl>
+          {
+            current && (
+              <>
+                <div>
+                  <dt>{t(locale, 'software.version')}</dt>
+                  <dd class="num">v{current.version}</dd>
+                </div>
+                <div>
+                  <dt>{t(locale, 'software.updated')}</dt>
+                  <dd class="num">{formatDate(current.date, locale)}</dd>
+                </div>
+              </>
+            )
+          }
+          <div>
+            <dt>{t(locale, 'software.platform')}</dt>
+            <dd>{d.platforms.map((p) => platformNames[p]).join(', ')}</dd>
+          </div>
+          <div>
+            <dt>{t(locale, 'software.category')}</dt>
+            <dd>{categories[d.category][locale]}</dd>
+          </div>
+          {
+            d.repo && (
+              <div>
+                <dt>{t(locale, 'software.source')}</dt>
+                <dd>
+                  <a href={d.repo} rel="noopener">
+                    GitHub
+                  </a>
+                </dd>
+              </div>
+            )
+          }
+          {
+            primary?.sha256 && (
+              <div>
+                <dt>{t(locale, 'software.sha')}</dt>
+                <dd class="hash">{primary.sha256}</dd>
+              </div>
+            )
+          }
+        </dl>
+        <a class="report" href={`${path(locale, 'feedback')}?software=${software.id}`}>
+          {t(locale, 'software.report')}
+        </a>
+      </aside>
+    </div>
+
+    {
+      history.length > 0 && (
+        <section class="history" aria-labelledby="history-title">
+          <h2 id="history-title" class="section-title">
+            {t(locale, 'software.history')}
+          </h2>
+          <ReleaseList locale={locale} entries={history} showName={false} />
+        </section>
+      )
+    }
+  </div>
+</Base>
+
+<style>
+  .back {
+    display: inline-block;
+    margin-top: 2rem;
+    font-size: var(--t-sm);
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .back:hover {
+    color: var(--ink);
+    text-decoration: underline;
+  }
+  .hero {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+    align-items: start;
+    padding-block: clamp(2rem, 5vw, 3.5rem) clamp(2.5rem, 5vw, 4rem);
+  }
+  .hero-text {
+    display: grid;
+    gap: 1rem;
+  }
+  h1 {
+    font-size: var(--t-index);
+    font-weight: 820;
+    letter-spacing: -0.045em;
+    line-height: 1;
+  }
+  .tagline {
+    font-size: var(--t-md);
+    line-height: 1.5;
+    max-width: 34em;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+  .btn-primary {
+    min-height: 3.5rem;
+    padding-inline: 1.6rem;
+    font-size: 1.1rem;
+  }
+  .beta-line,
+  .req {
+    font-size: var(--t-sm);
+  }
+  .shots {
+    display: grid;
+    gap: 1.5rem;
+  }
+  .shot {
+    margin: 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .shot :global(img) {
+    width: 100%;
+  }
+  .body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 18rem;
+    gap: clamp(2rem, 6vw, 5rem);
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+  }
+  .info {
+    align-self: start;
+    position: sticky;
+    top: 1.5rem;
+  }
+  dl {
+    margin: 0;
+    border-top: 2px solid var(--ink);
+  }
+  dl > div {
+    display: grid;
+    gap: 0.15rem;
+    padding-block: 0.8rem;
+    border-bottom: 1px solid var(--line);
+  }
+  dt {
+    font-size: var(--t-sm);
+    color: var(--ink-soft);
+  }
+  dd {
+    margin: 0;
+    font-weight: 620;
+  }
+  .hash {
+    font-size: 0.75rem;
+    font-weight: 500;
+    word-break: break-all;
+    color: var(--ink-soft);
+  }
+  .report {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: var(--t-sm);
+  }
+  .history {
+    margin-top: clamp(4rem, 8vw, 6rem);
+  }
+  .history .section-title {
+    margin-bottom: 0.75rem;
+  }
+  @media (max-width: 860px) {
+    .body {
+      grid-template-columns: 1fr;
+    }
+    .info {
+      position: static;
+    }
+  }
+  @media (max-width: 560px) {
+    .hero {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,233 @@
+---
+import Base from '../../../layouts/Base.astro'
+import { t, localeStaticPaths, type Locale } from '../../../lib/i18n'
+import { getSoftware, displayName } from '../../../lib/software'
+
+export const getStaticPaths = localeStaticPaths
+
+const locale = Astro.params.locale as Locale
+const items = await getSoftware()
+
+// 기존 사이트와 같은 Supabase `feedback` 테이블에 저장한다 (anon 키는 공개용 키).
+const SUPABASE_URL = 'https://pwzjuwxeabpiyxnmurqx.supabase.co'
+const SUPABASE_ANON =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB3emp1d3hlYWJwaXl4bm11cnF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI1NjI4MjMsImV4cCI6MjA5ODEzODgyM30.H7lbU_wwUp0DFHEQz-DSRX-hByl_Y7Jfq2YEtMF8rAk'
+
+const types = ['bug', 'feature', 'other'] as const
+---
+
+<Base locale={locale} title={t(locale, 'feedback.title')} current="feedback">
+  <div class="wrap">
+    <header class="page-head">
+      <h1>{t(locale, 'feedback.title')}</h1>
+      <p>{t(locale, 'feedback.lead')}</p>
+    </header>
+
+    <form
+      id="feedback"
+      novalidate
+      data-url={SUPABASE_URL}
+      data-key={SUPABASE_ANON}
+      data-msg-sending={t(locale, 'feedback.sending')}
+      data-msg-submit={t(locale, 'feedback.submit')}
+      data-msg-sent={t(locale, 'feedback.sent')}
+      data-msg-error={t(locale, 'feedback.error')}
+      data-msg-required={t(locale, 'feedback.required')}
+    >
+      <fieldset class="types">
+        <legend>{t(locale, 'feedback.type')}</legend>
+        {
+          types.map((v, i) => (
+            <label>
+              <input type="radio" name="type" value={v} checked={i === 0} />
+              <span>{t(locale, `feedback.type.${v}`)}</span>
+            </label>
+          ))
+        }
+      </fieldset>
+
+      <label class="field">
+        <span>{t(locale, 'feedback.software')}</span>
+        <select name="software">
+          <option value="">{t(locale, 'feedback.software.none')}</option>
+          {items.map((s) => <option value={s.id}>{displayName(s, locale)}</option>)}
+        </select>
+      </label>
+
+      <label class="field">
+        <span>{t(locale, 'feedback.subject')}</span>
+        <input name="title" type="text" maxlength="120" required placeholder={t(locale, 'feedback.subject.ph')} />
+      </label>
+
+      <label class="field">
+        <span>{t(locale, 'feedback.content')}</span>
+        <textarea name="content" rows="8" maxlength="5000" required placeholder={t(locale, 'feedback.content.ph')}
+        ></textarea>
+      </label>
+
+      <label class="field">
+        <span>{t(locale, 'feedback.contact')}</span>
+        <input name="contact" type="text" maxlength="200" autocomplete="email" placeholder={t(locale, 'feedback.contact.ph')} />
+      </label>
+
+      <div class="submit-row">
+        <button class="btn btn-primary" type="submit">{t(locale, 'feedback.submit')}</button>
+        <p class="status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+  </div>
+</Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#feedback')
+  if (form) {
+    const status = form.querySelector<HTMLParagraphElement>('.status')!
+    const button = form.querySelector<HTMLButtonElement>('button[type=submit]')!
+    const msg = form.dataset
+
+    // ?software=slug, ?type=feature 로 미리 선택
+    const q = new URLSearchParams(location.search)
+    const sw = q.get('software')
+    if (sw) (form.elements.namedItem('software') as HTMLSelectElement).value = sw
+    const ty = q.get('type')
+    if (ty) form.querySelector<HTMLInputElement>(`input[name=type][value="${CSS.escape(ty)}"]`)?.click()
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      const data = new FormData(form)
+      const title = String(data.get('title') ?? '').trim()
+      const content = String(data.get('content') ?? '').trim()
+      if (!title || !content) {
+        status.textContent = msg.msgRequired ?? ''
+        status.dataset.state = 'bad'
+        ;(form.elements.namedItem(title ? 'content' : 'title') as HTMLElement).focus()
+        return
+      }
+      button.disabled = true
+      button.textContent = msg.msgSending ?? ''
+      status.textContent = ''
+      try {
+        const res = await fetch(`${msg.url}/rest/v1/feedback`, {
+          method: 'POST',
+          headers: {
+            apikey: msg.key!,
+            Authorization: `Bearer ${msg.key}`,
+            'Content-Type': 'application/json',
+            Prefer: 'return=minimal',
+          },
+          body: JSON.stringify({
+            type: data.get('type'),
+            software: data.get('software') || null,
+            title,
+            content,
+            contact: String(data.get('contact') ?? '').trim() || null,
+          }),
+        })
+        if (!res.ok) throw new Error(String(res.status))
+        form.reset()
+        status.textContent = msg.msgSent ?? ''
+        status.dataset.state = 'ok'
+      } catch {
+        status.textContent = msg.msgError ?? ''
+        status.dataset.state = 'bad'
+      } finally {
+        button.disabled = false
+        button.textContent = msg.msgSubmit ?? ''
+      }
+    })
+  }
+</script>
+
+<style>
+  form {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 40rem;
+  }
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+  legend,
+  .field > span {
+    display: block;
+    font-size: var(--t-sm);
+    font-weight: 650;
+    margin-bottom: 0.5rem;
+  }
+  .types {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .types legend {
+    width: 100%;
+  }
+  .types label {
+    position: relative;
+  }
+  .types input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+  }
+  .types span {
+    display: inline-block;
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    font-weight: 620;
+    cursor: pointer;
+  }
+  .types input:checked + span {
+    background: var(--mark);
+    border-color: var(--mark);
+    color: var(--mark-ink);
+  }
+  .types input:focus-visible + span {
+    outline: 3px solid var(--link);
+    outline-offset: 3px;
+  }
+  input[type='text'],
+  select,
+  textarea {
+    width: 100%;
+    font: inherit;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 0.75rem 0.9rem;
+  }
+  input[type='text']:focus,
+  select:focus,
+  textarea:focus {
+    border-color: var(--ink);
+    outline: none;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--mark) 70%, transparent);
+  }
+  textarea {
+    resize: vertical;
+    line-height: 1.6;
+  }
+  ::placeholder {
+    color: var(--ink-soft);
+    opacity: 0.8;
+  }
+  .submit-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+  .status[data-state='ok'] {
+    color: var(--ok);
+    font-weight: 620;
+  }
+  .status[data-state='bad'] {
+    color: var(--bad);
+    font-weight: 620;
+  }
+</style>

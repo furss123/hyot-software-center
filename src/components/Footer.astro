@@ -1,0 +1,52 @@
+---
+import { t, path, type Locale } from '../lib/i18n'
+
+interface Props {
+  locale: Locale
+}
+const { locale } = Astro.props
+const year = new Date().getFullYear()
+---
+
+<footer class="site-footer">
+  <div class="wrap row">
+    <p class="muted">© {year} {t(locale, 'footer.rights')}</p>
+    <ul>
+      <li><a href={path(locale, 'software')}>{t(locale, 'nav.software')}</a></li>
+      <li><a href={path(locale, 'changelog')}>{t(locale, 'nav.changelog')}</a></li>
+      <li><a href={path(locale, 'feedback')}>{t(locale, 'nav.feedback')}</a></li>
+      <li><a href="https://github.com/furss123" rel="noopener">GitHub</a></li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: clamp(4rem, 10vw, 8rem);
+    border-top: 1px solid var(--line);
+    padding-block: 2rem 2.5rem;
+    font-size: var(--t-sm);
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  a {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--ink);
+    text-decoration: underline;
+  }
+</style>

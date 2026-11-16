@@ -1,0 +1,72 @@
+---
+import Base from '../../layouts/Base.astro'
+import SoftwareIndex from '../../components/SoftwareIndex.astro'
+import ReleaseList from '../../components/ReleaseList.astro'
+import { t, path, localeStaticPaths, type Locale } from '../../lib/i18n'
+import { getSoftware, getAllReleases } from '../../lib/software'
+
+export const getStaticPaths = localeStaticPaths
+
+const locale = Astro.params.locale as Locale
+const items = await getSoftware()
+const recent = (await getAllReleases()).slice(0, 5)
+---
+
+<Base locale={locale} current="home">
+  <section class="wrap hero">
+    <h1>{t(locale, 'home.title')}</h1>
+    <p>{t(locale, 'home.lead')}</p>
+  </section>
+
+  <section class="wrap programs" aria-labelledby="programs-title">
+    <h2 id="programs-title" class="sr-only">{t(locale, 'home.programs')}</h2>
+    <SoftwareIndex locale={locale} items={items} />
+  </section>
+
+  {
+    recent.length > 0 && (
+      <section class="wrap updates" aria-labelledby="updates-title">
+        <div class="updates-head">
+          <h2 id="updates-title" class="section-title">
+            {t(locale, 'home.updates')}
+          </h2>
+          <a href={path(locale, 'changelog')}>{t(locale, 'home.allUpdates')}</a>
+        </div>
+        <ReleaseList locale={locale} entries={recent} />
+      </section>
+    )
+  }
+</Base>
+
+<style>
+  .hero {
+    padding-block: clamp(3.5rem, 10vw, 7.5rem) clamp(2.5rem, 6vw, 4.5rem);
+    display: grid;
+    gap: 1.25rem;
+  }
+  .hero h1 {
+    font-size: var(--t-xl);
+    font-weight: 820;
+    letter-spacing: -0.04em;
+    max-width: 15em;
+  }
+  .hero p {
+    font-size: var(--t-md);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 32em;
+  }
+  .updates {
+    margin-top: clamp(4rem, 9vw, 7rem);
+  }
+  .updates-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .updates-head a {
+    font-size: var(--t-sm);
+  }
+</style>
