@@ -98,12 +98,12 @@ const fileName = (a: (typeof assets)[number]) => a.filename ?? a.url.split('/').
       d.screenshots.length > 0 && (
         <div class="shots">
           {d.screenshots.map((img, i) => (
-            <figure class="shot">
+            <figure class="shot" style={`max-width:${img.width}px`}>
               <Image
                 src={img}
                 alt={`${name} ${locale === 'ko' ? '화면' : 'screenshot'} ${i + 1}`}
-                widths={[640, 1200, 1800]}
-                sizes="(max-width: 1200px) 100vw, 1200px"
+                widths={[480, 960, 1600].filter((w) => w <= img.width).concat(img.width)}
+                sizes={`(max-width: 760px) 100vw, ${Math.min(img.width, 1200)}px`}
                 loading={i === 0 ? 'eager' : 'lazy'}
               />
             </figure>
@@ -219,8 +219,12 @@ const fileName = (a: (typeof assets)[number]) => a.filename ?? a.url.split('/').
     font-size: var(--t-sm);
   }
   .shots {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
+  }
+  .shots > .shot {
+    flex: 1 1 20rem;
   }
   .shot {
     margin: 0;
