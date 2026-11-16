@@ -3,7 +3,6 @@ import { Image } from 'astro:assets'
 import { render } from 'astro:content'
 import Base from '../../../../layouts/Base.astro'
 import AppIcon from '../../../../components/AppIcon.astro'
-import ReleaseList from '../../../../components/ReleaseList.astro'
 import {
   t,
   path,
@@ -21,7 +20,6 @@ import {
   tagline,
   latestRelease,
   latestAny,
-  sortedReleases,
   type Software,
 } from '../../../../lib/software'
 
@@ -45,7 +43,6 @@ const others = assets.filter((a) => a !== primary)
 const platform = platformNames[d.platforms[0]]
 const primaryLabel =
   locale === 'ko' ? `${platform}용 내려받기` : `Download for ${platform}`
-const history = sortedReleases(software).map((release) => ({ software, release }))
 const { Content } = await render(software)
 const enParagraphs = locale === 'en' && d.description_en ? d.description_en.split(/\n{2,}/) : null
 const fileName = (a: (typeof assets)[number]) => a.filename ?? a.url.split('/').pop()
@@ -169,16 +166,6 @@ const fileName = (a: (typeof assets)[number]) => a.filename ?? a.url.split('/').
       </aside>
     </div>
 
-    {
-      history.length > 0 && (
-        <section class="history" aria-labelledby="history-title">
-          <h2 id="history-title" class="section-title">
-            {t(locale, 'software.history')}
-          </h2>
-          <ReleaseList locale={locale} entries={history} showName={false} />
-        </section>
-      )
-    }
   </div>
 </Base>
 
@@ -279,12 +266,6 @@ const fileName = (a: (typeof assets)[number]) => a.filename ?? a.url.split('/').
     font-weight: 500;
     word-break: break-all;
     color: var(--ink-soft);
-  }
-  .history {
-    margin-top: clamp(4rem, 8vw, 6rem);
-  }
-  .history .section-title {
-    margin-bottom: 0.75rem;
   }
   @media (max-width: 860px) {
     .body {
