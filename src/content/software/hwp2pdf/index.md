@@ -7,12 +7,12 @@ description_en: |-
 
   Drop files or whole folders onto the window, choose the image quality and page range, and convert them all at once. Existing PDFs are never overwritten, and your last settings are remembered.
 
-  Requires Windows, Hancom Office Hangul and Python 3.12 or later. On first launch, run run.bat so the required packages are installed automatically.
+  Requires Windows and Hancom Office Hangul. Unzip the download and run hwp2pdf.exe — nothing else to install.
 category: document
 platforms: [windows]
 icon: ./icon.png
 screenshots: [./done.png, ./working.png]
-requirements: [Windows, 한컴오피스 한글, Python 3.12 이상]
+requirements: [Windows 64비트, 한컴오피스 한글]
 order: 1
 releases:
   - version: 1.0.0
@@ -22,11 +22,11 @@ releases:
       - 첫 공개 버전
     downloads:
       - type: portable
-        label: 압축 파일
-        filename: hwp2pdf_1.0.0.zip
-        url: /downloads/hwp2pdf/hwp2pdf_1.0.0.zip
-        size: 17892
-        sha256: 4dd10820cf6a20175554edb7c53dd4a8ff39d4259faa9c52f6b5569e6b5e3514
+        filename: hwp2pdf_1.0.0_x64.zip
+        url: /downloads/hwp2pdf/hwp2pdf_1.0.0_x64.zip
+        size: 96055992
+        sha256: cc0e6e5ab56ddf7a9103558f292e5e725b93b38b0a14303f67fb510d9bc0c982
+        arch: x64
 ---
 
 PC에 설치된 한컴오피스 한글을 이용해 HWP·HWPX 문서를 PDF로 바꿉니다. 여러 파일이나 폴더를 한꺼번에 넣고 버튼 한 번으로 변환합니다.
@@ -42,13 +42,14 @@ PC에 설치된 한컴오피스 한글을 이용해 HWP·HWPX 문서를 PDF로 �
 - 완료된 파일을 더블클릭하면 PDF가 있는 폴더 열기
 - 마지막으로 쓴 설정 기억
 
-## 처음 실행하기
+## 실행하기
 
-1. 압축을 풉니다.
-2. **run.bat**을 더블클릭합니다. 처음 한 번은 필요한 구성 요소를 자동으로 설치하느라 창이 뜨기까지 조금 걸립니다.
-3. 다음부터는 **run.bat** 또는 **hwp2pdf.vbs**를 더블클릭하면 바로 열립니다.
+1. 내려받은 압축 파일을 새 폴더에 풉니다.
+2. **hwp2pdf.exe**를 더블클릭합니다. 따로 설치할 것은 없습니다.
+
+`_internal` 폴더는 실행에 필요한 파일이니 hwp2pdf.exe와 같은 곳에 그대로 두세요.
 
 ## 필요한 환경
 
-- Windows와 한컴오피스 한글
-- [Python 3.12 이상](https://www.python.org/downloads/windows/) — 설치할 때 "Add python.exe to PATH"를 체크해 주세요.
+- Windows 64비트
+- 한컴오피스 한글
