@@ -9,9 +9,10 @@ interface Props {
   title?: string
   description?: string
   image?: string
+  presentation?: boolean
 }
 
-const { locale, title, description, image } = Astro.props
+const { locale, title, description, image, presentation = false } = Astro.props
 const site = 'HyoT'
 const fullTitle = title ? `${title} | ${site}` : site
 const desc = description ?? t(locale, 'site.description')
@@ -43,21 +44,27 @@ const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(!t)t
     <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content={locale === 'ko' ? 'ko_KR' : 'en_US'} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="google-adsense-account" content="ca-pub-9694429813677076" />
+    {!presentation && <meta name="google-adsense-account" content="ca-pub-9694429813677076" />}
     <script is:inline set:html={themeScript} />
-    <script
-      is:inline
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9694429813677076"
-      crossorigin="anonymous"></script>
+    {!presentation && (
+      <script
+        is:inline
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9694429813677076"
+        crossorigin="anonymous"></script>
+    )}
   </head>
-  <body>
-    <a class="skip" href="#main">{locale === 'ko' ? '본문으로 건너뛰기' : 'Skip to content'}</a>
-    <Header locale={locale} altPath={altPath} />
+  <body class:list={{ presentation }}>
+    {!presentation && (
+      <>
+        <a class="skip" href="#main">{locale === 'ko' ? '본문으로 건너뛰기' : 'Skip to content'}</a>
+        <Header locale={locale} altPath={altPath} />
+      </>
+    )}
     <main id="main">
       <slot />
     </main>
-    <Footer />
+    {!presentation && <Footer />}
   </body>
 </html>
 
@@ -66,6 +73,9 @@ const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(!t)t
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+  }
+  body.presentation {
+    min-height: 100dvh;
   }
   main {
     flex: 1;

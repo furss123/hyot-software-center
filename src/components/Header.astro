@@ -15,6 +15,7 @@ const { locale, altPath } = Astro.props
       <span class="logo-mark" aria-hidden="true"></span>
       <span class="logo-word">HyoT</span>
     </a>
+    <a class="clock-link" href={path(locale, 'clock')}>{t(locale, 'nav.clock')}</a>
     <div class="tools">
       <a class="lang" href={altPath} hreflang={locale === 'ko' ? 'en' : 'ko'}>{t(locale, 'nav.lang')}</a>
       <button class="theme" type="button" aria-label={t(locale, 'nav.theme')} title={t(locale, 'nav.theme')}>
@@ -78,6 +79,20 @@ const { locale, altPath } = Astro.props
     font-size: 1.3rem;
     font-weight: 880;
     letter-spacing: -0.04em;
+  }
+  .clock-link {
+    flex: none;
+    padding: 0.35rem 0.7rem;
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: var(--t-sm);
+    font-weight: 680;
+    text-decoration: none;
+  }
+  .clock-link:hover {
+    background: var(--mark);
+    color: var(--mark-ink);
   }
   .tools {
     margin-left: auto;

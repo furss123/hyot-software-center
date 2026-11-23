@@ -1,0 +1,263 @@
+---
+import Base from '../../layouts/Base.astro'
+import { localeStaticPaths, path, t, type Locale } from '../../lib/i18n'
+
+export const getStaticPaths = localeStaticPaths
+
+const locale = Astro.params.locale as Locale
+const title = t(locale, 'nav.clock')
+---
+
+<Base locale={locale} title={title} description={t(locale, 'clock.description')} presentation>
+  <div class="clock" data-clock>
+    <h1 class="sr-only">{title}</h1>
+    <time class="clock-time" hidden></time>
+    <noscript>{t(locale, 'clock.requiresJs')}</noscript>
+
+    <div class="clock-controls" data-controls hidden>
+      <a class="clock-control" href={path(locale)}>HyoT</a>
+      <div class="clock-size" role="group" aria-label={t(locale, 'clock.size')}>
+        <button class="clock-control" type="button" aria-label={t(locale, 'clock.smaller')} data-smaller>−</button>
+        <output class="num" data-size>100%</output>
+        <button class="clock-control" type="button" aria-label={t(locale, 'clock.larger')} data-larger>+</button>
+      </div>
+      <button
+        class="clock-control"
+        type="button"
+        data-theme-toggle
+        data-light={t(locale, 'clock.light')}
+        data-dark={t(locale, 'clock.dark')}
+      >{t(locale, 'clock.dark')}</button>
+      <button
+        class="clock-control"
+        type="button"
+        data-fullscreen-toggle
+        data-enter={t(locale, 'clock.fullscreen')}
+        data-exit={t(locale, 'clock.exitFullscreen')}
+        hidden
+      >{t(locale, 'clock.fullscreen')}</button>
+    </div>
+  </div>
+</Base>
+
+<script>
+  const clock = document.querySelector<HTMLElement>('[data-clock]')
+
+  if (clock) {
+    const face = clock.querySelector<HTMLTimeElement>('time')!
+    const controls = clock.querySelector<HTMLElement>('[data-controls]')!
+    const smaller = controls.querySelector<HTMLButtonElement>('[data-smaller]')!
+    const larger = controls.querySelector<HTMLButtonElement>('[data-larger]')!
+    const size = controls.querySelector<HTMLOutputElement>('[data-size]')!
+    const themeButton = controls.querySelector<HTMLButtonElement>('[data-theme-toggle]')!
+    const fullscreenButton = controls.querySelector<HTMLButtonElement>('[data-fullscreen-toggle]')!
+
+    const formatter = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Asia/Seoul',
+      hourCycle: 'h23',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    })
+    let tickTimer: number
+
+    function updateTime() {
+      window.clearTimeout(tickTimer)
+      const value = formatter.format(Date.now())
+      face.textContent = value
+      face.dateTime = value
+      if (!document.hidden) {
+        tickTimer = window.setTimeout(updateTime, 1000 - (Date.now() % 1000))
+      }
+    }
+
+    updateTime()
+    face.hidden = false
+    document.addEventListener('visibilitychange', updateTime)
+    window.addEventListener('pageshow', updateTime)
+
+    const scaleKey = 'clock-scale'
+    const minScale = 50
+    const maxScale = 120
+    const step = 10
+    let scale = 100
+
+    try {
+      const saved = Number(localStorage.getItem(scaleKey))
+      if (saved >= minScale && saved <= maxScale && saved % step === 0) scale = saved
+    } catch {}
+
+    function showScale() {
+      face.style.setProperty('--clock-scale', String(scale / 100))
+      size.value = `${scale}%`
+      smaller.disabled = scale === minScale
+      larger.disabled = scale === maxScale
+    }
+
+    function changeScale(amount: number) {
+      scale = Math.min(maxScale, Math.max(minScale, scale + amount))
+      showScale()
+      try {
+        localStorage.setItem(scaleKey, String(scale))
+      } catch {}
+    }
+
+    showScale()
+    smaller.addEventListener('click', () => changeScale(-step))
+    larger.addEventListener('click', () => changeScale(step))
+
+    const theme = document.documentElement.dataset
+
+    function updateThemeButton() {
+      themeButton.textContent = (theme.theme === 'dark' ? themeButton.dataset.light : themeButton.dataset.dark) ?? ''
+    }
+
+    updateThemeButton()
+    themeButton.addEventListener('click', () => {
+      theme.theme = theme.theme === 'dark' ? 'light' : 'dark'
+      updateThemeButton()
+      try {
+        localStorage.setItem('theme', theme.theme)
+      } catch {}
+    })
+
+    let controlsTimer: number
+
+    function hideControls() {
+      window.clearTimeout(controlsTimer)
+      clock?.removeAttribute('data-controls-visible')
+    }
+
+    function dismissControls() {
+      controls.querySelector<HTMLElement>(':focus')?.blur()
+      hideControls()
+    }
+
+    function showControls() {
+      clock?.setAttribute('data-controls-visible', '')
+      window.clearTimeout(controlsTimer)
+      controlsTimer = window.setTimeout(hideControls, 4000)
+    }
+
+    const fullscreenWindow = window.matchMedia('(display-mode: fullscreen)')
+    controls.hidden = false
+    if (!fullscreenWindow.matches) showControls()
+    clock.addEventListener('pointermove', showControls)
+    clock.addEventListener('pointerdown', showControls)
+    controls.addEventListener('click', showControls)
+    window.addEventListener('resize', hideControls)
+    fullscreenWindow.addEventListener('change', ({ matches }) => {
+      if (matches) dismissControls()
+    })
+
+    if (document.fullscreenEnabled) {
+      fullscreenButton.hidden = false
+      fullscreenButton.addEventListener('click', async () => {
+        try {
+          if (document.fullscreenElement === clock) {
+            await document.exitFullscreen()
+          } else {
+            await clock.requestFullscreen()
+          }
+        } catch {
+          showControls()
+        }
+      })
+      document.addEventListener('fullscreenchange', () => {
+        const fullscreen = document.fullscreenElement === clock
+        fullscreenButton.textContent = (fullscreen ? fullscreenButton.dataset.exit : fullscreenButton.dataset.enter) ?? ''
+        if (fullscreen) {
+          dismissControls()
+        } else {
+          showControls()
+        }
+      })
+    }
+  }
+</script>
+
+<style>
+  .clock {
+    --clock-background: #fafafa;
+    --clock-ink: #111;
+    --clock-control: #eee;
+    --clock-control-hover: #ddd;
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: var(--clock-background);
+    color: var(--clock-ink);
+    font-feature-settings: normal;
+  }
+  :global(:root[data-theme='dark']) .clock {
+    --clock-background: #0a0a0a;
+    --clock-ink: #fff;
+    --clock-control: #242424;
+    --clock-control-hover: #383838;
+  }
+  .clock-time {
+    font-size: calc(min(16.75vw, 56vh) * var(--clock-scale, 1));
+    font-size: calc(min(16.75vw, 56dvh) * var(--clock-scale, 1));
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .clock-controls {
+    position: absolute;
+    inset: max(0.75rem, env(safe-area-inset-top)) 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding-inline: 0.75rem;
+    font-size: var(--t-sm);
+  }
+  .clock [hidden] {
+    display: none;
+  }
+  .clock:not([data-controls-visible]) .clock-controls:not(:has(:focus-visible)) {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .clock-size {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .clock-size output {
+    min-width: 4ch;
+    text-align: center;
+  }
+  .clock-control {
+    display: inline-grid;
+    place-items: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.35rem 0.75rem;
+    border: 0;
+    border-radius: 8px;
+    background: var(--clock-control);
+    color: inherit;
+    font: inherit;
+    font-weight: 650;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .clock-control:hover:not(:disabled) {
+    background: var(--clock-control-hover);
+  }
+  .clock-control:disabled {
+    opacity: 0.45;
+    cursor: default;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .clock:not([data-controls-visible]) {
+      cursor: none;
+    }
+  }
+</style>
