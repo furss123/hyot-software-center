@@ -1,0 +1,372 @@
+---
+import Base from '../../layouts/Base.astro'
+import folio from '../../assets/moagyeol-folio.webp'
+import { localeStaticPaths, path, type Locale } from '../../lib/i18n'
+import { pdfCopy } from '../../lib/pdf-tools-copy'
+
+export const getStaticPaths = localeStaticPaths
+
+const locale = Astro.params.locale as Locale
+const copy = pdfCopy[locale]
+---
+
+<Base locale={locale} title={copy.title} description={copy.description} ads={false}>
+  <section class="wrap pdf-page" aria-labelledby="pdf-title" data-pdf-tools>
+    <header class="page-heading">
+      <div>
+        <h1 id="pdf-title">{copy.title}</h1>
+        <p>{copy.description}</p>
+      </div>
+      <a class="btn desktop-link" href={path(locale, 'software/hwp2pdf')}>{copy.desktop}</a>
+    </header>
+
+    <noscript><p>{copy.requiresJs}</p></noscript>
+    <div data-tools hidden>
+      <div class="tool-switch" role="group" aria-label={copy.tools}>
+        <button type="button" data-tool="merge" aria-pressed="true">{copy.merge.title}</button>
+        <button type="button" data-tool="compress" aria-pressed="false">{copy.compress.title}</button>
+      </div>
+      <div class="workspace">
+        <section class="panel" aria-labelledby="files-title">
+          <div class="panel-heading">
+            <h2 id="files-title">{copy.merge.files}</h2>
+            <button class="plain clear" type="button" data-clear hidden>{copy.clear}</button>
+          </div>
+          <div class="dropzone" data-dropzone>
+            <img src={folio.src} width={folio.width} height={folio.height} alt="" class="folio" />
+            <p class="drop-title" data-drop-title>{copy.merge.drop}</p>
+            <input type="file" accept=".pdf,application/pdf" multiple data-files hidden />
+            <button class="btn choose" type="button" data-choose>{copy.choose}</button>
+          </div>
+          <div class="file-list" data-file-list hidden>
+            <p class="order-help" data-order-help>{copy.merge.order}</p>
+            <ol data-list aria-label={copy.merge.order}></ol>
+          </div>
+          <template data-file-template>
+            <li class="file">
+              <span class="file-position num" aria-hidden="true" data-position></span>
+              <div class="file-details">
+                <span class="file-name" data-name></span>
+                <span class="file-size num" data-size></span>
+              </div>
+              <div class="file-actions">
+                <button class="plain" type="button" data-action="up">{copy.up}</button>
+                <button class="plain" type="button" data-action="down">{copy.down}</button>
+                <button class="plain remove" type="button" data-action="remove">{copy.remove}</button>
+              </div>
+            </li>
+          </template>
+        </section>
+
+        <section class="panel save-panel" aria-labelledby="save-title">
+          <h2 id="save-title">{copy.merge.save}</h2>
+          <fieldset class="level-field" data-levels hidden aria-describedby="level-help">
+            <legend>{copy.level}</legend>
+            <div class="levels">
+              {copy.levelNames.map((label, index) => (
+                <label class="level" title={label}>
+                  <input class="sr-only" type="radio" name="level" value={index + 1} checked={index === 2} />
+                  <span aria-hidden="true">{index + 1}</span>
+                  <span class="sr-only">{label}</span>
+                </label>
+              ))}
+            </div>
+            <div class="level-scale" aria-hidden="true">
+              <span>{copy.qualityFirst}</span>
+              <span>{copy.sizeFirst}</span>
+            </div>
+            <p class="level-selected" data-level-name>{copy.levelNames[2]}</p>
+            <p class="level-help" id="level-help">{copy.compressHelp}</p>
+          </fieldset>
+          <label for="output-name">{copy.filename}</label>
+          <div class="filename">
+            <input
+              id="output-name"
+              value={copy.merge.defaultName}
+              placeholder={copy.merge.defaultName}
+              maxlength="120"
+              spellcheck="false"
+              autocapitalize="off"
+              autocomplete="off"
+            />
+            <span aria-hidden="true">.pdf</span>
+          </div>
+          <button class="btn btn-primary action" type="button" data-run disabled>{copy.merge.action}</button>
+          <a class="btn btn-primary action" data-download hidden>{copy.merge.download}</a>
+          <button class="plain cancel" type="button" data-cancel hidden>{copy.cancel}</button>
+          <p class="report" role="status" data-report>{copy.merge.minimum}</p>
+          <p class="privacy">{copy.privacy}</p>
+        </section>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import '../../lib/pdf-tools-page'
+</script>
+
+<style>
+  .pdf-page { padding-top: clamp(1.7rem, 5vw, 3.65rem); }
+  .page-heading, .panel-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65rem 1.25rem;
+  }
+  .page-heading { margin-bottom: clamp(1.3rem, 3vw, 2rem); }
+  h1 {
+    font-size: clamp(2.45rem, 6vw, 4.25rem);
+    letter-spacing: -0.065em;
+  }
+  .page-heading p {
+    margin-top: 0.6rem;
+    color: var(--ink-soft);
+    font-size: clamp(1rem, 2vw, 1.15rem);
+  }
+  .desktop-link { font-size: var(--t-sm); }
+  .tool-switch {
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+    padding: 0.25rem;
+    border: 1px solid var(--line);
+    border-radius: 0.78rem;
+    background: var(--surface-toned);
+  }
+  .tool-switch button {
+    min-height: 2.75rem;
+    padding: 0.45rem clamp(0.6rem, 4vw, 1rem);
+    border: 0;
+    border-radius: 0.53rem;
+    background: transparent;
+    color: var(--ink-soft);
+    font-size: var(--t-sm);
+    font-weight: 710;
+  }
+  .tool-switch button[aria-pressed='true'] {
+    background: var(--action);
+    color: var(--on-action);
+  }
+  .tool-switch button[aria-pressed='false']:hover {
+    background: var(--surface);
+    color: var(--ink);
+  }
+  .workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1.75fr) minmax(17rem, 1fr);
+    align-items: start;
+    gap: clamp(0.85rem, 2.5vw, 1.5rem);
+  }
+  .panel {
+    padding: clamp(1rem, 3vw, 1.65rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  h2 { font-size: clamp(1.3rem, 2.5vw, 1.55rem); }
+  .panel-heading {
+    min-height: 2.75rem;
+    margin-bottom: 0.65rem;
+  }
+  .dropzone {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    min-height: 17rem;
+    gap: 0.65rem;
+    padding: 1.3rem 1rem;
+    border: 1px dashed color-mix(in srgb, var(--line) 54%, var(--link));
+    border-radius: 0.95rem;
+    background: color-mix(in srgb, var(--surface-toned) 64%, var(--surface));
+    text-align: center;
+    transition: border-color 160ms ease, background-color 160ms ease;
+  }
+  .dropzone[data-dragging] {
+    border-color: var(--link);
+    background: color-mix(in srgb, var(--surface) 85%, var(--link));
+  }
+  .folio {
+    width: 9rem;
+    height: auto;
+    filter: drop-shadow(0 8px 11px #10181126);
+  }
+  .drop-title { font-weight: 700; }
+  .dropzone[data-compact] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    min-height: auto;
+    padding: 0.65rem 0.8rem;
+    text-align: start;
+  }
+  .dropzone[data-compact] .folio { display: none; }
+  .dropzone[data-compact] .drop-title {
+    color: var(--ink-soft);
+    font-size: var(--t-sm);
+    font-weight: 560;
+  }
+  .dropzone[data-compact] .choose {
+    min-height: 2.75rem;
+    padding: 0.55rem 0.85rem;
+    font-size: var(--t-sm);
+  }
+  .file-list { margin-top: 1rem; }
+  .order-help, .file-size, .report, .privacy, .level-help {
+    color: var(--ink-soft);
+    font-size: var(--t-sm);
+  }
+  ol {
+    display: grid;
+    gap: 0.4rem;
+    padding: 0;
+    margin: 0.55rem 0 0;
+    list-style: none;
+  }
+  .file {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.42rem 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: 0.7rem;
+  }
+  .file-position {
+    min-width: 1.75rem;
+    padding: 0.16rem 0.25rem;
+    border-radius: 0.4rem;
+    background: var(--surface-toned);
+    color: var(--ink-soft);
+    font-size: var(--t-sm);
+    text-align: center;
+  }
+  .file-details {
+    display: grid;
+    grid-column: 2;
+    gap: 0.12rem;
+    line-height: 1.4;
+  }
+  .file-name {
+    overflow: hidden;
+    font-weight: 660;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .file-actions { display: flex; gap: 0.15rem; }
+  .plain {
+    min-height: 2.75rem;
+    padding: 0.35rem 0.48rem;
+    border: 0;
+    border-radius: 0.4rem;
+    background: transparent;
+    color: var(--link);
+    font-size: var(--t-sm);
+    font-weight: 680;
+    white-space: nowrap;
+  }
+  .plain:not(:disabled):hover { background: var(--surface-toned); }
+  .remove, .clear, .cancel { color: var(--ink-soft); }
+  button:not(:disabled), a[download] { cursor: pointer; }
+  button:disabled { opacity: 0.55; }
+  .plain:disabled { opacity: 0.38; }
+  .save-panel h2 { margin: 0.45rem 0 1.1rem; }
+  .level-field {
+    min-width: 0;
+    padding: 0 0 0.95rem;
+    margin: 0 0 0.95rem;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .level-field legend, label[for] {
+    padding: 0;
+    margin-bottom: 0.45rem;
+    font-size: var(--t-sm);
+    font-weight: 690;
+  }
+  .levels {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.3rem;
+  }
+  .level { min-width: 0; cursor: pointer; }
+  .level > span[aria-hidden='true'] {
+    display: grid;
+    min-height: 2.75rem;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 0.5rem;
+    background: var(--paper);
+    color: var(--ink);
+    font-weight: 690;
+  }
+  .level input:checked + span {
+    border-color: var(--action);
+    background: var(--action);
+    color: var(--on-action);
+  }
+  .level input:focus-visible + span {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .level-field:disabled .level { cursor: default; opacity: 0.6; }
+  .level-scale {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.35rem;
+    color: var(--ink-soft);
+    font-size: var(--t-sm);
+  }
+  .level-selected { margin-top: 0.4rem; font-size: var(--t-sm); font-weight: 720; }
+  .level-help { margin-top: 0.25rem; }
+  label[for] { display: block; }
+  .filename {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 0.65rem;
+    background: var(--paper);
+  }
+  .filename:focus-within {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .filename input {
+    flex: 1;
+    width: 0;
+    min-height: 2.85rem;
+    padding: 0.55rem 0.7rem;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+  }
+  .filename span {
+    padding-inline: 0.68rem;
+    border-inline-start: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-size: var(--t-sm);
+  }
+  .action { width: 100%; margin-top: 0.9rem; }
+  .action[hidden] { display: none; }
+  .cancel { width: 100%; margin-top: 0.3rem; }
+  .report { min-height: 1.5em; margin-top: 0.65rem; }
+  .report[data-error] { color: #9c3726; font-weight: 650; }
+  :global([data-theme='dark']) .report[data-error] { color: #ffb4a6; }
+  .privacy { margin-top: 1.05rem; padding-top: 0.9rem; border-top: 1px solid var(--line); }
+
+  @media (max-width: 740px) {
+    .workspace { grid-template-columns: minmax(0, 1fr); }
+    .dropzone { min-height: 13rem; }
+    .folio { width: 7rem; }
+  }
+  @media (max-width: 510px) {
+    .file { grid-template-columns: auto minmax(0, 1fr); gap: 0.2rem 0.55rem; }
+    .file-actions { grid-column: 2; flex-wrap: wrap; }
+  }
+</style>

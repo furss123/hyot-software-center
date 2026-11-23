@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.7.5",
     "astro": "^7.4.12",
+    "pdf-lib": "1.17.1",
     "wanted-sans": "^1.0.3"
   }
 }

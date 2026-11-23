@@ -10,9 +10,11 @@ interface Props {
   description?: string
   image?: string
   presentation?: boolean
+  ads?: boolean
 }
 
-const { locale, title, description, image, presentation = false } = Astro.props
+const { locale, title, description, image, presentation = false, ads = true } = Astro.props
+const showAds = !presentation && ads
 const site = 'HyoT'
 const fullTitle = title ? `${title} | ${site}` : site
 const desc = description ?? t(locale, 'site.description')
@@ -51,7 +53,7 @@ const ogImage = new URL(image ?? '/og.png', Astro.site)
     <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content={locale === 'ko' ? 'ko_KR' : 'en_US'} />
     <meta name="twitter:card" content="summary_large_image" />
-    {!presentation && <meta name="google-adsense-account" content="ca-pub-9694429813677076" />}
+    {showAds && <meta name="google-adsense-account" content="ca-pub-9694429813677076" />}
     <script is:inline>
       (() => {
         let saved
@@ -62,7 +64,7 @@ const ogImage = new URL(image ?? '/og.png', Astro.site)
         document.documentElement.dataset.theme = saved === 'dark' || saved === 'light' ? saved : preferred
       })()
     </script>
-    {!presentation && (
+    {showAds && (
       <script
         is:inline
         async

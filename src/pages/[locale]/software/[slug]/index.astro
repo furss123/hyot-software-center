@@ -76,9 +76,14 @@ const fileName = (asset: (typeof assets)[number]) => asset.filename ?? asset.url
               {korean ? '웹에서 급식 보기' : 'View meals online'} <span aria-hidden="true">→</span>
             </a>
           )}
+          {moagyeol && (
+            <a class="btn btn-primary" href={path(locale, 'moagyeol-pdf')}>
+              {korean ? '웹에서 PDF 도구 열기' : 'Open PDF tools online'}
+            </a>
+          )}
           {
             primary ? (
-              <a class:list={['btn', { 'btn-primary': !todayMeal }]} href={primary.url} download={fileName(primary)}>
+              <a class:list={['btn', { 'btn-primary': !todayMeal && !moagyeol }]} href={primary.url} download={fileName(primary)}>
                 {primaryLabel} <span aria-hidden="true">↓</span>
               </a>
             ) : <p class="muted">{t(locale, 'software.noDownload')}</p>
