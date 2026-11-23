@@ -12,7 +12,9 @@ description_en: |-
 category: etc
 platforms: [windows, android]
 icon: ./icon.png
+cover: ./cover.webp
 requirements: [Windows 10 이상 64비트, Android]
+requirements_en: [Windows 10 or later (64-bit), Android]
 order: 2
 releases:
   - version: 1.0.0
@@ -23,6 +25,7 @@ releases:
     downloads:
       - type: portable
         label: Windows 위젯
+        label_en: Windows widget
         filename: 오늘급식-위젯_1.0.0.zip
         url: /downloads/today-meal/today-meal-widget_1.0.0_x64.zip
         size: 82276153
@@ -30,6 +33,7 @@ releases:
         arch: x64
       - type: apk
         label: Android 앱
+        label_en: Android app
         filename: 오늘급식_1.0.0.apk
         url: /downloads/today-meal/today-meal_1.0.0.apk
         size: 5729587
@@ -38,21 +42,21 @@ releases:
 
 학교를 한 번 등록해 두면 그날의 조식·중식·석식을 바로 보여 줍니다. 전국 초·중·고등학교를 검색할 수 있고, 식단은 나이스 교육정보 자료를 그대로 가져옵니다.
 
-## Windows 위젯
+### Windows 위젯
 
 - 바탕화면 한쪽에 작은 창으로 오늘 급식을 띄워 둡니다
 - 핀 버튼으로 다른 창 위에 항상 고정
 - – 버튼은 트레이로 숨기기, × 버튼은 완전히 종료
 - 설치 과정 없이 압축을 풀고 **오늘급식-위젯.exe**를 실행하면 끝
 
-## Android 앱
+### Android 앱
 
 - 이전 날·다음 날로 넘기며 식단 확인
 - 메뉴별 칼로리, 영양, 원산지 정보
 - 내 알레르기 번호를 골라 두면 조심할 메뉴를 표시
 - 인터넷이 잠깐 끊겨도 저장된 식단을 보여 줌
 
-## 설치하기
+### 설치하기
 
 **Windows** — 내려받은 압축 파일을 풀고 오늘급식-위젯.exe를 더블클릭합니다. 처음 실행할 때 Windows가 "PC 보호" 창을 띄우면 [추가 정보] → [실행]을 누르세요.
 

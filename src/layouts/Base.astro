@@ -2,7 +2,7 @@
 import '../styles/global.css'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
-import { t, otherLocale, type Locale } from '../lib/i18n'
+import { t, path, otherLocale, type Locale } from '../lib/i18n'
 
 interface Props {
   locale: Locale
@@ -17,9 +17,12 @@ const site = 'HyoT'
 const fullTitle = title ? `${title} | ${site}` : site
 const desc = description ?? t(locale, 'site.description')
 const canonical = new URL(Astro.url.pathname, Astro.site)
-const altPath = Astro.url.pathname.replace(/^\/(ko|en)\//, `/${otherLocale(locale)}/`)
+const localized = /^\/(ko|en)\//.test(Astro.url.pathname)
+const alternateLocale = otherLocale(locale)
+const altPath = localized
+  ? Astro.url.pathname.replace(/^\/(ko|en)\//, `/${alternateLocale}/`)
+  : path(alternateLocale)
 const ogImage = new URL(image ?? '/og.png', Astro.site)
-const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t}catch(e){}})()`
 ---
 
 <!doctype html>
@@ -30,12 +33,16 @@ const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(!t)t
     <title>{fullTitle}</title>
     <meta name="description" content={desc} />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang={locale} href={canonical} />
-    <link rel="alternate" hreflang={otherLocale(locale)} href={new URL(altPath, Astro.site)} />
+    {localized ? (
+      <>
+        <link rel="alternate" hreflang={locale} href={canonical} />
+        <link rel="alternate" hreflang={alternateLocale} href={new URL(altPath, Astro.site)} />
+      </>
+    ) : <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#f4f6f9" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#101a2e" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f5ef" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#111a15" media="(prefers-color-scheme: dark)" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site} />
     <meta property="og:title" content={fullTitle} />
@@ -45,7 +52,16 @@ const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(!t)t
     <meta property="og:locale" content={locale === 'ko' ? 'ko_KR' : 'en_US'} />
     <meta name="twitter:card" content="summary_large_image" />
     {!presentation && <meta name="google-adsense-account" content="ca-pub-9694429813677076" />}
-    <script is:inline set:html={themeScript} />
+    <script is:inline>
+      (() => {
+        let saved
+        try {
+          saved = localStorage.getItem('theme')
+        } catch {}
+        const preferred = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        document.documentElement.dataset.theme = saved === 'dark' || saved === 'light' ? saved : preferred
+      })()
+    </script>
     {!presentation && (
       <script
         is:inline
@@ -64,7 +80,7 @@ const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(!t)t
     <main id="main">
       <slot />
     </main>
-    {!presentation && <Footer />}
+    {!presentation && <Footer locale={locale} />}
   </body>
 </html>
 

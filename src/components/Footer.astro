@@ -1,18 +1,46 @@
 ---
-const year = new Date().getFullYear()
+import Brand from './Brand.astro'
+import { t, path, type Locale } from '../lib/i18n'
+
+interface Props { locale: Locale }
+const { locale } = Astro.props
+const year = new Date().getUTCFullYear()
 ---
 
 <footer class="site-footer">
-  <div class="wrap">
+  <div class="wrap footer-inner">
+    <a class="logo" href={path(locale)}><Brand /></a>
+    <a class="footer-clock" href={path(locale, 'clock')}>{t(locale, 'nav.clock')} <span aria-hidden="true">↗</span></a>
     <p class="muted">© {year} HyoT</p>
   </div>
 </footer>
 
 <style>
   .site-footer {
-    margin-top: clamp(4rem, 10vw, 8rem);
+    margin-top: clamp(3rem, 8vw, 6rem);
     border-top: 1px solid var(--line);
-    padding-block: 2rem 2.5rem;
+    padding-block: 1.25rem;
     font-size: var(--t-sm);
+  }
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 1.8rem;
+  }
+  .logo, .footer-clock {
+    text-decoration: none;
+  }
+  .footer-clock {
+    margin-inline-start: auto;
+    color: var(--ink);
+    font-weight: 680;
+  }
+  .footer-clock:hover {
+    text-decoration: underline;
+  }
+  .logo :global(img) {
+    width: 1.7rem;
   }
 </style>

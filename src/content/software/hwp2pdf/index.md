@@ -12,8 +12,10 @@ description_en: |-
 category: document
 platforms: [windows]
 icon: ./icon.png
+cover: ./cover.webp
 screenshots: [./convert.png, ./merge.png, ./complete.png]
 requirements: [Windows 64비트]
+requirements_en: [Windows 64-bit]
 order: 1
 releases:
   - version: 1.1.0
@@ -50,19 +52,19 @@ releases:
 
 모아결 PDF에서 한글 문서를 PDF로 변환하거나 기존 PDF를 순서대로 묶을 수 있습니다.
 
-## 한글 문서를 PDF로 변환
+### 한글 문서를 PDF로 변환
 
 - HWP·HWPX 파일이나 폴더를 창에 끌어다 놓습니다. **파일 추가**, **폴더 추가** 버튼으로도 선택할 수 있습니다.
 - 원본 품질을 유지하거나 JPEG 이미지를 압축할 수 있습니다. PDF의 텍스트 검색과 선택은 그대로 가능합니다.
 - 전체 페이지를 변환하거나 `1-3, 5, 8-10`처럼 원하는 페이지만 골라 저장합니다.
 - 한글 문서를 변환하려면 PC에 한컴오피스 한글이 설치되어 있어야 합니다.
 
-## 여러 PDF 합치기
+### 여러 PDF 합치기
 
 - PDF를 두 개 이상 추가하고 행의 화살표, **이름순**, **순서 뒤집기**로 순서를 조절합니다. 목록 위쪽부터 합쳐집니다.
 - PDF 합치기는 한컴오피스 한글 없이 사용할 수 있습니다.
 - 저장할 때 같은 이름의 PDF가 있으면 `이름 (1).pdf`처럼 새 파일을 만듭니다.
 
-## 실행하기
+### 실행하기
 
 다운로드한 ZIP의 압축을 풀고 **모아결 PDF.exe**를 더블클릭합니다. 다른 곳으로 옮길 때는 `_internal`을 포함한 폴더 전체를 복사하세요.

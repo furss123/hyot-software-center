@@ -1,5 +1,6 @@
 ---
 import AppIcon from './AppIcon.astro'
+import SoftwareCover from './SoftwareCover.astro'
 import { t, path, formatDate, categories, platformNames, type Locale } from '../lib/i18n'
 import { displayName, tagline, latestAny, type Software } from '../lib/software'
 
@@ -7,34 +8,41 @@ interface Props {
   locale: Locale
   items: Software[]
 }
+
 const { locale, items } = Astro.props
 ---
 
 {
   items.length === 0 ? (
-    <div class="empty">
-      <p class="empty-title">{t(locale, 'empty.software.title')}</p>
-    </div>
+    <p class="empty">{t(locale, 'empty.software.title')}</p>
   ) : (
     <ul class="index" role="list">
-      {items.map((s) => {
-        const r = latestAny(s)
+      {items.map((software) => {
+        const release = latestAny(software)
         return (
-          <li data-category={s.data.category}>
-            <a class="row" href={path(locale, `software/${s.id}`)}>
-              <AppIcon software={s} size={60} />
-              <span class="name">
-                <span class="mark-stroke">{displayName(s, locale)}</span>
-              </span>
-              <span class="meta">
-                <span class="tagline">{tagline(s, locale)}</span>
-                <span class="facts muted">
-                  <span>{s.data.platforms.map((p) => platformNames[p]).join(', ')}</span>
-                  <span>{categories[s.data.category][locale]}</span>
-                  {r && <span class="num">v{r.version}</span>}
-                  {r && <span class="num">{formatDate(r.date, locale)}</span>}
-                </span>
-              </span>
+          <li data-category={software.data.category}>
+            <a class="card" href={path(locale, `software/${software.id}`)}>
+              <SoftwareCover software={software} />
+              <div class="content">
+                <div class="card-heading">
+                  <AppIcon software={software} size={46} />
+                  <div>
+                    <p class="category">{categories[software.data.category][locale]}</p>
+                    <h3>{displayName(software, locale)}</h3>
+                  </div>
+                  <span class="card-arrow" aria-hidden="true"></span>
+                </div>
+                <p class="tagline">{tagline(software, locale)}</p>
+                <div class="facts">
+                  <span>{software.data.platforms.map((platform) => platformNames[platform]).join(' · ')}</span>
+                  {release && (
+                    <span class="release num">
+                      v{release.version}
+                      <time datetime={release.date.toISOString().slice(0, 10)}>{formatDate(release.date, locale)}</time>
+                    </span>
+                  )}
+                </div>
+              </div>
             </a>
           </li>
         )
@@ -45,74 +53,103 @@ const { locale, items } = Astro.props
 
 <style>
   .index {
-    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(0.9rem, 2.2vw, 1.6rem);
     margin: 0;
     padding: 0;
-    border-top: 2px solid var(--ink);
+    list-style: none;
   }
-  .index li {
-    border-bottom: 1px solid var(--line);
-  }
-  .index li[hidden] {
-    display: none;
-  }
-  .row {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) minmax(0, 20rem);
-    align-items: center;
-    gap: clamp(1rem, 2.6vw, 2.25rem);
-    padding-block: clamp(1.1rem, 2.4vw, 1.75rem);
+  .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
     color: var(--ink);
     text-decoration: none;
+    transition: border-color 160ms ease;
   }
-  .name {
-    font-size: var(--t-index);
-    font-weight: 800;
-    letter-spacing: -0.045em;
-    line-height: 1;
-    min-width: 0;
+  .card:hover, .card:focus-visible {
+    border-color: var(--link);
   }
-  .row:hover .mark-stroke,
-  .row:focus-visible .mark-stroke {
-    background-size: 100% 0.42em;
+  .card:hover :global(.cover img) {
+    transform: scale(1.035);
   }
-  .row:focus-visible {
-    outline-offset: -3px;
+  .content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.95rem;
+    padding: clamp(1.05rem, 2.5vw, 1.55rem);
   }
-  .meta {
+  .card-heading {
     display: grid;
-    gap: 0.35rem;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .category {
+    color: var(--ink-soft);
+    font-size: 0.78rem;
+    font-weight: 690;
+  }
+  h3 {
+    font-size: clamp(1.35rem, 2.6vw, 1.82rem);
+    text-wrap: initial;
+  }
+  .card-arrow {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    color: var(--ink);
+    transition: color 160ms ease, background 160ms ease, border-color 160ms ease;
+  }
+  .card-arrow::after {
+    content: '';
+    width: 0.78rem;
+    aspect-ratio: 1;
+    background: currentColor;
+    clip-path: polygon(0 88%, 12% 100%, 83% 29%, 83% 77%, 100% 77%, 100% 0, 23% 0, 23% 17%, 71% 17%);
+  }
+  .card:hover .card-arrow, .card:focus-visible .card-arrow {
+    border-color: var(--action);
+    background: var(--action);
+    color: var(--on-action);
   }
   .tagline {
-    font-weight: 560;
-    line-height: 1.45;
+    color: var(--ink-soft);
+    line-height: 1.5;
   }
-  .facts {
+  .facts, .release {
     display: flex;
     flex-wrap: wrap;
-    column-gap: 0.9rem;
-    font-size: var(--t-sm);
+    align-items: center;
+    gap: 0.35rem 0.7rem;
   }
-  @media (max-width: 760px) {
-    .row {
-      grid-template-columns: auto minmax(0, 1fr);
-      row-gap: 0.75rem;
-    }
-    .meta {
-      grid-column: 1 / -1;
-    }
+  .facts {
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-size: 0.78rem;
+    font-weight: 650;
   }
   .empty {
-    border: 2px dashed var(--line);
+    padding: 2rem;
+    border: 1px dashed var(--line);
     border-radius: var(--radius);
-    padding: clamp(2rem, 6vw, 4rem);
-    display: grid;
-    justify-items: start;
-    gap: 0.75rem;
+    color: var(--ink-soft);
   }
-  .empty-title {
-    font-size: var(--t-lg);
-    font-weight: 780;
-    letter-spacing: -0.02em;
+  @media (max-width: 700px) {
+    .index {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 </style>

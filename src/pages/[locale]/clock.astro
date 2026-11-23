@@ -11,7 +11,13 @@ const title = t(locale, 'nav.clock')
 <Base locale={locale} title={title} description={t(locale, 'clock.description')} presentation>
   <div class="clock" data-clock>
     <h1 class="sr-only">{title}</h1>
-    <time class="clock-time" hidden></time>
+    <div class="clock-face">
+      <p class="clock-zone">
+        <span class="sr-only">{t(locale, 'clock.zone')}</span>
+        <span aria-hidden="true">KST · UTC+9</span>
+      </p>
+      <time class="clock-time" hidden></time>
+    </div>
     <noscript>{t(locale, 'clock.requiresJs')}</noscript>
 
     <div class="clock-controls" data-controls hidden>
@@ -221,31 +227,32 @@ const title = t(locale, 'nav.clock')
 
 <style>
   .clock {
-    --clock-background: #fafafa;
-    --clock-ink: #111;
-    --clock-control: #eee;
-    --clock-control-hover: #ddd;
     position: relative;
     display: grid;
     place-items: center;
     min-height: 100vh;
     min-height: 100dvh;
-    background: var(--clock-background);
-    color: var(--clock-ink);
+    background: var(--paper);
+    color: var(--ink);
     font-feature-settings: normal;
   }
-  :global(:root[data-theme='dark']) .clock {
-    --clock-background: #0a0a0a;
-    --clock-ink: #fff;
-    --clock-control: #242424;
-    --clock-control-hover: #383838;
+  .clock-face {
+    display: grid;
+    justify-items: center;
+    gap: clamp(0.35rem, 2vh, 1.1rem);
+  }
+  .clock-zone {
+    color: var(--link);
+    font-size: clamp(0.72rem, 1.8vw, 1rem);
+    font-weight: 750;
+    letter-spacing: 0.15em;
   }
   .clock-time {
-    font-size: calc(min(16.75vw, 56vh) * var(--clock-scale, 1));
-    font-size: calc(min(16.75vw, 56dvh) * var(--clock-scale, 1));
+    font-size: calc(min(16.4vw, 54vh) * var(--clock-scale, 1));
+    font-size: calc(min(16.4vw, 54dvh) * var(--clock-scale, 1));
     font-weight: 800;
     font-variant-numeric: tabular-nums;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.045em;
     line-height: 1;
     white-space: nowrap;
   }
@@ -279,6 +286,7 @@ const title = t(locale, 'nav.clock')
   .clock-source {
     flex-basis: 100%;
     text-align: center;
+    color: var(--ink-soft);
     font-size: 0.8rem;
   }
   .clock-control {
@@ -287,9 +295,9 @@ const title = t(locale, 'nav.clock')
     min-width: 2.75rem;
     min-height: 2.75rem;
     padding: 0.35rem 0.75rem;
-    border: 0;
-    border-radius: 8px;
-    background: var(--clock-control);
+    border: 1px solid var(--line);
+    border-radius: 0.6rem;
+    background: var(--surface);
     color: inherit;
     font: inherit;
     font-weight: 650;
@@ -297,7 +305,7 @@ const title = t(locale, 'nav.clock')
     cursor: pointer;
   }
   .clock-control:hover:not(:disabled) {
-    background: var(--clock-control-hover);
+    background: var(--surface-toned);
   }
   .clock-control:disabled {
     opacity: 0.45;
