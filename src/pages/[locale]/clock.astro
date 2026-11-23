@@ -36,11 +36,21 @@ const title = t(locale, 'nav.clock')
         data-exit={t(locale, 'clock.exitFullscreen')}
         hidden
       >{t(locale, 'clock.fullscreen')}</button>
+      <p
+        class="clock-source"
+        role="status"
+        data-clock-source
+        data-synced={t(locale, 'clock.synced')}
+        data-device={t(locale, 'clock.deviceTime')}
+        data-last-sync={t(locale, 'clock.lastSync')}
+      >{t(locale, 'clock.syncing')}</p>
     </div>
   </div>
 </Base>
 
 <script>
+  import { getClockOffset } from '../../lib/clock-time'
+
   const clock = document.querySelector<HTMLElement>('[data-clock]')
 
   if (clock) {
@@ -51,6 +61,7 @@ const title = t(locale, 'nav.clock')
     const size = controls.querySelector<HTMLOutputElement>('[data-size]')!
     const themeButton = controls.querySelector<HTMLButtonElement>('[data-theme-toggle]')!
     const fullscreenButton = controls.querySelector<HTMLButtonElement>('[data-fullscreen-toggle]')!
+    const source = controls.querySelector<HTMLElement>('[data-clock-source]')!
 
     const formatter = new Intl.DateTimeFormat('en-GB', {
       timeZone: 'Asia/Seoul',
@@ -60,14 +71,42 @@ const title = t(locale, 'nav.clock')
       second: '2-digit',
     })
     let tickTimer: number
+    let offset: number | undefined
+    let syncing = false
+    let nextSync = 0
+    let systemOffset = Date.now() - performance.now()
+
+    async function synchronize() {
+      syncing = true
+      const result = await getClockOffset()
+      syncing = false
+      nextSync = performance.now() + (result === undefined ? 120_000 : 900_000)
+
+      if (result !== undefined) {
+        offset = result
+        source.textContent = source.dataset.synced ?? ''
+        updateTime()
+      } else {
+        source.textContent = (offset === undefined ? source.dataset.device : source.dataset.lastSync) ?? ''
+      }
+    }
 
     function updateTime() {
       window.clearTimeout(tickTimer)
-      const value = formatter.format(Date.now())
+      const elapsed = performance.now()
+      const systemTime = Date.now()
+      const newSystemOffset = systemTime - elapsed
+      // Some browsers pause the monotonic clock while the computer sleeps.
+      if (Math.abs(newSystemOffset - systemOffset) >= 5000) nextSync = 0
+      systemOffset = newSystemOffset
+
+      const time = offset === undefined ? systemTime : offset + elapsed
+      const value = formatter.format(time)
       face.textContent = value
       face.dateTime = value
       if (!document.hidden) {
-        tickTimer = window.setTimeout(updateTime, 1000 - (Date.now() % 1000))
+        tickTimer = window.setTimeout(updateTime, 1000 - (time % 1000))
+        if (!syncing && elapsed >= nextSync) void synchronize()
       }
     }
 
@@ -75,6 +114,10 @@ const title = t(locale, 'nav.clock')
     face.hidden = false
     document.addEventListener('visibilitychange', updateTime)
     window.addEventListener('pageshow', updateTime)
+    window.addEventListener('online', () => {
+      nextSync = 0
+      updateTime()
+    })
 
     const scaleKey = 'clock-scale'
     const minScale = 50
@@ -232,6 +275,11 @@ const title = t(locale, 'nav.clock')
   .clock-size output {
     min-width: 4ch;
     text-align: center;
+  }
+  .clock-source {
+    flex-basis: 100%;
+    text-align: center;
+    font-size: 0.8rem;
   }
   .clock-control {
     display: inline-grid;
