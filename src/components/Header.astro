@@ -23,12 +23,9 @@ const altLocale = otherLocale(locale)
       <Brand />
     </a>
     <nav aria-label={t(locale, 'nav.label')}>
-      <a href={onHome ? '#utilities' : `${home}#utilities`} class:list={{ current: onHome }}>
-        {t(locale, 'nav.utilities')}
-      </a>
-      <a href={clockPage} class:list={{ current: Astro.url.pathname === clockPage }}
-        aria-current={Astro.url.pathname === clockPage ? 'page' : undefined}>
-        {t(locale, 'nav.clock')}
+      <a href={pdfPage} class:list={{ current: Astro.url.pathname === pdfPage }}
+        aria-current={Astro.url.pathname === pdfPage ? 'page' : undefined}>
+        {t(locale, 'nav.pdf')}
       </a>
       <a href={mealPage} class:list={{ current: Astro.url.pathname === mealPage }}
         aria-current={Astro.url.pathname === mealPage ? 'page' : undefined}>
@@ -38,9 +35,12 @@ const altLocale = otherLocale(locale)
         aria-current={Astro.url.pathname === classPage ? 'page' : undefined}>
         {t(locale, 'nav.classes')}
       </a>
-      <a href={pdfPage} class:list={{ current: Astro.url.pathname === pdfPage }}
-        aria-current={Astro.url.pathname === pdfPage ? 'page' : undefined}>
-        {t(locale, 'nav.pdf')}
+      <a href={clockPage} class:list={{ current: Astro.url.pathname === clockPage }}
+        aria-current={Astro.url.pathname === clockPage ? 'page' : undefined}>
+        {t(locale, 'nav.clockWeb')}
+      </a>
+      <a href={onHome ? '#utilities' : `${home}#utilities`} class:list={{ current: onHome }}>
+        {t(locale, 'home.catalog')}
       </a>
     </nav>
     <div class="tools">
@@ -74,7 +74,7 @@ const altLocale = otherLocale(locale)
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    gap: clamp(0.5rem, 3vw, 2.75rem);
+    gap: clamp(0.5rem, 2vw, 1.5rem);
     min-height: 4.5rem;
   }
   .logo {
@@ -133,7 +133,7 @@ const altLocale = otherLocale(locale)
   :global([data-theme='dark']) .theme-icon {
     transform: rotate(155deg);
   }
-  @media (max-width: 820px) {
+  @media (max-width: 1200px) {
     .bar {
       grid-template-columns: 1fr auto;
       padding-top: 0.55rem;
