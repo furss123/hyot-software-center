@@ -5,11 +5,9 @@ import {
   REGIONS,
   addDays,
   formatDate,
-  greeting,
   kindShort,
   normalizeMeals,
   nowMealCode,
-  seoulNow,
   seoulToday,
   toSchool,
   weekDates,
@@ -17,23 +15,23 @@ import {
   ymdCompact,
 } from "./meal.js";
 import { requestNeis } from "./neis.js";
-import { SCHOOL_KEY, readJSON, readMealCache, readSchool, writeJSON, writeMealCache } from "./storage.js";
+import { SCHOOL_KEY, readJSON, readMealCache, readSchool, writeJSON, writeMealCache } from "./storage.js?v=2";
 
 const ALLERGY_KEY = "today-meal.allergies";
 const NUMBERS_KEY = "today-meal.numbers";
 
 const webHost = document.querySelector("#today-meal-web");
 const template = webHost?.querySelector("template");
-const webRoot = webHost?.shadowRoot || webHost?.attachShadow({ mode: "open" });
-if (template && webRoot) webRoot.append(template.content.cloneNode(true));
-const root = webRoot || document;
+const root = webHost.shadowRoot || webHost.attachShadow({ mode: "open" });
+if (template) root.append(template.content.cloneNode(true));
 const app = root.querySelector("#app");
 const toastEl = root.querySelector("#toast");
-const neisKey = app.dataset.neisKey;
+const savedSchool = readSchool();
 let today = seoulToday();
 const ui = { view: "" };
 const state = {
-  school: readSchool(),
+  school: savedSchool,
+  schoolSaved: Boolean(savedSchool),
   allergies: new Set([].concat(readJSON(ALLERGY_KEY, []))),
   showNumbers: readJSON(NUMBERS_KEY, false) === true,
   date: today,
@@ -86,7 +84,7 @@ function icon(name) {
     right: '<path d="m10 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
     refresh: '<path d="M19.5 12a7.5 7.5 0 1 1-2-5.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M19.5 4.5V8H16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
     close: '<path d="M7 7l10 10M17 7 7 17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
-    down: '<path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+    check: '<path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
   };
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("viewBox", "0 0 24 24");
@@ -96,33 +94,14 @@ function icon(name) {
   return svg;
 }
 
-function bowlArt() {
-  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.setAttribute("viewBox", "0 0 120 100");
-  svg.setAttribute("class", "bowl-art");
-  svg.setAttribute("aria-hidden", "true");
-  svg.innerHTML = `
-    <path class="steam" d="M42 30c4 5 4 8 0 13" fill="none" stroke="#ffb0c0" stroke-width="3" stroke-linecap="round"/>
-    <path class="steam" d="M60 24c4 5 4 8 0 13" fill="none" stroke="#ffb0c0" stroke-width="3" stroke-linecap="round"/>
-    <path class="steam" d="M78 30c4 5 4 8 0 13" fill="none" stroke="#ffb0c0" stroke-width="3" stroke-linecap="round"/>
-    <path d="M18 50h84c-2 20-16 32-42 32S20 70 18 50z" fill="#fff" stroke="#ff8aa0" stroke-width="3"/>
-    <path d="M14 50h92" stroke="#ff8aa0" stroke-width="4" stroke-linecap="round"/>
-    <ellipse cx="60" cy="50" rx="26" ry="6" fill="#ffe1e8"/>
-    <circle cx="50" cy="62" r="3" fill="#ffd2a8"/>
-    <circle cx="66" cy="66" r="2.4" fill="#b7ead8"/>
-  `;
-  return svg;
-}
-
 function toast(message) {
   toastEl.textContent = message;
   toastEl.classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2200);
+  toastTimer = setTimeout(() => toastEl.classList.remove("show"), 3200);
 }
 
 function render() {
-  if (!webRoot) document.title = state.school ? `오늘 급식 · ${state.school.name}` : "오늘 급식";
   if (ui.view !== state.view) {
     app.replaceChildren();
     ui.view = state.view;
@@ -150,12 +129,24 @@ function showSearch({ focus = false } = {}) {
   if (focus) ui.input?.focus();
 }
 
-function showMeals() {
+function showMeals({ focus = false } = {}) {
   clearTimeout(searchTimer);
   state.searchSeq += 1;
   searchAbort?.abort();
   state.view = "meals";
   loadMeals();
+  if (focus) ui.schoolName.focus();
+}
+
+function applySchoolSelection(school, saved, { focus = false } = {}) {
+  mealAbort?.abort();
+  state.mealSeq += 1;
+  state.school = school;
+  state.schoolSaved = saved;
+  state.date = seoulToday();
+  state.meals = null;
+  if (school) showMeals({ focus });
+  else showSearch({ focus });
 }
 
 function selectDate(ymd) {
@@ -186,7 +177,7 @@ async function loadMeals() {
         SD_SCHUL_CODE: school.schoolCode,
         MLSV_YMD: ymdCompact(date),
       },
-      { signal: controller.signal, key: neisKey }
+      { signal: controller.signal }
     );
     if (seq !== state.mealSeq) return;
     const meals = normalizeMeals(rows);
@@ -203,31 +194,25 @@ async function loadMeals() {
 }
 
 function buildMeals() {
-  ui.schoolName = h("strong", { class: "brand-name" });
+  ui.schoolName = h("h2", { class: "school-name", tabindex: "-1" });
+  ui.schoolStatus = h("p", { class: "school-status" });
   ui.refresh = h("button", { type: "button", class: "icon-btn", "aria-label": "새로고침", onclick: refreshMeals }, [icon("refresh")]);
   ui.dateRow = h("div", { class: "date-row" });
   ui.week = h("div", { class: "week" });
-  ui.pending = h("div", { class: "pending-line", hidden: true });
-  ui.mealBody = h("div", { class: "meal-body" });
+  ui.mealBody = h("div", { class: "meal-body", "aria-busy": "true" });
 
-  const head = h("header", { class: "sticky-head" }, [
-    h("div", { class: "brand-row" }, [
-      h("button", { type: "button", class: "school-switch", "aria-label": "학교 변경", onclick: () => showSearch({ focus: true }) }, [
-        h("span", { class: "mark", "aria-hidden": "true" }, [icon("bowl")]),
-        h("span", { class: "brand-copy" }, [
-          h("small", { class: "brand-kicker", text: "오늘 급식" }),
-          ui.schoolName,
-        ]),
-      ]),
-      h("div", { class: "icon-actions" }, [
-        ui.refresh,
-        h("button", { type: "button", class: "icon-btn", "aria-label": "설정", onclick: openSettings }, [icon("gear")]),
-      ]),
+  const head = h("header", { class: "board-head panel" }, [
+    h("div", { class: "heading-with-icon" }, [
+      h("span", { class: "tile accent-tile", "aria-hidden": "true" }, [icon("bowl")]),
+      h("div", {}, [ui.schoolName, ui.schoolStatus]),
     ]),
-    ui.dateRow,
-    ui.week,
-    ui.pending,
+    h("div", { class: "actions" }, [
+      h("button", { type: "button", class: "ghost", onclick: () => showSearch({ focus: true }) }, "학교 변경"),
+      ui.refresh,
+      h("button", { type: "button", class: "icon-btn", "aria-label": "설정", onclick: openSettings }, [icon("gear")]),
+    ]),
   ]);
+  const calendar = h("section", { class: "calendar panel", "aria-label": "급식 날짜" }, [ui.dateRow, ui.week]);
 
   let touch = null;
   ui.mealBody.addEventListener("touchstart", (event) => {
@@ -244,48 +229,55 @@ function buildMeals() {
   }, { passive: true });
   ui.mealBody.addEventListener("touchcancel", () => { touch = null; });
 
-  app.append(head, ui.mealBody);
+  app.append(head, calendar, ui.mealBody);
 }
 
 function paintMeals() {
   if (!ui.schoolName) return;
-  ui.schoolName.textContent = state.school?.name || "학교 등록";
-  ui.schoolName.title = state.school?.name || "";
+  ui.schoolName.textContent = state.school.name;
+  ui.schoolStatus.replaceChildren(
+    ...(state.schoolSaved ? [icon("check"), "이 브라우저에 저장됨"] : ["이번 방문에서만 표시돼요"])
+  );
   const busy = state.mealStatus === "loading" || state.mealStatus === "refreshing";
   ui.refresh.classList.toggle("is-busy", busy);
   ui.refresh.disabled = busy;
-  ui.pending.hidden = !busy;
-  ui.dateRow.replaceChildren(...dateControls());
-  ui.week.replaceChildren(...weekButtons());
+  ui.mealBody.setAttribute("aria-busy", String(busy));
+  const calendarKey = `${state.date}:${today}`;
+  if (ui.dateRow.dataset.rendered !== calendarKey) {
+    const active = root.activeElement;
+    const restoreNav = ui.dateRow.contains(active) ? active.getAttribute("aria-label") : null;
+    const restoreWeek = ui.week.contains(active) || active?.classList.contains("today-link");
+    ui.dateRow.dataset.rendered = calendarKey;
+    ui.dateRow.replaceChildren(...dateControls());
+    ui.week.replaceChildren(...weekButtons());
+    if (restoreWeek) ui.week.querySelector('[aria-pressed="true"]').focus();
+    else if (restoreNav) ui.dateRow.querySelector(`[aria-label="${restoreNav}"]`)?.focus();
+  }
   ui.mealBody.replaceChildren(...mealNodes());
 }
 
 function dateControls() {
   const info = formatDate(state.date);
-  const today = seoulToday();
   return [
     h("button", { type: "button", class: "nav-btn", "aria-label": "이전 날", onclick: () => selectDate(addDays(state.date, -1)) }, [icon("left")]),
     h("div", { class: "date-label" }, [
-      h("strong", { text: info.title }),
-      state.date === today
-        ? h("span", { text: info.sub })
-        : h("button", { type: "button", class: "today-link", onclick: () => selectDate(today) }, `${info.sub} · 오늘로`),
+      h("h2", { text: `${info.title} ${info.sub}` }),
+      state.date !== today
+        ? h("button", { type: "button", class: "today-link", onclick: () => selectDate(today) }, "오늘로 돌아가기")
+        : null,
     ]),
     h("button", { type: "button", class: "nav-btn", "aria-label": "다음 날", onclick: () => selectDate(addDays(state.date, 1)) }, [icon("right")]),
   ];
 }
 
 function weekButtons() {
-  const today = seoulToday();
   return weekDates(state.date).map((ymd) => {
     const info = formatDate(ymd);
-    const classes = ["day"];
-    if (ymd === today) classes.push("is-today");
-    if (info.week === "토" || info.week === "일") classes.push("is-weekend");
     return h("button", {
       type: "button",
-      class: classes.join(" "),
+      class: "day",
       "aria-pressed": ymd === state.date ? "true" : "false",
+      "aria-current": ymd === today ? "date" : null,
       "aria-label": `${info.month}월 ${info.day}일 ${info.sub}`,
       onclick: () => selectDate(ymd),
     }, [
@@ -297,22 +289,22 @@ function weekButtons() {
 
 function mealNodes() {
   const nodes = [];
-  if (state.mealStatus === "stale" || (state.mealStatus === "error" && state.meals)) {
-    nodes.push(h("p", { class: "banner", text: state.mealError || "최신 정보를 불러오지 못해서 저장된 식단을 보여줘요" }));
+  if (state.mealStatus === "stale") {
+    nodes.push(h("p", { class: "banner", role: "status", text: "최신 식단을 불러오지 못해 저장된 식단을 보여드려요." }));
   }
   const waiting = state.mealStatus === "loading" || state.mealStatus === "idle";
   if (waiting && !state.meals) {
-    nodes.push(h("div", { class: "skel" }), h("div", { class: "skel" }), h("div", { class: "skel" }));
-    return nodes;
+    return [
+      h("p", { class: "sr", role: "status", text: "식단을 불러오고 있어요." }),
+      h("div", { class: "meal-grid", "aria-hidden": "true" },
+        MEAL_META.map(() => h("div", { class: "skel panel" }))),
+    ];
   }
   if (state.mealStatus === "error" && !state.meals) {
-    nodes.push(h("section", { class: "error-card" }, [
-      bowlArt(),
+    nodes.push(h("section", { class: "notice panel" }, [
       h("h2", { text: "급식을 못 불러왔어요" }),
       h("p", { text: state.mealError || "잠시 후 다시 시도해 주세요." }),
-      h("div", { class: "stack" }, [
-        h("button", { type: "button", class: "primary", onclick: loadMeals }, "다시 시도"),
-      ]),
+      h("button", { type: "button", class: "primary", onclick: loadMeals }, "다시 시도"),
     ]));
     return nodes;
   }
@@ -320,51 +312,41 @@ function mealNodes() {
   const meals = state.meals || [null, null, null];
   const any = meals.some((meal) => meal && meal.dishes.length);
   if (!any && (state.mealStatus === "ready" || state.mealStatus === "stale")) {
-    const info = formatDate(state.date);
-    const weekend = info.week === "토" || info.week === "일";
-    nodes.push(h("section", { class: "empty-day" }, [
-      bowlArt(),
-      h("h2", { text: weekend ? "주말에는 급식이 없어요" : "이 날은 급식이 없어요" }),
-      h("p", { text: weekend ? "월요일 메뉴가 궁금하면 날짜를 넘겨 보세요." : "아직 식단이 올라오지 않았거나, 급식이 없는 날이에요." }),
+    nodes.push(h("section", { class: "notice panel" }, [
+      h("span", { class: "tile" }, [icon("bowl")]),
+      h("h2", { text: "등록된 식단이 없어요" }),
+      h("p", { text: "다른 날짜를 선택해 식단을 확인해 보세요." }),
     ]));
     nodes.push(sourceLink());
     return nodes;
   }
 
-  if (state.date === seoulToday()) nodes.push(h("p", { class: "greet", text: greeting() }));
-  MEAL_META.forEach((meta, index) => nodes.push(mealCard(meta, meals[index])));
+  nodes.push(h("div", { class: "meal-grid" }, MEAL_META.map((meta, index) => mealCard(meta, meals[index]))));
   nodes.push(sourceLink());
   return nodes;
 }
 
 function mealCard(meta, meal) {
   const dishes = meal?.dishes || [];
-  if (!dishes.length) {
-    return h("section", { class: `meal is-empty meal-${meta.key}`, "aria-label": meta.label }, [
-      h("div", { class: "meal-icon" }, [icon(meta.icon)]),
-      h("div", {}, [
-        h("h2", { class: "meal-title", text: meta.label }),
-        h("p", { text: meta.empty }),
-      ]),
-    ]);
-  }
-
-  const isNow = state.date === seoulToday() && nowMealCode() === meta.code;
+  const isNow = dishes.length > 0 && state.date === today && nowMealCode() === meta.code;
   const hits = dishes.filter((dish) => dish.allergies.some((num) => state.allergies.has(num)));
-  return h("section", { class: `meal is-full meal-${meta.key}${isNow ? " is-now" : ""}`, "aria-label": meta.label }, [
+  return h("section", { class: `meal panel meal-${meta.key}${isNow ? " is-now" : ""}`, "aria-label": meta.label }, [
     h("div", { class: "meal-head" }, [
-      h("div", { class: "meal-icon" }, [icon(meta.icon)]),
+      h("span", { class: "tile meal-icon" }, [icon(meta.icon)]),
       h("div", {}, [
         h("h2", { class: "meal-title" }, [
           meta.label,
           isNow ? h("span", { class: "now-pill", text: "지금" }) : null,
         ]),
-        h("p", { class: "meal-meta", text: [`${dishes.length}가지`, meal.kcal].filter(Boolean).join("  ·  ") }),
+        h("p", {
+          class: "meal-meta",
+          text: dishes.length ? [`${dishes.length}가지`, meal.kcal].filter(Boolean).join(" · ") : meta.empty,
+        }),
       ]),
     ]),
     hits.length ? h("p", { class: "alert-note", text: `조심할 메뉴 ${hits.length}개` }) : null,
-    h("ul", { class: "dishes" }, dishes.map((dish) => dishRow(dish))),
-    nutritionBlock(meal),
+    dishes.length ? h("ul", { class: "dishes" }, dishes.map(dishRow)) : null,
+    dishes.length ? nutritionBlock(meal) : null,
   ]);
 }
 
@@ -417,14 +399,12 @@ function buildSearch() {
     class: "search-input",
     id: "school-query",
     type: "text",
-    placeholder: webRoot ? "학교 이름을 입력해 주세요" : "학교 이름, 예: 배재고등학교",
+    placeholder: "예를 들어 남악고등학교",
     autocomplete: "off",
     enterkeyhint: "search",
-    "aria-label": "학교 이름",
   });
   ui.clear = h("button", { type: "button", class: "clear-btn", hidden: true, "aria-label": "검색어 지우기", onclick: clearQuery }, [icon("close")]);
-  ui.regions = h("div", { class: "regions" });
-  ui.results = h("div", { class: "results" });
+  ui.results = h("div", { class: "results", hidden: true });
 
   ui.input.addEventListener("compositionstart", () => { composing = true; });
   ui.input.addEventListener("compositionend", () => {
@@ -439,57 +419,52 @@ function buildSearch() {
   });
 
   const form = h("form", {
-    class: "search-box",
+    class: "search-form",
     onsubmit: (event) => {
       event.preventDefault();
       if (!composing) searchNow();
     },
   }, [
-    h("span", { class: "search-ico", "aria-hidden": "true" }, [icon("search")]),
-    ui.input,
-    ui.clear,
+    h("div", { class: "field" }, [
+      h("label", { for: "school-query", text: "학교 이름" }),
+      h("span", { class: "input-wrap" }, [ui.input, ui.clear]),
+    ]),
+    h("div", { class: "field" }, [
+      h("label", { for: "school-region", text: "지역" }),
+      h("select", {
+        id: "school-region",
+        onchange: (event) => {
+          state.region = event.currentTarget.value;
+          if (state.query.trim().length >= 2) searchNow();
+        },
+      }, REGIONS.map(({ code, name }) => h("option", { value: code }, code ? name : "전체 지역"))),
+    ]),
+    h("button", { type: "submit", class: "primary search-submit" }, [icon("search"), "검색"]),
   ]);
 
   const head = h("header", { class: "search-head" }, [
-    h("div", { class: "brand-row" }, [
-      h("div", { class: "brand-lockup" }, [
-        h("span", { class: "mark", "aria-hidden": "true" }, [icon("bowl")]),
-        h("span", { class: "brand-copy" }, [
-          h("strong", { class: "logo-name", text: "오늘 급식" }),
-        ]),
+    h("div", { class: "heading-with-icon" }, [
+      h("span", { class: "tile accent-tile", "aria-hidden": "true" }, [icon("bowl")]),
+      h("div", {}, [
+        h("h2", { text: state.school ? "학교 변경" : "학교 찾기" }),
+        h("p", { class: "school-status", text: "선택한 학교는 이 브라우저에 저장돼요." }),
       ]),
+    ]),
+    h("div", { class: "actions" }, [
+      state.school ? h("button", {
+        type: "button",
+        class: "ghost",
+        onclick: () => showMeals({ focus: true }),
+      }, "식단으로 돌아가기") : null,
       h("button", { type: "button", class: "icon-btn", "aria-label": "설정", onclick: openSettings }, [icon("gear")]),
     ]),
-    h("p", { class: "lede", text: "학교를 등록하면 조식, 중식, 석식이 한 화면에 보여요." }),
-    form,
-    ui.regions,
   ]);
-  app.append(head, ui.results);
-  paintRegions();
+  app.append(h("section", { class: "panel search-panel", "aria-label": "학교 검색" }, [head, form, ui.results]));
 }
 
 function paintSearch() {
   if (ui.clear) ui.clear.hidden = !state.query;
   paintResults();
-}
-
-function paintRegions() {
-  if (!ui.regions) return;
-  ui.regions.replaceChildren(...REGIONS.map((region) => h("button", {
-    type: "button",
-    class: "region",
-    "data-code": region.code,
-    "aria-pressed": state.region === region.code ? "true" : "false",
-    onclick: () => selectRegion(region.code),
-  }, region.name)));
-}
-
-function selectRegion(code) {
-  state.region = code;
-  for (const button of ui.regions.querySelectorAll(".region")) {
-    button.setAttribute("aria-pressed", button.dataset.code === code ? "true" : "false");
-  }
-  if (state.query.trim().length >= 2) searchNow();
 }
 
 function onQueryChanged() {
@@ -546,7 +521,7 @@ async function loadSearchPage(page) {
     const { rows, total } = await requestNeis("schoolInfo", {
       SCHUL_NM: query,
       ATPT_OFCDC_SC_CODE: region,
-    }, { signal: controller.signal, key: neisKey, page });
+    }, { signal: controller.signal, page });
     if (seq !== state.searchSeq) return;
     state.results = [...state.results, ...rankSchools(rows, query)];
     state.total = rows.length ? total : state.results.length;
@@ -575,33 +550,29 @@ function rankSchools(rows, query) {
 function paintResults() {
   if (!ui.results) return;
   const query = state.query.trim();
+  ui.results.hidden = !query;
   if (!query) {
-    ui.results.replaceChildren(h("div", { class: "hero" }, [
-      bowlArt(),
-      h("p", { text: "전국 초·중·고등학교를 검색해 보세요." }),
-    ]));
+    ui.results.replaceChildren();
     return;
   }
   if (query.length < 2) {
-    ui.results.replaceChildren(h("p", { class: "hint", text: "두 글자부터 찾아요" }));
+    ui.results.replaceChildren(h("p", { class: "hint", role: "status", text: "학교 이름을 두 글자 이상 입력해 주세요." }));
     return;
   }
   if (state.searching && !state.results.length) {
-    ui.results.replaceChildren(h("p", { class: "hint", text: "찾는 중이에요" }));
+    ui.results.replaceChildren(h("p", { class: "hint", role: "status", text: "학교를 찾고 있어요." }));
     return;
   }
   if (state.searchError && !state.results.length) {
-    ui.results.replaceChildren(h("section", { class: "error-card" }, [
-      h("h2", { text: "검색이 잠시 멈췄어요" }),
+    ui.results.replaceChildren(h("section", { class: "notice" }, [
+      h("h3", { text: "학교 검색에 실패했어요" }),
       h("p", { text: state.searchError }),
-      h("div", { class: "stack" }, [
-        h("button", { type: "button", class: "primary", onclick: searchNow }, "다시 시도"),
-      ]),
+      h("button", { type: "button", class: "primary", onclick: searchNow }, "다시 시도"),
     ]));
     return;
   }
   if (!state.results.length) {
-    ui.results.replaceChildren(h("p", { class: "hint", text: "이 이름으로는 학교를 못 찾았어요" }));
+    ui.results.replaceChildren(h("p", { class: "hint", role: "status", text: "검색 결과가 없어요. 학교 이름이나 지역을 확인해 주세요." }));
     return;
   }
 
@@ -610,16 +581,16 @@ function paintResults() {
     class: "school-card",
     onclick: () => chooseSchool(school),
   }, [
-    h("span", { class: "badge", "data-k": kindShort(school.kind), text: kindShort(school.kind) }),
+    h("span", { class: "tile school-type", "aria-hidden": "true", text: kindShort(school.kind) }),
     h("span", { class: "school-card-body" }, [
       h("strong", { text: school.name }),
-      h("span", { class: "kind-line", text: [school.kind, school.coed ? `${school.coed}학교` : ""].filter(Boolean).join(" · ") }),
-      school.address ? h("span", { class: "addr", text: school.address }) : null,
+      h("span", { class: "school-description", text: [school.kind, school.address || school.region].filter(Boolean).join(" · ") }),
     ]),
+    icon("right"),
   ]));
 
   if (state.total > state.results.length) {
-    const more = webRoot && state.searchPage * 5 < state.total;
+    const more = state.searchPage * 5 < state.total;
     nodes.push(h("p", {
       class: "result-note",
       text: `전체 ${state.total}곳 중 ${state.results.length}곳을 표시하고 있어요. 학교 이름을 더 정확히 입력하거나 지역을 골라 주세요.`,
@@ -636,30 +607,22 @@ function paintResults() {
 }
 
 async function chooseSchool(school) {
-  const ok = await openSheet("학교 등록", (close) => h("div", {}, [
-    h("p", { class: "sheet-kicker", text: "학교 등록" }),
+  const ok = await openSheet("학교 저장", (close) => h("div", {}, [
     h("h2", { class: "sheet-title", text: school.name }),
-    h("p", { class: "sheet-sub", text: [school.kind, school.coed ? `${school.coed}학교` : "", school.address || school.region].filter(Boolean).join(" · ") }),
+    h("p", { class: "sheet-sub", text: [school.kind, school.address || school.region].filter(Boolean).join(" · ") }),
+    h("p", { class: "help", text: "다음에 이 브라우저로 방문하면 이 학교의 급식이 바로 열려요." }),
     h("div", { class: "sheet-actions" }, [
-      h("button", { type: "button", class: "primary", onclick: () => close(true) }, "이 학교로 등록"),
+      h("button", { type: "button", class: "primary", onclick: () => close(true) }, "이 학교 저장"),
       h("button", { type: "button", class: "ghost", onclick: () => close(false) }, "다시 고르기"),
     ]),
   ]), ".primary");
   if (!ok) return;
 
-  const prev = state.school;
-  const same = prev && prev.officeCode === school.officeCode && prev.schoolCode === school.schoolCode;
-  if (same) {
-    toast("이미 보고 있는 학교예요");
-    showMeals();
-    return;
-  }
-  writeJSON(SCHOOL_KEY, school);
-  state.school = school;
-  state.date = seoulToday();
-  state.meals = null;
-  toast(prev ? `${withJosa(school.name, "으로")} 바꿨어요` : `${withJosa(school.name, "을를")} 등록했어요`);
-  showMeals();
+  const saved = writeJSON(SCHOOL_KEY, school);
+  applySchoolSelection(school, saved, { focus: true });
+  toast(saved
+    ? `${withJosa(school.name, "을를")} 저장했어요.`
+    : "브라우저에 저장할 수 없어 이번 방문에만 표시해요.");
 }
 
 function openSettings() {
@@ -690,18 +653,20 @@ function openSettings() {
     }, name));
 
     return h("div", {}, [
-      h("p", { class: "sheet-kicker", text: "설정" }),
-      h("h2", { class: "sheet-title", text: "오늘 급식" }),
-      state.school ? h("p", { class: "current-school", text: `${state.school.name} · ${state.school.region}` }) : h("p", { class: "current-school", text: "아직 등록한 학교가 없어요" }),
-      h("div", { class: "stack" }, [
-        state.view === "meals" ? h("button", { type: "button", class: "ghost", onclick: () => { close(false); showSearch({ focus: true }); } }, "학교 변경") : null,
-        state.school ? h("button", { type: "button", class: "ghost", onclick: () => { close(false); forgetSchool(); } }, "등록 지우기") : null,
-      ]),
-      h("p", { class: "section-label", text: "내 알레르기" }),
+      h("h2", { class: "sheet-title", text: "급식 설정" }),
+      state.school ? h("div", { class: "saved-school" }, [
+        h("p", { text: state.school.name }),
+        h("button", {
+          type: "button",
+          class: "text-button",
+          onclick: () => { close(false); forgetSchool(); },
+        }, state.schoolSaved ? "저장된 학교 지우기" : "학교 선택 해제"),
+      ]) : null,
+      h("h3", { class: "section-label", text: "내 알레르기" }),
       h("p", { class: "help", text: "해당 재료가 들어간 메뉴를 표시해요." }),
       h("div", { class: "allergen-grid" }, chips),
       h("button", { type: "button", class: "text-button", onclick: clearAllergies }, "선택 지우기"),
-      h("p", { class: "section-label", text: "보기" }),
+      h("h3", { class: "section-label", text: "보기" }),
       numberButton,
     ]);
   });
@@ -723,63 +688,46 @@ function clearAllergies() {
 }
 
 function forgetSchool() {
-  writeJSON(SCHOOL_KEY, null);
-  state.mealSeq += 1;
-  mealAbort?.abort();
-  state.school = null;
-  state.meals = null;
-  toast("등록을 지웠어요");
-  showSearch();
+  if (!writeJSON(SCHOOL_KEY, null) && state.schoolSaved) {
+    toast("저장된 학교를 지우지 못했어요.");
+    return;
+  }
+  applySchoolSelection(null, false, { focus: true });
+  toast("학교 선택을 지웠어요.");
 }
 
 function openSheet(label, build, focusSelector) {
   return new Promise((resolve) => {
-    let settled = false;
     const previousFocus = root.activeElement;
     const close = (value) => {
-      if (settled) return;
-      settled = true;
-      overlay.remove();
+      dialog.close();
+      dialog.remove();
       ui.sheet = null;
-      document.body.classList.remove("no-scroll");
-      app.inert = false;
+      document.body.classList.remove("today-meal-modal");
       previousFocus?.focus();
       resolve(value);
     };
-    const overlay = h("div", {
-      class: "overlay",
-      onclick: (event) => { if (event.target === overlay) close(false); },
+    const dialog = h("dialog", {
+      class: "sheet",
+      "aria-label": label,
+      oncancel: (event) => { event.preventDefault(); close(false); },
+      onclick: (event) => { if (event.target === dialog) close(false); },
     }, [
-      h("div", { class: "sheet", role: "dialog", "aria-modal": "true", "aria-label": label }, [
+      h("div", { class: "sheet-content" }, [
         h("button", { type: "button", class: "sheet-x icon-btn", "aria-label": "닫기", onclick: () => close(false) }, [icon("close")]),
-        h("div", { class: "handle", "aria-hidden": "true" }),
         build(close),
       ]),
     ]);
-    overlay.addEventListener("keydown", (event) => {
-      if (event.key !== "Tab") return;
-      const controls = overlay.querySelectorAll("button:not(:disabled)");
-      const boundary = event.shiftKey ? controls[0] : controls[controls.length - 1];
-      if (root.activeElement !== boundary) return;
-      event.preventDefault();
-      (event.shiftKey ? controls[controls.length - 1] : controls[0])?.focus();
-    });
     ui.sheet = { close };
-    document.body.classList.add("no-scroll");
-    app.inert = true;
-    (webRoot || document.body).append(overlay);
-    overlay.querySelector(focusSelector || "[aria-label='닫기']")?.focus();
+    document.body.classList.add("today-meal-modal");
+    root.append(dialog);
+    dialog.showModal();
+    dialog.querySelector(focusSelector || "[aria-label='닫기']")?.focus();
   });
 }
 
 function onKey(event) {
-  if (ui.sheet) {
-    if (event.key === "Escape") ui.sheet.close(false);
-    return;
-  }
-  if (state.view !== "meals") return;
-  if (webRoot && !webRoot.activeElement) return;
-  if (event.composedPath()[0]?.matches?.("input, textarea")) return;
+  if (ui.sheet || state.view !== "meals" || !app.contains(root.activeElement)) return;
   if (event.key === "ArrowLeft") {
     event.preventDefault();
     selectDate(addDays(state.date, -1));
@@ -802,20 +750,20 @@ function updateToday() {
   return wasToday;
 }
 
-if (location.protocol !== "file:") {
-  try { localStorage.removeItem("today-meal.apiKey"); } catch {}
-  document.addEventListener("keydown", onKey);
-  window.addEventListener("online", () => {
-    if (!updateToday() && state.view === "meals") loadMeals();
-  });
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) updateToday();
-  });
-  setInterval(updateToday, 60_000);
-  const isNative = Boolean(window.Capacitor?.isNativePlatform?.());
-  if (!webRoot && !isNative && "serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./sw.js").catch(() => {});
-  }
-  if (state.school) showMeals();
-  else showSearch();
-}
+document.addEventListener("keydown", onKey);
+window.addEventListener("online", () => {
+  if (!updateToday() && state.view === "meals") loadMeals();
+});
+window.addEventListener("storage", (event) => {
+  if (event.storageArea !== localStorage || (event.key !== SCHOOL_KEY && event.key !== null)) return;
+  const school = readSchool();
+  if (!school && !state.school) return;
+  ui.sheet?.close(false);
+  applySchoolSelection(school, Boolean(school));
+});
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) updateToday();
+});
+setInterval(updateToday, 60_000);
+if (state.school) showMeals();
+else showSearch();

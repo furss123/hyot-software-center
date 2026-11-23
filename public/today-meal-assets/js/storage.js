@@ -13,8 +13,9 @@ export function writeJSON(key, value) {
   try {
     if (value == null) localStorage.removeItem(key);
     else localStorage.setItem(key, JSON.stringify(value));
+    return true;
   } catch {
-    // Storage may be unavailable in private browsing.
+    return false;
   }
 }
 
