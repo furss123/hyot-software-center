@@ -1,0 +1,64 @@
+---
+import Base from '../../layouts/Base.astro'
+import { localeStaticPaths, path, type Locale } from '../../lib/i18n'
+
+export const getStaticPaths = localeStaticPaths
+
+const locale = Astro.params.locale as Locale
+const korean = locale === 'ko'
+const title = korean ? '오늘 급식' : 'Today Meal'
+const description = korean
+  ? '학교를 등록하고 오늘의 조식, 중식, 석식을 브라우저에서 확인하세요.'
+  : 'Register your school and check today’s breakfast, lunch, and dinner menus in your browser.'
+---
+
+<Base locale={locale} title={title} description={description}>
+  <section class="wrap meal-page" aria-labelledby="meal-page-title">
+    <h1 id="meal-page-title" class="sr-only">{title}</h1>
+    <a class="downloads" href={path(locale, 'software/today-meal')}>
+      {korean ? 'Windows·Android 다운로드' : 'Windows & Android downloads'}
+    </a>
+    <div id="today-meal-web" lang="ko">
+      <template shadowrootmode="open">
+        <link rel="stylesheet" href="/today-meal-assets/css/app.css" />
+        <div class="meal-app-shell">
+          <div id="app" class="app">
+            <noscript><p class="hint">급식을 보려면 JavaScript를 켜 주세요.</p></noscript>
+          </div>
+        </div>
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+      </template>
+    </div>
+  </section>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Jua&display=swap" />
+  <script is:inline type="module" src="/today-meal-assets/js/app.js"></script>
+</Base>
+
+<style>
+  .meal-page {
+    width: min(100%, 34rem);
+    padding-block: clamp(1.25rem, 4vw, 2.75rem) 2.5rem;
+  }
+  .downloads {
+    display: block;
+    width: fit-content;
+    margin: 0 0 0.65rem auto;
+    color: var(--ink-soft);
+    font-size: var(--t-sm);
+  }
+  #today-meal-web {
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: #fff6f1;
+    box-shadow: 0 12px 40px rgb(30 30 50 / 9%);
+  }
+  :global(body.no-scroll) {
+    overflow: hidden;
+  }
+  @media (max-width: 480px) {
+    .meal-page {
+      padding-inline: 0.7rem;
+    }
+  }
+</style>

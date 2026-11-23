@@ -39,6 +39,7 @@ const platforms = data.platforms.map((platform) => platformNames[platform])
 const requirements = locale === 'en' ? data.requirements_en ?? data.requirements : data.requirements
 const korean = locale === 'ko'
 const moagyeol = software.id === 'hwp2pdf'
+const todayMeal = software.id === 'today-meal'
 const platform = platforms[0]
 const primaryLabel = moagyeol && primary?.type === 'portable'
   ? (korean ? 'Windows용 ZIP 다운로드' : 'Download ZIP for Windows')
@@ -70,9 +71,14 @@ const fileName = (asset: (typeof assets)[number]) => asset.filename ?? asset.url
         <p class="description">{description}</p>
 
         <div class="actions">
+          {todayMeal && (
+            <a class="btn btn-primary" href={path(locale, 'today-meal')}>
+              {korean ? '웹에서 급식 보기' : 'View meals online'} <span aria-hidden="true">→</span>
+            </a>
+          )}
           {
             primary ? (
-              <a class="btn btn-primary" href={primary.url} download={fileName(primary)}>
+              <a class:list={['btn', { 'btn-primary': !todayMeal }]} href={primary.url} download={fileName(primary)}>
                 {primaryLabel} <span aria-hidden="true">↓</span>
               </a>
             ) : <p class="muted">{t(locale, 'software.noDownload')}</p>

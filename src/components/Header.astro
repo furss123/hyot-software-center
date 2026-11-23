@@ -9,6 +9,7 @@ interface Props {
 
 const { locale, altPath } = Astro.props
 const home = path(locale)
+const mealPage = path(locale, 'today-meal')
 const onHome = Astro.url.pathname === home
 const altLocale = otherLocale(locale)
 ---
@@ -23,6 +24,10 @@ const altLocale = otherLocale(locale)
         {t(locale, 'nav.utilities')}
       </a>
       <a href={path(locale, 'clock')}>{t(locale, 'nav.clock')}</a>
+      <a href={mealPage} class:list={{ current: Astro.url.pathname === mealPage }}
+        aria-current={Astro.url.pathname === mealPage ? 'page' : undefined}>
+        {t(locale, 'nav.meals')}
+      </a>
     </nav>
     <div class="tools">
       <a class="lang" href={altPath} lang={altLocale} hreflang={altLocale}>{t(locale, 'nav.lang')}</a>
