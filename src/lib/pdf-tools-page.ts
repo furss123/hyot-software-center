@@ -28,9 +28,11 @@ const run = select<HTMLButtonElement>('[data-run]')
 const cancel = select<HTMLButtonElement>('[data-cancel]')
 const download = select<HTMLAnchorElement>('[data-download]')
 const report = select('[data-report]')
+const hwpNote = select('[data-hwp-note]')
 
-const selections: Record<Tool, File[]> = { merge: [], compress: [] }
-const outputNames = { merge: copy.merge.defaultName, compress: copy.compress.defaultName }
+const selections: Record<Tool, File[]> = { merge: [], compress: [], convert: [] }
+const outputNames = { merge: copy.merge.defaultName, compress: copy.compress.defaultName, convert: '' }
+const hwpExtension = /\.hwpx?$/i
 const sizeNumber = new Intl.NumberFormat(locale, { maximumFractionDigits: 1 })
 const percent = new Intl.NumberFormat(locale, { style: 'percent', maximumFractionDigits: 1 })
 
@@ -51,8 +53,13 @@ function size(bytes: number) {
   return sizeNumber.format(bytes / 1024 ** 2) + ' MB'
 }
 
+function suggestedName() {
+  if (mode === 'convert' && files[0]) return files[0].name.replace(hwpExtension, '') || copy.convert.defaultName
+  return copy[mode].defaultName
+}
+
 function updateDownloadName() {
-  const name = filename.value.trim()
+  const name = (filename.value.trim() || suggestedName())
     .replace(/[<>:"\/\\|?*\u0000-\u001f]/g, '_')
     .replace(/(?:\.pdf)+$/i, '')
     .replace(/[. ]+$/, '')
@@ -72,6 +79,7 @@ function minimumFiles() {
 function render() {
   const busy = job !== null
   const merging = mode === 'merge'
+  const converting = mode === 'convert'
   const labels = copy[mode]
   for (const button of switches) {
     button.disabled = busy
@@ -83,10 +91,17 @@ function render() {
   orderHelp.hidden = !merging
   list.setAttribute('aria-label', labels.order)
   fileInput.multiple = merging
-  levels.hidden = merging
+  fileInput.accept = converting ? '.hwp,.hwpx' : '.pdf,application/pdf'
+  filename.placeholder = suggestedName()
+  levels.hidden = mode !== 'compress'
   levels.disabled = busy
+  hwpNote.hidden = !converting
   choose.disabled = busy
-  choose.textContent = !merging && files.length ? copy.replaceFile : copy.choose
+  if (converting) {
+    choose.textContent = files.length ? copy.replaceHwp : copy.chooseHwp
+  } else {
+    choose.textContent = !merging && files.length ? copy.replaceFile : copy.choose
+  }
   clear.disabled = busy
   clear.hidden = files.length === 0 || !merging
   fileList.hidden = files.length === 0
@@ -148,33 +163,41 @@ function changeOrder(index: number, action: RowAction) {
 function addFiles(selection: FileList) {
   if (job) return
   const selected = Array.from(selection)
-  const pdfs = selected.filter((file) => /\.pdf$/i.test(file.name) || file.type === 'application/pdf')
-  if (!pdfs.length) {
-    if (selected.length) showReport(copy.invalidType, true)
+  const converting = mode === 'convert'
+  const invalid = converting ? copy.invalidHwp : copy.invalidType
+  const accepted = selected.filter((file) => converting
+    ? hwpExtension.test(file.name)
+    : /\.pdf$/i.test(file.name) || file.type === 'application/pdf')
+  if (!accepted.length) {
+    if (selected.length) showReport(invalid, true)
     return
   }
-  if (mode === 'compress') {
-    files.splice(0, files.length, pdfs[0])
+
+  let notice = accepted.length !== selected.length ? invalid : ''
+  if (mode === 'merge') {
+    for (const file of accepted) files.push(file)
   } else {
-    for (const pdf of pdfs) files.push(pdf)
+    files.splice(0, files.length, accepted[0])
+    if (accepted.length > 1) notice = converting ? copy.singleHwp : copy.single
   }
-  const notice = mode === 'compress' && pdfs.length > 1 ? copy.single
-    : pdfs.length !== selected.length ? copy.invalidType : ''
   selectionChanged(notice)
 }
 
-for (const button of switches) {
-  button.addEventListener('click', () => {
-    const next = button.dataset.tool as Tool
-    if (mode === next) return
-    outputNames[mode] = filename.value
-    mode = next
-    files = selections[mode]
-    filename.value = outputNames[mode]
-    filename.placeholder = copy[mode].defaultName
-    selectionChanged()
-  })
+function switchTool(next: Tool) {
+  if (job || mode === next) return
+  outputNames[mode] = filename.value
+  mode = next
+  files = selections[mode]
+  filename.value = outputNames[mode]
+  selectionChanged()
 }
+
+for (const button of switches) {
+  button.addEventListener('click', () => switchTool(button.dataset.tool as Tool))
+}
+window.addEventListener('hashchange', () => {
+  if (location.hash === '#hwp') switchTool('convert')
+})
 levels.addEventListener('change', () => {
   const checked = levels.querySelector<HTMLInputElement>('input:checked')!
   level = Number(checked.value)
@@ -230,6 +253,7 @@ function stopJob() {
 
 function reportResult(message: Extract<PdfMessage, { type: 'done' }>) {
   if (mode === 'merge') return copy.merge.complete(message.pageCount)
+  if (mode === 'convert') return copy.convert.complete(message.pageCount)
   if (message.signed) return copy.signed
   const original = files[0].size
   const reduced = message.buffer.byteLength
@@ -263,7 +287,7 @@ run.addEventListener('click', () => {
       if (job !== worker) return
       const message = event.data
       if (message.type === 'progress') {
-        showReport(copy[mode].progress(message.index, message.total))
+        if (mode !== 'convert') showReport(copy[mode].progress(message.index, message.total))
         return
       }
       if (message.type === 'writing') {
@@ -284,9 +308,10 @@ run.addEventListener('click', () => {
       render()
       if (focusInActions) (message.type === 'done' ? download : run).focus({ preventScroll: true })
     })
-    const request: PdfRequest = mode === 'merge'
-      ? { type: mode, files }
-      : { type: mode, file: files[0], level }
+    let request: PdfRequest
+    if (mode === 'merge') request = { type: mode, files }
+    else if (mode === 'compress') request = { type: mode, file: files[0], level }
+    else request = { type: mode, file: files[0] }
     worker.postMessage(request)
   } catch {
     stopJob()
@@ -308,4 +333,5 @@ window.addEventListener('pagehide', (event) => {
   discardResult()
 })
 
+if (location.hash === '#hwp') switchTool('convert')
 tools.hidden = false

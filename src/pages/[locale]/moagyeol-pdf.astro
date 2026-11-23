@@ -25,6 +25,7 @@ const copy = pdfCopy[locale]
       <div class="tool-switch" role="group" aria-label={copy.tools}>
         <button type="button" data-tool="merge" aria-pressed="true">{copy.merge.title}</button>
         <button type="button" data-tool="compress" aria-pressed="false">{copy.compress.title}</button>
+        <button id="hwp" type="button" data-tool="convert" aria-pressed="false">{copy.convert.title}</button>
       </div>
       <div class="workspace">
         <section class="panel" aria-labelledby="files-title">
@@ -95,6 +96,7 @@ const copy = pdfCopy[locale]
           <a class="btn btn-primary action" data-download hidden>{copy.merge.download}</a>
           <button class="plain cancel" type="button" data-cancel hidden>{copy.cancel}</button>
           <p class="report" role="status" data-report>{copy.merge.minimum}</p>
+          <p class="report" data-hwp-note hidden>{copy.convert.note}</p>
           <p class="privacy">{copy.privacy}</p>
           <a class="notices" href="/moagyeol-pdf-licenses.txt">
             {locale === 'ko' ? '오픈소스 라이선스' : 'Open-source licenses'}
@@ -131,7 +133,7 @@ const copy = pdfCopy[locale]
   .desktop-link { font-size: var(--t-sm); }
   .tool-switch {
     display: inline-grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.25rem;
     margin-bottom: 1rem;
     padding: 0.25rem;
@@ -141,7 +143,7 @@ const copy = pdfCopy[locale]
   }
   .tool-switch button {
     min-height: 2.75rem;
-    padding: 0.45rem clamp(0.6rem, 4vw, 1rem);
+    padding: 0.45rem clamp(0.3rem, 2vw, 1rem);
     border: 0;
     border-radius: 0.53rem;
     background: transparent;
@@ -371,6 +373,7 @@ const copy = pdfCopy[locale]
     .folio { width: 7rem; }
   }
   @media (max-width: 510px) {
+    .tool-switch { display: grid; }
     .file { grid-template-columns: auto minmax(0, 1fr); gap: 0.2rem 0.55rem; }
     .file-actions { grid-column: 2; flex-wrap: wrap; }
   }
