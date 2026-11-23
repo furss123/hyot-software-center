@@ -48,8 +48,8 @@ const primaryLabel = moagyeol && primary?.type === 'portable'
     : t(locale, 'software.download')
 const downloadInfo = [current && `v${current.version}`, primary?.arch, formatSize(primary?.size)].filter(Boolean)
 const shotTitles = !moagyeol ? [] : korean
-  ? ['한글 파일 변환', '합칠 PDF 추가', '합치기 완료']
-  : ['Convert Hangul files', 'Add PDFs to merge', 'Merge results']
+  ? ['한글 파일 변환', '합칠 PDF 추가', '합치기 완료', 'PDF 압축 결과']
+  : ['Convert Hangul files', 'Add PDFs to merge', 'Merge results', 'PDF compression results']
 const { Content } = await render(software)
 const enParagraphs = !korean && data.description_en ? data.description_en.split(/\n{2,}/) : null
 const fileName = (asset: (typeof assets)[number]) => asset.filename ?? asset.url.split('/').pop()
