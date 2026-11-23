@@ -1,7 +1,6 @@
 ---
-import Brand from '../../components/Brand.astro'
 import Base from '../../layouts/Base.astro'
-import { localeStaticPaths, path, t, type Locale } from '../../lib/i18n'
+import { localeStaticPaths, t, type Locale } from '../../lib/i18n'
 
 export const getStaticPaths = localeStaticPaths
 
@@ -9,52 +8,55 @@ const locale = Astro.params.locale as Locale
 const title = t(locale, 'nav.clock')
 ---
 
-<Base locale={locale} title={title} description={t(locale, 'clock.description')} presentation>
-  <div class="clock" data-clock>
-    <h1 class="sr-only">{title}</h1>
-    <time class="clock-time" hidden></time>
-    <noscript>{t(locale, 'clock.requiresJs')}</noscript>
-
-    <header class="wrap clock-controls" data-controls hidden>
-      <a class="clock-home" href={path(locale)}><Brand /></a>
-      <div class="clock-meta">
-        <p class="clock-zone">
-          <span class="sr-only">{t(locale, 'clock.zone')}</span>
-          <span aria-hidden="true">KST · UTC+9</span>
-        </p>
-        <p
-          class="clock-source"
-          role="status"
-          data-clock-source
-          data-synced={t(locale, 'clock.synced')}
-          data-device={t(locale, 'clock.deviceTime')}
-          data-last-sync={t(locale, 'clock.lastSync')}
-        >{t(locale, 'clock.syncing')}</p>
-      </div>
-      <div class="clock-settings">
-        <div class="clock-size" role="group" aria-label={t(locale, 'clock.size')}>
-          <button class="clock-step" type="button" aria-label={t(locale, 'clock.smaller')} data-smaller>−</button>
-          <output class="num" data-size>100%</output>
-          <button class="clock-step" type="button" aria-label={t(locale, 'clock.larger')} data-larger>+</button>
+<Base locale={locale} title={title} description={t(locale, 'clock.description')} ads={false}>
+  <section class="wrap clock-page" aria-labelledby="clock-title" data-clock>
+    <h1 id="clock-title">{title}</h1>
+    <div class="clock-panel" data-clock-panel>
+      <div class="clock-toolbar" data-controls hidden>
+        <div class="clock-meta">
+          <p class="clock-zone">
+            <span class="sr-only">{t(locale, 'clock.zone')}</span>
+            <span aria-hidden="true">KST · UTC+9</span>
+          </p>
+          <p
+            class="clock-source"
+            role="status"
+            data-clock-source
+            data-synced={t(locale, 'clock.synced')}
+            data-device={t(locale, 'clock.deviceTime')}
+            data-last-sync={t(locale, 'clock.lastSync')}
+          >{t(locale, 'clock.syncing')}</p>
         </div>
-        <button
-          class="btn clock-control"
-          type="button"
-          data-theme-toggle
-          data-light={t(locale, 'clock.light')}
-          data-dark={t(locale, 'clock.dark')}
-        >{t(locale, 'clock.dark')}</button>
-        <button
-          class="btn btn-primary clock-control"
-          type="button"
-          data-fullscreen-toggle
-          data-enter={t(locale, 'clock.fullscreen')}
-          data-exit={t(locale, 'clock.exitFullscreen')}
-          hidden
-        >{t(locale, 'clock.fullscreen')}</button>
+        <div class="clock-settings">
+          <div class="clock-size" role="group" aria-label={t(locale, 'clock.size')}>
+            <button class="clock-step" type="button" aria-label={t(locale, 'clock.smaller')} data-smaller>−</button>
+            <output class="num" data-size>100%</output>
+            <button class="clock-step" type="button" aria-label={t(locale, 'clock.larger')} data-larger>+</button>
+          </div>
+          <button class="btn btn-primary clock-control" type="button" data-fullscreen-enter hidden>
+            {t(locale, 'clock.fullscreen')}
+          </button>
+        </div>
       </div>
-    </header>
-  </div>
+      <div class="clock-stage" tabindex="-1" data-clock-stage>
+        <time class="clock-time" hidden></time>
+        <noscript>{t(locale, 'clock.requiresJs')}</noscript>
+        <button
+          class="btn clock-exit"
+          type="button"
+          aria-label={t(locale, 'clock.exitFullscreen')}
+          title={t(locale, 'clock.exitFullscreen')}
+          data-fullscreen-exit
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+            stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 3v6H3m18 0h-6V3M3 15h6v6m6 0v-6h6" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <dialog class="clock-dialog" aria-label={title} data-clock-dialog></dialog>
+  </section>
 </Base>
 
 <script>
@@ -63,13 +65,16 @@ const title = t(locale, 'nav.clock')
   const clock = document.querySelector<HTMLElement>('[data-clock]')
 
   if (clock) {
-    const face = clock.querySelector<HTMLTimeElement>('time')!
+    const panel = clock.querySelector<HTMLElement>('[data-clock-panel]')!
+    const stage = clock.querySelector<HTMLElement>('[data-clock-stage]')!
+    const dialog = clock.querySelector<HTMLDialogElement>('[data-clock-dialog]')!
+    const face = stage.querySelector<HTMLTimeElement>('time')!
+    const exitButton = stage.querySelector<HTMLButtonElement>('[data-fullscreen-exit]')!
     const controls = clock.querySelector<HTMLElement>('[data-controls]')!
     const smaller = controls.querySelector<HTMLButtonElement>('[data-smaller]')!
     const larger = controls.querySelector<HTMLButtonElement>('[data-larger]')!
     const size = controls.querySelector<HTMLOutputElement>('[data-size]')!
-    const themeButton = controls.querySelector<HTMLButtonElement>('[data-theme-toggle]')!
-    const fullscreenButton = controls.querySelector<HTMLButtonElement>('[data-fullscreen-toggle]')!
+    const fullscreenButton = controls.querySelector<HTMLButtonElement>('[data-fullscreen-enter]')!
     const source = controls.querySelector<HTMLElement>('[data-clock-source]')!
 
     const formatter = new Intl.DateTimeFormat('en-GB', {
@@ -110,9 +115,8 @@ const title = t(locale, 'nav.clock')
       systemOffset = newSystemOffset
 
       const time = offset === undefined ? systemTime : offset + elapsed
-      const value = formatter.format(time)
-      face.textContent = value
-      face.dateTime = value
+      face.textContent = formatter.format(time)
+      face.dateTime = new Date(time).toISOString()
       if (!document.hidden) {
         tickTimer = window.setTimeout(updateTime, 1000 - (time % 1000))
         if (!syncing && elapsed >= nextSync) void synchronize()
@@ -158,130 +162,102 @@ const title = t(locale, 'nav.clock')
     smaller.addEventListener('click', () => changeScale(-step))
     larger.addEventListener('click', () => changeScale(step))
 
-    const theme = document.documentElement.dataset
-
-    function updateThemeButton() {
-      themeButton.textContent = (theme.theme === 'dark' ? themeButton.dataset.light : themeButton.dataset.dark) ?? ''
-    }
-
-    updateThemeButton()
-    themeButton.addEventListener('click', () => {
-      theme.theme = theme.theme === 'dark' ? 'light' : 'dark'
-      updateThemeButton()
-      try {
-        localStorage.setItem('theme', theme.theme)
-      } catch {}
-    })
-
-    let controlsTimer: number
-
-    function hideControls() {
-      window.clearTimeout(controlsTimer)
-      clock?.removeAttribute('data-controls-visible')
-    }
-
-    function dismissControls() {
-      controls.querySelector<HTMLElement>(':focus')?.blur()
-      hideControls()
-    }
-
-    function showControls() {
-      clock?.setAttribute('data-controls-visible', '')
-      window.clearTimeout(controlsTimer)
-      controlsTimer = window.setTimeout(hideControls, 4000)
-    }
-
-    const fullscreenWindow = window.matchMedia('(display-mode: fullscreen)')
     controls.hidden = false
-    if (!fullscreenWindow.matches) showControls()
-    clock.addEventListener('pointermove', showControls)
-    clock.addEventListener('pointerdown', showControls)
-    controls.addEventListener('click', showControls)
-    window.addEventListener('resize', hideControls)
-    fullscreenWindow.addEventListener('change', ({ matches }) => {
-      if (matches) dismissControls()
+    const canOpenDialog = typeof dialog.showModal === 'function'
+    fullscreenButton.hidden = !document.fullscreenEnabled && !canOpenDialog
+    let opening = false
+    let exitTimer: number
+
+    function hideExit() {
+      window.clearTimeout(exitTimer)
+      stage.removeAttribute('data-exit-visible')
+    }
+
+    function revealExit() {
+      if (!stage.hasAttribute('data-expanded')) return
+      stage.setAttribute('data-exit-visible', '')
+      window.clearTimeout(exitTimer)
+      exitTimer = window.setTimeout(hideExit, 3000)
+    }
+
+    function setExpanded(expanded: boolean) {
+      stage.toggleAttribute('data-expanded', expanded)
+      hideExit()
+      if (expanded) stage.focus({ preventScroll: true })
+      else fullscreenButton.focus({ preventScroll: true })
+    }
+
+    fullscreenButton.addEventListener('click', async () => {
+      if (opening) return
+      opening = true
+      try {
+        if (document.fullscreenEnabled) {
+          try {
+            await stage.requestFullscreen()
+            return
+          } catch {
+            // Fullscreen can be blocked by the browser or by an embedding page.
+          }
+        }
+        if (canOpenDialog && !dialog.open) {
+          dialog.append(stage)
+          dialog.showModal()
+          setExpanded(true)
+        }
+      } finally {
+        opening = false
+      }
     })
 
-    if (document.fullscreenEnabled) {
-      fullscreenButton.hidden = false
-      fullscreenButton.addEventListener('click', async () => {
-        try {
-          if (document.fullscreenElement === clock) {
-            await document.exitFullscreen()
-          } else {
-            await clock.requestFullscreen()
-          }
-        } catch {
-          showControls()
-        }
-      })
-      document.addEventListener('fullscreenchange', () => {
-        const fullscreen = document.fullscreenElement === clock
-        fullscreenButton.textContent = (fullscreen ? fullscreenButton.dataset.exit : fullscreenButton.dataset.enter) ?? ''
-        if (fullscreen) {
-          dismissControls()
-        } else {
-          showControls()
-        }
-      })
-    }
+    stage.addEventListener('fullscreenchange', () => setExpanded(document.fullscreenElement === stage))
+    dialog.addEventListener('close', () => {
+      panel.append(stage)
+      setExpanded(false)
+    })
+    exitButton.addEventListener('click', () => {
+      if (dialog.open) dialog.close()
+      else if (document.fullscreenElement === stage) void document.exitFullscreen()
+    })
+    stage.addEventListener('pointermove', revealExit)
+    stage.addEventListener('pointerdown', revealExit)
+    stage.addEventListener('keydown', (event) => {
+      if (event.key !== 'Tab' || !stage.hasAttribute('data-expanded')) return
+      event.preventDefault()
+      exitButton.focus()
+    })
   }
 </script>
 
 <style>
-  .clock {
-    position: relative;
-    display: grid;
-    place-items: center;
-    min-height: 100vh;
-    min-height: 100dvh;
-    background: var(--paper);
-    color: var(--ink);
-    font-feature-settings: normal;
+  .clock-page {
+    padding-block: clamp(1.5rem, 4vw, 3rem) clamp(2.75rem, 7vw, 5rem);
   }
-  .clock-time {
-    font-size: calc(min(16.4vw, 54vh) * var(--clock-scale, 1));
-    font-size: calc(min(16.4vw, 54dvh) * var(--clock-scale, 1));
-    font-weight: 800;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: -0.045em;
-    line-height: 1;
-    white-space: nowrap;
+  h1 {
+    margin-bottom: clamp(1rem, 3vw, 1.75rem);
+    font-size: clamp(2.3rem, 5.4vw, 4rem);
+    letter-spacing: -0.065em;
   }
-  .clock-controls {
-    position: absolute;
-    inset: max(clamp(0.75rem, 2.2vw, 1.75rem), env(safe-area-inset-top)) 0 auto;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    grid-template-areas: 'home meta settings';
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem clamp(0.65rem, 2.2vw, 1.35rem);
+  .clock-panel {
+    overflow: hidden;
     border: 1px solid var(--line);
     border-radius: var(--radius);
     background: var(--surface);
   }
-  .clock [hidden] {
+  .clock-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    padding: 0.85rem clamp(0.75rem, 2.5vw, 1.5rem);
+    border-bottom: 1px solid var(--line);
+  }
+  .clock-page [hidden] {
     display: none;
   }
-  .clock:not([data-controls-visible]) .clock-controls:not(:has(:focus-visible)) {
-    opacity: 0;
-    pointer-events: none;
-  }
-  .clock-home {
-    grid-area: home;
-    display: inline-flex;
-    justify-self: start;
-    align-items: center;
-    min-height: 2.75rem;
-    border-radius: 0.65rem;
-    text-decoration: none;
-  }
   .clock-meta {
-    grid-area: meta;
     display: grid;
-    justify-items: center;
-    gap: 0.12rem;
+    gap: 0.15rem;
     line-height: 1.35;
   }
   .clock-zone {
@@ -295,12 +271,10 @@ const title = t(locale, 'nav.clock')
     font-size: 0.75rem;
   }
   .clock-settings {
-    grid-area: settings;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: flex-end;
-    gap: 0.4rem;
+    gap: 0.5rem;
     font-size: var(--t-sm);
   }
   .clock-size {
@@ -336,50 +310,76 @@ const title = t(locale, 'nav.clock')
   }
   .clock-control {
     min-height: calc(2.75rem + 2px);
-    padding: 0.4rem 0.65rem;
+    padding: 0.4rem 0.8rem;
     white-space: nowrap;
     cursor: pointer;
   }
-  @media (max-width: 850px) {
-    .clock-controls {
-      grid-template-columns: minmax(0, 1fr) auto;
-      grid-template-areas: 'home meta' 'settings settings';
-      row-gap: 0.55rem;
-    }
-    .clock-meta {
-      justify-items: end;
-      text-align: end;
-    }
-    .clock-settings {
-      justify-content: flex-start;
-      border-top: 1px solid var(--line);
-      padding-top: 0.55rem;
-    }
+  .clock-stage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    container-type: inline-size;
+    min-height: clamp(14rem, 43dvh, 34rem);
+    background: var(--surface);
+    color: var(--ink);
   }
-  @media (max-width: 370px) {
-    .clock-size {
-      flex-basis: 100%;
-      justify-content: space-between;
-    }
-    .clock-control {
-      flex: 1;
-    }
+  .clock-stage:focus {
+    outline: none;
   }
-  @media (max-height: 420px) and (orientation: landscape) {
-    .clock:is([data-controls-visible], :has(.clock-controls :focus-visible)) {
-      grid-template-rows: auto minmax(0, 1fr);
-    }
-    .clock:is([data-controls-visible], :has(.clock-controls :focus-visible)) .clock-controls {
-      position: static;
-      grid-row: 1;
-      margin-block-start: max(0.5rem, env(safe-area-inset-top));
-    }
-    .clock:is([data-controls-visible], :has(.clock-controls :focus-visible)) .clock-time {
-      grid-row: 2;
-    }
+  .clock-time {
+    font-size: min(calc(17cqi * var(--clock-scale, 1)), 35dvh);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.045em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .clock-stage:is(:fullscreen, [data-expanded]) {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    background: var(--paper);
+  }
+  .clock-stage:is(:fullscreen, [data-expanded]) .clock-time {
+    font-size: min(calc(17cqi * var(--clock-scale, 1)), 68dvh);
+  }
+  .clock-dialog {
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    background: var(--paper);
+  }
+  :global(html:has(.clock-dialog[open])) {
+    overflow: hidden;
+  }
+  .clock-exit {
+    position: absolute;
+    inset-block-start: max(0.85rem, env(safe-area-inset-top));
+    inset-inline-end: max(0.85rem, env(safe-area-inset-right));
+    display: none;
+    width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    cursor: pointer;
+  }
+  .clock-stage[data-expanded] .clock-exit {
+    display: inline-flex;
+  }
+  .clock-stage[data-exit-visible] .clock-exit,
+  .clock-exit:focus-visible {
+    opacity: 1;
+    pointer-events: auto;
   }
   @media (hover: hover) and (pointer: fine) {
-    .clock:not([data-controls-visible]) {
+    .clock-stage[data-expanded]:not([data-exit-visible], :has(.clock-exit:focus-visible)) {
       cursor: none;
     }
   }

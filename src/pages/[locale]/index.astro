@@ -68,7 +68,7 @@ const availableCategories = [...counts].map(([key, count]) => ({ key, count, lab
     <section class="clock-feature" aria-labelledby="clock-title">
       <span class="clock-mark" aria-hidden="true"></span>
       <div class="clock-copy">
-        <h2 id="clock-title">{t(locale, 'home.clockTitle')}</h2>
+        <h2 id="clock-title">{t(locale, 'nav.clock')}</h2>
         <p>{t(locale, 'clock.description')}</p>
       </div>
       <a class="btn" href={path(locale, 'clock')} aria-describedby="clock-title">

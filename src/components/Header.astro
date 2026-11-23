@@ -9,6 +9,7 @@ interface Props {
 
 const { locale, altPath } = Astro.props
 const home = path(locale)
+const clockPage = path(locale, 'clock')
 const mealPage = path(locale, 'today-meal')
 const pdfPage = path(locale, 'moagyeol-pdf')
 const onHome = Astro.url.pathname === home
@@ -24,7 +25,10 @@ const altLocale = otherLocale(locale)
       <a href={onHome ? '#utilities' : `${home}#utilities`} class:list={{ current: onHome }}>
         {t(locale, 'nav.utilities')}
       </a>
-      <a href={path(locale, 'clock')}>{t(locale, 'nav.clock')}</a>
+      <a href={clockPage} class:list={{ current: Astro.url.pathname === clockPage }}
+        aria-current={Astro.url.pathname === clockPage ? 'page' : undefined}>
+        {t(locale, 'nav.clock')}
+      </a>
       <a href={mealPage} class:list={{ current: Astro.url.pathname === mealPage }}
         aria-current={Astro.url.pathname === mealPage ? 'page' : undefined}>
         {t(locale, 'nav.meals')}
@@ -124,7 +128,7 @@ const altLocale = otherLocale(locale)
   :global([data-theme='dark']) .theme-icon {
     transform: rotate(155deg);
   }
-  @media (max-width: 530px) {
+  @media (max-width: 740px) {
     .bar {
       grid-template-columns: 1fr auto;
       padding-top: 0.55rem;
