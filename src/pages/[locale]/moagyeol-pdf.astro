@@ -96,6 +96,9 @@ const copy = pdfCopy[locale]
           <button class="plain cancel" type="button" data-cancel hidden>{copy.cancel}</button>
           <p class="report" role="status" data-report>{copy.merge.minimum}</p>
           <p class="privacy">{copy.privacy}</p>
+          <a class="notices" href="/moagyeol-pdf-licenses.txt">
+            {locale === 'ko' ? '오픈소스 라이선스' : 'Open-source licenses'}
+          </a>
         </section>
       </div>
     </div>
@@ -359,6 +362,8 @@ const copy = pdfCopy[locale]
   .report[data-error] { color: #9c3726; font-weight: 650; }
   :global([data-theme='dark']) .report[data-error] { color: #ffb4a6; }
   .privacy { margin-top: 1.05rem; padding-top: 0.9rem; border-top: 1px solid var(--line); }
+
+  .notices { display: inline-block; margin-top: 0.35rem; font-size: var(--t-sm); }
 
   @media (max-width: 740px) {
     .workspace { grid-template-columns: minmax(0, 1fr); }
