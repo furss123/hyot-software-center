@@ -3,6 +3,7 @@ import { Image } from 'astro:assets'
 import { render } from 'astro:content'
 import Base from '../../../../layouts/Base.astro'
 import AppIcon from '../../../../components/AppIcon.astro'
+import MoagyeolPreview from '../../../../components/MoagyeolPreview.astro'
 import {
   t,
   path,
@@ -41,131 +42,164 @@ const assets = current?.downloads ?? []
 const primary = assets.find((a) => a.type === 'installer') ?? assets[0]
 const others = assets.filter((a) => a !== primary)
 const platform = platformNames[d.platforms[0]]
-const primaryLabel =
-  locale === 'ko' ? `${platform}용 내려받기` : `Download for ${platform}`
+const moagyeol = software.id === 'hwp2pdf'
+const korean = locale === 'ko'
+const primaryLabel = moagyeol && primary?.type === 'portable'
+  ? (korean ? 'Windows용 ZIP 다운로드' : 'Download ZIP for Windows')
+  : (korean ? `${platform}용 내려받기` : `Download for ${platform}`)
+const downloadInfo = [
+  primary?.arch === 'x64' ? (korean ? 'Windows 64비트' : 'Windows 64-bit') : platform,
+  current && `v${current.version}`,
+  formatSize(primary?.size),
+].filter(Boolean).join(' · ')
+const [featured, ...gallery] = d.screenshots
+const shotTitles = korean
+  ? ['한글 파일 변환', '합칠 PDF 추가', '합치기 완료']
+  : ['Convert Hangul files', 'Add PDFs to merge', 'Merge results']
+const fullSizeLabel = korean ? '원본 크기로 보기' : 'View full size'
 const { Content } = await render(software)
 const enParagraphs = locale === 'en' && d.description_en ? d.description_en.split(/\n{2,}/) : null
 const fileName = (a: (typeof assets)[number]) => a.filename ?? a.url.split('/').pop()
 ---
 
 <Base locale={locale} title={name} description={tagline(software, locale)}>
-  <div class="wrap">
-    <a class="back" href={path(locale)}>{t(locale, 'software.back')}</a>
+  <div class:list={{ moagyeol }}>
+    <div class="wrap">
+      <a class="back" href={path(locale)}>{t(locale, 'software.back')}</a>
 
-    <header class="hero">
-      <AppIcon software={software} size={104} />
-      <div class="hero-text">
-        <h1>{name}</h1>
-        <p class="tagline">{tagline(software, locale)}</p>
+      <header class="hero">
+        {!moagyeol && <AppIcon software={software} size={104} />}
+        <div class="hero-text">
+          {moagyeol && <AppIcon software={software} size={62} />}
+          <h1>{name}</h1>
+          <p class="tagline">{tagline(software, locale)}</p>
 
-        <div class="actions">
-          {
-            primary ? (
-              <a class="btn btn-primary" href={primary.url} download={fileName(primary)}>
-                {primaryLabel}
-                <small class="num">
-                  v{current?.version}
-                  {formatSize(primary.size) && ` / ${formatSize(primary.size)}`}
-                </small>
-              </a>
-            ) : (
-              <p class="muted">{t(locale, 'software.noDownload')}</p>
-            )
-          }
-          {
-            others.map((a) => (
-              <a class="btn" href={a.url} download={fileName(a)}>
-                {a.label ?? assetNames[a.type][locale]}
-                {formatSize(a.size) && <small class="num">{formatSize(a.size)}</small>}
-              </a>
-            ))
-          }
-        </div>
-        {
-          beta && stable && beta.date > stable.date && beta.downloads[0] && (
-            <p class="beta-line">
-              <a href={beta.downloads[0].url}>
-                {t(locale, 'software.beta')} v{beta.version}
-              </a>
-            </p>
-          )
-        }
-        {d.requirements.length > 0 && <p class="req muted">{d.requirements.join(', ')}</p>}
-      </div>
-    </header>
-
-    {
-      d.screenshots.length > 0 && (
-        <div class="shots">
-          {d.screenshots.map((img, i) => (
-            <figure class="shot" style={`max-width:${img.width}px`}>
-              <Image
-                src={img}
-                alt={`${name} ${locale === 'ko' ? '화면' : 'screenshot'} ${i + 1}`}
-                widths={[480, 960, 1600].filter((w) => w <= img.width).concat(img.width)}
-                sizes={`(max-width: 760px) 100vw, ${Math.min(img.width, 1200)}px`}
-                loading={i === 0 ? 'eager' : 'lazy'}
-              />
-            </figure>
-          ))}
-        </div>
-      )
-    }
-
-    <div class="body">
-      <div class="prose">
-        {enParagraphs ? enParagraphs.map((p) => <p>{p}</p>) : <Content />}
-      </div>
-
-      <aside class="info" aria-labelledby="info-title">
-        <h2 id="info-title" class="sr-only">{t(locale, 'software.info')}</h2>
-        <dl>
-          {
-            current && (
-              <>
-                <div>
-                  <dt>{t(locale, 'software.version')}</dt>
-                  <dd class="num">v{current.version}</dd>
-                </div>
-                <div>
-                  <dt>{t(locale, 'software.updated')}</dt>
-                  <dd class="num">{formatDate(current.date, locale)}</dd>
-                </div>
-              </>
-            )
-          }
-          <div>
-            <dt>{t(locale, 'software.platform')}</dt>
-            <dd>{d.platforms.map((p) => platformNames[p]).join(', ')}</dd>
-          </div>
-          <div>
-            <dt>{t(locale, 'software.category')}</dt>
-            <dd>{categories[d.category][locale]}</dd>
+          <div class="actions">
+            {
+              primary ? (
+                <a class="btn btn-primary" href={primary.url} download={fileName(primary)}>
+                  {moagyeol && <span class="download-symbol" aria-hidden="true">↓</span>}
+                  {primaryLabel}
+                  {!moagyeol && (
+                    <small class="num">
+                      v{current?.version}
+                      {formatSize(primary.size) && ` / ${formatSize(primary.size)}`}
+                    </small>
+                  )}
+                </a>
+              ) : (
+                <p class="muted">{t(locale, 'software.noDownload')}</p>
+              )
+            }
+            {
+              others.map((a) => (
+                <a class="btn" href={a.url} download={fileName(a)}>
+                  {a.label ?? assetNames[a.type][locale]}
+                  {formatSize(a.size) && <small class="num">{formatSize(a.size)}</small>}
+                </a>
+              ))
+            }
           </div>
           {
-            d.repo && (
-              <div>
-                <dt>{t(locale, 'software.source')}</dt>
-                <dd>
-                  <a href={d.repo} rel="noopener">
-                    GitHub
-                  </a>
-                </dd>
-              </div>
+            beta && stable && beta.date > stable.date && beta.downloads[0] && (
+              <p class="beta-line">
+                <a href={beta.downloads[0].url}>
+                  {t(locale, 'software.beta')} v{beta.version}
+                </a>
+              </p>
             )
           }
-          {
-            primary?.sha256 && (
-              <div>
-                <dt>{t(locale, 'software.sha')}</dt>
-                <dd class="hash">{primary.sha256}</dd>
-              </div>
-            )
-          }
-        </dl>
-      </aside>
+          {moagyeol && primary
+            ? <p class="req muted">{downloadInfo}</p>
+            : d.requirements.length > 0 && <p class="req muted">{d.requirements.join(', ')}</p>}
+        </div>
+        {moagyeol && featured && (
+          <MoagyeolPreview image={featured} title={shotTitles[0]} fullSizeLabel={fullSizeLabel} featured />
+        )}
+      </header>
+
+      {
+        moagyeol ? gallery.length > 0 && (
+          <section class="moa-gallery" aria-labelledby="gallery-title">
+            <h2 id="gallery-title">{korean ? 'PDF 합치기 화면' : 'PDF merging in action'}</h2>
+            <div class="moa-gallery-grid">
+              {gallery.map((image, i) => (
+                <MoagyeolPreview image={image} title={shotTitles[i + 1] ?? name} fullSizeLabel={fullSizeLabel} />
+              ))}
+            </div>
+          </section>
+        ) : d.screenshots.length > 0 && (
+          <div class="shots">
+            {d.screenshots.map((img, i) => (
+              <figure class="shot" style={`max-width:${img.width}px`}>
+                <Image
+                  src={img}
+                  alt={`${name} ${locale === 'ko' ? '화면' : 'screenshot'} ${i + 1}`}
+                  widths={[480, 960, 1600].filter((w) => w <= img.width).concat(img.width)}
+                  sizes={`(max-width: 760px) 100vw, ${Math.min(img.width, 1200)}px`}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                />
+              </figure>
+            ))}
+          </div>
+        )
+      }
+
+      <div class="body">
+        <div class="prose">
+          {enParagraphs ? enParagraphs.map((p) => <p>{p}</p>) : <Content />}
+        </div>
+
+        <aside class="info" aria-labelledby="info-title">
+          <h2 id="info-title" class="sr-only">{t(locale, 'software.info')}</h2>
+          <dl>
+            {
+              current && (
+                <>
+                  <div>
+                    <dt>{t(locale, 'software.version')}</dt>
+                    <dd class="num">v{current.version}</dd>
+                  </div>
+                  <div>
+                    <dt>{t(locale, 'software.updated')}</dt>
+                    <dd class="num">{formatDate(current.date, locale)}</dd>
+                  </div>
+                </>
+              )
+            }
+            <div>
+              <dt>{t(locale, 'software.platform')}</dt>
+              <dd>{d.platforms.map((p) => platformNames[p]).join(', ')}</dd>
+            </div>
+            <div>
+              <dt>{t(locale, 'software.category')}</dt>
+              <dd>{categories[d.category][locale]}</dd>
+            </div>
+            {
+              d.repo && (
+                <div>
+                  <dt>{t(locale, 'software.source')}</dt>
+                  <dd>
+                    <a href={d.repo} rel="noopener">
+                      GitHub
+                    </a>
+                  </dd>
+                </div>
+              )
+            }
+            {
+              primary?.sha256 && (
+                <div>
+                  <dt>{t(locale, 'software.sha')}</dt>
+                  <dd class="hash">{primary.sha256}</dd>
+                </div>
+              )
+            }
+          </dl>
+        </aside>
+      </div>
+
     </div>
-
   </div>
 </Base>
 
@@ -282,6 +316,121 @@ const fileName = (a: (typeof assets)[number]) => a.filename ?? a.url.split('/').
   @media (max-width: 560px) {
     .hero {
       grid-template-columns: 1fr;
+    }
+  }
+
+  .moagyeol {
+    --ink: #192f33;
+    --ink-soft: #53635f;
+    --surface: #fffefa;
+    --line: #dddfd6;
+    --link: #244d54;
+    --moa-paper: #efeee9;
+    --moa-warm: #f8f2e9;
+    --moa-accent: #244d54;
+    --moa-action: #244d54;
+    --moa-action-hover: #173841;
+    --moa-on-action: #fffefa;
+
+    color: var(--ink);
+    background: var(--moa-paper);
+    min-height: 100%;
+    padding-block-end: clamp(3rem, 7vw, 6rem);
+  }
+  :global(html[data-theme='dark']) .moagyeol {
+    --ink: #f4ede1;
+    --ink-soft: #b8c5bd;
+    --surface: #233235;
+    --line: #425354;
+    --link: #b7d7d0;
+    --moa-paper: #19272a;
+    --moa-warm: #28383b;
+    --moa-accent: #8cb8ae;
+    --moa-action: #c6e0d5;
+    --moa-action-hover: #dceee7;
+    --moa-on-action: #173841;
+  }
+  .moagyeol .back {
+    margin-block: 1.45rem 0.8rem;
+  }
+  .moagyeol .hero {
+    align-items: center;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(1.5rem, 4vw, 3.25rem);
+    padding: clamp(1.35rem, 4vw, 3.1rem);
+    border: 1px solid var(--line);
+    border-radius: 1.4rem;
+    background: var(--moa-warm);
+  }
+  .moagyeol .hero-text {
+    align-items: start;
+    gap: 0.85rem;
+  }
+  .moagyeol h1 {
+    font-size: clamp(2.2rem, 4.15vw, 4rem);
+    font-weight: 820;
+    line-height: 1.1;
+  }
+  .moagyeol .tagline {
+    font-size: clamp(1.04rem, 1.55vw, 1.25rem);
+    color: var(--ink-soft);
+  }
+  .moagyeol .actions {
+    margin-top: 0.5rem;
+  }
+  .moagyeol .btn-primary {
+    justify-content: center;
+    min-height: 3.55rem;
+    padding-inline: 1.3rem;
+    border-color: var(--moa-action);
+    border-radius: 0.65rem;
+    background: var(--moa-action);
+    color: var(--moa-on-action);
+    font-size: 1.04rem;
+  }
+  .moagyeol .btn-primary:hover {
+    background: var(--moa-action-hover);
+    border-color: var(--moa-action-hover);
+  }
+  .download-symbol {
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+  .moa-gallery {
+    margin-top: clamp(2.35rem, 5vw, 4rem);
+  }
+  .moa-gallery h2 {
+    margin-bottom: 1.1rem;
+    font-size: var(--t-lg);
+  }
+  .moa-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: clamp(1rem, 3vw, 1.6rem);
+  }
+  .moagyeol .body {
+    padding: clamp(1.4rem, 4vw, 2.6rem);
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+    background: var(--surface);
+  }
+  .moagyeol dl {
+    border-top-color: var(--moa-accent);
+  }
+  @media (max-width: 900px) {
+    .moagyeol .hero {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 700px) {
+    .moa-gallery-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .moagyeol .btn-primary {
+      width: 100%;
     }
   }
 </style>

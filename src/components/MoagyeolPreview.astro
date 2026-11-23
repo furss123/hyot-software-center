@@ -1,0 +1,85 @@
+---
+import { Image, getImage } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+
+interface Props {
+  image: ImageMetadata
+  title: string
+  fullSizeLabel: string
+  featured?: boolean
+}
+
+const { image, title, fullSizeLabel, featured = false } = Astro.props
+const widths = [480, 720].filter((width) => width < image.width).concat(image.width)
+const fullSize = await getImage({ src: image, format: 'png', width: image.width })
+---
+
+<a
+  class="preview"
+  href={fullSize.src}
+  target="_blank"
+  rel="noopener"
+  aria-label={`${title} · ${fullSizeLabel}`}
+>
+  <figure>
+    <Image
+      src={image}
+      alt={title}
+      widths={widths}
+      sizes={featured ? '(max-width: 900px) 90vw, 650px' : '(max-width: 700px) 90vw, 570px'}
+      format="webp"
+      quality={90}
+      loading={featured ? 'eager' : 'lazy'}
+      fetchpriority={featured ? 'high' : undefined}
+    />
+    <figcaption>
+      <span>{title}</span>
+      <span class="full-size">{fullSizeLabel} <span aria-hidden="true">↗</span></span>
+    </figcaption>
+  </figure>
+</a>
+
+<style>
+  .preview {
+    display: block;
+    align-self: center;
+    min-width: 0;
+    padding: clamp(0.4rem, 1vw, 0.65rem);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: var(--surface);
+    color: var(--ink);
+    text-decoration: none;
+    box-shadow: 0 0.6rem 1.6rem rgb(25 47 51 / 0.1);
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+  .preview:hover {
+    border-color: var(--moa-accent);
+    box-shadow: 0 0.75rem 1.8rem rgb(25 47 51 / 0.15);
+  }
+  figure {
+    margin: 0;
+  }
+  img {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 0.6rem;
+  }
+  figcaption {
+    display: flex;
+    gap: 0.2rem 0.75rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.55rem 0.2rem 0.05rem;
+    font-size: var(--t-sm);
+    font-weight: 680;
+  }
+  .full-size {
+    color: var(--link);
+    font-weight: 580;
+  }
+  .preview:hover .full-size {
+    text-decoration: underline;
+  }
+</style>
