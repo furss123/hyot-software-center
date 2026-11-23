@@ -1,0 +1,104 @@
+/* HyoT interface colours are inherited on hyot.dev. Standalone clients follow the system theme. */
+:root {
+  --paper:#f6f5ef; --surface:#fbfbf6; --surface-toned:#eeefe6; --ink:#172b23; --ink-soft:#53635a;
+  --line:#d9ded2; --link:#32654b; --action:#19382a; --on-action:#f3f8ed; --focus:#26714e;
+  --mark:#c9edb8; --mark-ink:#172b23; --font:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  color-scheme:light;
+}
+@media(prefers-color-scheme:dark){
+  :root {--paper:#111a15;--surface:#19251e;--surface-toned:#202e26;--ink:#edf3e9;--ink-soft:#b4c3b7;--line:#33463a;--link:#a9dcaa;--action:#c9edb8;--on-action:#172b23;--focus:#b6e9ac;color-scheme:dark}
+}
+* {box-sizing:border-box}
+[hidden]{display:none!important}
+body {background:var(--paper);margin:0}
+body,:host,dialog {font:1rem/1.55 var(--font);color:var(--ink);word-break:keep-all;overflow-wrap:anywhere}
+:host {display:block}
+.app {width:min(100%,68rem);margin:auto;padding:clamp(.9rem,3.5vw,2rem)}
+:host .app {width:100%;padding:0}
+p,h2,h3 {margin:0}
+button,input {font:inherit;color:inherit}
+button {cursor:pointer}
+button:disabled {cursor:default;opacity:.6}
+button:focus-visible,input:focus-visible,a:focus-visible {outline:3px solid var(--focus);outline-offset:3px}
+button {border:1px solid var(--line);background:var(--surface);border-radius:.65rem}
+button:hover:not(:disabled) {border-color:var(--link)}
+.ico {width:1.3rem;height:1.3rem;display:block}
+.sticky-head,.search-head,.body,.results:not(:empty) {
+  border:1px solid var(--line);border-radius:1.15rem;background:var(--surface);padding:clamp(1rem,3vw,1.8rem)
+}
+.brand-row,.brand-lockup,.school-switch,.icon-actions,.class-line,.week,.sheet-actions,.chip-grid,.regions,.stack {
+  display:flex;align-items:center;gap:.55rem
+}
+.brand-row {justify-content:space-between}
+.brand-copy {min-width:0;text-align:left}
+.school-switch,.brand-lockup {min-width:0;gap:.8rem}
+.school-switch {background:transparent;border:0;padding:0}
+.brand-name,.logo-name,.date-label strong,.sheet-title,.period-title {font-weight:780;letter-spacing:-.045em;line-height:1.25}
+.brand-name,.logo-name {display:block;font-size:clamp(1.25rem,2.8vw,1.65rem)}
+.brand-kicker,.sheet-kicker {display:block;font-size:.875rem;font-weight:700;color:var(--link)}
+.mark,.badge,.period-num {display:grid;place-content:center;flex:none;background:var(--mark);color:var(--mark-ink);border-radius:.7rem}
+.mark {width:2.8rem;height:2.8rem;background:#19382a;color:#c9edb8}
+.mark .ico {width:1.6rem;height:1.6rem}
+.icon-btn,.nav-btn,.clear-btn {width:2.65rem;height:2.65rem;display:grid;place-content:center;flex:none}
+.class-line {width:100%;justify-content:space-between;background:var(--surface-toned);padding:.65rem .9rem;margin:1.15rem 0;font-weight:700}
+.class-line-action,.today-link,.source,.text-button {font-size:.875rem;color:var(--link)}
+.date-row {display:grid;grid-template-columns:auto 1fr auto;align-items:center}
+.date-label {display:grid;text-align:center;justify-items:center}
+.date-label strong {font-size:1.6rem}
+.date-label span,.hint,.help,.period-meta,.sheet-sub,.current-school,.result-note,.lede,.empty-day p,.error-card p,.addr,.kind-line {color:var(--ink-soft)}
+.today-link,.text-button {background:none;border:0;text-decoration:underline;text-underline-offset:3px}
+.week {display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:.25rem;margin-top:.75rem}
+.day {display:grid;justify-items:center;padding:.4rem 0;background:var(--paper);font-variant-numeric:tabular-nums}
+.day small {font-size:.8rem}
+.day.is-today {border-color:var(--link)}
+button[aria-pressed="true"],.primary {background:var(--action);color:var(--on-action);border-color:var(--action)}
+.body,.results {margin-top:1rem}
+.greet,.section-label {font-size:.9rem;font-weight:720;color:var(--link);margin-bottom:.6rem}
+.period-list {display:grid}
+.period-card {display:flex;align-items:center;gap:.9rem;padding:.65rem 0;border-bottom:1px solid var(--line)}
+.period-card:last-child {border:0}
+.period-num {width:3rem;min-height:3.15rem;background:var(--surface-toned);color:var(--link);text-align:center;line-height:1.05}
+.period-num b {font-size:1.3rem;font-variant-numeric:tabular-nums}
+.period-num span {font-size:.8rem;margin-top:.15rem}
+.period-title {font-size:1.1rem}
+.period-meta,.result-note,.addr,.kind-line {font-size:.875rem}
+.now-pill {font-size:.78rem;margin-left:.5rem;background:var(--mark);color:var(--mark-ink);padding:.1rem .4rem;border-radius:.35rem}
+.period-card.is-now .period-num {background:var(--mark);color:var(--mark-ink)}
+.source {display:block;width:fit-content;margin:.9rem 0 0 auto}
+.empty-day h2,.error-card h2 {font-size:1.25rem;margin-bottom:.4rem}
+.banner,.hint {font-size:.95rem}
+.banner {padding:.7rem;background:var(--surface-toned);border-radius:.55rem}
+.lede {margin:.7rem 0 1.1rem}
+.search-box {position:relative}
+.search-input {width:100%;height:3.25rem;border:1px solid var(--line);border-radius:.65rem;padding:0 3.3rem;background:var(--paper)}
+.search-ico,.clear-btn {position:absolute;top:50%;transform:translateY(-50%);color:var(--ink-soft)}
+.search-ico {left:1rem}
+.clear-btn {right:.35rem;width:2.35rem;height:2.35rem}
+.regions {flex-wrap:wrap;gap:.4rem;margin-top:.85rem}
+.region,.chip {min-height:2.3rem;padding:.3rem .7rem;font-size:.9rem}
+.school-card {width:100%;text-align:left;display:flex;align-items:center;gap:.7rem;padding:.8rem;background:var(--paper);margin-bottom:.4rem}
+.school-card-body,.school-card-body span {display:block}
+.badge {width:2.5rem;height:2.5rem;font-weight:700}
+.sheet {width:min(30rem,calc(100% - 2rem));max-height:84dvh;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:1rem;padding:1.5rem}
+.sheet::backdrop {background:rgb(12 28 19 / .57)}
+.sheet-x {position:absolute;right:.75rem;top:.75rem}
+.sheet-title {font-size:1.5rem;margin:.25rem 2.6rem .4rem 0}
+.sheet-kicker {margin-right:2.5rem}
+.sheet-actions,.stack,.chip-grid {flex-wrap:wrap;gap:.45rem;margin-top:.75rem}
+.section-label {margin:1rem 0 .3rem}
+.sheet-actions button,.stack button,.primary,.ghost {padding:.6rem .85rem;min-height:2.65rem}
+.toast {position:fixed;z-index:20;left:50%;bottom:1.25rem;transform:translateX(-50%);width:max-content;max-width:90%;border-radius:.6rem;background:var(--action);color:var(--on-action);padding:.55rem .85rem;opacity:0;pointer-events:none}
+.toast.show {opacity:1}
+.pending-line,.skel {border-radius:.5rem;background:var(--surface-toned)}
+.skel {height:3rem;margin-bottom:.5rem}
+@media(min-width:48rem){
+  .app:has(.sticky-head) {display:grid;grid-template-columns:minmax(18rem,.9fr) minmax(0,1.3fr);align-items:start;gap:1rem}
+  .sticky-head {position:sticky;top:1rem}
+  .body {margin:0}
+  .app:has(.search-head){max-width:62rem}
+}
+@media(max-width:28rem){
+  .app{padding:.65rem}
+  .regions{gap:.3rem}
+  .region {padding:.2rem .55rem}
+}

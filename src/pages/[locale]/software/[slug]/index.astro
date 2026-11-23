@@ -39,6 +39,7 @@ const platforms = data.platforms.map((platform) => platformNames[platform])
 const requirements = locale === 'en' ? data.requirements_en ?? data.requirements : data.requirements
 const korean = locale === 'ko'
 const moagyeol = software.id === 'hwp2pdf'
+const todayClass = software.id === 'today-class'
 const todayMeal = software.id === 'today-meal'
 const platform = platforms[0]
 const primaryLabel = moagyeol && primary?.type === 'portable'
@@ -71,6 +72,11 @@ const fileName = (asset: (typeof assets)[number]) => asset.filename ?? asset.url
         <p class="description">{description}</p>
 
         <div class="actions">
+          {todayClass && (
+            <a class="btn btn-primary" href={path(locale, 'today-class')}>
+              {korean ? '웹에서 시간표 보기' : 'View timetable online'}
+            </a>
+          )}
           {todayMeal && (
             <a class="btn btn-primary" href={path(locale, 'today-meal')}>
               {korean ? '웹에서 급식 보기' : 'View meals online'} <span aria-hidden="true">→</span>
@@ -83,10 +89,10 @@ const fileName = (asset: (typeof assets)[number]) => asset.filename ?? asset.url
           )}
           {
             primary ? (
-              <a class:list={['btn', { 'btn-primary': !todayMeal && !moagyeol }]} href={primary.url} download={fileName(primary)}>
+              <a class:list={['btn', { 'btn-primary': !todayClass && !todayMeal && !moagyeol }]} href={primary.url} download={fileName(primary)}>
                 {primaryLabel} <span aria-hidden="true">↓</span>
               </a>
-            ) : <p class="muted">{t(locale, 'software.noDownload')}</p>
+            ) : !todayClass && <p class="muted">{t(locale, 'software.noDownload')}</p>
           }
           {
             others.map((asset) => (

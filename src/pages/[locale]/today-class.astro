@@ -1,0 +1,55 @@
+---
+import Base from '../../layouts/Base.astro'
+import { localeStaticPaths, path, type Locale } from '../../lib/i18n'
+
+export const getStaticPaths = localeStaticPaths
+
+const locale = Astro.params.locale as Locale
+const korean = locale === 'ko'
+const title = korean ? '오늘 수업' : 'Today Class'
+const description = korean
+  ? '학교와 학년·반을 선택하고 교시별 시간표를 확인하세요.'
+  : 'Choose a school, grade and class to see the daily timetable.'
+---
+
+<Base locale={locale} title={title} description={description}>
+  <section class="wrap class-page" aria-labelledby="class-page-title">
+    <header class="page-heading">
+      <h1 id="class-page-title">{title}</h1>
+      <a class="btn app-info" href={path(locale, 'software/today-class')}>
+        {korean ? '이용 안내' : 'About Today Class'}
+      </a>
+    </header>
+    <div id="today-class-web" lang="ko">
+      <template shadowrootmode="open">
+        <link rel="stylesheet" href="/today-class-assets/css/app.css" />
+        <div id="app" class="app">
+          <noscript><p class="hint">시간표를 보려면 JavaScript를 켜 주세요.</p></noscript>
+        </div>
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+      </template>
+    </div>
+  </section>
+  <script is:inline type="module" src="/today-class-assets/js/app.js"></script>
+</Base>
+
+<style>
+  .class-page {
+    padding-block: clamp(1.5rem, 4vw, 3rem) clamp(2.75rem, 7vw, 5rem);
+  }
+  .page-heading {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.85rem 1.5rem;
+    margin-bottom: clamp(1rem, 3vw, 1.75rem);
+  }
+  h1 {
+    font-size: clamp(2.3rem, 5.4vw, 4rem);
+    letter-spacing: -0.065em;
+  }
+  .app-info {
+    font-size: var(--t-sm);
+  }
+</style>
