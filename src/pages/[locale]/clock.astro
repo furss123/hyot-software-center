@@ -365,6 +365,19 @@ const title = t(locale, 'nav.clock')
       flex: 1;
     }
   }
+  @media (max-height: 420px) and (orientation: landscape) {
+    .clock:is([data-controls-visible], :has(.clock-controls :focus-visible)) {
+      grid-template-rows: auto minmax(0, 1fr);
+    }
+    .clock:is([data-controls-visible], :has(.clock-controls :focus-visible)) .clock-controls {
+      position: static;
+      grid-row: 1;
+      margin-block-start: max(0.5rem, env(safe-area-inset-top));
+    }
+    .clock:is([data-controls-visible], :has(.clock-controls :focus-visible)) .clock-time {
+      grid-row: 2;
+    }
+  }
   @media (hover: hover) and (pointer: fine) {
     .clock:not([data-controls-visible]) {
       cursor: none;
