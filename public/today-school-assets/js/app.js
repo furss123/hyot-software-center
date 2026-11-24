@@ -22,7 +22,12 @@ const TEXT_SIZE_KEY = "today-school.largeText";
 const MEAL_KEY = "today-school.defaultMeal";
 const ALLERGY_KEY = "today-meal.allergies";
 const NUMBERS_KEY = "today-meal.numbers";
-const asset = (path) => new URL("../" + path, import.meta.url).href;
+const releaseQuery = new URL(import.meta.url).search;
+const asset = (path) => {
+  const url = new URL("../" + path, import.meta.url);
+  url.search = releaseQuery;
+  return url.href;
+};
 const panels = {
   timetable: { status: "idle", data: null },
   meals: { status: "idle", data: null },
@@ -49,7 +54,7 @@ function applyTheme() {
   const deviceTheme = systemTheme.matches ? "dark" : "light";
   const appearance = theme === "system" ? (host && html.dataset.theme) || deviceTheme : theme;
   (host || html).dataset.theme = appearance;
-  const color = appearance === "dark" ? "#111722" : "#f5f7fb";
+  const color = appearance === "dark" ? "#111a15" : "#f6f5ef";
   document.querySelector('meta[name="theme-color"]:not([media])')?.setAttribute("content", color);
   if (widget) widget.setTheme(theme).catch(() => {});
   const statusBar = window.Capacitor?.Plugins?.StatusBar;
@@ -68,11 +73,11 @@ function build() {
   ui.school = button("학교 등록", chooseSchool, [icon("school"), ui.schoolName, icon("down")], { class: "school-button" });
   ui.refresh = iconButton("새로고침", "refresh", loadDay);
   ui.settings = iconButton("설정", "gear", settings);
-  const topbar = h("header", { class: "topbar" }, h("div", { class: "topbar-inner" }, [
-    brand, h("div", { class: "toolbar" }, [ui.school, ui.refresh, ui.settings]),
-  ]));
+  const toolbar = h("div", { class: "toolbar" }, [ui.school, ui.refresh, ui.settings]);
+  const topbar = host ? null : h("header", { class: "topbar" },
+    h("div", { class: "topbar-inner" }, [brand, toolbar]));
 
-  ui.dateTitle = h("h1", { id: "date-title" });
+  ui.dateTitle = h(host ? "h2" : "h1", { id: "date-title", class: "date-title" });
   ui.dateYear = h("p", { class: "date-year" });
   ui.today = button("오늘", () => selectDate(today), [icon("calendar"), "오늘"], { class: "secondary today-button" });
   ui.week = h("div", { class: "week", role: "group", "aria-label": "요일 선택" });
@@ -87,7 +92,7 @@ function build() {
   const dates = h("section", { class: "date-section", "aria-labelledby": ui.dateTitle.id }, [
     h("div", { class: "date-heading" }, [
       h("div", {}, [ui.dateYear, ui.dateTitle]),
-      ui.today,
+      h("div", { class: "date-actions" }, [ui.today, host ? toolbar : null]),
     ]),
     h("div", { class: "week-strip" }, [previous, ui.week, next]),
   ]);
@@ -129,7 +134,7 @@ function build() {
     h("footer", { class: "data-source" }, [h("span", { text: "자료 제공" }), source]),
   ]);
   addSwipe(panelsGrid);
-  app.replaceChildren(topbar, dashboard);
+  app.replaceChildren(...(topbar ? [topbar, dashboard] : [dashboard]));
   if (widget) app.prepend(widgetBar());
 }
 
@@ -237,7 +242,7 @@ function paintControls() {
 
 function empty(name, title) {
   return h("div", { class: "empty-state" }, [
-    h("img", { src: asset("assets/" + name + ".svg"), alt: "", width: "92", height: "69" }),
+    h("img", { src: asset("assets/" + name + ".svg"), alt: "", width: "112", height: "84" }),
     h("p", { text: title }),
   ]);
 }

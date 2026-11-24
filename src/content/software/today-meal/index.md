@@ -17,6 +17,34 @@ requirements: [Windows 10 이상 64비트, Android 6.0 이상]
 requirements_en: [Windows 10 or later (64-bit), Android 6.0 or later]
 order: 2
 releases:
+  - version: 2.1.1
+    date: 2026-11-24
+    channel: stable
+    tag: today-school-v2.1.1
+    notes:
+      - 시간표와 식판을 모티브로 새 아이콘과 삽화 제작
+      - hyot.dev 색상과 서체에 맞춰 웹페이지 제목과 조작 버튼 배치 정리
+      - 현재 설치 경로와 일치하는 Windows 자동 시작 상태 표시
+    notes_en:
+      - New timetable and lunch-tray icon and illustrations
+      - Web page styling and controls follow the Hyot.dev design
+      - Windows startup status reflects the current installation path
+    downloads:
+      - type: installer
+        label: Windows 위젯
+        label_en: Windows widget
+        filename: 오늘학교-위젯-2.1.1.exe
+        url: https://github.com/furss123/hyot-software-center/releases/download/today-school-v2.1.1/today-school-widget-setup-2.1.1-x64.exe
+        size: 88002673
+        sha256: b579628196bba18706dd285670d0ef6068e7dfacb08802e7d82503172701ef49
+        arch: x64
+      - type: apk
+        label: Android 앱
+        label_en: Android app
+        filename: 오늘학교-2.1.1.apk
+        url: https://github.com/furss123/hyot-software-center/releases/download/today-school-v2.1.1/today-school-2.1.1.apk
+        size: 4820843
+        sha256: fcfcb7c6795107fbb7dbd79c763c734579565eb0f3a825ee90438f1a7af15221
   - version: 2.1.0
     date: 2026-11-24
     channel: stable
