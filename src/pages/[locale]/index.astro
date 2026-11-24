@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets'
 import Base from '../../layouts/Base.astro'
 import SoftwareIndex from '../../components/SoftwareIndex.astro'
-import stack from '../../assets/utility-stack.webp'
+import schoolScreen from '../../content/software/today-meal/cover.webp'
 import { t, path, categories, localeStaticPaths, type Locale } from '../../lib/i18n'
 import { getSoftware } from '../../lib/software'
 
@@ -30,10 +30,10 @@ const availableCategories = [...counts].map(([key, count]) => ({ key, count, lab
           {t(locale, 'home.browse')} <span aria-hidden="true">↓</span>
         </a>
       </div>
-      <div class="hero-art">
+      <a class="hero-art" href={path(locale, 'today-school')} aria-label={t(locale, 'home.schoolOpen')}>
         <Image
-          src={stack}
-          alt=""
+          src={schoolScreen}
+          alt={t(locale, 'home.schoolPreview')}
           widths={[480, 760, 1200]}
           sizes="(max-width: 760px) calc(100vw - 2rem), 580px"
           format="webp"
@@ -41,7 +41,8 @@ const availableCategories = [...counts].map(([key, count]) => ({ key, count, lab
           loading="eager"
           fetchpriority="high"
         />
-      </div>
+        <span>{t(locale, 'home.schoolOpen')} <span aria-hidden="true">↗</span></span>
+      </a>
     </section>
 
     <section class="catalog" id="utilities" aria-labelledby="catalog-title">
@@ -136,17 +137,29 @@ const availableCategories = [...counts].map(([key, count]) => ({ key, count, lab
     line-height: 1.55;
   }
   .hero-art {
-    position: relative;
-    min-height: clamp(24rem, 36vw, 28.5rem);
-    background: #12281f;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    justify-items: start;
+    align-items: center;
+    gap: .85rem;
+    padding: clamp(1rem, 3vw, 2rem);
+    background: var(--surface-toned);
+    color: var(--ink);
+    text-decoration: none;
   }
   .hero-art img {
-    position: absolute;
-    inset: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: .75rem;
   }
+  .hero-art > span {
+    color: var(--link);
+    font-size: var(--t-sm);
+    font-weight: 730;
+  }
+  .hero-art:hover > span { text-decoration: underline; }
+  .hero-art:focus-visible { outline-offset: -4px; }
   .catalog {
     margin-top: clamp(2.5rem, 5vw, 4.3rem);
     scroll-margin-top: 1.5rem;
@@ -242,10 +255,6 @@ const availableCategories = [...counts].map(([key, count]) => ({ key, count, lab
   @media (max-width: 760px) {
     .hero {
       grid-template-columns: minmax(0, 1fr);
-    }
-    .hero-art {
-      min-height: 0;
-      aspect-ratio: 1.48;
     }
     .hero-copy {
       padding: clamp(1.4rem, 5.5vw, 2.5rem);

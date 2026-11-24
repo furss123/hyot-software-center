@@ -1,0 +1,53 @@
+---
+import Base from '../../layouts/Base.astro'
+import { localeStaticPaths, path, type Locale } from '../../lib/i18n'
+
+export const getStaticPaths = localeStaticPaths
+
+const locale = Astro.params.locale as Locale
+const korean = locale === 'ko'
+const title = korean ? '오늘 학교' : 'School Today'
+const description = korean
+  ? '학교와 학년·반을 등록하고, 날짜별 시간표와 급식 메뉴를 한 화면에서 확인하세요.'
+  : 'Choose your school and class to view the daily timetable and meal menus together.'
+---
+
+<Base locale={locale} title={title} description={description} ads={false}>
+  <section class="wrap school-page" aria-labelledby="school-page-title">
+    <div id="today-school-web" lang="ko">
+      <template shadowrootmode="open">
+        <link rel="stylesheet" href="/today-school-assets/css/app.css" />
+        <div id="app" class="app">
+          <noscript><p class="file-help">오늘 학교를 사용하려면 JavaScript를 켜 주세요.</p></noscript>
+        </div>
+      </template>
+    </div>
+    <div class="page-actions">
+      <h1 id="school-page-title">{title}</h1>
+      <a class="btn" href={path(locale, 'software/today-meal')}>
+        {korean ? 'Windows·Android 다운로드' : 'Windows & Android downloads'}
+      </a>
+    </div>
+  </section>
+  <script is:inline type="module" src="/today-school-assets/js/app.js"></script>
+</Base>
+
+<style>
+  .school-page {
+    padding-block: clamp(1rem, 3vw, 1.75rem) clamp(2rem, 5vw, 3.5rem);
+  }
+  .page-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: .65rem;
+  }
+  .page-actions h1 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .page-actions .btn { font-size: var(--t-sm); }
+</style>

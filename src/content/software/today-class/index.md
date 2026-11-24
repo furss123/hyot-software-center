@@ -9,6 +9,7 @@ description_en: |-
   School and subject names appear in Korean.
 category: classroom
 platforms: [web]
+draft: true
 icon: ./icon.png
 order: 3
 releases:
