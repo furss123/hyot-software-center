@@ -3,19 +3,23 @@ import { Image } from 'astro:assets'
 import type { Software } from '../lib/software'
 
 interface Props {
-  software: Software
+  // 프로그램 아이콘. 프로그램이 아닌 도구(시험용 시계)는 software 대신 src로 아이콘 주소를 넘긴다.
+  software?: Software
+  src?: string
   size?: number
   // 첫 화면에 보이는 아이콘은 'eager'로 넘겨 늦게 뜨지 않게 한다.
   loading?: 'eager' | 'lazy'
 }
-const { software, size = 56, loading = 'lazy' } = Astro.props
-const icon = software.data.icon
-const letter = software.data.name.replace(/^Hyo/i, '').charAt(0).toUpperCase() || 'H'
+const { software, src, size = 56, loading = 'lazy' } = Astro.props
+const icon = software?.data.icon
+const letter = software?.data.name.replace(/^Hyo/i, '').charAt(0).toUpperCase() || 'H'
 ---
 
 {
   icon ? (
     <Image src={icon} alt="" width={size * 2} height={size * 2} class="app-icon" style={`--s:${size}px`} loading={loading} />
+  ) : src ? (
+    <img src={src} alt="" width={size} height={size} class="app-icon" style={`--s:${size}px`} loading={loading} />
   ) : (
     <span class="app-icon placeholder" style={`--s:${size}px`} aria-hidden="true">
       {letter}

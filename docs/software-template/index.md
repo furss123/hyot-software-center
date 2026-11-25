@@ -8,6 +8,7 @@ name_ko: 효샘플                  # 한국어 페이지에서 보일 이름
 tagline_en: What it does, in one line
 category: classroom             # classroom | system | media | document | image | etc
 platforms: [windows]            # windows | android | web
+# web: moagyeol-pdf             # 웹 버전이 있으면 그 페이지 주소(hyot.dev/ko/<여기>/). 홈 바로 가기가 웹으로 열림
 icon: ./icon.png                # 같은 폴더에 둔 정사각형 이미지 (256px 이상 권장)
 screenshots: [./main.png]       # 여러 장 가능. 표지(cover)가 없으면 첫 장이 상세 페이지 상단에 나옴
 screenshot_titles: [메인 화면]    # screenshots와 같은 순서의 설명 (영어: screenshot_titles_en)

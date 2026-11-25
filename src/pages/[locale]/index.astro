@@ -1,20 +1,14 @@
 ---
-import { Image } from 'astro:assets'
 import Base from '../../layouts/Base.astro'
-import SoftwareIndex from '../../components/SoftwareIndex.astro'
-import schoolScreen from '../../content/software/today-meal/cover.webp'
-import { t, path, localeStaticPaths, type Locale } from '../../lib/i18n'
-import { getSoftware } from '../../lib/software'
+import AppIcon from '../../components/AppIcon.astro'
+import ToolIndex from '../../components/ToolIndex.astro'
+import { t, localeStaticPaths, type Locale } from '../../lib/i18n'
+import { getTools } from '../../lib/tools'
 
 export const getStaticPaths = localeStaticPaths
 
 const locale = Astro.params.locale as Locale
-const items = await getSoftware()
-const webTools = [
-  { href: path(locale, 'moagyeol-pdf'), title: t(locale, 'nav.pdf'), text: t(locale, 'home.pdfWeb') },
-  { href: path(locale, 'today-school'), title: t(locale, 'nav.school'), text: t(locale, 'home.schoolWeb') },
-  { href: path(locale, 'clock'), title: t(locale, 'nav.clock'), text: t(locale, 'clock.description') },
-]
+const tools = await getTools(locale)
 ---
 
 <Base locale={locale}>
@@ -30,42 +24,29 @@ const webTools = [
           {t(locale, 'home.browse')} <span aria-hidden="true">↓</span>
         </a>
       </div>
-      <a class="hero-art" href={path(locale, 'today-school')} aria-label={t(locale, 'home.schoolOpen')}>
-        <Image
-          src={schoolScreen}
-          alt={t(locale, 'home.schoolPreview')}
-          widths={[480, 760, 1200]}
-          sizes="(max-width: 760px) calc(100vw - 2rem), 580px"
-          format="webp"
-          quality={83}
-          loading="eager"
-          fetchpriority="high"
-        />
-      </a>
+      {/* 도구 전체를 한눈에 보여 주는 바로 가기. 웹 버전이 있으면 웹 도구를 바로 연다. */}
+      <nav class="hero-art" aria-label={t(locale, 'home.launcher')}>
+        <ul class="launcher" role="list">
+          {
+            tools.map((tool) => (
+              <li>
+                <a class="tile" href={tool.launch}>
+                  <AppIcon software={tool.software} src={tool.icon} size={56} loading="eager" />
+                  <span class="tile-name">{tool.name}</span>
+                  <span class:list={['tile-meta', { web: tool.web }]}>
+                    {t(locale, tool.web ? 'home.tileUse' : 'home.tileDownload')}
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
     </section>
 
     <section class="catalog" id="utilities" aria-labelledby="catalog-title">
       <h2 id="catalog-title">{t(locale, 'home.catalog')}</h2>
-      <SoftwareIndex locale={locale} items={items} />
-    </section>
-
-    <section class="catalog web" aria-labelledby="web-title">
-      <h2 id="web-title">{t(locale, 'home.web')}</h2>
-      <ul class="web-list" role="list">
-        {
-          webTools.map((tool) => (
-            <li>
-              <a class="web-link" href={tool.href}>
-                <span>
-                  <strong>{tool.title}</strong>
-                  <span class="web-text">{tool.text}</span>
-                </span>
-                <span class="arrow-badge small" aria-hidden="true"></span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+      <ToolIndex locale={locale} tools={tools} />
     </section>
   </div>
 </Base>
@@ -111,68 +92,70 @@ const webTools = [
   }
   .hero-art {
     display: grid;
-    align-items: center;
-    padding: clamp(1rem, 3vw, 2rem);
+    place-items: center;
+    padding: clamp(1.25rem, 3.5vw, 2.5rem);
     background: var(--surface-toned);
-    color: var(--ink);
-    text-decoration: none;
   }
-  .hero-art img {
+  .launcher {
+    --gap: clamp(0.55rem, 1.4vw, 0.85rem);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--gap);
     width: 100%;
-    height: auto;
-    border: 1px solid var(--line);
-    border-radius: .75rem;
+    max-width: 31rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
-  .hero-art:focus-visible { outline-offset: -4px; }
+  /* 한 줄에 세 개씩, 남는 줄은 가운데 정렬 */
+  .launcher li {
+    flex: 0 0 calc((100% - 2 * var(--gap)) / 3);
+  }
+  .tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    height: 100%;
+    padding: clamp(0.85rem, 2vw, 1.15rem) 0.5rem clamp(0.75rem, 1.8vw, 1rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--ink);
+    text-align: center;
+    text-decoration: none;
+    transition: border-color 160ms ease, transform 160ms ease;
+  }
+  .tile:hover,
+  .tile:focus-visible {
+    border-color: var(--link);
+    transform: translateY(-2px);
+  }
+  .tile :global(.app-icon) {
+    margin-bottom: 0.15rem;
+  }
+  .tile-name {
+    font-size: clamp(0.875rem, 1.4vw, 0.98rem);
+    font-weight: 760;
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+  }
+  .tile-meta {
+    color: var(--ink-soft);
+    font-size: var(--t-xs);
+    font-weight: 650;
+  }
+  .tile-meta.web {
+    color: var(--link);
+  }
   .catalog {
     margin-top: clamp(2.5rem, 5vw, 4.3rem);
     scroll-margin-top: 1.5rem;
   }
   h2 {
-    font-size: var(--t-lg);
-  }
-  .catalog h2 {
     margin-bottom: 1.12rem;
-  }
-  .web {
-    margin-top: clamp(2.2rem, 4.5vw, 3.6rem);
-  }
-  .web-list {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(0.75rem, 2vw, 1.2rem);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .web-link {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    height: 100%;
-    padding: clamp(1rem, 2.4vw, 1.4rem);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--surface);
-    color: var(--ink);
-    text-decoration: none;
-    transition: border-color 160ms ease;
-  }
-  .web-link:hover, .web-link:focus-visible {
-    border-color: var(--link);
-  }
-  .web-link strong {
-    display: block;
-    font-size: 1.12rem;
-    letter-spacing: -0.03em;
-  }
-  .web-text {
-    display: block;
-    margin-top: 0.25rem;
-    color: var(--ink-soft);
-    font-size: var(--t-sm);
-    line-height: 1.5;
+    font-size: var(--t-lg);
   }
   @media (max-width: 760px) {
     .hero {
@@ -182,9 +165,9 @@ const webTools = [
       padding: clamp(1.4rem, 5.5vw, 2.5rem);
     }
   }
-  @media (max-width: 900px) {
-    .web-list {
-      grid-template-columns: minmax(0, 1fr);
+  @media (max-width: 420px) {
+    .tile :global(.app-icon) {
+      --s: 44px !important;
     }
   }
 </style>

@@ -189,13 +189,6 @@ p {
   background: currentColor;
   clip-path: polygon(0 88%, 12% 100%, 83% 29%, 83% 77%, 100% 77%, 100% 0, 23% 0, 23% 17%, 71% 17%);
 }
-.arrow-badge.small {
-  width: 2rem;
-  height: 2rem;
-}
-.arrow-badge.small::after {
-  width: 0.65rem;
-}
 a:hover .arrow-badge,
 a:focus-visible .arrow-badge {
   border-color: var(--action);

@@ -38,8 +38,7 @@ const others = assets.filter((asset) => asset !== primary)
 const platforms = data.platforms.map((platform) => platformNames[platform])
 const requirements = locale === 'en' ? data.requirements_en ?? data.requirements : data.requirements
 const korean = locale === 'ko'
-const moagyeol = software.id === 'hwp2pdf'
-const todaySchool = software.id === 'today-meal'
+const webPage = data.web ? path(locale, data.web) : undefined
 const platform = platforms[0]
 // 다운로드 버튼 문구는 "<플랫폼>용 (ZIP) 다운로드" 한 가지 형식으로 맞춘다.
 const zip = primary?.type === 'portable'
@@ -76,19 +75,14 @@ const fileName = (asset: (typeof assets)[number]) => asset.filename ?? asset.url
         <p class="description">{description}</p>
 
         <div class="actions">
-          {todaySchool && (
-            <a class="btn btn-primary" href={path(locale, 'today-school')}>
-              {korean ? '오늘 학교 열기' : 'Open School Today'} <span aria-hidden="true">→</span>
-            </a>
-          )}
-          {moagyeol && (
-            <a class="btn btn-primary" href={path(locale, 'moagyeol-pdf')}>
-              {korean ? '웹에서 PDF 도구 열기' : 'Open PDF tools online'}
+          {webPage && (
+            <a class="btn btn-primary" href={webPage}>
+              {t(locale, 'software.useWeb')} <span aria-hidden="true">→</span>
             </a>
           )}
           {
             primary ? (
-              <a class:list={['btn', { 'btn-primary': !todaySchool && !moagyeol }]} href={primary.url} download={fileName(primary)}>
+              <a class:list={['btn', { 'btn-primary': !webPage }]} href={primary.url} download={fileName(primary)}>
                 {primaryLabel} <span aria-hidden="true">↓</span>
               </a>
             ) : <p class="muted">{t(locale, 'software.noDownload')}</p>

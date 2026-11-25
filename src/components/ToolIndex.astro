@@ -1,0 +1,151 @@
+---
+// 홈의 "모든 유틸리티" 목록. 도구 하나에 카드 하나, 마지막 칸은 도구 제안 카드.
+import AppIcon from './AppIcon.astro'
+import { t, formatDate, type Locale } from '../lib/i18n'
+import { contact } from '../lib/site'
+import type { Tool } from '../lib/tools'
+
+interface Props {
+  locale: Locale
+  tools: Tool[]
+}
+
+const { locale, tools } = Astro.props
+---
+
+<ul class="index" role="list">
+  {
+    tools.map((tool) => (
+      <li>
+        <a class="card" href={tool.href}>
+          <div class="card-heading">
+            <AppIcon software={tool.software} src={tool.icon} size={52} />
+            <div>
+              <p class="category">{tool.category}</p>
+              <h3>{tool.name}</h3>
+            </div>
+            <span class="arrow-badge" aria-hidden="true" />
+          </div>
+          <p class="tagline">{tool.tagline}</p>
+          <div class="facts">
+            <span>{tool.platforms}</span>
+            {tool.release ? (
+              <span class="release num">
+                v{tool.release.version}
+                <time datetime={tool.release.date.toISOString().slice(0, 10)}>
+                  {formatDate(tool.release.date, locale)}
+                </time>
+              </span>
+            ) : (
+              <span>{t(locale, 'home.noInstall')}</span>
+            )}
+          </div>
+        </a>
+      </li>
+    ))
+  }
+  <li class="suggest">
+    <div>
+      <h3>{t(locale, 'home.suggestTitle')}</h3>
+      <p>{t(locale, 'home.suggestBody')}</p>
+    </div>
+    <div class="suggest-links">
+      <a class="btn btn-sm" href={`mailto:${contact.email}`}>{t(locale, 'home.suggestMail')}</a>
+      <a class="btn btn-sm" href={contact.issues}>{t(locale, 'home.suggestIssue')}</a>
+    </div>
+  </li>
+</ul>
+
+<style>
+  .index {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.9rem, 2vw, 1.25rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .card,
+  .suggest {
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
+    height: 100%;
+    padding: clamp(1.05rem, 2.2vw, 1.4rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .card {
+    background: var(--surface);
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color 160ms ease;
+  }
+  .card:hover,
+  .card:focus-visible {
+    border-color: var(--link);
+  }
+  .card-heading {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .category {
+    color: var(--ink-soft);
+    font-size: var(--t-xs);
+    font-weight: 690;
+  }
+  h3 {
+    font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+    text-wrap: initial;
+  }
+  .tagline {
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .facts,
+  .release {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.7rem;
+  }
+  .facts {
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-size: var(--t-xs);
+    font-weight: 650;
+  }
+  /* 제안 카드는 테두리를 점선으로 두어 도구 카드와 구분한다. */
+  .suggest {
+    justify-content: space-between;
+    border-style: dashed;
+  }
+  .suggest h3 {
+    font-size: clamp(1.15rem, 1.8vw, 1.3rem);
+  }
+  .suggest p {
+    margin-top: 0.45rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .suggest-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  @media (max-width: 980px) {
+    .index {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .index {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

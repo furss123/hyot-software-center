@@ -11,6 +11,7 @@ description_en: |-
   Choose a theme, switch to larger timetable and meal text, or pick which meal the app shows first. On Windows, the app can start at sign-in or stay above your other windows.
 category: classroom
 platforms: [windows, android, web]
+web: today-school
 icon: ./icon.png
 cover: ./cover.webp
 cover_fit: frame

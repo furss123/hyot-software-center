@@ -12,7 +12,8 @@ description_en: |-
 
   Download the ZIP, extract the entire folder, and run 모아결 PDF.exe. The app interface is in Korean.
 category: document
-platforms: [windows]
+platforms: [windows, web]
+web: moagyeol-pdf
 icon: ./icon.png
 cover: ./cover.webp
 screenshots: [./convert.png, ./merge.png, ./complete.png, ./compress.png]

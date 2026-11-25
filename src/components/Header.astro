@@ -26,7 +26,7 @@ const altLocale = otherLocale(locale)
     <nav aria-label={t(locale, 'nav.label')}>
       <a href={onHome ? '#utilities' : `${home}#utilities`} class:list={{ current: inDownloads }}
         aria-current={inDownloads && !onHome ? 'true' : undefined}>
-        {t(locale, 'home.catalog')}
+        {t(locale, 'nav.all')}
       </a>
       <a href={pdfPage} class:list={{ current: Astro.url.pathname === pdfPage }}
         aria-current={Astro.url.pathname === pdfPage ? 'page' : undefined}>
