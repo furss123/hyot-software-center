@@ -11,7 +11,7 @@ export async function ogImageFor(image?: ImageMetadata): Promise<string | undefi
   return new URL(result.src, SITE).href
 }
 
-export const publisher = { '@type': 'Organization', name: 'HyoT', url: `${SITE}/` }
+export const publisher = { '@type': 'Organization', name: 'hyot.dev', url: `${SITE}/` }
 
 // schema.org applicationCategory 값 (Google이 권장하는 이름)
 const applicationCategory: Record<Software['data']['category'], string> = {

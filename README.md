@@ -1,6 +1,6 @@
-# HyoT — hyot.dev
+# hyot.dev
 
-HyoT가 만든 무료 Windows·Android 프로그램 배포 사이트. [Astro](https://astro.build) 정적 사이트이며 main에 푸시하면 GitHub Pages로 배포됩니다.
+hyot.dev — 무료 Windows·Android 프로그램 배포 사이트. [Astro](https://astro.build) 정적 사이트이며 main에 푸시하면 GitHub Pages로 배포됩니다.
 
 - 프로그램 추가·업데이트: [ADDING.md](ADDING.md)
 - 디자인 토큰: `src/styles/global.css`

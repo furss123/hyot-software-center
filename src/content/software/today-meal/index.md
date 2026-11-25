@@ -32,7 +32,7 @@ releases:
       - 현재 설치 경로와 일치하는 Windows 자동 시작 상태 표시
     notes_en:
       - New timetable and lunch-tray icon and illustrations
-      - Web page styling and controls follow the Hyot.dev design
+      - Web page styling and controls follow the hyot.dev design
       - Windows startup status reflects the current installation path
     downloads:
       - type: installer
