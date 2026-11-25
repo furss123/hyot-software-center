@@ -18,6 +18,9 @@ export const latestRelease = (s: Software, channel: 'stable' | 'beta' = 'stable'
 
 export const latestAny = (s: Software) => latestRelease(s) ?? sortedReleases(s)[0]
 
+/** 소개 페이지 주소에 쓰는 이름. 업데이트 확인 주소는 바꿀 수 없어 폴더 이름(id)과 따로 둔다. */
+export const pageSlug = (s: Software) => s.data.page_slug ?? s.id
+
 export const displayName = (s: Software, locale: Locale) =>
   locale === 'ko' && s.data.name_ko ? s.data.name_ko : s.data.name
 

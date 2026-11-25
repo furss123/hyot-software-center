@@ -23,9 +23,14 @@ src/content/software/
 
 ## 설치 파일은 어디에?
 
-GitHub 릴리스(각 프로그램 저장소의 Releases)에 올리고 그 주소를 `url`에 적는 것을 권장합니다.
-이 저장소에 직접 넣으려면 `public/downloads/<이름>/` 에 두고 `url: /downloads/<이름>/파일명.exe`로 적습니다.
-(GitHub은 100MB가 넘는 파일을 저장소에 올릴 수 없습니다.)
+이 저장소의 GitHub Releases에 올리고 그 주소를 `url`에, 태그를 `tag`에 적습니다.
+설치 파일을 `public/` 아래에 넣지 마세요. 배포할 때마다 함께 올라가 사이트 용량 한도(1GB)를 채우고 저장소가 커집니다.
+
+```bash
+gh release create <이름>-v1.2.3 파일.zip --title "<이름> 1.2.3" --notes-file notes.md --latest=false
+```
+
+`--latest=false`는 "오늘 학교"가 Latest 릴리스로 남게 합니다. 오늘 학교 릴리스만 Latest로 둡니다.
 
 ## 로컬에서 미리 보기
 

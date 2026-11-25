@@ -5,12 +5,14 @@ import { t, path } from '../lib/i18n'
 const locale = 'ko' as const
 ---
 
-<Base locale={locale} title={t(locale, 'notfound.title')}>
+{/* 어느 언어 주소에서 왔는지 알 수 없으므로 한국어와 영어를 함께 보여 준다. 오류 페이지에는 광고를 넣지 않는다(애드센스 정책). */}
+<Base locale={locale} title={t(locale, 'notfound.title')} ads={false}>
   <div class="wrap">
     <section class="error" aria-labelledby="error-title">
       <span class="code" aria-hidden="true">404</span>
       <h1 id="error-title">{t(locale, 'notfound.title')}</h1>
       <p>{t(locale, 'notfound.body')}</p>
+      <p class="en" lang="en">{t('en', 'notfound.title')}. {t('en', 'notfound.body')}</p>
       <div class="links">
         <a class="btn btn-primary" href={path('ko')}><span aria-hidden="true">←</span> {t('ko', 'notfound.cta')}</a>
         <a class="btn" href={path('en')} lang="en">English home</a>
@@ -40,6 +42,10 @@ const locale = 'ko' as const
   }
   p {
     color: var(--ink-soft);
+  }
+  .en {
+    margin-top: 0.3rem;
+    font-size: var(--t-sm);
   }
   .links {
     display: flex;

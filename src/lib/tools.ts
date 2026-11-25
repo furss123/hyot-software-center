@@ -1,5 +1,5 @@
 import { path, t, categories, platformNames, type Locale } from './i18n'
-import { getSoftware, displayName, tagline, latestAny, type Release, type Software } from './software'
+import { getSoftware, displayName, tagline, latestAny, pageSlug, type Release, type Software } from './software'
 
 // 홈 화면의 카드와 첫 화면 바로 가기가 함께 쓰는 도구 목록.
 // 프로그램(src/content/software)에 웹에서만 쓰는 도구(시험용 시계)를 더해 한 줄로 세운다.
@@ -23,7 +23,7 @@ export type Tool = {
 
 export async function getTools(locale: Locale): Promise<Tool[]> {
   const programs = (await getSoftware()).map((software): Tool => {
-    const detail = path(locale, `software/${software.id}`)
+    const detail = path(locale, `software/${pageSlug(software)}`)
     return {
       key: software.id,
       name: displayName(software, locale),

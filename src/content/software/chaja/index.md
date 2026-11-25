@@ -23,6 +23,7 @@ releases:
   - version: 1.1.0
     date: 2026-11-25
     channel: stable
+    tag: chaja-v1.1.0
     notes:
       - 첫 공개 버전
       - 초성 검색, 한/영 전환 실수 보정, 조합 중인 글자 검색을 지원합니다.
@@ -34,7 +35,7 @@ releases:
     downloads:
       - type: portable
         filename: Chaja-1.1.0-win-x64.zip
-        url: /downloads/chaja/Chaja-1.1.0-win-x64.zip
+        url: https://github.com/furss123/hyot-software-center/releases/download/chaja-v1.1.0/Chaja-1.1.0-win-x64.zip
         size: 259322
         sha256: 0222f758d86cdb25e9478a93f499fecf04b668f6a2e9a795f7f7af22a7f2e240
         arch: x64

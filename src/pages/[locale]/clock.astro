@@ -2,14 +2,27 @@
 import Base from '../../layouts/Base.astro'
 import ToolHeading from '../../components/ToolHeading.astro'
 import { localeStaticPaths, t, type Locale } from '../../lib/i18n'
+import { webApplication } from '../../lib/seo'
 
 export const getStaticPaths = localeStaticPaths
 
 const locale = Astro.params.locale as Locale
 const title = t(locale, 'nav.clock')
+const jsonLd = webApplication({
+  name: title,
+  description: t(locale, 'clock.description'),
+  path: Astro.url.pathname,
+  category: 'classroom',
+})
 ---
 
-<Base locale={locale} title={title} description={t(locale, 'clock.description')} ads={false}>
+<Base
+  locale={locale}
+  title={`${title} – ${t(locale, 'seo.clock')}`}
+  description={t(locale, 'clock.description')}
+  jsonLd={jsonLd}
+  ads={false}
+>
   <section class="wrap clock-page" aria-labelledby="clock-title" data-clock>
     <ToolHeading id="clock-title" title={title} description={t(locale, 'clock.description')} />
     <div class="clock-panel" data-clock-panel>
@@ -133,6 +146,20 @@ const title = t(locale, 'nav.clock')
       updateTime()
     })
 
+    // 시험 중에 화면보호기나 절전으로 화면이 꺼지지 않게, 페이지가 보이는 동안 화면을 켜 둔다.
+    // 다른 탭으로 가면 브라우저가 자동으로 풀어 주므로, 다시 보일 때 새로 요청한다.
+    let wakeLock: WakeLockSentinel | undefined
+    async function keepAwake() {
+      if (!('wakeLock' in navigator) || document.hidden || (wakeLock && !wakeLock.released)) return
+      try {
+        wakeLock = await navigator.wakeLock.request('screen')
+      } catch {
+        // 배터리 절약 모드 등에서는 거절될 수 있다. 시계 동작에는 영향이 없다.
+      }
+    }
+    void keepAwake()
+    document.addEventListener('visibilitychange', () => void keepAwake())
+
     const scaleKey = 'clock-scale'
     const minScale = 50
     const maxScale = 120
@@ -191,6 +218,8 @@ const title = t(locale, 'nav.clock')
     fullscreenButton.addEventListener('click', async () => {
       if (opening) return
       opening = true
+      // 일부 브라우저는 사용자가 누른 뒤에만 화면 켜 두기를 허락하므로 여기서도 한 번 더 요청한다.
+      void keepAwake()
       try {
         if (document.fullscreenEnabled) {
           try {

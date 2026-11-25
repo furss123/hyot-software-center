@@ -4,14 +4,39 @@ import AppIcon from '../../components/AppIcon.astro'
 import ToolIndex from '../../components/ToolIndex.astro'
 import { t, localeStaticPaths, type Locale } from '../../lib/i18n'
 import { getTools } from '../../lib/tools'
+import { absolute, publisher } from '../../lib/seo'
 
 export const getStaticPaths = localeStaticPaths
 
 const locale = Astro.params.locale as Locale
 const tools = await getTools(locale)
+// 검색엔진용: 사이트 정보와 도구 목록
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'HyoT',
+    alternateName: 'hyot.dev',
+    url: absolute(Astro.url.pathname),
+    inLanguage: locale,
+    description: t(locale, 'site.description'),
+    publisher,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: t(locale, 'home.catalog'),
+    itemListElement: tools.map((tool, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: tool.name,
+      url: absolute(tool.href),
+    })),
+  },
+]
 ---
 
-<Base locale={locale}>
+<Base locale={locale} title={t(locale, 'seo.home')} jsonLd={jsonLd}>
   <div class="wrap landing">
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">

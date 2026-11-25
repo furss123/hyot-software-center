@@ -45,6 +45,9 @@ const software = defineCollection({
       platforms: z.array(z.enum(['windows', 'android', 'web'])).default(['windows']),
       // 설치 없이 쓰는 웹 버전의 주소(언어 폴더 아래 경로). 예: moagyeol-pdf → /ko/moagyeol-pdf/
       web: z.string().optional(),
+      // 소개 페이지 주소(/ko/software/<page_slug>/). 없으면 폴더 이름을 쓴다.
+      // 폴더 이름은 설치된 앱의 업데이트 확인 주소(/updates/<폴더>.json)라서 바꾸지 않는다.
+      page_slug: z.string().optional(),
       icon: image().optional(),
       cover: image().optional(),
       // fill: 삽화처럼 표지 칸을 꽉 채운다. frame: 스크린샷처럼 잘리지 않게 테두리 안에 넣는다.

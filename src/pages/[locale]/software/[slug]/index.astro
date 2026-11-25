@@ -15,12 +15,22 @@ import {
   assetNames,
   type Locale,
 } from '../../../../lib/i18n'
-import { getSoftware, displayName, tagline, latestRelease, latestAny, type Software } from '../../../../lib/software'
+import {
+  getSoftware,
+  displayName,
+  tagline,
+  latestRelease,
+  latestAny,
+  sortedReleases,
+  pageSlug,
+  type Software,
+} from '../../../../lib/software'
+import { ogImageFor, categoryType, absolute, free, publisher } from '../../../../lib/seo'
 
 export async function getStaticPaths() {
   const items = await getSoftware()
   return locales.flatMap((locale) =>
-    items.map((software) => ({ params: { locale, slug: software.id }, props: { software } })),
+    items.map((software) => ({ params: { locale, slug: pageSlug(software) }, props: { software } })),
   )
 }
 
@@ -38,6 +48,10 @@ const others = assets.filter((asset) => asset !== primary)
 const platforms = data.platforms.map((platform) => platformNames[platform])
 const requirements = locale === 'en' ? data.requirements_en ?? data.requirements : data.requirements
 const korean = locale === 'ko'
+// 업데이트 내역: 최신 버전부터, 영어 페이지는 영어 노트가 있으면 그것을 쓴다.
+const history = sortedReleases(software)
+  .map((release) => ({ ...release, lines: (!korean && release.notes_en?.length ? release.notes_en : release.notes) }))
+  .filter((release) => release.lines.length > 0)
 const webPage = data.web ? path(locale, data.web) : undefined
 const platform = platforms[0]
 // 다운로드 버튼 문구는 "<플랫폼>용 (ZIP) 다운로드" 한 가지 형식으로 맞춘다.
@@ -54,12 +68,38 @@ const shotTitles = (!korean && data.screenshot_titles_en) || data.screenshot_tit
 // 표지가 없으면 첫 스크린샷을 보여 주고, 스크린샷은 잘리지 않게 액자 모양으로 넣는다.
 const heroImage = data.cover ?? data.screenshots[0]
 const heroFramed = !data.cover || data.cover_fit === 'frame'
+// 스크린샷은 화면 내용을 전하므로 설명을 붙이고, 삽화 표지는 장식이라 비워 둔다.
+const heroAlt = heroFramed
+  ? `${name} ${(!data.cover && shotTitles[0]) || (korean ? '화면' : 'screen')}`
+  : ''
 const { Content } = await render(software)
 const enParagraphs = !korean && data.description_en ? data.description_en.split(/\n{2,}/) : null
 const fileName = (asset: (typeof assets)[number]) => asset.filename ?? asset.url.split('/').pop()
+
+// 검색엔진용 정보
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href
+const ogImage = await ogImageFor(heroImage)
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name,
+  ...(data.name_ko && data.name_ko !== data.name ? { alternateName: korean ? data.name : data.name_ko } : {}),
+  description,
+  url: pageUrl,
+  applicationCategory: categoryType(data.category),
+  operatingSystem: platforms.join(', '),
+  ...(current ? { softwareVersion: current.version, dateModified: current.date.toISOString().slice(0, 10) } : {}),
+  ...(primary ? { downloadUrl: absolute(primary.url) } : {}),
+  ...(formatSize(primary?.size) ? { fileSize: formatSize(primary?.size) } : {}),
+  ...(ogImage ? { image: ogImage } : {}),
+  inLanguage: 'ko',
+  isAccessibleForFree: true,
+  offers: free,
+  publisher,
+}
 ---
 
-<Base locale={locale} title={name} description={description}>
+<Base locale={locale} title={`${name} – ${description}`} description={description} image={ogImage} jsonLd={jsonLd}>
   <div class="wrap detail">
     <a class="back" href={`${path(locale)}#utilities`}>
       <span aria-hidden="true">←</span> {t(locale, 'software.back')}
@@ -104,7 +144,7 @@ const fileName = (asset: (typeof assets)[number]) => asset.filename ?? asset.url
           )
         }
       </div>
-      {heroImage && <SoftwareCover software={software} image={heroImage} framed={heroFramed} featured />}
+      {heroImage && <SoftwareCover software={software} image={heroImage} framed={heroFramed} alt={heroAlt} featured />}
     </header>
 
     {
@@ -125,12 +165,40 @@ const fileName = (asset: (typeof assets)[number]) => asset.filename ?? asset.url
     }
 
     <div class="detail-body">
-      <section class="overview" aria-labelledby="overview-title">
-        <h2 id="overview-title">{t(locale, 'software.overview')}</h2>
-        <div class="prose">
-          {enParagraphs ? enParagraphs.map((paragraph) => <p>{paragraph}</p>) : <Content />}
-        </div>
-      </section>
+      <div class="main-col">
+        <section class="overview" aria-labelledby="overview-title">
+          <h2 id="overview-title">{t(locale, 'software.overview')}</h2>
+          <div class="prose">
+            {enParagraphs ? enParagraphs.map((paragraph) => <p>{paragraph}</p>) : <Content />}
+          </div>
+        </section>
+
+        {
+          history.length > 0 && (
+            <section class="history" aria-labelledby="history-title">
+              <h2 id="history-title">{t(locale, 'software.history')}</h2>
+              <ol class="releases" role="list">
+                {history.map((release, i) => (
+                  <li>
+                    <details open={i === 0}>
+                      <summary>
+                        <span class="version num">v{release.version}</span>
+                        {release.channel === 'beta' && <span class="badge">{t(locale, 'software.beta')}</span>}
+                        <time class="num" datetime={release.date.toISOString().slice(0, 10)}>
+                          {formatDate(release.date, locale)}
+                        </time>
+                      </summary>
+                      <ul>
+                        {release.lines.map((line) => <li>{line}</li>)}
+                      </ul>
+                    </details>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )
+        }
+      </div>
 
       <aside class="info" aria-labelledby="info-title">
         <h2 id="info-title">{t(locale, 'software.info')}</h2>
@@ -280,6 +348,55 @@ const fileName = (asset: (typeof assets)[number]) => asset.filename ?? asset.url
   }
   .overview {
     padding-block: 0.8rem;
+  }
+  .history {
+    max-width: 66ch;
+    margin-top: clamp(1.8rem, 4vw, 2.6rem);
+  }
+  .history h2 {
+    margin-bottom: 0.8rem;
+    font-size: var(--t-md);
+  }
+  .releases {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+  .releases > li {
+    border-bottom: 1px solid var(--line);
+  }
+  summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.75rem;
+    min-height: 2.75rem;
+    padding-block: 0.5rem;
+    cursor: pointer;
+  }
+  .version {
+    font-weight: 760;
+  }
+  summary time {
+    color: var(--ink-soft);
+    font-size: var(--t-sm);
+  }
+  .badge {
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    background: var(--surface-toned);
+    color: var(--ink-soft);
+    font-size: var(--t-xs);
+    font-weight: 690;
+  }
+  details ul {
+    margin: 0 0 0.9rem;
+    padding-inline-start: 1.25em;
+    color: var(--ink-soft);
+  }
+  details li + li {
+    margin-top: 0.35em;
   }
   .prose {
     max-width: 66ch;

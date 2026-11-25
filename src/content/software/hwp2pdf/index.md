@@ -14,6 +14,7 @@ description_en: |-
 category: document
 platforms: [windows, web]
 web: moagyeol-pdf
+page_slug: moagyeol-pdf
 icon: ./icon.png
 cover: ./cover.webp
 screenshots: [./convert.png, ./merge.png, ./complete.png, ./compress.png]
@@ -26,6 +27,7 @@ releases:
   - version: 1.2.0
     date: 2026-11-23
     channel: stable
+    tag: moagyeol-pdf-v1.2.0
     notes:
       - 무손실부터 최소 용량까지 5단계를 고를 수 있는 PDF 용량 줄이기 탭을 추가했습니다.
       - 여러 PDF를 한 번에 압축하고 파일별 압축 전후 용량과 감소율을 표시합니다.
@@ -37,7 +39,7 @@ releases:
     downloads:
       - type: portable
         filename: moagyeol-pdf_1.2.0_x64.zip
-        url: /downloads/hwp2pdf/moagyeol-pdf_1.2.0_x64.zip
+        url: https://github.com/furss123/hyot-software-center/releases/download/moagyeol-pdf-v1.2.0/moagyeol-pdf_1.2.0_x64.zip
         size: 27723497
         sha256: 281551c7f2dd842380d09da52d04d5b155427a930eec63b3bb45b103af7445c2
         arch: x64
@@ -52,25 +54,11 @@ releases:
       - Renamed to Moagyeol PDF with a new icon and custom document artwork.
       - Added PDF merging with file reordering.
       - JPEG image compression keeps PDF text searchable and selectable.
-    downloads:
-      - type: portable
-        filename: moagyeol-pdf_1.1.0_x64.zip
-        url: /downloads/hwp2pdf/moagyeol-pdf_1.1.0_x64.zip
-        size: 27711519
-        sha256: 45b804ebedec5974a477c312d2960e8ac75589fbb1d519964aba80f195351761
-        arch: x64
   - version: 1.0.0
     date: 2026-11-16
     channel: stable
     notes:
       - 첫 공개 버전
-    downloads:
-      - type: portable
-        filename: hwp2pdf_1.0.0_x64.zip
-        url: /downloads/hwp2pdf/hwp2pdf_1.0.0_x64.zip
-        size: 96055992
-        sha256: cc0e6e5ab56ddf7a9103558f292e5e725b93b38b0a14303f67fb510d9bc0c982
-        arch: x64
 ---
 
 모아결 PDF는 한글(HWP·HWPX) 문서를 PDF로 변환하고, 기존 PDF를 순서대로 합치거나 용량을 줄이는 Windows 프로그램입니다. 설치 없이 쓰는 [웹 도구](/ko/moagyeol-pdf/)도 있습니다.

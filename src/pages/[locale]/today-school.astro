@@ -1,7 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro'
 import ToolHeading from '../../components/ToolHeading.astro'
-import { localeStaticPaths, path, type Locale } from '../../lib/i18n'
+import cover from '../../content/software/today-meal/cover.webp'
+import { localeStaticPaths, path, t, type Locale } from '../../lib/i18n'
+import { ogImageFor, webApplication } from '../../lib/seo'
+import { appIcons, appScope } from '../../lib/today-school-app'
 
 export const getStaticPaths = localeStaticPaths
 
@@ -13,16 +16,28 @@ const description = korean
   : 'Choose your school and class to view the daily timetable and meal menus together.'
 const revision = '2.1.1'
 const assets = '/today-school-assets'
+const ogImage = await ogImageFor(cover)
+const jsonLd = webApplication({ name: title, description, path: Astro.url.pathname, category: 'classroom', image: ogImage })
+const icons = await appIcons()
 ---
 
-<Base locale={locale} title={title} description={description} ads={false}>
+<Base
+  locale={locale}
+  title={`${title} – ${t(locale, 'seo.school')}`}
+  description={description}
+  image={ogImage}
+  jsonLd={jsonLd}
+  manifest={`${appScope(locale)}manifest.webmanifest`}
+  appleTouchIcon={icons[180]}
+  ads={false}
+>
   <section class="wrap school-page" aria-labelledby="school-page-title">
     <ToolHeading
       id="school-page-title"
       title={title}
       description={description}
       action={{
-        href: path(locale, 'software/today-meal'),
+        href: path(locale, 'software/today-school'),
         label: korean ? 'Windows·Android 앱 다운로드' : 'Download the Windows & Android apps',
       }}
     />
@@ -36,6 +51,10 @@ const assets = '/today-school-assets'
     </div>
   </section>
   <script is:inline type="module" src={`${assets}/js/app.js?v=${revision}`}></script>
+  <script is:inline>
+    // 홈 화면에 설치해 앱처럼 쓰고, 인터넷이 잠깐 끊겨도 화면이 열리게 한다. (sw.js는 이 페이지 폴더에 있다)
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {})
+  </script>
 </Base>
 
 <style>

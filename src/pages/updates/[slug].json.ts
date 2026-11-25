@@ -1,5 +1,5 @@
 import type { APIRoute, GetStaticPaths } from 'astro'
-import { getSoftware, sortedReleases, latestRelease, type Software } from '../../lib/software'
+import { getSoftware, sortedReleases, latestRelease, pageSlug, type Software } from '../../lib/software'
 
 // 설치된 프로그램의 자동 업데이트 확인용 매니페스트: /updates/<slug>.json
 // 이전 사이트와 같은 schemaVersion 1 형식으로 releases 정보에서 자동 생성된다.
@@ -24,7 +24,7 @@ export const GET: APIRoute = ({ props }) => {
     slug: s.id,
     name: { ko: s.data.name_ko ?? s.data.name, en: s.data.name },
     platforms: s.data.platforms,
-    homepageUrl: `https://hyot.dev/ko/software/${s.id}/`,
+    homepageUrl: `https://hyot.dev/ko/software/${pageSlug(s)}/`,
     latest: {
       stable: latestRelease(s, 'stable')?.version ?? null,
       beta: latestRelease(s, 'beta')?.version ?? null,

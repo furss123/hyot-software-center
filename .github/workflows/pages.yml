@@ -22,14 +22,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
       - run: npm ci
+      # 타입·문법 오류가 있으면 배포하지 않는다.
+      - run: npm run check
       - run: npm run build
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: ./dist
 
@@ -43,7 +45,7 @@ jobs:
       # Pages 배포가 일시적으로 실패하는 경우가 있어 한 번 더 시도한다.
       - name: Deploy (attempt 1)
         id: deploy1
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
         continue-on-error: true
       - name: Wait
         if: steps.deploy1.outcome == 'failure'
@@ -51,7 +53,7 @@ jobs:
       - name: Deploy (attempt 2)
         id: deploy2
         if: steps.deploy1.outcome == 'failure'
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
       - name: Result
         id: deployment
         if: always()

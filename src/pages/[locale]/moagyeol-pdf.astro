@@ -2,22 +2,39 @@
 import Base from '../../layouts/Base.astro'
 import ToolHeading from '../../components/ToolHeading.astro'
 import folio from '../../assets/moagyeol-folio.webp'
-import { localeStaticPaths, path, type Locale } from '../../lib/i18n'
+import cover from '../../content/software/hwp2pdf/cover.webp'
+import { localeStaticPaths, path, t, type Locale } from '../../lib/i18n'
 import { pdfCopy } from '../../lib/pdf-tools-copy'
+import { ogImageFor, webApplication } from '../../lib/seo'
 
 export const getStaticPaths = localeStaticPaths
 
 const locale = Astro.params.locale as Locale
 const copy = pdfCopy[locale]
+const ogImage = await ogImageFor(cover)
+const jsonLd = webApplication({
+  name: copy.title,
+  description: copy.description,
+  path: Astro.url.pathname,
+  category: 'document',
+  image: ogImage,
+})
 ---
 
-<Base locale={locale} title={copy.title} description={copy.description} ads={false}>
+<Base
+  locale={locale}
+  title={`${copy.title} – ${t(locale, 'seo.pdf')}`}
+  description={copy.description}
+  image={ogImage}
+  jsonLd={jsonLd}
+  ads={false}
+>
   <section class="wrap pdf-page" aria-labelledby="pdf-title" data-pdf-tools>
     <ToolHeading
       id="pdf-title"
       title={copy.title}
       description={copy.description}
-      action={{ href: path(locale, 'software/hwp2pdf'), label: copy.desktop }}
+      action={{ href: path(locale, 'software/moagyeol-pdf'), label: copy.desktop }}
     />
 
     <noscript><p>{copy.requiresJs}</p></noscript>

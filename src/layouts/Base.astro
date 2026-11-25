@@ -11,9 +11,24 @@ interface Props {
   image?: string
   presentation?: boolean
   ads?: boolean
+  // 검색엔진용 구조화 데이터(schema.org). 페이지마다 SoftwareApplication 등을 넘긴다.
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[]
+  // 홈 화면에 설치할 수 있는 웹 앱 페이지의 매니페스트 주소와 iOS 홈 화면 아이콘
+  manifest?: string
+  appleTouchIcon?: string
 }
 
-const { locale, title, description, image, presentation = false, ads = true } = Astro.props
+const {
+  locale,
+  title,
+  description,
+  image,
+  presentation = false,
+  ads = true,
+  jsonLd,
+  manifest,
+  appleTouchIcon = '/apple-touch-icon.png',
+} = Astro.props
 const showAds = !presentation && ads
 const site = 'HyoT'
 const fullTitle = title ? `${title} | ${site}` : site
@@ -25,6 +40,10 @@ const altPath = localized
   ? Astro.url.pathname.replace(/^\/(ko|en)\//, `/${alternateLocale}/`)
   : path(alternateLocale)
 const ogImage = new URL(image ?? '/og.png', Astro.site)
+// 언어를 고르지 않은 방문자(x-default)에게는 한국어 페이지를 보여 준다.
+const koreanUrl = locale === 'ko' ? canonical : new URL(altPath, Astro.site)
+// </script> 같은 문자열이 스크립트를 끝내지 않도록 <를 이스케이프한다.
+const structuredData = jsonLd && JSON.stringify(jsonLd).replace(/</g, '\\u003c')
 ---
 
 <!doctype html>
@@ -39,10 +58,13 @@ const ogImage = new URL(image ?? '/og.png', Astro.site)
       <>
         <link rel="alternate" hreflang={locale} href={canonical} />
         <link rel="alternate" hreflang={alternateLocale} href={new URL(altPath, Astro.site)} />
+        <link rel="alternate" hreflang="x-default" href={koreanUrl} />
       </>
     ) : <meta name="robots" content="noindex" />}
+    {manifest && <link rel="manifest" href={manifest} />}
+    {structuredData && <script type="application/ld+json" is:inline set:html={structuredData} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href={appleTouchIcon} />
     <meta name="theme-color" content="#f6f5ef" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#111a15" media="(prefers-color-scheme: dark)" />
     <meta property="og:type" content="website" />

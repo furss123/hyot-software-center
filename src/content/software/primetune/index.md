@@ -23,6 +23,7 @@ releases:
   - version: 1.0.2
     date: 2026-11-25
     channel: stable
+    tag: primetune-v1.0.2
     notes:
       - 실행하면 바로 관리자 권한을 요청하고, 처음부터 관리자 권한으로 실행됩니다.
       - 시작 프로그램 지연 실행이 관리자 권한 없이도 동작하도록 바꿨습니다. 이전 설정은 자동으로 옮겨집니다.
@@ -32,7 +33,7 @@ releases:
     downloads:
       - type: portable
         filename: PrimeTune_1.0.2_x64.zip
-        url: /downloads/primetune/PrimeTune_1.0.2_x64.zip
+        url: https://github.com/furss123/hyot-software-center/releases/download/primetune-v1.0.2/PrimeTune_1.0.2_x64.zip
         size: 41655466
         sha256: b668db188553eb4c281fca0ac6bdc7bda64e323d991e5a6652cbca46a5dd1e4c
         arch: x64
@@ -45,13 +46,6 @@ releases:
     notes_en:
       - Fixed an error dialog when clicking Clean memory now on the Automation page.
       - Without administrator rights, the app now explains that rights are needed instead of showing an error.
-    downloads:
-      - type: portable
-        filename: PrimeTune_1.0.1_x64.zip
-        url: /downloads/primetune/PrimeTune_1.0.1_x64.zip
-        size: 41655233
-        sha256: 35e5d5d84a78f93acfd1e49f5fbba5c934d21e259a64290d31a2013c50b566e2
-        arch: x64
   - version: 1.0.0
     date: 2026-11-25
     channel: stable
@@ -61,13 +55,6 @@ releases:
     notes_en:
       - First public release
       - Separate one-click Work and Game optimization.
-    downloads:
-      - type: portable
-        filename: PrimeTune_1.0.0_x64.zip
-        url: /downloads/primetune/PrimeTune_1.0.0_x64.zip
-        size: 41653831
-        sha256: dc364dcf8f19644db8c84877ad5df1e2160466d63c60f01f3172f666a4441d44
-        arch: x64
 ---
 
 PrimeTune은 Windows 설정, 불필요한 파일, 시작 프로그램을 정리해 PC를 가볍게 만드는 Windows 최적화 프로그램입니다. 업무용 PC와 게임용 PC에 맞는 최적화를 버튼 하나로 적용할 수 있습니다.

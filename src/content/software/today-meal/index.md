@@ -9,9 +9,12 @@ description_en: |-
   Open breakfast, lunch or dinner to see the dishes, calories, nutrition and origin details. Set the allergens you want to highlight. Recent timetables and menus stay available on the same device after they have loaded.
 
   Choose a theme, switch to larger timetable and meal text, or pick which meal the app shows first. On Windows, the app can start at sign-in or stay above your other windows.
+
+  On a phone, open the web version and choose Add to Home Screen in your browser menu to install it like an app without downloading the APK.
 category: classroom
 platforms: [windows, android, web]
 web: today-school
+page_slug: today-school
 icon: ./icon.png
 cover: ./cover.webp
 cover_fit: frame
@@ -123,22 +126,6 @@ releases:
     channel: stable
     notes:
       - 첫 공개 버전
-    downloads:
-      - type: portable
-        label: Windows 위젯
-        label_en: Windows widget
-        filename: 오늘급식-위젯_1.0.0.zip
-        url: /downloads/today-meal/today-meal-widget_1.0.0_x64.zip
-        size: 82276153
-        sha256: 851e8d31a0087b946823cd6bfba95902ae47e5453d63a4202b8d4490094ff4e4
-        arch: x64
-      - type: apk
-        label: Android 앱
-        label_en: Android app
-        filename: 오늘급식_1.0.0.apk
-        url: /downloads/today-meal/today-meal_1.0.0.apk
-        size: 5729587
-        sha256: 799f865bae2269e8b3cd90b0fd3503cf84c4e0837c6fed85ae039b818a279e5c
 ---
 
 오늘 학교는 교시별 시간표와 학교 급식 메뉴를 한 화면에서 보여 주는 Windows·Android·웹 프로그램입니다. 학교와 학년·반을 한 번 선택한 뒤 요일을 선택하거나 이전 날·다음 날 버튼으로 날짜를 바꾸면 두 정보가 함께 바뀝니다.
@@ -152,8 +139,8 @@ releases:
 
 ### 설치와 실행
 
-- **웹** · [오늘 학교 열기](/ko/today-school/)에서 학교와 학년·반을 선택합니다.
+- **웹** · [오늘 학교 열기](/ko/today-school/)에서 학교와 학년·반을 선택합니다. 휴대폰 브라우저 메뉴의 **홈 화면에 추가**(iPhone은 공유 → 홈 화면에 추가)를 누르면 앱처럼 설치해 쓸 수 있습니다.
 - **Windows** · 설치 후 시작 메뉴에서 **오늘 학교**를 엽니다. 앱 설정이나 트레이 메뉴에서 로그인 시 자동 시작과 항상 위에 표시를 켜고 끌 수 있습니다.
-- **Android** · 휴대폰에 APK를 내려받아 설치합니다.
+- **Android** · 휴대폰에 APK를 내려받아 설치합니다. 앱 설치가 부담스러우면 위의 웹 버전을 홈 화면에 추가해도 됩니다.
 
 학교가 나이스에 공개한 정보가 표시됩니다.

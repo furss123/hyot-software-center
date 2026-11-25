@@ -11,9 +11,11 @@ interface Props {
   image?: ImageMetadata
   // true면 잘라 내지 않고 테두리 안에 통째로 보여 준다(스크린샷용).
   framed?: boolean
+  // 스크린샷처럼 내용을 전하는 이미지일 때만 설명을 넣는다. 장식용 삽화는 비워 둔다.
+  alt?: string
 }
 
-const { software, featured = false, image, framed = false } = Astro.props
+const { software, featured = false, image, framed = false, alt = '' } = Astro.props
 const cover = image ?? software.data.cover
 ---
 
@@ -22,7 +24,7 @@ const cover = image ?? software.data.cover
     cover ? (
       <Image
         src={cover}
-        alt=""
+        alt={alt}
         widths={[480, 760, 1200].filter((width) => width < cover.width).concat(cover.width)}
         sizes="(max-width: 700px) calc(100vw - 2rem), 570px"
         format="webp"
