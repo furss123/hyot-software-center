@@ -18,6 +18,22 @@ requirements: [Windows 10(1903 이상)·11, 64비트, 관리자 권한]
 requirements_en: [Windows 10 (1903 or later) or 11, 64-bit, Administrator rights]
 order: 4
 releases:
+  - version: 1.0.1
+    date: 2026-11-25
+    channel: stable
+    notes:
+      - 자동화 화면에서 '지금 메모리 정리'를 누르면 오류 창이 뜨던 문제를 고쳤습니다.
+      - 관리자 권한 없이 실행하면 오류 대신 권한이 필요하다고 안내합니다.
+    notes_en:
+      - Fixed an error dialog when clicking Clean memory now on the Automation page.
+      - Without administrator rights, the app now explains that rights are needed instead of showing an error.
+    downloads:
+      - type: portable
+        filename: PrimeTune_1.0.1_x64.zip
+        url: /downloads/primetune/PrimeTune_1.0.1_x64.zip
+        size: 41655233
+        sha256: 35e5d5d84a78f93acfd1e49f5fbba5c934d21e259a64290d31a2013c50b566e2
+        arch: x64
   - version: 1.0.0
     date: 2026-11-25
     channel: stable
