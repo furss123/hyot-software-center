@@ -54,6 +54,11 @@ export const ui = {
     'notfound.title': '페이지를 찾을 수 없습니다',
     'notfound.body': '주소가 바뀌었거나 삭제된 페이지입니다.',
     'notfound.cta': '처음 화면으로',
+    'footer.label': '사이트 정보',
+    'footer.privacy': '개인정보처리방침',
+    'footer.contact': '문의',
+    'privacy.description': 'hyot.dev와 웹 도구가 어떤 정보를 어디에서 처리하는지 설명합니다.',
+    'privacy.effective': '시행일',
   },
   en: {
     'site.description': 'Free Windows and Android utilities and web tools for everyday tasks',
@@ -107,6 +112,11 @@ export const ui = {
     'notfound.title': 'Page not found',
     'notfound.body': 'The address changed or the page was removed.',
     'notfound.cta': 'Go to the home page',
+    'footer.label': 'Site information',
+    'footer.privacy': 'Privacy policy',
+    'footer.contact': 'Contact',
+    'privacy.description': 'What information hyot.dev and its web tools handle, and where.',
+    'privacy.effective': 'Effective',
   },
 } as const
 
