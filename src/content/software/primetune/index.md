@@ -18,6 +18,22 @@ requirements: [Windows 10(1903 이상)·11, 64비트, 관리자 권한]
 requirements_en: [Windows 10 (1903 or later) or 11, 64-bit, Administrator rights]
 order: 4
 releases:
+  - version: 1.0.2
+    date: 2026-11-25
+    channel: stable
+    notes:
+      - 실행하면 바로 관리자 권한을 요청하고, 처음부터 관리자 권한으로 실행됩니다.
+      - 시작 프로그램 지연 실행이 관리자 권한 없이도 동작하도록 바꿨습니다. 이전 설정은 자동으로 옮겨집니다.
+    notes_en:
+      - The app now asks for administrator rights on launch and runs elevated from the start.
+      - Delayed startup programs now launch without administrator rights. Existing settings move over automatically.
+    downloads:
+      - type: portable
+        filename: PrimeTune_1.0.2_x64.zip
+        url: /downloads/primetune/PrimeTune_1.0.2_x64.zip
+        size: 41655466
+        sha256: b668db188553eb4c281fca0ac6bdc7bda64e323d991e5a6652cbca46a5dd1e4c
+        arch: x64
   - version: 1.0.1
     date: 2026-11-25
     channel: stable
