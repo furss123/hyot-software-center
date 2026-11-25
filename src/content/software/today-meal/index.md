@@ -13,6 +13,7 @@ category: classroom
 platforms: [windows, android, web]
 icon: ./icon.png
 cover: ./cover.webp
+cover_fit: frame
 requirements: [Windows 10 이상 64비트, Android 6.0 이상]
 requirements_en: [Windows 10 or later (64-bit), Android 6.0 or later]
 order: 2

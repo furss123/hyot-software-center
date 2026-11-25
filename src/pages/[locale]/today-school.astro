@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro'
+import ToolHeading from '../../components/ToolHeading.astro'
 import { localeStaticPaths, path, type Locale } from '../../lib/i18n'
 
 export const getStaticPaths = localeStaticPaths
@@ -16,15 +17,15 @@ const assets = '/today-school-assets'
 
 <Base locale={locale} title={title} description={description} ads={false}>
   <section class="wrap school-page" aria-labelledby="school-page-title">
-    <header class="page-heading">
-      <div class="page-title">
-        <img src={`${assets}/icon.svg?v=${revision}`} width="54" height="54" alt="" />
-        <h1 id="school-page-title">{title}</h1>
-      </div>
-      <a class="btn" href={path(locale, 'software/today-meal')}>
-        {korean ? 'Windows·Android 다운로드' : 'Windows & Android downloads'} <span aria-hidden="true">↓</span>
-      </a>
-    </header>
+    <ToolHeading
+      id="school-page-title"
+      title={title}
+      description={description}
+      action={{
+        href: path(locale, 'software/today-meal'),
+        label: korean ? 'Windows·Android 앱 다운로드' : 'Download the Windows & Android apps',
+      }}
+    />
     <div id="today-school-web" lang="ko">
       <template shadowrootmode="open">
         <link rel="stylesheet" href={`${assets}/css/app.css?v=${revision}`} />
@@ -39,32 +40,6 @@ const assets = '/today-school-assets'
 
 <style>
   .school-page {
-    padding-block: clamp(1.25rem, 3.5vw, 2.3rem) clamp(2rem, 5vw, 3.5rem);
-  }
-  .page-heading,
-  .page-title {
-    display: flex;
-    align-items: center;
-  }
-  .page-heading {
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: .7rem 1.2rem;
-    margin-bottom: clamp(.85rem, 2vw, 1.2rem);
-  }
-  .page-title {
-    gap: .75rem;
-  }
-  .page-title img {
-    width: clamp(40px, 6vw, 54px);
-    flex: none;
-  }
-  .page-title h1 {
-    font-size: clamp(2rem, 5vw, 3.25rem);
-  }
-  .page-heading .btn {
-    min-height: 2.45rem;
-    padding: .45rem .7rem;
-    font-size: var(--t-sm);
+    padding-block: clamp(1.5rem, 4vw, 3rem) clamp(2rem, 5vw, 3.5rem);
   }
 </style>

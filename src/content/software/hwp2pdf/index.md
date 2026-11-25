@@ -16,6 +16,8 @@ platforms: [windows]
 icon: ./icon.png
 cover: ./cover.webp
 screenshots: [./convert.png, ./merge.png, ./complete.png, ./compress.png]
+screenshot_titles: [한글 파일 변환, 합칠 PDF 추가, 합치기 완료, PDF 압축 결과]
+screenshot_titles_en: [Convert Hangul files, Add PDFs to merge, Merge results, PDF compression results]
 requirements: [Windows 64비트]
 requirements_en: [Windows 64-bit]
 order: 1

@@ -15,14 +15,20 @@
   --focus: #26714e;
   --font: 'Wanted Sans Variable', 'Wanted Sans', -apple-system, 'Apple SD Gothic Neo',
     'Malgun Gothic', sans-serif;
+  /* 글자 크기: 메타 정보(xs)는 13px 아래로 내리지 않는다. */
+  --t-xs: 0.8125rem;
   --t-sm: 0.875rem;
   --t-base: 1rem;
   --t-md: 1.2rem;
   --t-lg: clamp(1.6rem, 3vw, 2.25rem);
-  --t-xl: clamp(2.6rem, 7vw, 5rem);
+  /* 웹 도구·정책 페이지 제목 (홈과 프로그램 상세는 더 큰 제목을 쓴다) */
+  --t-page: clamp(2.2rem, 5vw, 3.6rem);
   --wrap: 1160px;
   --gutter: clamp(1rem, 4vw, 3rem);
+  /* 모서리: 첫 화면의 큰 카드(lg) · 일반 카드 · 버튼 */
+  --radius-lg: clamp(1.15rem, 3vw, 1.9rem);
   --radius: 1.25rem;
+  --radius-sm: 0.7rem;
   color-scheme: light;
 }
 
@@ -127,7 +133,7 @@ p {
   min-height: 3rem;
   padding: 0.72rem 1.12rem;
   border: 1px solid var(--line);
-  border-radius: 0.7rem;
+  border-radius: var(--radius-sm);
   background: var(--surface);
   color: var(--ink);
   font-weight: 690;
@@ -155,6 +161,46 @@ p {
 .btn small {
   font-size: var(--t-sm);
   font-weight: 500;
+}
+
+/* 페이지 머리의 보조 버튼처럼 작게 쓰는 버튼. 터치 영역 44px는 지킨다. */
+.btn-sm {
+  min-height: 2.75rem;
+  padding: 0.55rem 0.95rem;
+  font-size: var(--t-sm);
+}
+
+/* 카드 오른쪽 위의 동그란 화살표. 카드(a)에 마우스를 올리거나 포커스하면 채워진다. */
+.arrow-badge {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--ink);
+  transition: color 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+.arrow-badge::after {
+  content: '';
+  width: 0.78rem;
+  aspect-ratio: 1;
+  background: currentColor;
+  clip-path: polygon(0 88%, 12% 100%, 83% 29%, 83% 77%, 100% 77%, 100% 0, 23% 0, 23% 17%, 71% 17%);
+}
+.arrow-badge.small {
+  width: 2rem;
+  height: 2rem;
+}
+.arrow-badge.small::after {
+  width: 0.65rem;
+}
+a:hover .arrow-badge,
+a:focus-visible .arrow-badge {
+  border-color: var(--action);
+  background: var(--action);
+  color: var(--on-action);
 }
 
 .prose > * + * {

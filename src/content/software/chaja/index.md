@@ -14,6 +14,8 @@ category: system
 platforms: [windows]
 icon: ./icon.png
 screenshots: [./main.png, ./light.png, ./settings.png]
+screenshot_titles: [이름으로 바로 찾기, 초성 검색 · 밝은 테마, 설정]
+screenshot_titles_en: [Instant search by name, Initial-consonant search in light theme, Settings]
 requirements: [Windows 10·11 64비트, .NET 10 데스크톱 런타임]
 requirements_en: [Windows 10 or 11, 64-bit, .NET 10 Desktop Runtime]
 order: 5

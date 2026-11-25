@@ -40,7 +40,7 @@ export const ui = {
     'empty.software.title': '아직 올라온 유틸리티가 없습니다',
     'software.all': '전체',
     'software.back': '모든 유틸리티',
-    'software.download': '내려받기',
+    'software.download': '다운로드',
     'software.noDownload': '아직 내려받을 수 있는 파일이 없습니다.',
     'software.info': '정보',
     'software.version': '최신 버전',

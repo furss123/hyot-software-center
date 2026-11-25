@@ -41,15 +41,20 @@ const korean = locale === 'ko'
 const moagyeol = software.id === 'hwp2pdf'
 const todaySchool = software.id === 'today-meal'
 const platform = platforms[0]
-const primaryLabel = moagyeol && primary?.type === 'portable'
-  ? (korean ? 'Windows용 ZIP 다운로드' : 'Download ZIP for Windows')
-  : platform
-    ? (korean ? `${platform}용 내려받기` : `Download for ${platform}`)
-    : t(locale, 'software.download')
+// 다운로드 버튼 문구는 "<플랫폼>용 (ZIP) 다운로드" 한 가지 형식으로 맞춘다.
+const zip = primary?.type === 'portable'
+const primaryLabel = platform
+  ? (korean ? `${platform}용 ${zip ? 'ZIP ' : ''}다운로드` : `Download ${zip ? 'ZIP ' : ''}for ${platform}`)
+  : t(locale, 'software.download')
+const assetLabel = (asset: (typeof assets)[number]) =>
+  asset.type === 'apk'
+    ? (korean ? 'Android용 다운로드' : 'Download for Android')
+    : (korean ? asset.label : asset.label_en) ?? assetNames[asset.type][locale]
 const downloadInfo = [current && `v${current.version}`, primary?.arch, formatSize(primary?.size)].filter(Boolean)
-const shotTitles = !moagyeol ? [] : korean
-  ? ['한글 파일 변환', '합칠 PDF 추가', '합치기 완료', 'PDF 압축 결과']
-  : ['Convert Hangul files', 'Add PDFs to merge', 'Merge results', 'PDF compression results']
+const shotTitles = (!korean && data.screenshot_titles_en) || data.screenshot_titles
+// 표지가 없으면 첫 스크린샷을 보여 주고, 스크린샷은 잘리지 않게 액자 모양으로 넣는다.
+const heroImage = data.cover ?? data.screenshots[0]
+const heroFramed = !data.cover || data.cover_fit === 'frame'
 const { Content } = await render(software)
 const enParagraphs = !korean && data.description_en ? data.description_en.split(/\n{2,}/) : null
 const fileName = (asset: (typeof assets)[number]) => asset.filename ?? asset.url.split('/').pop()
@@ -61,7 +66,7 @@ const fileName = (asset: (typeof assets)[number]) => asset.filename ?? asset.url
       <span aria-hidden="true">←</span> {t(locale, 'software.back')}
     </a>
 
-    <header class:list={['hero', { 'has-cover': data.cover }]}>
+    <header class:list={['hero', { 'has-cover': heroImage }]}>
       <div class="hero-copy">
         <div class="app-heading">
           <AppIcon software={software} size={58} loading="eager" />
@@ -91,7 +96,7 @@ const fileName = (asset: (typeof assets)[number]) => asset.filename ?? asset.url
           {
             others.map((asset) => (
               <a class="btn" href={asset.url} download={fileName(asset)}>
-                {(korean ? asset.label : asset.label_en) ?? assetNames[asset.type][locale]}
+                {assetLabel(asset)}
                 {formatSize(asset.size) && <small class="num">{formatSize(asset.size)}</small>}
                 <span aria-hidden="true">↓</span>
               </a>
@@ -105,7 +110,7 @@ const fileName = (asset: (typeof assets)[number]) => asset.filename ?? asset.url
           )
         }
       </div>
-      {data.cover && <SoftwareCover software={software} featured />}
+      {heroImage && <SoftwareCover software={software} image={heroImage} framed={heroFramed} featured />}
     </header>
 
     {
@@ -209,7 +214,7 @@ const fileName = (asset: (typeof assets)[number]) => asset.filename ?? asset.url
   .hero {
     display: grid;
     border: 1px solid var(--line);
-    border-radius: clamp(1.1rem, 3vw, 1.85rem);
+    border-radius: var(--radius-lg);
     background: var(--surface);
     overflow: hidden;
   }
@@ -332,6 +337,15 @@ const fileName = (asset: (typeof assets)[number]) => asset.filename ?? asset.url
     .has-cover :global(.cover) {
       min-height: 0;
       aspect-ratio: 1.75;
+    }
+    .has-cover :global(.cover.framed) {
+      aspect-ratio: auto;
+    }
+  }
+  /* 휴대폰에서는 다운로드 버튼을 같은 폭으로 쌓는다. */
+  @media (max-width: 520px) {
+    .actions .btn {
+      flex: 1 1 100%;
     }
   }
 </style>

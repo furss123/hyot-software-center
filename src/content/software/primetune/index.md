@@ -14,6 +14,8 @@ category: system
 platforms: [windows]
 icon: ./icon.png
 screenshots: [./dashboard.png, ./optimize.png, ./clean.png, ./prefs.png]
+screenshot_titles: [대시보드, 윈도우 최적화 74가지, 파일 청소, 환경 설정]
+screenshot_titles_en: [Dashboard, 74 Windows optimizations, File cleanup, Quick settings]
 requirements: [Windows 10(1903 이상)·11, 64비트, 관리자 권한]
 requirements_en: [Windows 10 (1903 or later) or 11, 64-bit, Administrator rights]
 order: 4

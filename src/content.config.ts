@@ -45,7 +45,13 @@ const software = defineCollection({
       platforms: z.array(z.enum(['windows', 'android', 'web'])).default(['windows']),
       icon: image().optional(),
       cover: image().optional(),
+      // fill: 삽화처럼 표지 칸을 꽉 채운다. frame: 스크린샷처럼 잘리지 않게 테두리 안에 넣는다.
+      // 표지가 없으면 첫 스크린샷을 frame으로 보여 준다.
+      cover_fit: z.enum(['fill', 'frame']).default('fill'),
       screenshots: z.array(image()).default([]),
+      // screenshots와 같은 순서의 설명. 없으면 "이름 · 사용 화면 N"으로 표시한다.
+      screenshot_titles: z.array(z.string()).default([]),
+      screenshot_titles_en: z.array(z.string()).optional(),
       requirements: z.array(z.string()).default([]),
       requirements_en: z.array(z.string()).optional(),
       repo: z.url().optional(),

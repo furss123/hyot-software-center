@@ -1,18 +1,23 @@
 ---
 import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
 import AppIcon from './AppIcon.astro'
 import type { Software } from '../lib/software'
 
 interface Props {
   software: Software
   featured?: boolean
+  // 표지 대신 보여 줄 이미지(예: 첫 스크린샷). 없으면 software.data.cover를 쓴다.
+  image?: ImageMetadata
+  // true면 잘라 내지 않고 테두리 안에 통째로 보여 준다(스크린샷용).
+  framed?: boolean
 }
 
-const { software, featured = false } = Astro.props
-const cover = software.data.cover
+const { software, featured = false, image, framed = false } = Astro.props
+const cover = image ?? software.data.cover
 ---
 
-<div class:list={['cover', { featured }]}>
+<div class:list={['cover', { featured, framed }]}>
   {
     cover ? (
       <Image
@@ -49,5 +54,15 @@ const cover = software.data.cover
     object-fit: cover;
     object-position: center 60%;
     transition: transform 260ms ease;
+  }
+  /* 홈 첫 화면의 스크린샷과 같은 액자 모양 */
+  .cover.framed {
+    padding: clamp(1rem, 3vw, 2rem);
+  }
+  .framed img {
+    position: static;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 0.75rem;
   }
 </style>

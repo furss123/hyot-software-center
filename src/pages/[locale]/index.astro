@@ -60,7 +60,7 @@ const webTools = [
                   <strong>{tool.title}</strong>
                   <span class="web-text">{tool.text}</span>
                 </span>
-                <span class="web-arrow" aria-hidden="true">↗</span>
+                <span class="arrow-badge small" aria-hidden="true"></span>
               </a>
             </li>
           ))
@@ -78,7 +78,7 @@ const webTools = [
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
     border: 1px solid var(--line);
-    border-radius: clamp(1.15rem, 3vw, 1.9rem);
+    border-radius: var(--radius-lg);
     background: var(--surface);
     overflow: hidden;
   }
@@ -154,7 +154,7 @@ const webTools = [
     padding: clamp(1rem, 2.4vw, 1.4rem);
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    background: var(--surface-toned);
+    background: var(--surface);
     color: var(--ink);
     text-decoration: none;
     transition: border-color 160ms ease;
@@ -173,10 +173,6 @@ const webTools = [
     color: var(--ink-soft);
     font-size: var(--t-sm);
     line-height: 1.5;
-  }
-  .web-arrow {
-    color: var(--link);
-    font-weight: 730;
   }
   @media (max-width: 760px) {
     .hero {

@@ -28,7 +28,7 @@ const { locale, items } = Astro.props
                     <p class="category">{categories[software.data.category][locale]}</p>
                     <h3>{displayName(software, locale)}</h3>
                   </div>
-                  <span class="card-arrow" aria-hidden="true"></span>
+                  <span class="arrow-badge" aria-hidden="true"></span>
                 </div>
                 <p class="tagline">{tagline(software, locale)}</p>
                 <div class="facts">
@@ -88,34 +88,12 @@ const { locale, items } = Astro.props
   }
   .category {
     color: var(--ink-soft);
-    font-size: 0.78rem;
+    font-size: var(--t-xs);
     font-weight: 690;
   }
   h3 {
     font-size: clamp(1.35rem, 2.6vw, 1.82rem);
     text-wrap: initial;
-  }
-  .card-arrow {
-    display: grid;
-    place-items: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    border: 1px solid var(--line);
-    border-radius: 50%;
-    color: var(--ink);
-    transition: color 160ms ease, background 160ms ease, border-color 160ms ease;
-  }
-  .card-arrow::after {
-    content: '';
-    width: 0.78rem;
-    aspect-ratio: 1;
-    background: currentColor;
-    clip-path: polygon(0 88%, 12% 100%, 83% 29%, 83% 77%, 100% 77%, 100% 0, 23% 0, 23% 17%, 71% 17%);
-  }
-  .card:hover .card-arrow, .card:focus-visible .card-arrow {
-    border-color: var(--action);
-    background: var(--action);
-    color: var(--on-action);
   }
   .tagline {
     color: var(--ink-soft);
@@ -133,7 +111,7 @@ const { locale, items } = Astro.props
     padding-top: 0.7rem;
     border-top: 1px solid var(--line);
     color: var(--ink-soft);
-    font-size: 0.78rem;
+    font-size: var(--t-xs);
     font-weight: 650;
   }
   .empty {

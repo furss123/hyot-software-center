@@ -13,6 +13,8 @@ const clockPage = path(locale, 'clock')
 const schoolPage = path(locale, 'today-school')
 const pdfPage = path(locale, 'moagyeol-pdf')
 const onHome = Astro.url.pathname === home
+// 프로그램 상세 페이지도 "다운로드" 메뉴에 속하므로 같은 메뉴를 표시한다.
+const inDownloads = onHome || Astro.url.pathname.startsWith(`${home}software/`)
 const altLocale = otherLocale(locale)
 ---
 
@@ -22,7 +24,8 @@ const altLocale = otherLocale(locale)
       <Brand />
     </a>
     <nav aria-label={t(locale, 'nav.label')}>
-      <a href={onHome ? '#utilities' : `${home}#utilities`} class:list={{ current: onHome }}>
+      <a href={onHome ? '#utilities' : `${home}#utilities`} class:list={{ current: inDownloads }}
+        aria-current={inDownloads && !onHome ? 'true' : undefined}>
         {t(locale, 'home.catalog')}
       </a>
       <a href={pdfPage} class:list={{ current: Astro.url.pathname === pdfPage }}

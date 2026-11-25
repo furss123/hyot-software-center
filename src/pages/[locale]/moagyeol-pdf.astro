@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro'
+import ToolHeading from '../../components/ToolHeading.astro'
 import folio from '../../assets/moagyeol-folio.webp'
 import { localeStaticPaths, path, type Locale } from '../../lib/i18n'
 import { pdfCopy } from '../../lib/pdf-tools-copy'
@@ -12,13 +13,12 @@ const copy = pdfCopy[locale]
 
 <Base locale={locale} title={copy.title} description={copy.description} ads={false}>
   <section class="wrap pdf-page" aria-labelledby="pdf-title" data-pdf-tools>
-    <header class="page-heading">
-      <div>
-        <h1 id="pdf-title">{copy.title}</h1>
-        <p>{copy.description}</p>
-      </div>
-      <a class="btn desktop-link" href={path(locale, 'software/hwp2pdf')}>{copy.desktop}</a>
-    </header>
+    <ToolHeading
+      id="pdf-title"
+      title={copy.title}
+      description={copy.description}
+      action={{ href: path(locale, 'software/hwp2pdf'), label: copy.desktop }}
+    />
 
     <noscript><p>{copy.requiresJs}</p></noscript>
     <div data-tools hidden>
@@ -112,25 +112,14 @@ const copy = pdfCopy[locale]
 </script>
 
 <style>
-  .pdf-page { padding-top: clamp(1.7rem, 5vw, 3.65rem); }
-  .page-heading, .panel-heading {
+  .pdf-page { padding-top: clamp(1.5rem, 4vw, 3rem); }
+  .panel-heading {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 0.65rem 1.25rem;
   }
-  .page-heading { margin-bottom: clamp(1.3rem, 3vw, 2rem); }
-  h1 {
-    font-size: clamp(2.45rem, 6vw, 4.25rem);
-    letter-spacing: -0.065em;
-  }
-  .page-heading p {
-    margin-top: 0.6rem;
-    color: var(--ink-soft);
-    font-size: clamp(1rem, 2vw, 1.15rem);
-  }
-  .desktop-link { font-size: var(--t-sm); }
   .tool-switch {
     display: inline-grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -373,7 +362,9 @@ const copy = pdfCopy[locale]
     .folio { width: 7rem; }
   }
   @media (max-width: 510px) {
-    .tool-switch { display: grid; }
+    /* 탭 이름 길이만큼 칸을 나눠 "PDF 용량 줄이기"가 두 줄로 꺾이지 않게 한다. */
+    .tool-switch { display: grid; grid-template-columns: repeat(3, auto); }
+    .tool-switch button { white-space: nowrap; padding-inline: 0.5rem; }
     .file { grid-template-columns: auto minmax(0, 1fr); gap: 0.2rem 0.55rem; }
     .file-actions { grid-column: 2; flex-wrap: wrap; }
   }
