@@ -64,7 +64,7 @@ const fileName = (asset: (typeof assets)[number]) => asset.filename ?? asset.url
     <header class:list={['hero', { 'has-cover': data.cover }]}>
       <div class="hero-copy">
         <div class="app-heading">
-          <AppIcon software={software} size={58} />
+          <AppIcon software={software} size={58} loading="eager" />
           <p>{categories[data.category][locale]}</p>
         </div>
         <h1>{name}</h1>

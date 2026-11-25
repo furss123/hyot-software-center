@@ -25,7 +25,7 @@ const cover = software.data.cover
         loading={featured ? 'eager' : 'lazy'}
         fetchpriority={featured ? 'high' : undefined}
       />
-    ) : <AppIcon software={software} size={96} />
+    ) : <AppIcon software={software} size={96} loading={featured ? 'eager' : 'lazy'} />
   }
 </div>
 
