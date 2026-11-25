@@ -1,8 +1,8 @@
 ---
 name: School Today
 name_ko: 오늘 학교
-tagline: 우리 반 시간표와 학교 급식을 한 화면에서
-tagline_en: Your class timetable and school meals in one view
+tagline: 우리 반 시간표와 학교 급식을 한 화면에서 확인하는 도구
+tagline_en: Check your class timetable and school meals in one view
 description_en: |-
   School Today brings your daily timetable and school meals together. Choose a Korean school and class, then pick a date to see both. School and subject names and meal menus appear in Korean.
 
@@ -139,7 +139,7 @@ releases:
         sha256: 799f865bae2269e8b3cd90b0fd3503cf84c4e0837c6fed85ae039b818a279e5c
 ---
 
-학교와 학년·반을 한 번 선택하면 교시별 시간표와 급식 메뉴를 같은 화면에서 확인할 수 있습니다. 요일을 선택하거나 이전 날·다음 날 버튼으로 날짜를 바꾸면 두 정보가 함께 바뀝니다.
+오늘 학교는 교시별 시간표와 학교 급식 메뉴를 한 화면에서 보여 주는 Windows·Android·웹 프로그램입니다. 학교와 학년·반을 한 번 선택한 뒤 요일을 선택하거나 이전 날·다음 날 버튼으로 날짜를 바꾸면 두 정보가 함께 바뀝니다.
 
 ### 시간표와 급식
 
@@ -148,7 +148,7 @@ releases:
 - 설정에서 화면 테마, 시간표·급식 글자 크기, 먼저 볼 급식과 알레르기 표시를 바꿉니다.
 - 학교와 학급은 기기에 저장되며, 최근에 조회한 시간표와 급식을 다시 볼 수 있습니다.
 
-### 사용 방법
+### 설치와 실행
 
 - **웹** · [오늘 학교 열기](/ko/today-school/)에서 학교와 학년·반을 선택합니다.
 - **Windows** · 설치 후 시작 메뉴에서 **오늘 학교**를 엽니다. 앱 설정이나 트레이 메뉴에서 로그인 시 자동 시작과 항상 위에 표시를 켜고 끌 수 있습니다.

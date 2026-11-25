@@ -1,7 +1,7 @@
 ---
 name: PrimeTune
-tagline: 업무용·게임용 PC를 원클릭으로 최적화하는 Windows 도구
-tagline_en: One-click Windows optimization for office and gaming PCs
+tagline: 업무용·게임용 PC를 원클릭으로 최적화하는 도구
+tagline_en: Optimize your work or gaming PC in one click
 description_en: |-
   PrimeTune tunes Windows settings, cleans junk files and manages startup programs. Choose one-click Work optimization for office and administrative PCs, or Game optimization for gaming PCs.
 
@@ -68,7 +68,7 @@ releases:
         arch: x64
 ---
 
-PrimeTune은 Windows 설정, 불필요한 파일, 시작 프로그램을 정리해 PC를 가볍게 만드는 최적화 도구입니다. 업무용 PC와 게임용 PC에 맞는 최적화를 버튼 하나로 적용할 수 있습니다.
+PrimeTune은 Windows 설정, 불필요한 파일, 시작 프로그램을 정리해 PC를 가볍게 만드는 Windows 최적화 프로그램입니다. 업무용 PC와 게임용 PC에 맞는 최적화를 버튼 하나로 적용할 수 있습니다.
 
 ### 원클릭 업무 최적화·게임 최적화
 
@@ -99,7 +99,7 @@ PrimeTune은 Windows 설정, 불필요한 파일, 시작 프로그램을 정리�
 - 정해 둔 주기마다 최적화 상태를 점검하고 파일을 청소합니다. 결과 리포트를 메일로 받을 수 있습니다.
 - 여유 메모리가 부족하면 대기 메모리를 자동으로 비웁니다.
 
-### 실행하기
+### 설치와 실행
 
 다운로드한 ZIP의 압축을 풀고 **PrimeTune.exe**를 더블클릭합니다. 관리자 권한을 묻는 창에서 **예**를 누르세요. 다른 곳으로 옮길 때는 `_internal`을 포함한 폴더 전체를 복사하세요.
 

@@ -22,6 +22,9 @@ const altLocale = otherLocale(locale)
       <Brand />
     </a>
     <nav aria-label={t(locale, 'nav.label')}>
+      <a href={onHome ? '#utilities' : `${home}#utilities`} class:list={{ current: onHome }}>
+        {t(locale, 'home.catalog')}
+      </a>
       <a href={pdfPage} class:list={{ current: Astro.url.pathname === pdfPage }}
         aria-current={Astro.url.pathname === pdfPage ? 'page' : undefined}>
         {t(locale, 'nav.pdf')}
@@ -33,9 +36,6 @@ const altLocale = otherLocale(locale)
       <a href={clockPage} class:list={{ current: Astro.url.pathname === clockPage }}
         aria-current={Astro.url.pathname === clockPage ? 'page' : undefined}>
         {t(locale, 'nav.clockWeb')}
-      </a>
-      <a href={onHome ? '#utilities' : `${home}#utilities`} class:list={{ current: onHome }}>
-        {t(locale, 'home.catalog')}
       </a>
     </nav>
     <div class="tools">
@@ -128,7 +128,7 @@ const altLocale = otherLocale(locale)
   :global([data-theme='dark']) .theme-icon {
     transform: rotate(155deg);
   }
-  @media (max-width: 1200px) {
+  @media (max-width: 720px) {
     .bar {
       grid-template-columns: 1fr auto;
       padding-top: 0.55rem;

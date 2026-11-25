@@ -1,6 +1,5 @@
 ---
 import AppIcon from './AppIcon.astro'
-import SoftwareCover from './SoftwareCover.astro'
 import { t, path, formatDate, categories, platformNames, type Locale } from '../lib/i18n'
 import { displayName, tagline, latestAny, type Software } from '../lib/software'
 
@@ -22,10 +21,9 @@ const { locale, items } = Astro.props
         return (
           <li data-category={software.data.category}>
             <a class="card" href={path(locale, `software/${software.id}`)}>
-              <SoftwareCover software={software} />
               <div class="content">
                 <div class="card-heading">
-                  <AppIcon software={software} size={46} />
+                  <AppIcon software={software} size={52} />
                   <div>
                     <p class="category">{categories[software.data.category][locale]}</p>
                     <h3>{displayName(software, locale)}</h3>
@@ -74,9 +72,6 @@ const { locale, items } = Astro.props
   }
   .card:hover, .card:focus-visible {
     border-color: var(--link);
-  }
-  .card:hover :global(.cover img) {
-    transform: scale(1.035);
   }
   .content {
     display: flex;

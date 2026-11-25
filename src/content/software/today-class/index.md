@@ -1,8 +1,8 @@
 ---
 name: Today Class
 name_ko: 오늘 수업
-tagline: 우리 반 교시별 시간표를 웹에서 한눈에
-tagline_en: Your class timetable in a browser
+tagline: 우리 반 교시별 시간표를 웹에서 확인하는 도구
+tagline_en: Check your class timetable in a browser
 description_en: |-
   Choose a Korean elementary, middle or high school and select a grade and class. View subjects by period and move between school days. Each device remembers its own class and previously viewed timetables.
 

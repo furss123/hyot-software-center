@@ -1,7 +1,7 @@
 ---
 name: Chaja
-tagline: 파일 이름을 치는 순간 찾아 주는 가벼운 한글 파일 검색기
-tagline_en: Instant file name search for Windows, built for Korean
+tagline: 파일 이름을 입력하는 즉시 찾아 주는 한글 파일 검색 도구
+tagline_en: Find files by name as you type, built for Korean
 description_en: |-
   Chaja finds files and folders by name as you type. On NTFS drives it reads the drive's file table directly, so indexing takes only a few seconds and changes appear in real time.
 
@@ -38,7 +38,7 @@ releases:
         arch: x64
 ---
 
-Chaja(찾자)는 파일·폴더 이름을 입력하는 순간 결과를 보여 주는 검색 프로그램입니다. 실행 파일 하나(약 440KB)로 동작하고, 한글 파일 이름을 제대로 찾는 데 집중했습니다.
+Chaja(찾자)는 파일·폴더 이름을 입력하는 순간 결과를 보여 주는 Windows 파일 검색 프로그램입니다. 실행 파일 하나(약 440KB)로 동작하고, 한글 파일 이름을 제대로 찾는 데 집중했습니다.
 
 ### 입력하는 순간 찾기
 
@@ -77,7 +77,7 @@ Chaja(찾자)는 파일·폴더 이름을 입력하는 순간 결과를 보여 �
 - `Ctrl+C` 파일 복사 · `Ctrl+Shift+C` 경로 복사 · 끌어다 놓기 지원
 - `Ctrl+1`~`Ctrl+8`: 전체·폴더·문서·이미지·동영상·음악·압축·실행 파일
 
-### 실행하기
+### 설치와 실행
 
 1. [.NET 10 데스크톱 런타임](https://dotnet.microsoft.com/download/dotnet/10.0)이 없다면 먼저 설치합니다. (없으면 실행할 때 설치 안내가 나옵니다)
 2. 다운로드한 ZIP의 압축을 풀고 **Chaja.exe**를 실행합니다.

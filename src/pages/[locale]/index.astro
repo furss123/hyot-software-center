@@ -3,18 +3,18 @@ import { Image } from 'astro:assets'
 import Base from '../../layouts/Base.astro'
 import SoftwareIndex from '../../components/SoftwareIndex.astro'
 import schoolScreen from '../../content/software/today-meal/cover.webp'
-import { t, path, categories, localeStaticPaths, type Locale } from '../../lib/i18n'
+import { t, path, localeStaticPaths, type Locale } from '../../lib/i18n'
 import { getSoftware } from '../../lib/software'
 
 export const getStaticPaths = localeStaticPaths
 
 const locale = Astro.params.locale as Locale
 const items = await getSoftware()
-const counts = new Map<keyof typeof categories, number>()
-for (const { data: { category } } of items) {
-  counts.set(category, (counts.get(category) ?? 0) + 1)
-}
-const availableCategories = [...counts].map(([key, count]) => ({ key, count, label: categories[key][locale] }))
+const webTools = [
+  { href: path(locale, 'moagyeol-pdf'), title: t(locale, 'nav.pdf'), text: t(locale, 'home.pdfWeb') },
+  { href: path(locale, 'today-school'), title: t(locale, 'nav.school'), text: t(locale, 'home.schoolWeb') },
+  { href: path(locale, 'clock'), title: t(locale, 'nav.clock'), text: t(locale, 'clock.description') },
+]
 ---
 
 <Base locale={locale}>
@@ -41,61 +41,34 @@ const availableCategories = [...counts].map(([key, count]) => ({ key, count, lab
           loading="eager"
           fetchpriority="high"
         />
-        <span>{t(locale, 'home.schoolOpen')} <span aria-hidden="true">↗</span></span>
       </a>
     </section>
 
     <section class="catalog" id="utilities" aria-labelledby="catalog-title">
-      <div class="catalog-head">
-        <h2 id="catalog-title">{t(locale, 'home.catalog')}</h2>
-        {
-          availableCategories.length > 1 && (
-            <div class="filters" data-filters role="group" aria-label={t(locale, 'software.category')} hidden>
-              <button type="button" data-filter="all" aria-pressed="true">
-                {t(locale, 'software.all')} <span class="num">{items.length}</span>
-              </button>
-              {availableCategories.map(({ key, count, label }) => (
-                <button type="button" data-filter={key} aria-pressed="false">
-                  {label} <span class="num">{count}</span>
-                </button>
-              ))}
-            </div>
-          )
-        }
-      </div>
+      <h2 id="catalog-title">{t(locale, 'home.catalog')}</h2>
       <SoftwareIndex locale={locale} items={items} />
     </section>
 
-    <section class="clock-feature" aria-labelledby="clock-title">
-      <span class="clock-mark" aria-hidden="true"></span>
-      <div class="clock-copy">
-        <h2 id="clock-title">{t(locale, 'nav.clock')}</h2>
-        <p>{t(locale, 'clock.description')}</p>
-      </div>
-      <a class="btn" href={path(locale, 'clock')} aria-describedby="clock-title">
-        {t(locale, 'home.live')} <span aria-hidden="true">↗</span>
-      </a>
+    <section class="catalog web" aria-labelledby="web-title">
+      <h2 id="web-title">{t(locale, 'home.web')}</h2>
+      <ul class="web-list" role="list">
+        {
+          webTools.map((tool) => (
+            <li>
+              <a class="web-link" href={tool.href}>
+                <span>
+                  <strong>{tool.title}</strong>
+                  <span class="web-text">{tool.text}</span>
+                </span>
+                <span class="web-arrow" aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </section>
   </div>
 </Base>
-
-<script>
-  const filters = document.querySelector<HTMLElement>('[data-filters]')
-  if (filters) {
-    const buttons = filters.querySelectorAll<HTMLButtonElement>('button')
-    const items = document.querySelectorAll<HTMLElement>('#utilities [data-category]')
-    filters.hidden = false
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const filter = button.dataset.filter
-        buttons.forEach((option) => option.setAttribute('aria-pressed', String(option === button)))
-        items.forEach((item) => {
-          item.hidden = filter !== 'all' && item.dataset.category !== filter
-        })
-      })
-    })
-  }
-</script>
 
 <style>
   .landing {
@@ -138,10 +111,7 @@ const availableCategories = [...counts].map(([key, count]) => ({ key, count, lab
   }
   .hero-art {
     display: grid;
-    grid-template-rows: 1fr auto;
-    justify-items: start;
     align-items: center;
-    gap: .85rem;
     padding: clamp(1rem, 3vw, 2rem);
     background: var(--surface-toned);
     color: var(--ink);
@@ -153,104 +123,60 @@ const availableCategories = [...counts].map(([key, count]) => ({ key, count, lab
     border: 1px solid var(--line);
     border-radius: .75rem;
   }
-  .hero-art > span {
-    color: var(--link);
-    font-size: var(--t-sm);
-    font-weight: 730;
-  }
-  .hero-art:hover > span { text-decoration: underline; }
   .hero-art:focus-visible { outline-offset: -4px; }
   .catalog {
     margin-top: clamp(2.5rem, 5vw, 4.3rem);
     scroll-margin-top: 1.5rem;
   }
-  .catalog-head {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.75rem 1.5rem;
-    margin-bottom: 1.12rem;
-  }
   h2 {
     font-size: var(--t-lg);
   }
-  .filters:not([hidden]) {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.38rem;
+  .catalog h2 {
+    margin-bottom: 1.12rem;
   }
-  .filters button {
-    display: inline-flex;
-    gap: 0.45rem;
-    align-items: center;
-    min-height: 2.75rem;
-    padding: 0.4rem 0.85rem;
-    border: 1px solid var(--line);
-    border-radius: 2rem;
-    background: transparent;
-    color: var(--ink);
-    cursor: pointer;
-    font-size: var(--t-sm);
-    font-weight: 690;
+  .web {
+    margin-top: clamp(2.2rem, 4.5vw, 3.6rem);
   }
-  .filters button:hover {
-    background: var(--surface-toned);
-  }
-  .filters button[aria-pressed='true'] {
-    border-color: var(--action);
-    background: var(--action);
-    color: var(--on-action);
-  }
-  .filters .num {
-    font-size: 0.75rem;
-    opacity: 0.83;
-  }
-  .clock-feature {
+  .web-list {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    align-items: center;
-    gap: clamp(0.9rem, 3vw, 1.5rem);
-    margin-top: clamp(1.2rem, 3.8vw, 2.7rem);
-    padding: clamp(1.1rem, 3.5vw, 2rem);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.75rem, 2vw, 1.2rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .web-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    height: 100%;
+    padding: clamp(1rem, 2.4vw, 1.4rem);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     background: var(--surface-toned);
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color 160ms ease;
   }
-  .clock-copy h2 {
-    font-size: clamp(1.3rem, 2.6vw, 1.75rem);
+  .web-link:hover, .web-link:focus-visible {
+    border-color: var(--link);
   }
-  .clock-copy p {
-    margin-top: 0.3rem;
+  .web-link strong {
+    display: block;
+    font-size: 1.12rem;
+    letter-spacing: -0.03em;
+  }
+  .web-text {
+    display: block;
+    margin-top: 0.25rem;
     color: var(--ink-soft);
+    font-size: var(--t-sm);
+    line-height: 1.5;
   }
-  .clock-mark {
-    display: grid;
-    place-items: center;
-    position: relative;
-    width: clamp(3rem, 7vw, 4.4rem);
-    aspect-ratio: 1;
-    border-radius: 1rem;
-    background: #19382a;
-    color: #c9edb8;
-  }
-  .clock-mark::before {
-    content: '';
-    width: 52%;
-    aspect-ratio: 1;
-    border: 2px solid currentColor;
-    border-radius: 50%;
-  }
-  .clock-mark::after {
-    content: '';
-    position: absolute;
-    top: 34%;
-    left: calc(50% - 1px);
-    width: 15%;
-    height: 17%;
-    border: solid currentColor;
-    border-width: 0 0 2px 2px;
-    border-bottom-left-radius: 2px;
+  .web-arrow {
+    color: var(--link);
+    font-weight: 730;
   }
   @media (max-width: 760px) {
     .hero {
@@ -260,13 +186,9 @@ const availableCategories = [...counts].map(([key, count]) => ({ key, count, lab
       padding: clamp(1.4rem, 5.5vw, 2.5rem);
     }
   }
-  @media (max-width: 560px) {
-    .clock-feature {
-      grid-template-columns: auto minmax(0, 1fr);
-    }
-    .clock-feature .btn {
-      grid-column: 1 / -1;
-      justify-self: start;
+  @media (max-width: 900px) {
+    .web-list {
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 </style>

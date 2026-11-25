@@ -1,8 +1,8 @@
 ---
 name: Moagyeol PDF
 name_ko: 모아결 PDF
-tagline: 한글을 PDF로 변환하고 PDF를 합치거나 용량을 줄이는 Windows 도구
-tagline_en: Convert HWP and HWPX to PDF, merge PDFs, and compress them on Windows
+tagline: 한글 문서를 PDF로 변환하고, PDF를 합치거나 용량을 줄이는 도구
+tagline_en: Convert Hangul documents to PDF, and merge or compress PDFs
 description_en: |-
   Moagyeol PDF converts HWP and HWPX documents using the copy of Hancom Office Hangul installed on your Windows PC. Choose the pages and image quality, then save the PDFs to the source folder or a folder of your choice.
 
@@ -70,7 +70,7 @@ releases:
         arch: x64
 ---
 
-모아결 PDF에서 한글을 PDF로 변환하고, 기존 PDF를 순서대로 합치거나 용량을 줄일 수 있습니다.
+모아결 PDF는 한글(HWP·HWPX) 문서를 PDF로 변환하고, 기존 PDF를 순서대로 합치거나 용량을 줄이는 Windows 프로그램입니다. 설치 없이 쓰는 [웹 도구](/ko/moagyeol-pdf/)도 있습니다.
 
 ### 한글 문서를 PDF로 변환
 
@@ -91,6 +91,6 @@ releases:
 - 압축 전후 용량과 감소율을 확인할 수 있습니다. 작아진 파일은 원본 폴더나 선택한 폴더에 `이름_압축.pdf`로 별도 저장합니다.
 - PDF의 텍스트를 검색하고 선택할 수 있습니다. 2~5단계는 지원하는 사진과 스캔 이미지의 화질을 조절하며, 줄어드는 용량은 문서마다 다릅니다.
 
-### 실행하기
+### 설치와 실행
 
 다운로드한 ZIP의 압축을 풀고 **모아결 PDF.exe**를 더블클릭합니다. 다른 곳으로 옮길 때는 `_internal`을 포함한 폴더 전체를 복사하세요.

@@ -1,6 +1,6 @@
 ---
 import Brand from './Brand.astro'
-import { t, path, type Locale } from '../lib/i18n'
+import { path, type Locale } from '../lib/i18n'
 
 interface Props { locale: Locale }
 const { locale } = Astro.props
@@ -10,7 +10,6 @@ const year = new Date().getUTCFullYear()
 <footer class="site-footer">
   <div class="wrap footer-inner">
     <a class="logo" href={path(locale)}><Brand /></a>
-    <a class="footer-clock" href={path(locale, 'clock')}>{t(locale, 'nav.clock')} <span aria-hidden="true">↗</span></a>
     <p class="muted">© {year} HyoT</p>
   </div>
 </footer>
@@ -29,16 +28,8 @@ const year = new Date().getUTCFullYear()
     justify-content: space-between;
     gap: 1rem 1.8rem;
   }
-  .logo, .footer-clock {
+  .logo {
     text-decoration: none;
-  }
-  .footer-clock {
-    margin-inline-start: auto;
-    color: var(--ink);
-    font-weight: 680;
-  }
-  .footer-clock:hover {
-    text-decoration: underline;
   }
   .logo :global(img) {
     width: 1.7rem;
