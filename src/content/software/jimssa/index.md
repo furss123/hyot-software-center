@@ -18,6 +18,35 @@ requirements: [Windows 10·11 64비트, USB 메모리 또는 외장 하드]
 requirements_en: [Windows 10 or 11, 64-bit, USB drive or external disk]
 order: 6
 releases:
+  - version: 1.0.1
+    date: 2026-11-27
+    channel: stable
+    tag: jimssa-v1.0.1
+    notes:
+      - 파일 단계가 끝난 뒤 중지해도 '완료'로 표시되던 문제를 고쳤습니다.
+      - 프로그램 제거 중에 중지를 누르면 바로 멈춥니다.
+      - Dropbox·Google Drive 같은 클라우드 동기화 폴더와 가상 드라이브는 기본으로 건드리지 않습니다.
+      - 임시 파일을 지울 때 연결 지점(junction) 너머의 파일까지 지울 수 있던 문제를 고쳤습니다.
+      - 임시 폴더·AppData는 백업 위치로 고를 수 없습니다.
+      - 사용자 계정에 설치된 업무 프로그램의 자동 실행은 남깁니다.
+      - 완료 화면에 '처음으로' 버튼을 추가해 중지한 작업을 이어서 진행할 수 있습니다.
+      - 긴 경로 표시와 결과 화면의 백업 크기를 바로잡았습니다.
+    notes_en:
+      - Stopping after the file step is now reported as stopped instead of finished.
+      - Stop now takes effect immediately while a program is being uninstalled.
+      - Cloud sync folders such as Dropbox and Google Drive, and virtual drives, are left untouched by default.
+      - Temp file cleanup no longer follows junctions into other folders.
+      - Temp and AppData folders can no longer be chosen as the backup location.
+      - Startup entries of work programs installed per user are kept.
+      - A Start over button on the result screen lets you resume a stopped run.
+      - Fixed long path display and the backup size shown on the result screen.
+    downloads:
+      - type: portable
+        filename: Jimssa-1.0.1-win-x64.zip
+        url: https://github.com/furss123/hyot-software-center/releases/download/jimssa-v1.0.1/Jimssa-1.0.1-win-x64.zip
+        size: 43864276
+        sha256: 7039f5d70abd731b063f8eb251c3231c597a4519f84e28784dc7ff0c63b17477
+        arch: x64
   - version: 1.0.0
     date: 2026-11-27
     channel: stable
@@ -64,6 +93,7 @@ releases:
 
 - 복사가 끝난 파일만 PC에서 삭제합니다. 중간에 멈추면 원본은 삭제하지 않고, 다시 실행하면 이어서 진행합니다.
 - Windows·프로그램 폴더와 백신의 랜섬웨어 감시용 파일은 건드리지 않습니다.
+- OneDrive·Dropbox·Google Drive 같은 클라우드 동기화 폴더는 기본으로 제외합니다.
 - 처리한 내용은 백업 폴더의 기록 파일에 남습니다.
 
 ### 설치와 실행
